@@ -2,5 +2,8 @@ core.Microsoft*
 core.mongo*
 core.python*
 env.py
+*.pyc
 __pycache__/
 *.py[cod]
+*.sqlite3
+launch.json
