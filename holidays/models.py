@@ -19,6 +19,9 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     name = models.CharField(max_length=254)
+    page_title = models.CharField(max_length=254)
+    image = models.ImageField()
+    image_url = models.CharField(max_length=254, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -30,6 +33,7 @@ class Country(models.Model):
         verbose_name_plural = 'Countries'
 
     name = models.CharField(max_length=254)
+    region = models.ForeignKey('Region', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
@@ -77,7 +81,7 @@ class Itinerary(models.Model):
 
     title = models.CharField(max_length=254)
     description = models.TextField()
-    package = models.ForeignKey('Package', blank=True, on_delete=models.CASCADE)
+    package = models.ForeignKey('Package', null=True, blank=True, on_delete=models.CASCADE)
     day = models.CharField(choices=days, max_length=2)
 
     def __str__(self):
@@ -120,3 +124,14 @@ class Price(models.Model):
 
     def __str__(self):
         return "{} {} - {}".format(self.package, self.start_date, self.end_date)
+
+
+class Region(models.Model):
+
+    name = models.CharField(max_length=254)
+    page_title = models.CharField(max_length=254)
+    image = models.ImageField()
+    image_url = models.CharField(max_length=254, null=True, blank=True)
+
+    def __str__(self):
+        return self.name

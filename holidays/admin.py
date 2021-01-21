@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Activity, Category, Country, Feature, Flight, Itinerary, Price, Package
+from .models import Activity, Category, Country, Feature, Flight, Itinerary, Price, Package, Region
 
 
 class ActivityInline(admin.StackedInline):
@@ -41,3 +41,4 @@ admin.site.register(Country)
 admin.site.register(Feature)
 admin.site.register(Flight)
 admin.site.register(Package, PackageAdmin)
+admin.site.register(Region)
