@@ -97,3 +97,13 @@ def destination_holidays(request, destination):
         }
 
         return render(request, 'holidays/destinations.html', context)
+
+def holiday_details(request, slug):
+    """ A view to show individual holiday details """
+
+    holiday = get_object_or_404(Package, slug=slug)
+
+    context = {
+        'holiday': holiday,
+    }
+    return render(request, 'holidays/holiday_details.html', context)
