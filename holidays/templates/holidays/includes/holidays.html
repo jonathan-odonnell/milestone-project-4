@@ -1,7 +1,7 @@
 {% for holiday in holidays %}
 <div class="col-sm-6 col-md-4 col-xl-3 py-3">
     <div class="card destination-card">
-        <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+        <a href="{% url 'holiday_details' holiday.slug %}"><img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap"></a>
         <span class="badge bg-danger">From £{{holiday.min_price}}</span>
         <div class="card-body">
             <h5 class="card-title">{{holiday.name}}</h5>
