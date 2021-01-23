@@ -19,15 +19,55 @@ function generateStars() {
     })
 }
 
+function pagination(data) {
+    let nextPage = postData['page'] + 1
+    let prevPage = postData['page'] - 1
+    let currentPage = postData['page']
+    let totalPages = data.pages
+    $('.pagination').html('')
+    if (totalPages > 1) {
+        if (prevPage > 0) {
+            $('.pagination').append(`<li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span></a></li><li class="page-item"><a class="page-link" href="javascript:void(0)">${prevPage}</a></li>`)
+        } else {
+            $('.pagination').append(`<li class="page-item disabled"><a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span></a></li>`)
+        }
+        $('.pagination').append(`<li class="page-item active"><a class="page-link" href="javascript:void(0)">${currentPage}</a></li>`)
+        if (nextPage <= totalPages) {
+            $('.pagination').append(`<li class="page-item"><a class="page-link" href="javascript:void(0)">${nextPage}</a></li><li class="page-item"><a class="page-link" href="javascript:void(0)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span></a></li>`)
+        } else {
+            $('.pagination').append(`<li class="page-item disabled"><a class="page-link" href="javascript:void(0)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span></a></li>`)
+        }
+    }
+}
+
 $(document).ready(function () {
     generateStars()
 })
 
 let currentUrl = window.location
 let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+
 let postData = {
     csrfmiddlewaretoken: csrfToken,
+    page: 1,
 }
+
+$('body').delegate('.page-link', 'click', function () {
+    postData['page'] = parseInt($(this).closest('a').text())
+    $.post(currentUrl, postData).done(function (data) {
+        let nextPage = postData['page'] + 1
+        let prevPage = postData['page'] - 1
+        let currentPage = postData['page']
+        let totalPages = data.pages
+        $('#holidays').html(data.holidays)
+        generateStars()
+        pagination(data)
+    })
+})
 
 $('#sort-selector').change(function () {
     let sortSelector = $(this).val();
@@ -40,8 +80,9 @@ $('#sort-selector').change(function () {
         delete postData["sort", "direction"]
     }
     $.post(currentUrl, postData).done(function (data) {
-        $('#holidays').html(data)
+        $('#holidays').html(data.holidays)
         generateStars()
+        pagination(data)
     })
 })
 
@@ -58,8 +99,9 @@ $('#category-filters a').on('click', function () {
         delete postData["category"];
     }
     $.post(currentUrl, postData).done(function (data) {
-        $('#holidays').html(data)
+        $('#holidays').html(data.holidays)
         generateStars()
+        pagination(data)
     })
 })
 
@@ -76,7 +118,8 @@ $('#country-filters a').on('click', function () {
         delete postData["country"];
     }
     $.post(currentUrl, postData).done(function (data) {
-        $('#holidays').html(data)
+        $('#holidays').html(data.holidays)
         generateStars()
+        pagination(data)
     })
 })

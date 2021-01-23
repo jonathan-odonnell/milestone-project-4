@@ -3,7 +3,8 @@ from .models import Package, Category, Country, Region
 from django.db.models import Min
 from django.db.models.functions import Lower
 from django.template.loader import render_to_string
-from django.http import HttpResponse
+from django.http import JsonResponse
+from django.core.paginator import Paginator
 
 def category_holidays(request, category):
     """ A view to show all holidays in the category, including sorting and search queries """
@@ -33,10 +34,16 @@ def category_holidays(request, category):
             current_countries = Country.objects.annotate(lower_name=Lower('name')).filter(lower_name__in=current_countries).values_list('name', flat=True)
 
         # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
+        holidays = Paginator(holidays, 12)
+        page_number = request.POST['page']
+        holidays = holidays.get_page(page_number)
         html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays})
-        return HttpResponse(html)
+        return JsonResponse({'holidays': html, 'pages': holidays.paginator.num_pages})
     
     else:
+        holidays = Paginator(holidays, 12)
+        page_number = None
+        holidays = holidays.get_page(page_number)
         context = {
             'category': category,
             'countries': countries,
@@ -73,10 +80,16 @@ def destination_holidays(request, destination):
             current_categories = Category.objects.annotate(lower_name=Lower('name')).filter(lower_name__in=current_categories).values_list('name', flat=True)
 
         # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
+        holidays = Paginator(holidays, 12)
+        page_number = request.POST['page']
+        holidays = holidays.get_page(page_number)
         html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays})
-        return HttpResponse(html)
+        return JsonResponse({'holidays': html, 'pages': holidays.paginator.num_pages})
 
     else:
+        holidays = Paginator(holidays, 12)
+        page_number = None
+        holidays = holidays.get_page(page_number)
         context = {
             'destination': destination,
             'categories': categories,

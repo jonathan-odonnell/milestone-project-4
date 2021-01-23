@@ -141,6 +141,10 @@ body {
     z-index: 1;
 }
 
+.pagination .active .page-link {
+    background-color: #d13574;
+}
+
 footer a {
     color: #fff;
 }
