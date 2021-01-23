@@ -101,7 +101,8 @@ def destination_holidays(request, destination):
 def holiday_details(request, slug):
     """ A view to show individual holiday details """
 
-    holiday = get_object_or_404(Package, slug=slug)
+    holiday = get_object_or_404(Package.objects
+        .annotate(min_price=Min('price__price')), slug=slug)
 
     context = {
         'holiday': holiday,
