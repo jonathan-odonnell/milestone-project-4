@@ -1,33 +1,86 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Package, Category, Country, Region
 from django.db.models import Min
+from django.db.models.functions import Lower
+from django.template.loader import render_to_string
+from django.http import HttpResponse
 
 def category_holidays(request, category):
-    """ A view to show all holidays, including sorting and search queries """
+    """ A view to show all holidays in the category, including sorting and search queries """
     category = category.replace('-', ' ')
     category=get_object_or_404(Category, name__iexact=category)
     holidays = Package.objects.filter(category__name=category).annotate(min_price=Min('price__price'))
     countries = holidays.values_list('country__name', flat=True).distinct().order_by('country__name')
+    current_countries = None
+    sort = None
+    direction = None
+    
+    if request.method == 'POST':
+        if 'sort' in request.POST:
+            sort = request.POST['sort']
+            if sort == 'price':
+                sort = 'min_price'
+            if 'direction' in request.POST:
+                direction = request.POST['direction']
+                if direction == 'desc':
+                    sort = f'-{sort}'
+                    
+                holidays = holidays.order_by(sort)
 
-    context = {
-        'category': category,
-        'countries': countries,
-        'holidays': holidays,
-    }
+        if 'country' in request.POST:
+            current_countries = request.POST['country'].replace('_', ' ').split(',')
+            holidays = holidays.annotate(lower_country=Lower('country__name')).filter(lower_country__in=current_countries)
+            current_countries = Country.objects.annotate(lower_name=Lower('name')).filter(lower_name__in=current_countries).values_list('name', flat=True)
 
-    return render(request, 'holidays/categories.html', context)
+        # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
+        html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays})
+        return HttpResponse(html)
+    
+    else:
+        context = {
+            'category': category,
+            'countries': countries,
+            'holidays': holidays,
+        }
+
+        return render(request, 'holidays/categories.html', context)
 
 def destination_holidays(request, destination):
-    """ A view to show all holidays, including sorting and search queries """
+    """ A view to show holidays in the destination, including sorting and search queries """
     destination = destination.replace('-', ' ')
     destination = get_object_or_404(Region, name__iexact=destination)
     holidays = Package.objects.filter(country__region=destination).annotate(min_price=Min('price__price'))
     categories = holidays.values_list('category__name', flat=True).distinct().order_by('category__name')
+    current_categories = None
+    sort = None
+    direction = None
 
-    context = {
-        'destination': destination,
-        'categories': categories,
-        'holidays': holidays,
-    }
+    if request.method == 'POST':
+        if 'sort' in request.POST:
+            sort = request.POST['sort']
+            if sort == 'price':
+                sort = 'min_price'
+            if 'direction' in request.POST:
+                direction = request.POST['direction']
+                if direction == 'desc':
+                    sort = f'-{sort}'
 
-    return render(request, 'holidays/destinations.html', context)
+            holidays = holidays.order_by(sort)
+
+        if 'category' in request.POST:
+            current_categories = request.POST['category'].replace('_', ' ').split(',')
+            holidays = holidays.annotate(lower_category=Lower('category__name')).filter(lower_category__in=current_categories)
+            current_categories = Category.objects.annotate(lower_name=Lower('name')).filter(lower_name__in=current_categories).values_list('name', flat=True)
+
+        # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
+        html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays})
+        return HttpResponse(html)
+
+    else:
+        context = {
+            'destination': destination,
+            'categories': categories,
+            'holidays': holidays,
+        }
+
+        return render(request, 'holidays/destinations.html', context)
