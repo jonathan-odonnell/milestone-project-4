@@ -33,7 +33,7 @@ class PackageAdmin(admin.ModelAdmin):
         ActivityInline,
         ItineraryInline,
     ]
-    exclude = ('features', 'activities', 'itinerary',)
+    exclude = ('features', 'activities', 'itinerary')
 
 
 admin.site.register(Category)

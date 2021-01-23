@@ -1,4 +1,12 @@
 from django.db import models
+from django_extensions.db.fields import AutoSlugField
+
+def slugify(content):
+    """
+    A function to generate the package's slug. Code is from 
+    https://django-extensions.readthedocs.io/en/latest/field_extensions.html
+    """
+    return content.replace(' ', '-').lower()
 
 
 class Activity(models.Model):
@@ -108,6 +116,7 @@ class Package(models.Model):
     return_flight = models.ForeignKey(
         'Flight', null=True, blank=True, on_delete=models.SET_NULL, related_name='inbound_flight')
     transfers_included = models.BooleanField()
+    slug = AutoSlugField(populate_from='name', slugify_function=slugify)
 
     def __str__(self):
         return self.name
