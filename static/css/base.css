@@ -71,6 +71,10 @@ body {
     background-position: center top;
 }
 
+.hero-image-bottom {
+    background-position: 50% 90%;
+}
+
 .overlay {
     position: absolute;
     top: 0;

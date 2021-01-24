@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container-fluid hero-image {% if category.name == 'Beach' %}hero-image-top{% endif %} p-0"
+<div class="container-fluid hero-image {% if category.name == 'City Breaks' %}hero-image-bottom {% endif %}{% if category.name == 'Beach' %}hero-image-top{% endif %} p-0"
     style="background-image: url('{{ category.image.url }}')">
     <div class="overlay">&nbsp;</div>
     <div class="row no-gutters">
