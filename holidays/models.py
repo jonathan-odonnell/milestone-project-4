@@ -30,6 +30,7 @@ class Category(models.Model):
     page_title = models.CharField(max_length=254)
     image = models.ImageField()
     image_url = models.CharField(max_length=254, null=True, blank=True)
+    slug = AutoSlugField(populate_from='name', slugify_function=slugify)
 
     def __str__(self):
         return self.name
@@ -141,6 +142,7 @@ class Region(models.Model):
     page_title = models.CharField(max_length=254)
     image = models.ImageField()
     image_url = models.CharField(max_length=254, null=True, blank=True)
+    slug = AutoSlugField(populate_from='name', slugify_function=slugify)
 
     def __str__(self):
         return self.name
