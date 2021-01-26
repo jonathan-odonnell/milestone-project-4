@@ -37,7 +37,7 @@ def category_holidays(request, category):
         holidays = Paginator(holidays, 12)
         page_number = request.POST['page']
         holidays = holidays.get_page(page_number)
-        html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays})
+        html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays, 'category': category})
         return JsonResponse({'holidays': html, 'pages': holidays.paginator.num_pages})
     
     else:
@@ -83,7 +83,7 @@ def destination_holidays(request, destination):
         holidays = Paginator(holidays, 12)
         page_number = request.POST['page']
         holidays = holidays.get_page(page_number)
-        html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays})
+        html = render_to_string('holidays/includes/holidays.html', {'holidays': holidays, 'destination': destination})
         return JsonResponse({'holidays': html, 'pages': holidays.paginator.num_pages})
 
     else:
@@ -98,13 +98,25 @@ def destination_holidays(request, destination):
 
         return render(request, 'holidays/destinations.html', context)
 
-def holiday_details(request, slug):
+def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
-
     holiday = get_object_or_404(Package.objects
         .annotate(min_price=Min('price__price')), slug=slug)
+    
+    if category:
+        category = category.replace('-', ' ')
+        related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_category=Lower('category__name'), min_price=Min('price__price'))
+        related_holidays = related_holidays.filter(lower_category=category).order_by('?')[:4]
+
+    else:
+        destination = destination.replace('-', ' ')
+        related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_region=Lower('country__region__name'), min_price=Min('price__price'))
+        related_holidays = related_holidays.filter(lower_region=destination).order_by('?')[:4]
 
     context = {
         'holiday': holiday,
+        'related_holidays': related_holidays,
+        'category': category,
+        'destination': destination
     }
     return render(request, 'holidays/holiday_details.html', context)

@@ -2,6 +2,198 @@
 {% load static %}
 
 {% block content %}
-<h1>Success</h1>
-
+<div class="container-fluid hero-image {{ holiday.slug }} p-0" style="background-image: url('{{ holiday.image.url }}')">
+    <div class="overlay">&nbsp;</div>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4 text-center">{{ holiday.name }}</h1>
+                    <div class="block-divider my-3 mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid p-4">
+    <div class="row no-gutters">
+        <div class="col-12 col-lg-9">
+            <ul class="nav nav-tabs border-bottom" id="myTab" role="tablist">
+                <li class="nav-item m-0 py-0 ps-0" role="presentation">
+                    <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
+                        aria-controls="overview" aria-selected="true">Overview</a>
+                </li>
+                {% if holiday.itinerary_set.all %}
+                <li class="nav-item py-0" role="presentation">
+                    <a class="nav-link" id="itinerary-tab" data-bs-toggle="tab" href="#itinerary" role="tab"
+                        aria-controls="itinerary" aria-selected="false">Itinerary</a>
+                </li>
+                {% endif %}
+                {% if holiday.activity_set.all %}
+                <li class="nav-item py-0" role="presentation">
+                    <a class="nav-link" id="activities-tab" data-bs-toggle="tab" href="#activities" role="tab"
+                        aria-controls="activities" aria-selected="false">Activities</a>
+                </li>
+                {% endif %}
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active py-3" id="overview" role="tabpanel"
+                    aria-labelledby="overview-tab">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-sm-6">
+                            <ul class="list-group">
+                                <li class="list-group-item px-0 border-0">
+                                    <i class="fas fa-tag me-3"></i>From £{{ holiday.min_price }}
+                                </li>
+                                <li class="list-group-item px-0 border-0">
+                                    <i class="far fa-calendar-alt mx-0 me-3"></i>{{ holiday.duration }} days
+                                </li>
+                                <li class="list-group-item px-0 border-0">
+                                    <i class="fas fa-utensils me-3"></i>{{ holiday.catering }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <ul class="list-group">
+                                {% for feature in holiday.features.all %}
+                                <li class="list-group-item px-0 border-0">
+                                    <i class="fas fa-check me-3"></i>{{ feature }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-12 pt-3">
+                            <p>{{ holiday.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% if holiday.itinerary_set.all %}
+                <div class="tab-pane fade py-3" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
+                    <div class="accordion accordion-flush" id="accordionExample">
+                        {% for itinerary in holiday.itinerary_set.all %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{forloop.counter}}">
+                                <button
+                                    class="accordion-button border-0 shadow-none px-0 {% if forloop.counter > 1%}collapsed{% endif %}"
+                                    type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false"
+                                    aria-controls="collapse{{forloop.counter}}">
+                                    <strong>Day {{ itinerary.day }} - {{ itinerary.title }}</strong>
+                                </button>
+                            </h2>
+                            <div id="collapse{{forloop.counter}}"
+                                class="accordion-collapse collapse {% if forloop.counter == 1 %}show {% endif %} border-0"
+                                aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordionExample">
+                                <div class="accordion-body px-0">
+                                    {{ itinerary.description }}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                {% if holiday.activity_set.all %}
+                <div class="tab-pane fade py-3" id="activities" role="tabpanel" aria-labelledby="activities-tab">
+                    <p><strong>{{ activity.name }}</strong></p>
+                    <p>{{ activity.description }}<< /p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col col-lg-3 mb-3">
+            <h2 class="text-uppercase section-heading booking-form mb-3">Trip Booking</h2>
+            <form class="shadow p-3" action="POST">
+                <div class="mb-3">
+                    <label for="date" class="form-label">Departure Date</label>
+                    <input type="date" class="form-control" id="date" required>
+                </div>
+                <div class="mb-3">
+                    <label for="airport" class="form-label">Departure Airport</label>
+                    <input type="text" class="form-control" id="airport" required>
+                </div>
+                <label for="guests" class="form-label">Guests</label>
+                <div class="input-group guests me-auto mb-4">
+                    <button id="minus" class="input-group-text btn shadow-none border py-0" type="button"><i
+                            class="fas fa-minus"></i></button>
+                    <input type="number" class="form-control text-center" id="guests" min="1" max="10" value="1"
+                        required>
+                    <button id="plus" class="input-group-text btn shadow-none border py-0" type="button"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="text-lg-center">
+                    <button class="btn btn-primary">Book Trip</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <h2 class="text-uppercase section-heading booking-form">related holidays</h2>
+        </div>
+        {% for holiday in related_holidays %}
+        {% if forloop.counter == 1 %}
+        <div class="d-none d-lg-block col-lg-3 p-3">
+            {% elif forloop.counter == 2 %}
+            <div class="d-none d-md-block col-md-4 col-lg-3 p-3">
+            {% else %}
+            <div class="col-6 col-md-4 col-lg-3 p-3">
+            {% endif %}
+            <div class="card destination-card">
+                {% if category %}
+                <a href="{% url 'category_details' holiday.category.slug holiday.slug %}">
+                {% else %}
+                <a href="{% url 'destination_details' holiday.country.region.slug holiday.slug %}">
+                {% endif %}
+                    <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                </a>
+                <span class="badge bg-danger">From £{{holiday.min_price}}</span>
+                <div class="card-body">
+                    <h5 class="card-title">{{holiday.name}}</h5>
+                    <small class="d-block card-text rating mb-2">{{holiday.rating}}</small>
+                    <small class="d-block card-text mb-2">
+                        <i class="far fa-clock pe-1"></i>
+                        {{holiday.duration}} days
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+{% block postloadjs %}
+<script>
+    $('#plus').click(function () {
+        let currentValue = parseInt($(this).prev().val())
+        if (currentValue < 10) {
+            $(this).prev().val(currentValue + 1);
+        }
+    });
+    $('#minus').click(function () {
+        let currentValue = parseInt($(this).next().val())
+        if (currentValue > 1) {
+            $(this).next().val(currentValue - 1);
+        }
+    });
+    $(document).ready(function generateStars() {
+        let fullStar = "<i class='fas fa-star pe-1'></i>"
+        let halfStar = "<i class='fas fa-star-half-alt pe-1'></i>"
+        let emptyStar = "<i class='far fa-star pe-1'></i>"
+        $('.rating').each(function () {
+            rating = parseFloat($(this).html())
+            displayStars = ""
+            for (let i = 1; i <= 5; i++) {
+                if (Math.round(rating) >= i) {
+                    displayStars += fullStar
+                } else if (rating >= i - 1) {
+                    displayStars += halfStar
+                } else {
+                    displayStars += emptyStar
+                }
+            }
+            $(this).html(displayStars)
+        })
+    })
+</script>
 {% endblock %}
