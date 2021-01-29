@@ -2,6 +2,207 @@
 {% load static %}
 
 {% block content %}
-<h1>Success</h1>
-
+<section class="container my-4">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h1 class="section-heading text-center mb-0">Your Booking</h1>
+        </div>
+        <div class="d-none d-md-block col-md table-responsive">
+            <table class="table table-sm align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Holiday</th>
+                        <th scope="col" class="px-2"></th>
+                        <th scope="col" class="text-center px-2">Guests</th>
+                        <th scope="col" class="text-center px-2">Price Per Person</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="w-25">
+                            <img class="img-fluid" src="{{holiday.image.url}}" alt="...">
+                        </td>
+                        <td class="px-2">
+                            <ul class="list-unstyled">
+                                <li><a href="#"><strong>{{ holiday.name }}</strong></a></li>
+                                <li>{{ holiday.duration}} days from {{ booking.departure_date }}</li>
+                                <li>{{ holiday.catering }}</li>
+                            </ul>
+                        </td>
+                        <td class="w-lg-25 text-center px-2">
+                            <form action="">
+                                <div class="input-group justify-content-center">
+                                    <button id="minus" class="btn shadow-none rounded-0 p-2 py-1">
+                                        <span>
+                                            <i class="fas fa-minus fa-sm"></i>
+                                        </span>
+                                    </button>
+                                    <input class="form-control form-control-sm form-control-guests text-center"
+                                        type="number" name="guests" value="{{ booking.guests }}" min="1" max="10" />
+                                    <button id="plus" class="btn shadow-none rounded-0 p-2 py-1">
+                                        <span>
+                                            <i class="fas fa-plus fa-sm"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                        <td class="w-25 text-center px-2">£{{ holiday.price_set.all.0.price }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-md-none col table-responsive">
+            <hr class="my-0">
+            <table class="table table-sm">
+                <tr>
+                    <td class="w-25">
+                        <img class="img-fluid mt-1" src="{{holiday.image.url}}" alt="...">
+                    </td>
+                    <td>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="#"><strong>{{ holiday.name }}</strong></a></li>
+                            <li class="mb-2">{{holiday.duration}} days from {{ booking.departure_date }}
+                            </li>
+                            <li class="mb-2">{{ holiday.catering }}</li>
+                            <li class="mb-2"><strong>Guests: </strong>
+                                <form class="d-inline-block">
+                                    <div class="input-group justify-content-center">
+                                        <button id="minus-sm" class="btn shadow-none rounded-0 p-2 py-1">
+                                            <span>
+                                                <i class="fas fa-minus fa-sm"></i>
+                                            </span>
+                                        </button>
+                                        <input class="form-control form-control-sm form-control-guests text-center"
+                                            type="number" name="guests" value="{{ booking.guests }}" min="1" max="10" />
+                                        <button id="plus-sm" class="btn shadow-none rounded-0 p-2 py-1">
+                                            <span>
+                                                <i class="fas fa-plus fa-sm"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </li>
+                            <li><strong>Price Per Person: </strong>£{{ holiday.price_set.all.0.price }}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-lg-4 mt-2">
+            <div class="px-3">
+                <h5 class="d-flex justify-content-between align-items-center mb-3">Booking Summary</h5>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item">
+                        <div>
+                            <h6>{{booking.departure_date}} ({{flights.0.all.0.name}})</h6>
+                            <div class="row no-gutters">
+                                <div class="col text-start">
+                                    <p class="mb-0"><small>{{flights.0.all.0.origin}}</small></p>
+                                    <p class="mb-0"><small>{{flights.0.all.0.departure_time|time:'H:i'}}</small></p>
+                                </div>
+                                <div class="col text-center pt-2">
+                                    <i class="fas fa-plane"></i>
+                                    <p><small>{{flights.1.all.0.duration|time:'G\h i\m'}}</small></p>
+                                </div>
+                                <div class="col text-end">
+                                    <p class="mb-0"><small>{{flights.0.all.0.destination}}</small></p>
+                                    <p class="mb-0"><small>{{flights.0.all.0.arrival_time|time:'H:i'}}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <h6>{{booking.return_date}} ({{flights.1.all.0.name}})</h6>
+                        <div class="row">
+                            <div class="col text-start">
+                                <p class="mb-0"><small>{{flights.1.all.0.origin}}</small></p>
+                                <p class="mb-0"><small>{{flights.1.all.0.departure_time|time:'H:i'}}</small></p>
+                            </div>
+                            <div class="col text-center pt-2">
+                                <i class="fas fa-plane"></i>
+                                <p><small>{{flights.0.all.0.duration|time:'G\h i\m'}}</small></p>
+                            </div>
+                            <div class="col text-end">
+                                <p class="mb-0"><small>{{flights.1.all.0.destination}}</small></p>
+                                <p class="mb-0"><small>{{flights.1.all.0.arrival_time|time:'H:i'}}</small></p>
+                            </div>
+                        </div>
+                    </li>
+                    {% if subtotal != total %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="my-0">Base Price</span>
+                        <span>£{{ subtotal|floatformat:2 }}</span>
+                    </li>
+                    {% endif %}
+                    {% if extras %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="my-0">Options and Extras</span>
+                        <span>£{{ extras|floatformat:2 }}</span>
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span class="my-0">Transfers</span>
+                        <span class="my-0">{% if holiday.transfers_included == True %}Included{% else %}
+                            Not Included{% endif %}</span>
+                    </li>
+                    {% if discount %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo code</h6>
+                            <small>EXAMPLECODE</small>
+                        </div>
+                        <span class="text-success">-$5</span>
+                    </li>
+                    {% endif %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total</span>
+                        <strong>£{{ total|floatformat:2 }}</strong>
+                    </li>
+                </ul>
+                <form>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Promo code">
+                        <button class="btn btn-grey rounded-0 rounded-end shadow-none" type="button">Apply</button>
+                    </div>
+                </form>
+                <a class="btn btn-primary shadow-none w-100 mb-3" href="#">Proceed to Checkout</a>
+                <a class="btn btn-outline-primary shadow-none w-100 mb-3" href="#">Amend Booking</a>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('#plus,#plus-sm').click(function () {
+        let currentValue = parseInt($(this).prev().val())
+        if (currentValue < 10) {
+            $(this).prev().val(currentValue + 1);
+        }
+    });
+    $('#minus,#minus-sm').click(function () {
+        let currentValue = parseInt($(this).next().val())
+        if (currentValue > 1) {
+            $(this).next().val(currentValue - 1);
+        }
+    });
+    $(document).ready(function generateStars() {
+        let fullStar = "<i class='fas fa-star pe-1'></i>"
+        let halfStar = "<i class='fas fa-star-half-alt pe-1'></i>"
+        let emptyStar = "<i class='far fa-star pe-1'></i>"
+        $('.rating').each(function () {
+            rating = parseFloat($(this).html())
+            displayStars = ""
+            for (let i = 1; i <= 5; i++) {
+                if (Math.round(rating) >= i) {
+                    displayStars += fullStar
+                } else if (rating >= i - 1) {
+                    displayStars += halfStar
+                } else {
+                    displayStars += emptyStar
+                }
+            }
+            $(this).html(displayStars)
+        })
+    })
+</script>
 {% endblock %}

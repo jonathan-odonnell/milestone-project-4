@@ -4,6 +4,16 @@ body {
     font-family: 'PT Sans', sans-serif;
 }
 
+strong {
+    font-weight: bold;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 73px);
+}
+
 .small {
     font-size: 0.8rem;
     color: #fff;
@@ -19,6 +29,15 @@ body {
 
 .btn-primary {
     background-color: #006994 !important;
+}
+
+.btn-outline-primary {
+    color: #006994 !important;
+    border-color: #006994 !important;
+}
+
+.btn-grey {
+    background: #c8c8c8;
 }
 
 .btn-newsletter {
@@ -38,6 +57,10 @@ body {
 
 .booking-form {
     font-size: 1.5rem;
+}
+
+.booking-heading {
+    font-weight: bold;
 }
 
 .navbar i {
@@ -227,8 +250,23 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-#plus, #minus {
-    background-color: #e0e0e0;
+#plus, #plus-sm, #minus, #minus-sm {
+    background-color: #c8c8c8;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.input-group .form-control {
+    height: auto;
+    min-height: auto;
+}
+.input-group .form-control-guests {
+    height: 1.75rem;
+    min-height: 1.75rem;
+    flex: none;
+    min-width: 35px;
 }
 
 footer a {
