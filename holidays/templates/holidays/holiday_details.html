@@ -103,20 +103,21 @@
         </div>
         <div class="col col-lg-3 mb-3">
             <h2 class="text-uppercase section-heading booking-form mb-3">Trip Booking</h2>
-            <form class="shadow p-3" action="POST">
+            <form class="shadow p-3" action="{% url 'add_booking' holiday.id %}"  method="POST">
+                {% csrf_token %}
                 <div class="mb-3">
-                    <label for="date" class="form-label">Departure Date</label>
-                    <input type="date" class="form-control" id="date" required>
+                    <label for="departure_date" class="form-label">Departure Date</label>
+                    <input type="date" class="form-control" id="departure_date" name="departure_date" required>
                 </div>
                 <div class="mb-3">
-                    <label for="airport" class="form-label">Departure Airport</label>
-                    <input type="text" class="form-control" id="airport" required>
+                    <label for="departure_airport" class="form-label">Departure Airport</label>
+                    <input type="text" class="form-control" id="departure_airport" name="departure_airport" required>
                 </div>
                 <label for="guests" class="form-label">Guests</label>
                 <div class="input-group guests me-auto mb-4">
                     <button id="minus" class="input-group-text btn shadow-none border py-0" type="button"><i
                             class="fas fa-minus"></i></button>
-                    <input type="number" class="form-control text-center" id="guests" min="1" max="10" value="1"
+                    <input type="number" class="form-control text-center" id="guests" name="guests" min="1" max="10" value="1"
                         required>
                     <button id="plus" class="input-group-text btn shadow-none border py-0" type="button"><i
                             class="fas fa-plus"></i></button>
