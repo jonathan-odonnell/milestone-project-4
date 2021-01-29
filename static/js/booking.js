@@ -40,7 +40,13 @@ $('form').submit(function (e) {
         'guests': guests,
         'csrfmiddlewaretoken': csrfToken,
     }
-    $.post('/booking/update_guests/', postData)
+    $.post('/booking/update_guests/', postData).done(function(data) {
+        let subtotal = $('#subtotal')
+        if (subtotal) {
+            $(this).children().last().text('£' + data.subtotal)
+        }
+        $('#total').children().last().text('£' + data.total)
+    })
 })
 
 $("input[name='guests']").change(function () {

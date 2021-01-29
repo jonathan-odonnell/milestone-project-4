@@ -132,24 +132,24 @@
                         </div>
                     </li>
                     {% if subtotal != total %}
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li id="subtotal" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Base Price</span>
                         <span>£{{ subtotal|floatformat:2 }}</span>
                     </li>
                     {% endif %}
                     {% if extras %}
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li id="extras" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Options and Extras</span>
                         <span>£{{ extras|floatformat:2 }}</span>
                     </li>
                     {% endif %}
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li id="transfers" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Transfers</span>
                         <span class="my-0">{% if holiday.transfers_included == True %}Included{% else %}
                             Not Included{% endif %}</span>
                     </li>
                     {% if discount %}
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li id="discount" class="list-group-item d-flex justify-content-between">
                         <div class="text-success">
                             <h6 class="my-0">Promo code</h6>
                             <small>EXAMPLECODE</small>
@@ -157,7 +157,7 @@
                         <span class="text-success">-$5</span>
                     </li>
                     {% endif %}
-                    <li class="list-group-item d-flex justify-content-between">
+                    <li id="total" class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
                         <strong>£{{ total|floatformat:2 }}</strong>
                     </li>
