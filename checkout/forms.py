@@ -1,8 +1,9 @@
 from django import forms
 from .models import Booking
+from crispy_forms.helper import FormHelper
 
 
-class OrderForm(forms.ModelForm):
+class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ('full_name', 'email', 'phone_number',
@@ -16,6 +17,10 @@ class OrderForm(forms.ModelForm):
         labels and set autofocus on first field
         """
         super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.field_class = 'mb-3'
+
         placeholders = {
             'full_name': 'Full Name',
             'email': 'Email Address',

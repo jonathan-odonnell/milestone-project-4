@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from .forms import BookingForm
 
-# Create your views here.
+def checkout(request):
+    booking = request.session.get('booking', {})
+    booking_form = BookingForm()
+    context = {
+        'booking_form': booking_form
+    }
+    return render(request, 'checkout/checkout.html', context)
