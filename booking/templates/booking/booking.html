@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load booking_tools %}
 
 {% block content %}
 <section class="container my-4">
@@ -103,31 +104,51 @@
                                     <p class="mb-0"><small>{{flights.0.all.0.origin}}</small></p>
                                     <p class="mb-0"><small>{{flights.0.all.0.departure_time|time:'H:i'}}</small></p>
                                 </div>
-                                <div class="col text-center pt-2">
+                                <div class="col-3 text-center pt-2">
                                     <i class="fas fa-plane"></i>
-                                    <p><small>{{flights.1.all.0.duration|time:'G\h i\m'}}</small></p>
+                                    <p><small>{{flights.1.all.0.duration|duration}}</small></p>
                                 </div>
                                 <div class="col text-end">
                                     <p class="mb-0"><small>{{flights.0.all.0.destination}}</small></p>
                                     <p class="mb-0"><small>{{flights.0.all.0.arrival_time|time:'H:i'}}</small></p>
+                                </div>
+                                <div class="col-8">
+                                    {% if flights.0.all.0.layover %}
+                                    <p class="mb-0"><small>Layover in {{ flights.0.all.0.layover }}</small></p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-4 text-end">
+                                    {% if flights.0.all.0|next_day > 0 %}
+                                    <p class="mb-0"><small>(+ {{flights.0.all.0|next_day}} day)</small></p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item">
                         <h6>{{booking.return_date}} ({{flights.1.all.0.name}})</h6>
-                        <div class="row">
+                        <div class="row no-gutters">
                             <div class="col text-start">
                                 <p class="mb-0"><small>{{flights.1.all.0.origin}}</small></p>
                                 <p class="mb-0"><small>{{flights.1.all.0.departure_time|time:'H:i'}}</small></p>
                             </div>
-                            <div class="col text-center pt-2">
+                            <div class="col-3 text-center pt-2">
                                 <i class="fas fa-plane"></i>
-                                <p><small>{{flights.0.all.0.duration|time:'G\h i\m'}}</small></p>
+                                <p><small>{{flights.1.all.0.duration|duration}}</small></p>
                             </div>
                             <div class="col text-end">
                                 <p class="mb-0"><small>{{flights.1.all.0.destination}}</small></p>
                                 <p class="mb-0"><small>{{flights.1.all.0.arrival_time|time:'H:i'}}</small></p>
+                            </div>
+                            <div class="col-8">
+                                {% if flights.1.all.0.layover %}
+                                <p class="mb-0"><small>Layover in {{ flights.1.all.0.layover }}</small></p>
+                                {% endif %}
+                            </div>
+                            <div class="col-4 text-end">
+                                {% if flights.1.all.0|next_day > 0 %}
+                                <p class="mb-0"><small>(+ {{flights.1.all.0|next_day}} day)</small></p>
+                                {% endif %}
                             </div>
                         </div>
                     </li>
