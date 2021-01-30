@@ -65,7 +65,6 @@ class Flight(models.Model):
     arrival_time = models.DateTimeField()
     duration = models.DurationField()
     layover = models.CharField(max_length=254, null=True, blank=True)
-    layover_duration = models.DurationField(null=True, blank=True)
     baggage = models.DecimalField(max_digits=2, decimal_places=0)
 
     def __str__(self):
