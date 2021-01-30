@@ -269,6 +269,10 @@ input[type=number] {
     min-width: 35px;
 }
 
+.input-group .invalid-feedback {
+    position: inherit;
+}
+
 footer a {
     color: #fff;
 }

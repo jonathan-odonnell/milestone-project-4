@@ -30,7 +30,7 @@
                             </ul>
                         </td>
                         <td class="w-lg-25 text-center px-2">
-                            <form>
+                            <form class="guests-form">
                                 {% csrf_token %}
                                 <div class="input-group justify-content-center">
                                     <button id="minus" class="btn shadow-none rounded-0 p-2 py-1">
@@ -67,7 +67,7 @@
                             </li>
                             <li class="mb-2">{{ holiday.catering }}</li>
                             <li class="mb-2"><strong>Guests: </strong>
-                                <form class="d-inline-block">
+                                <form class="d-inline-block guests-form">
                                     {% csrf_token %}
                                     <div class="input-group justify-content-center">
                                         <button id="minus-sm" class="btn shadow-none rounded-0 p-2 py-1">
@@ -152,9 +152,9 @@
                     <li id="discount" class="list-group-item d-flex justify-content-between">
                         <div class="text-success">
                             <h6 class="my-0">Promo code</h6>
-                            <small>EXAMPLECODE</small>
+                            <small class="text-uppercase">{{coupon}}</small>
                         </div>
-                        <span class="text-success">-$5</span>
+                        <span class="text-success">-£{{discount}}</span>
                     </li>
                     {% endif %}
                     <li id="total" class="list-group-item d-flex justify-content-between">
@@ -162,10 +162,11 @@
                         <strong>£{{ total|floatformat:2 }}</strong>
                     </li>
                 </ul>
-                <form>
+                <form class="coupon-form">
+                    {% csrf_token %}
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Promo code">
-                        <button class="btn btn-grey rounded-0 rounded-end shadow-none" type="button">Apply</button>
+                        <input type="text" class="form-control" placeholder="Promo code" name="coupon">
+                        <button class="btn btn-grey rounded-0 rounded-end shadow-none" type="submit">Apply</button>
                     </div>
                 </form>
                 <a class="btn btn-primary shadow-none w-100 mb-3" href="#">Proceed to Checkout</a>
