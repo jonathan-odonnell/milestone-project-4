@@ -7,8 +7,9 @@ from decimal import Decimal
 
 def booking_details(request):
 
-    booking = request.session.get('booking')
-    date = datetime.datetime.now()
+    booking = request.session.get('booking', '')
+    current_booking = {}
+    current_date = datetime.datetime.now()
     holiday = None
     flights = []
     extras = 0
@@ -18,11 +19,14 @@ def booking_details(request):
     total = 0
 
     if booking:
-        holiday = get_object_or_404(Package, pk=booking['holiday_id'], price__start_date__lte=date, price__end_date__gte=date)
-        booking['departure_date'] = datetime.datetime.strptime(booking['departure_date'], "%Y-%m-%d").date()
-        booking['return_date'] = booking['departure_date'] + datetime.timedelta(days=int(holiday.duration))
-        flights.append(Flight.objects.all().filter(outbound_flight__pk=booking['holiday_id'], origin=booking['departure_airport']))
-        flights.append(Flight.objects.all().filter(inbound_flight__pk=booking['holiday_id'], destination=booking['departure_airport']))
+        for key, value in booking.items():
+            current_booking[key] = value
+
+        holiday = get_object_or_404(Package, pk=current_booking['holiday_id'], price__start_date__lte=current_date, price__end_date__gte=current_date)
+        current_booking['departure_date'] = datetime.datetime.strptime(current_booking['departure_date'], "%d/%m/%Y").date()
+        current_booking['return_date'] = current_booking['departure_date'] + datetime.timedelta(days=int(holiday.duration))
+        flights.append(Flight.objects.all().filter(outbound_flight__pk=current_booking['holiday_id'], origin=current_booking['departure_airport']))
+        flights.append(Flight.objects.all().filter(inbound_flight__pk=current_booking['holiday_id'], destination=current_booking['departure_airport']))
 
         if booking.get('discount'):
             coupon = booking.get('coupon')
@@ -32,7 +36,7 @@ def booking_details(request):
         total = Decimal(subtotal + extras - discount)
 
     context = {
-        'booking': booking,
+        'booking': current_booking,
         'holiday': holiday,
         'flights': flights,
         'coupon': coupon,
