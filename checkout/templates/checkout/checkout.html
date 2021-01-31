@@ -62,7 +62,7 @@
                     <div id="card-element" class="mb-3">
                         <!--Stripe.js injects the Card Element-->
                     </div>
-                    <button class="payment-btn" id="submit">
+                    <button class="payment-btn" type="submit">
                         <div class="spinner hidden" id="spinner"></div>
                         <span id="button-text">Pay</span>
                     </button>
@@ -80,7 +80,10 @@
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
-{{ stripe_public_key|json_script:"id_stripe_public_key"}}
-{{ stripe_client_secret|json_script:"id_stripe_client_secret"}}
+{{ stripe_public_key|json_script:"id_stripe_public_key" }}
+{{ client_secret|json_script:"id_client_secret" }}
+{{ stripe_country|json_script:"id_stripe_country" }}
+{{ stripe_currency|json_script:"id_stripe_currency" }}
+{{ stripe_total|json_script:"id_stripe_total" }}
 <script src="{% static 'js/stripe_elements.js' %}"></script>
 {% endblock %}
