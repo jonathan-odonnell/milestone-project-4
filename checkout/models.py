@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
@@ -18,11 +19,11 @@ class Booking(models.Model):
     coupon = models.CharField(max_length=20, null=True, blank=True)
     total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
 
-    def _generate_order_number(self):
+    def _generate_booking_number(self):
         return uuid.uuid4().hex.upper()
 
     def update_total(self):
-        self.total = self.packagebooking.aggregate(Sum('package_total'))['package_total__sum']
+        self.total = self.package_booking.total
         self.save()
 
     def save(self, *args, **kwargs):
@@ -34,12 +35,12 @@ class Booking(models.Model):
         return self.booking_number
 
 class PackageBooking(models.Model):
-    booking = models.ForeignKey(Booking, null=False, blank=False, on_delete=models.CASCADE, related_name='package_booking')
-    Package = models.ForeignKey(Package, null=False, blank=False, on_delete=models.CASCADE)
+    booking = models.OneToOneField(Booking, null=False, blank=False, on_delete=models.CASCADE, related_name='package_booking')
+    package = models.ForeignKey(Package, null=False, blank=False, on_delete=models.CASCADE)
     guests = models.IntegerField(null=False, blank=False)
-    departure_date = models.DateTimeField(null=False, blank=False)
+    departure_date = models.DateField(null=False, blank=False)
     duration = models.IntegerField(null=False, blank=False)
-    package_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
+    total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def __str__(self):
         return f'{self.package.name} on booking {self.booking.booking_number}'
