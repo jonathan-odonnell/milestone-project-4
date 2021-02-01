@@ -1,4 +1,9 @@
 from django.http import HttpResponse
+from .models import Booking, PackageBooking
+from holidays.models import Package
+from booking.contexts import booking_details
+import time
+import datetime
 
 
 class StripeWH_Handler:
@@ -19,6 +24,80 @@ class StripeWH_Handler:
         """
         Handles the payment_intent.succeeded webhook from Stripe
         """
+        intent = event.data.object
+        pid = intent.id
+        current_booking = intent.metadata.booking
+        save_info = intent.metadata.save_info
+
+        billing_details = intent.charges.data[0].billing_details
+        total = round(intent.charges.data[0].amount / 100, 2)
+
+        for field, value in billing_details.address.items():
+            if value == "":
+                billing_details.address[field] = None
+
+        booking_exists = False
+        attempt = 1
+        while attempt <= 5:
+            try:
+                booking = Booking.objects.get(
+                    full_name__iexact=billing_details.name,
+                    email__iexact=billing_details.email,
+                    phone_number__iexact=billing_details.phone,
+                    street_address1__iexact=billing_details.address.line1,
+                    street_address2__iexact=billing_details.address.line2,
+                    town_or_city__iexact=billing_details.address.city,
+                    county__iexact=billing_details.address.state,
+                    country__iexact=billing_details.address.country,
+                    postcode__iexact=billing_details.address.postal_code,
+                    total=total,
+                    stripe_pid=pid,
+                )
+                booking_exists = True
+                break
+
+            except Booking.DoesNotExist:
+                attempt += 1
+                time.sleep(1)
+
+        if booking_exists:
+            return HttpResponse(
+                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                status=200)
+
+        else:
+            order = None
+            try:
+                booking = Booking.objects.create(
+                    full_name=billing_details.name,
+                    email=billing_details.email,
+                    phone_number=billing_details.phone,
+                    street_address1=billing_details.address.line1,
+                    street_address2=billing_details.address.line2,
+                    town_or_city=billing_details.address.city,
+                    county=billing_details.address.state,
+                    country=billing_details.address.country,
+                    postcode=billing_details.address.postal_code,
+                    stripe_pid=pid,
+                )
+                holiday = Package.objects.get(id=current_booking['holiday_id'])
+                package_booking = PackageBooking(
+                            booking=booking,
+                            package=holiday,
+                            guests=int(current_booking['guests']),
+                            departure_date=datetime.datetime.strptime(current_booking['departure_date'], "%d/%m/%Y").date(),
+                            duration=holiday.duration,
+                            total=booking_details(self.request)['subtotal']
+                        )
+                package_booking.save()
+
+            except Exception as e:
+                if order:
+                    order.delete()
+                return HttpResponse(
+                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                    status=500)
+
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)

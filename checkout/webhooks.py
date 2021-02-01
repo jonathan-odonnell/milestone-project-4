@@ -16,7 +16,7 @@ def webhook(request):
     event = None
 
     try:
-        event = stripe.Event.construct_from(
+        event = stripe.Webhook.construct_event(
             payload, sig_header, wh_secret
         )
     except ValueError as e:
