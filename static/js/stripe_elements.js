@@ -19,6 +19,9 @@ var style = {
         iconColor: '#dc3545'
     }
 };
+
+var cvc
+
 var card = elements.create('card', { style: style });
 card.mount('#card-element');
 
@@ -71,8 +74,15 @@ card.addEventListener('change', function (event) {
 $('#id-saved-cards').find('input[type=checkbox]').change(function () {
     $('#id-saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
     $('#address').find('input,select').attr('required', false)
-    $('#id-save-info').prop('checked', false)
-    $('#id-save-card').prop('checked', false)
+    if ($(this).is(':checked')) {
+        card.destroy()
+        cvc = elements.create('cardCvc', { style: style });
+        cvc.mount('#cvc-element');
+    } else {
+        cvc.destroy()
+        card = elements.create('card', { style: style });
+        card.mount('#card-element');
+    }
 })
 
 $('#id-default-address').change(function () {
@@ -127,6 +137,11 @@ form.addEventListener('submit', function (ev) {
         } else if (savedCard) {
             paymentDetails = {
                 payment_method: savedCard,
+                payment_method_options: {
+                    card: {
+                      cvc: cvc,
+                    }
+                  },
             }
         } else {
             paymentDetails = {
