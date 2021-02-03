@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from .models import Booking, PackageBooking
 from holidays.models import Package
+from profiles.models import UserProfile
+from profiles.forms import UserProfileForm
 from booking.contexts import booking_details
 import time
 import datetime
@@ -28,6 +30,9 @@ class StripeWH_Handler:
         pid = intent.id
         current_booking = intent.metadata.booking
         save_info = intent.metadata.save_info
+        save_card = intent.metadata.save_card
+        username = intent.metadata.username
+        profile = None
 
         billing_details = intent.charges.data[0].billing_details
         total = round(intent.charges.data[0].amount / 100, 2)
@@ -66,7 +71,7 @@ class StripeWH_Handler:
                 status=200)
 
         else:
-            order = None
+            booking = None
             try:
                 booking = Booking.objects.create(
                     full_name=billing_details.name,
@@ -91,9 +96,28 @@ class StripeWH_Handler:
                         )
                 package_booking.save()
 
+                if username:
+                    booking.user_profile = profile
+                    booking.save()
+
+                    if save_info:
+                        profile_data = {
+                            'default_phone_number': booking.phone_number,
+                            'default_street_address1': booking.street_address1,
+                            'default_street_address2': booking.street_address2,
+                            'default_town_or_city': booking.town_or_city,
+                            'default_county': booking.county,
+                            'default_country': booking.country,
+                            'default_postcode': booking.postcode,
+                        }
+                        user_profile_form = UserProfileForm(profile_data, instance=profile)
+
+                        if user_profile_form.is_valid():
+                            user_profile_form.save()
+
             except Exception as e:
-                if order:
-                    order.delete()
+                if booking:
+                    booking.delete()
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)

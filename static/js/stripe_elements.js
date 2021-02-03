@@ -68,6 +68,24 @@ card.addEventListener('change', function (event) {
     }
 });
 
+$('#id-saved-cards').find('input[type=checkbox]').change(function () {
+    $('#id-saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
+    $('#address').find('input,select').attr('required', false)
+    $('#id-save-info').prop('checked', false)
+    $('#id-save-card').prop('checked', false)
+})
+
+$('#id-default-address').change(function () {
+    $('#address').find('input,select').attr('required', false)
+})
+
+$('#id-save-info').change(function() {
+    if ($(this).prop('checked', false)) {
+        $('id-save-card').prop('checked', false)
+        $('id-save-card').parent().hide()
+    }
+})
+
 // Handle form submit
 var form = document.getElementById('payment-form');
 
@@ -76,51 +94,95 @@ form.addEventListener('submit', function (ev) {
     card.update({ 'disabled': true });
     $('#submit-button').attr('disabled', true);
     loading(true)
-    var saveInfo = Boolean($('#id-save-info').attr('checked'));
-    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
-    var postData = {
-        'csrfmiddlewaretoken': csrfToken,
-        'client_secret': clientSecret,
-        'save_info': saveInfo,
-    };
-    var url = '/checkout/cache_checkout_data/';
+    var saveInfo = $('#id-save-info').is(':checked');
+    var saveCard = $('#id-save-card').is(':checked');
+    var defaultAddress = $('#id-default-address').is(':checked');
+    var savedCard = $('#id-saved-cards').find('input:checked').attr('id');
+    var paymentDetails
+    var profile
 
-    $.post(url, postData).done(function () {
-        stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
-                    name: $.trim(form.full_name.value),
-                    phone: $.trim(form.phone_number.value),
-                    email: $.trim(form.email.value),
-                    address: {
-                        line1: $.trim(form.street_address1.value),
-                        line2: $.trim(form.street_address2.value),
-                        city: $.trim(form.town_or_city.value),
-                        state: $.trim(form.county.value),
-                        country: $.trim(form.country.value),
-                        postal_code: $.trim(form.postcode.value)
+    $.get('/checkout/get_profile/').done(function (data) {
+        profile = data.profile
+    }).then(function () {
+        if (defaultAddress) {
+            paymentDetails = {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: profile.name,
+                        phone: profile.phone_number,
+                        email: profile.email,
+                        address: {
+                            line1: profile.street_address1,
+                            line2: profile.street_address2,
+                            city: profile.town_or_city,
+                            state: profile.county,
+                            country: profile.country,
+                            postal_code: profile.postcode,
+                        }
                     }
-                }
+                },
+                setup_future_usage: saveCard ? "off_session" : ""
             }
-        }).then(function (result) {
-            if (result.error) {
-                loading(false)
-                var errorDiv = document.getElementById('card-errors');
-                var html = `
+        } else if (savedCard) {
+            paymentDetails = {
+                payment_method: savedCard,
+            }
+        } else {
+            paymentDetails = {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: billingDetails(form.full_name.value),
+                        phone: billingDetails(form.phone_number.value),
+                        email: billingDetails(form.email.value),
+                        address: {
+                            line1: billingDetails(form.street_address1.value),
+                            line2: billingDetails(form.street_address2.value),
+                            city: billingDetails(form.town_or_city.value),
+                            state: billingDetails(form.county.value),
+                            country: billingDetails(form.country.value),
+                            postal_code: billingDetails(form.postcode.value),
+                        }
+                    }
+                },
+                setup_future_usage: saveCard ? "off_session" : ""
+            }
+        }
+    }).then(function () {
+        var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+        var postData = {
+            'csrfmiddlewaretoken': csrfToken,
+            'client_secret': clientSecret,
+            'save_info': saveInfo,
+            'save_card': saveCard,
+        };
+        var url = '/checkout/cache_checkout_data/';
+
+        $.post(url, postData).done(function () {
+            stripe.confirmCardPayment(clientSecret, paymentDetails
+            ).then(function (result) {
+                if (result.error) {
+                    loading(false)
+                    var errorDiv = document.getElementById('card-errors');
+                    var html = `
                     <span class="icon" role="alert">
                     <i class="fas fa-times"></i>
                     </span>
                     <span>${result.error.message}</span>`;
-                $(errorDiv).html(html);
-                card.update({ 'disabled': false });
-                $('#submit-button').attr('disabled', false);
-            } else {
-                if (result.paymentIntent.status === 'succeeded') {
-                    loading(false)
-                    form.submit();
+                    $(errorDiv).html(html);
+                    card.update({ 'disabled': false });
+                    $('#submit-button').attr('disabled', false);
+                    $('#id_street_address1').change(function () {
+                        $('address').find('input,select').attr('required', true)
+                    })
+                } else {
+                    if (result.paymentIntent.status === 'succeeded') {
+                        loading(false)
+                        form.submit();
+                    }
                 }
-            }
+            })
         })
     })
 });
@@ -171,3 +233,11 @@ paymentRequest.on('paymentmethod', function (ev) {
         }
     });
 });
+
+function billingDetails(item) {
+    if (typeof (item) === undefined) {
+        return ""
+    } else {
+        return $.trim(item)
+    }
+}
