@@ -9,5 +9,6 @@ urlpatterns = [
     path('cache_checkout_data/', views.cache_checkout_data,
          name='cache_checkout_data'),
     path('wh/', webhook, name='webhook'),
-    path('get_profile/', views.get_profile, name='get_profile')
+    path('get_profile/', views.get_profile, name='get_profile'),
+    path('create-paypal-transaction/', views.create_paypal_transaction, name='create_paypal_transaction'),
 ]

@@ -8,6 +8,8 @@ from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 from booking.contexts import booking_details
 from django.conf import settings
+from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
+from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest
 import stripe
 import datetime
 import json
@@ -184,6 +186,8 @@ def checkout(request):
         'stripe_total': stripe_total,
         'profile': profile,
         'cards': cards,
+        'paypal_client_id': settings.PAYPAL_CLIENT_ID,
+        'paypal_currency': settings.PAYPAL_CURRENCY,
     }
     return render(request, 'checkout/checkout.html', context)
 
@@ -215,3 +219,30 @@ def get_profile(request):
     else:
         profile = None
     return JsonResponse({'profile': profile})
+
+
+def create_paypal_transaction(request):
+    client_id = settings.PAYPAL_CLIENT_ID
+    client_secret = settings.PAYPAL_CLIENT_SECRET
+    booking = booking_details(request)
+    total = booking['total']
+    currency = settings.PAYPAL_CURRENCY
+    environment = SandboxEnvironment(
+        client_id=client_id, client_secret=client_secret)
+    client = PayPalHttpClient(environment)
+    create_transaction = OrdersCreateRequest()
+    create_transaction.headers['prefer'] = 'return=representation'
+    create_transaction.request_body(
+        {"intent": "CAPTURE",
+         "application_context": {
+             "brand_name": "Travel Store",
+             "shipping_preference": "NO_SHIPPING"
+         },
+            "purchase_units":
+            [{"amount": {
+             "currency_code": currency,
+             "value": str(total),
+             }}]})
+    response = client.execute(create_transaction)
+    data = response.result.__dict__['_dict']
+    return JsonResponse(data)
