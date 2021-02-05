@@ -87,13 +87,14 @@ class StripeWH_Handler:
                 )
                 holiday = Package.objects.get(id=current_booking['holiday_id'])
                 package_booking = PackageBooking(
-                            booking=booking,
-                            package=holiday,
-                            guests=int(current_booking['guests']),
-                            departure_date=datetime.datetime.strptime(current_booking['departure_date'], "%d/%m/%Y").date(),
-                            duration=holiday.duration,
-                            total=booking_details(self.request)['subtotal']
-                        )
+                    booking=booking,
+                    package=holiday,
+                    guests=int(current_booking['guests']),
+                    departure_date=datetime.datetime.strptime(
+                        current_booking['departure_date'], "%d/%m/%Y").date(),
+                    duration=holiday.duration,
+                    total=booking_details(self.request)['subtotal']
+                )
                 package_booking.save()
 
                 if username:
@@ -110,7 +111,8 @@ class StripeWH_Handler:
                             'default_country': booking.country,
                             'default_postcode': booking.postcode,
                         }
-                        user_profile_form = UserProfileForm(profile_data, instance=profile)
+                        user_profile_form = UserProfileForm(
+                            profile_data, instance=profile)
 
                         if user_profile_form.is_valid():
                             user_profile_form.save()
@@ -132,4 +134,26 @@ class StripeWH_Handler:
         """
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
+            status=200)
+
+
+class PaypalWH_Handler:
+
+    def __init__(self, request):
+        self.request = request
+
+    def handle_event(self, event):
+        """
+        Handles a generic/unexpected/unknown webhook event
+        """
+        return HttpResponse(
+            content=f'Webhook received: {event["event_type"]}',
+            status=200)
+
+    def handle_payment_capture_completed(self, event):
+        """
+        Handles the PAYMENT.CAPTURE.COMPLETED webhook event from Paypal
+        """
+        return HttpResponse(
+            content=f'Webhook received: {event["event_type"]}',
             status=200)

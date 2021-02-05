@@ -31,9 +31,9 @@ paypal.Buttons({
             let form = $('#payment-form').serializeArray()
             let formData = {}
             for (i in form) {
-                form_data[form.i.name] = form_data[form.i.value]
+                formData[form.i.name] = formData[form.i.value]
             }
-            form_data['paypal_payment_id'] = details.id
+            formData['paypal_payment_id'] = details.id
             $.post('/checkout', formData)
         });
     }

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .webhooks import webhook
+from .webhooks import stripe_webhook, paypal_webhook
 
 urlpatterns = [
     path('', views.checkout, name='checkout'),
@@ -8,7 +8,8 @@ urlpatterns = [
          views.checkout_success, name='checkout_success'),
     path('cache_checkout_data/', views.cache_checkout_data,
          name='cache_checkout_data'),
-    path('wh/', webhook, name='webhook'),
     path('get_profile/', views.get_profile, name='get_profile'),
     path('create-paypal-transaction/', views.create_paypal_transaction, name='create_paypal_transaction'),
+    path('stripe-wh/', stripe_webhook, name='webhook'),
+    path('paypal-wh/', paypal_webhook, name='paypal_webhook'),
 ]
