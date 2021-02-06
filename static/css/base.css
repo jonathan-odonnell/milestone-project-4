@@ -31,6 +31,14 @@ section {
     background-color: #006994 !important;
 }
 
+.btn-secondary {
+    background-color: #d13574;
+}
+
+.btn-secondary:hover {
+    background-color: #d13574;
+}
+
 .btn-outline-primary {
     color: #006994 !important;
     border-color: #006994 !important;
@@ -285,6 +293,10 @@ input[type=number] {
     text-align: center;
     color: #fafafa;
     background: #006994;
+}
+
+label .asteriskField {
+    display: none;
 }
 
 footer a {

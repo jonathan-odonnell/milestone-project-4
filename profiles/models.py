@@ -45,18 +45,3 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(
             user=instance, stripe_customer_id=customer.id)
     instance.userprofile.save()
-
-    if not created and UserProfile.stripe_customer_id:
-        stripe.Customer.modify(
-            UserProfile.stripe_customer_id,
-            name=UserProfile.user.get_full_name(),
-            email=UserProfile.user.email,
-            address={
-                'line1': UserProfile.street_address1,
-                'line2': UserProfile.street_address2,
-                'city': UserProfile.town_or_city,
-                'state': UserProfile.county,
-                'country': UserProfile.country,
-                'postal_code': UserProfile.postcode,
-            }
-        )
