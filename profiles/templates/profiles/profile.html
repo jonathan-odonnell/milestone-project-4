@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2 class="my-4 section-heading text-center">My Profile</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-8 mb-4 mx-auto">
+            <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                {% csrf_token %}
+                {{ form.email_address | as_crispy_field }}
+                {{ form.phone_number | as_crispy_field }}
+                {{ form.street_address1 | as_crispy_field }}
+                {{ form.street_address2 | as_crispy_field }}
+                {{ form.town_or_city | as_crispy_field }}
+                {{ form.county | as_crispy_field }}
+                {{ form.country | as_crispy_field }}
+                {{ form.postcode | as_crispy_field }}
+                <div class="text-center">
+                    <button class="btn btn-secondary shadow-none text-uppercase">Update Information</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block postloadjs %}
+<script>
+    $('#div_id_postcode .mb-3').addClass('mb-4').removeClass('mb-3')
+</script>
+{% endblock %}
