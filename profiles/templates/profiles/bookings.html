@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2 class="my-4 section-heading text-center">Bookings</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-10 mb-4 mx-auto">
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Booking Number</th>
+                            <th>Departure Date</th>
+                            <th>Holiday</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'booking_details' booking.booking_number %}"
+                                    title="{{ booking.booking_number }}">
+                                    {{ booking.booking_number|truncatechars:9 }}
+                                </a>
+                            </td>
+                            <td>{{ booking.package_booking.departure_date|date:"j M Y" }}</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    <li class="small text-black">
+                                        {{booking.package_booking.duration}} days in {{ booking.package_booking.package.name }}
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>£{{ booking.total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

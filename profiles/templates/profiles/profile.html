@@ -2,14 +2,14 @@
 {% load static %}
 {% block content %}
 
-<div class="container">
+<div class="container p-4">
     <div class="row">
         <div class="col">
-            <h2 class="my-4 section-heading text-center">My Profile</h2>
+            <h2 class="mb-4 section-heading text-center">My Profile</h2>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-8 mb-4 mx-auto">
+        <div class="col-12 col-lg-8 mx-auto">
             <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
                 {{ form.email_address | as_crispy_field }}
@@ -20,9 +20,7 @@
                 {{ form.county | as_crispy_field }}
                 {{ form.country | as_crispy_field }}
                 {{ form.postcode | as_crispy_field }}
-                <div class="text-center">
-                    <button class="btn btn-secondary shadow-none text-uppercase">Update Information</button>
-                </div>
+                <button class="btn btn-primary shadow-none mb-3">Update Information</button>
             </form>
         </div>
     </div>

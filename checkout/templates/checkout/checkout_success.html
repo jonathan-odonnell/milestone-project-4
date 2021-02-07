@@ -17,11 +17,13 @@
     <div class="row no-gutters">
         <div class="col-12 col-lg-6">
         </div>
+        {% if not from_booking %}
         <div class="col-12 col-lg-6 mt-4 mb-3 mt-lg-0">
             <h2 class="logo-font mb-4">Thank You</h2>
                 <hr>
                 <p class="text-black">Your booking information is below. A confirmation email will be sent to <strong>{{ booking.email }}</strong>.</p>
         </div>
+        {% endif %}
     </div>
 </div>
 
