@@ -73,7 +73,8 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-options-mobile">
                 {% if request.user.is_authenticated %}
                 <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Manage Holidays</a></li>
+                <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
+                <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
                 <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
                 {% else %}
                 <li><a class="dropdown-item" href="{% url 'account_signup' %}">Register</a></li>
@@ -126,7 +127,8 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Manage Holidays</a></li>
+                            <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
                             {% else %}
                             <li><a class="dropdown-item" href="{% url 'account_signup' %}">Register</a></li>
