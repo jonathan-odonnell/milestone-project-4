@@ -1,4 +1,5 @@
 from django.db import models
+from extras.models import Extra
 from django_extensions.db.fields import AutoSlugField
 
 def slugify(content):
@@ -113,6 +114,7 @@ class Package(models.Model):
     catering = models.CharField(max_length=254)
     features = models.ManyToManyField('Feature')
     activities = models.ManyToManyField('Activity')
+    extras = models.ManyToManyField(Extra, related_name='packages')
     outbound_flight = models.ForeignKey(
         'Flight', null=True, blank=True, on_delete=models.SET_NULL, related_name='outbound_flight')
     return_flight = models.ForeignKey(
