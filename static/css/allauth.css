@@ -1,0 +1,50 @@
+/* Code is from https://bbbootstrap.com/snippets/login-form-footer-and-social-media-icons-55203607 */
+.line {
+    height: 1px;
+    width: 45%;
+    background-color: #E0E0E0;
+    margin-top: 10px;
+}
+
+.or {
+    width: 10%;
+    font-weight: bold
+}
+
+.facebook i {
+    background-color: #3b5998;
+    color: #fff;
+    line-height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+}
+
+.google i {
+    background-color: #DB4437;
+    color: #fff;
+    line-height: 35px;
+    border-radius: 50%;
+    font-size: 18px;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+}
+
+.account label {
+    margin-bottom: 0.5rem;
+}
+
+.account input {
+    margin-bottom: 1rem;
+}
+
+#div_id_remember {
+    margin-left: 0.5rem;
+}
