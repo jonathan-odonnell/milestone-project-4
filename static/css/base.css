@@ -23,6 +23,10 @@ section {
     background-color: #006994 !important;
 }
 
+.bg-secondary {
+    background-color: #d13574 !important;
+}
+
 .bg-danger {
     background-color: #d13574 !important;
 }

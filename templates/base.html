@@ -128,16 +128,21 @@
                             {% if request.user.is_authenticated %}
                             <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
-                            <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a>
+                            </li>
                             <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
                             {% else %}
                             <li><a class="dropdown-item" href="{% url 'account_signup' %}">Register</a></li>
                             <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign In</a></li>
                             {% endif %}
                         </ul>
-
             </div>
         </nav>
+        <div class="row g-0 text-center">
+			<div class="col bg-secondary text-white">
+				<h5 class="my-1">Save £{{ offer_amount }} on all bookings with promo code {{ promo_code }}!</h5>
+			</div>
+		</div>
         <!-- Navbar -->
     </header>
 

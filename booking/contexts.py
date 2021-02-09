@@ -36,6 +36,8 @@ def booking_details(request):
         total = Decimal(subtotal + extras - discount)
 
     context = {
+        'offer_amount': settings.OFFER_AMOUNT,
+        'promo_code': settings.PROMO_CODE,
         'booking': current_booking,
         'holiday': holiday,
         'flights': flights,
