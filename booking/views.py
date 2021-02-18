@@ -50,11 +50,19 @@ def update_guests(request):
     guests = int(request.POST.get('guests'))
     booking['guests'] = guests
     request.session['booking'] = booking
-    subtotal = booking_details(request)['subtotal']
-    total = booking_details(request)['total']
+
+    for key, value in booking['extras'].items():
+        if value > guests:
+            booking[key] = guests
+
+    booking_totals = booking_details(request)
+    extras = booking_totals['extras']
+    subtotal = booking_totals['subtotal']
+    total = booking_totals['total']
 
     response = {
         'success': True,
+        'extras': extras,
         'subtotal': subtotal,
         'total': total,
     }
@@ -125,18 +133,18 @@ def remove_extra(request, extra_id):
 
 @require_POST
 def add_coupon(request):
+    coupon_name = request.POST.get('coupon')
     try:
         current_date = datetime.datetime.now()
-        coupon_name = request.POST.get('coupon')
-        coupon = get_object_or_404(
-            Coupon, name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
+        coupon = Coupon.objects.get(name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
         booking = request.session.get('booking')
         booking['coupon_id'] = coupon.pk
         booking['coupon'] = coupon_name
         request.session['booking'] = booking
-        discount = booking_details(request)['discount']
-        subtotal = booking_details(request)['subtotal']
-        total = booking_details(request)['total']
+        booking_totals = booking_details(request)
+        discount = booking_totals['discount']
+        subtotal = booking_totals['subtotal']
+        total = booking_totals['total']
 
         response = {
             'success': True,
@@ -148,5 +156,5 @@ def add_coupon(request):
 
         return JsonResponse(response)
 
-    except ObjectDoesNotExist:
-        return JsonResponse({'success': False})
+    except Coupon.DoesNotExist:
+        return JsonResponse({'success': False, 'coupon': coupon_name})
