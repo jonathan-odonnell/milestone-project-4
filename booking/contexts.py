@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from .models import Coupon
 from holidays.models import Package, Price, Flight
+from extras.models import Extra
 import datetime
 from decimal import Decimal
 
@@ -23,14 +25,20 @@ def booking_details(request):
             current_booking[key] = value
 
         holiday = get_object_or_404(Package, pk=current_booking['holiday_id'], price__start_date__lte=current_date, price__end_date__gte=current_date)
-        current_booking['departure_date'] = datetime.datetime.strptime(current_booking['departure_date'], "%d/%m/%Y").date()
-        current_booking['return_date'] = current_booking['departure_date'] + datetime.timedelta(days=int(holiday.duration))
-        flights.append(Flight.objects.all().filter(outbound_flight__pk=current_booking['holiday_id'], origin=current_booking['departure_airport']))
-        flights.append(Flight.objects.all().filter(inbound_flight__pk=current_booking['holiday_id'], destination=current_booking['departure_airport']))
+        current_booking['departure_date'] = datetime.datetime.strptime(current_booking['departure_date'], "%Y-%m-%d").date()
+        current_booking['return_date'] = datetime.datetime.strptime(current_booking['return_date'], "%Y-%m-%d").date()
+        flights.append(get_object_or_404(Flight, pk=current_booking['outbound_flight']))
+        flights.append(get_object_or_404(Flight, pk=current_booking['return_flight']))
 
-        if booking.get('discount'):
-            coupon = booking.get('coupon')
-            discount = Decimal(booking.get('discount'))
+        if booking.get('extras'):
+            for extra_key, extra_value in booking['extras'].items():
+                extra = get_object_or_404(Extra, pk=extra_key)
+                extras += Decimal(extra.price * extra_value)
+
+        if booking.get('coupon'):
+            coupon = booking.get('coupon');
+            discount = get_object_or_404(Coupon, name__iexact=booking['coupon'])
+            discount = discount.amount
 
         subtotal = Decimal(holiday.price_set.all()[0].price * booking['guests'])
         total = Decimal(subtotal + extras - discount)
@@ -41,6 +49,7 @@ def booking_details(request):
         'booking': current_booking,
         'holiday': holiday,
         'flights': flights,
+        'extras': extras,
         'coupon': coupon,
         'discount': discount,
         'subtotal': subtotal,

@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist
-from holidays.models import Package
+from holidays.models import Package, Flight
+from extras.models import Extra
 from .models import Coupon
 from .contexts import booking_details
 import datetime
@@ -15,12 +16,29 @@ def booking(request):
 
 @require_POST
 def add_booking(request, holiday_id):
+    date = datetime.datetime.now()
+    holiday = get_object_or_404(
+        Package, pk=holiday_id, price__start_date__lte=date, price__end_date__gte=date)
+    departure_date = datetime.datetime.strptime(
+        request.POST.get('departure_date'), "%d/%m/%Y").date()
+    return_date = departure_date + \
+        datetime.timedelta(days=int(holiday.duration))
+    outbound_flight = get_object_or_404(
+        Flight, outbound_flight__name=holiday.name, origin=request.POST.get('departure_airport'))
+    return_flight = get_object_or_404(
+        Flight, inbound_flight__name=holiday.name, destination=request.POST.get('departure_airport'))
+
     guests = int(request.POST.get('guests'))
     booking = request.session.get('booking', {})
     booking['holiday_id'] = holiday_id
+    booking['price'] = str(holiday.price_set.all()[0].price)
     booking['guests'] = guests
     booking['departure_airport'] = request.POST.get('departure_airport')
-    booking['departure_date'] = request.POST.get('departure_date')
+    booking['departure_date'] = str(departure_date)
+    booking['return_date'] = str(return_date)
+    booking['outbound_flight'] = outbound_flight.pk
+    booking['return_flight'] = return_flight.pk
+
     request.session['booking'] = booking
 
     return redirect(reverse('booking'))
@@ -30,23 +48,77 @@ def add_booking(request, holiday_id):
 def update_guests(request):
     booking = request.session.get('booking')
     guests = int(request.POST.get('guests'))
-    date = datetime.datetime.now()
-    holiday = Package.objects.get(
-        pk=booking['holiday_id'], price__start_date__lte=date, price__end_date__gte=date)
     booking['guests'] = guests
     request.session['booking'] = booking
-    discount = Decimal(booking['discount'])
-    coupon = booking['coupon']
-    subtotal = Decimal(holiday.price_set.all()[0].price * booking['guests'])
-    total = Decimal(subtotal - discount)
+    subtotal = booking_details(request)['subtotal']
+    total = booking_details(request)['total']
 
     response = {
-            'success': True,
-            'subtotal': subtotal,
-            'total': total,
-            'discount': discount,
-            'coupon': coupon
-        }
+        'success': True,
+        'subtotal': subtotal,
+        'total': total,
+    }
+
+    return JsonResponse(response)
+
+
+@require_POST
+def add_extra(request, extra_id):
+    booking = request.session.get('booking')
+    booking['extras'] = booking.get('extras', {})
+    booking['extras'][extra_id] = booking['guests']
+    request.session['booking'] = booking
+    booking_totals = booking_details(request)
+    extras = booking_totals['extras']
+    subtotal = booking_totals['subtotal']
+    total = booking_totals['total']
+    
+    response = {
+        'success': True,
+        'extras': extras,
+        'subtotal': subtotal,
+        'total': total,
+    }
+
+    return JsonResponse(response)
+
+
+@require_POST
+def update_extra(request, extra_id):
+    booking = request.session.get('booking')
+    quantity = int(request.POST['quantity'])
+    booking['extras'][extra_id] = quantity
+    request.session['booking'] = booking
+    booking_totals = booking_details(request)
+    extras = booking_totals['extras']
+    subtotal = booking_totals['subtotal']
+    total = booking_totals['total']
+    
+    response = {
+        'success': True,
+        'extras': extras,
+        'subtotal': subtotal,
+        'total': total,
+    }
+    return JsonResponse(response)
+
+
+@require_POST
+def remove_extra(request, extra_id):
+    booking = request.session.get('booking')
+    del booking['extras'][extra_id]
+    request.session['booking'] = booking
+    booking_totals = booking_details(request)
+    extras = booking_totals['extras']
+    subtotal = booking_totals['subtotal']
+    total = booking_totals['total']
+    
+    response = {
+        'success': True,
+        'extras': extras,
+        'subtotal': subtotal,
+        'total': total,
+    }
 
     return JsonResponse(response)
 
@@ -54,27 +126,24 @@ def update_guests(request):
 @require_POST
 def add_coupon(request):
     try:
+        current_date = datetime.datetime.now()
         coupon_name = request.POST.get('coupon')
-        date = datetime.datetime.now()
-        discount = Coupon.objects.get(name__iexact=coupon_name, start_date__lte=date, end_date__gte=date)
+        coupon = get_object_or_404(
+            Coupon, name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
         booking = request.session.get('booking')
-        holiday = Package.objects.get(
-            pk=booking['holiday_id'],
-            price__start_date__lte=date,
-            price__end_date__gte=date)
+        booking['coupon_id'] = coupon.pk
         booking['coupon'] = coupon_name
-        booking['discount'] = str(discount.amount)
         request.session['booking'] = booking
-        subtotal = Decimal(holiday.price_set.all()[
-                           0].price * booking['guests'])
-        total = Decimal(subtotal - discount.amount)
+        discount = booking_details(request)['discount']
+        subtotal = booking_details(request)['subtotal']
+        total = booking_details(request)['total']
 
         response = {
             'success': True,
             'subtotal': subtotal,
             'total': total,
-            'discount': discount.amount,
-            'coupon': coupon_name
+            'coupon': coupon_name,
+            'discount': discount
         }
 
         return JsonResponse(response)
