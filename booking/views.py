@@ -49,14 +49,14 @@ def update_guests(request):
     booking = request.session.get('booking')
     guests = int(request.POST.get('guests'))
     booking['guests'] = guests
-    request.session['booking'] = booking
 
     for key, value in booking['extras'].items():
         if value > guests:
-            booking[key] = guests
+            booking['extras'][key] = guests
 
+    request.session['booking'] = booking
     booking_totals = booking_details(request)
-    extras = booking_totals['extras']
+    extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
     total = booking_totals['total']
 
@@ -77,7 +77,7 @@ def add_extra(request, extra_id):
     booking['extras'][extra_id] = booking['guests']
     request.session['booking'] = booking
     booking_totals = booking_details(request)
-    extras = booking_totals['extras']
+    extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
     total = booking_totals['total']
     
@@ -98,7 +98,7 @@ def update_extra(request, extra_id):
     booking['extras'][extra_id] = quantity
     request.session['booking'] = booking
     booking_totals = booking_details(request)
-    extras = booking_totals['extras']
+    extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
     total = booking_totals['total']
     
@@ -117,7 +117,7 @@ def remove_extra(request, extra_id):
     del booking['extras'][extra_id]
     request.session['booking'] = booking
     booking_totals = booking_details(request)
-    extras = booking_totals['extras']
+    extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
     total = booking_totals['total']
     
