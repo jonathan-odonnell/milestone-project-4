@@ -67,6 +67,11 @@ section {
     color: #d13574;
 }
 
+.section-subheading {
+    font-weight: bold;
+    color: #70c8df;
+}
+
 .booking-form {
     font-size: 1.5rem;
 }
@@ -262,7 +267,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-#plus, #plus-sm, #minus, #minus-sm {
+.plus, .minus {
     background-color: #c8c8c8;
 }
 
@@ -270,15 +275,26 @@ input[type=number] {
     font-weight: bold;
 }
 
+.table .no-border {
+    border: 1px solid Transparent!important;
+}
+
 .input-group .form-control {
     height: auto;
     min-height: auto;
 }
-.input-group .form-control-guests {
-    height: 1.75rem;
-    min-height: 1.75rem;
+.input-group .form-control-guests, 
+.input-group .form-control-quantity {
+    height: 35px;
+    min-height: 35px;
     flex: none;
     min-width: 35px;
+}
+
+.btn-group-vertical {
+    border: 1px solid #bdbdbd;
+    height: 35px;
+    min-height: 35px;
 }
 
 .input-group .invalid-feedback {
