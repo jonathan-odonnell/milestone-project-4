@@ -18,46 +18,75 @@ $(document).ready(function generateStars() {
     })
 })
 
-$('#plus,#plus-sm').click(function () {
-    let currentValue = parseInt($(this).prev().val())
-    if (currentValue < 10) {
-        $(this).prev().val(currentValue + 1);
+let maxValue = 10
+let initialGuests = $('input[name="guests"]').val()
+let initialQuantity = $('input[name="quantity"]').val()
+let action
+
+// Manual change trigger code is from https://stackoverflow.com/questions/53894042/change-not-triggered-if-change-the-value-by-js
+
+$('.plus').click(function () {
+    let currentValue = parseInt($(this).parent().prev().val())
+    let maxValue = 10
+    action = 'increase'
+    if ($(this).closest('form').hasClass('quantity-form')) {
+        maxValue = $('.guests-form').find("input[name='guests']").val()
+    }
+    if (currentValue < maxValue) {
+        $(this).parent().prev().val(currentValue + 1).trigger('change');
     }
 });
 
-$('#minus,#minus-sm').click(function () {
-    let currentValue = parseInt($(this).next().val())
+$('.minus').click(function () {
+    let currentValue = parseInt($(this).parent().prev().val())
     if (currentValue > 1) {
-        $(this).next().val(currentValue - 1);
+        action = 'decrease'
+        $(this).parent().prev().val(currentValue - 1).trigger('change');
     }
 });
 
-$('.guests-form').submit(function (e) {
-    e.preventDefault()
-    let guests = $(this).find("input[name='guests']").val()
-    let csrfToken = $(this).find('input[name="csrfmiddlewaretoken"]').val();
+$('input[name="guests"]').on('change', function () {
+    let guests = parseInt($(this).val())
+    maxValue = 10
+    let csrfToken = $('.guests-form').find('input[name="csrfmiddlewaretoken"]').val();
     let postData = {
         'guests': guests,
         'csrfmiddlewaretoken': csrfToken,
     }
-    $.post('/booking/update_guests/', postData).done(function (data) {
-        let subtotal = $('#subtotal')
-        if (subtotal) {
-            $(this).children().last().text('£' + data.subtotal)
-        }
-        $('#total').children().last().text('£' + data.total)
-    })
+    if (guests <= maxValue && guests >= 1) {
+        initialGuests = guests
+        $.post('/booking/update_guests/', postData).done(function (data) {
+            if ($('#subtotal').length) {
+                $('#subtotal').children().last().text('£' + data.subtotal)
+                $('#extras').children().last().text('£' + data.extras)
+            }
+            $('#total').children().last().text('£' + data.total)
+            if (action === 'decrease') {
+                $('input[name="quantity"]').val(guests)
+            }
+        })
+    } else {
+        $(this).val(initialGuests)
+    }
 })
 
-let prevValue = $("input[name='guests']").val()
-
-$("input[name='guests']").change(function () {
-    let input = parseInt($(this).val())
-    if (input <= 10 && input >= 1) {
-        prevValue = input
-        $(this).closest('.guests-form').submit()
+$('input[name="quantity"]').on('change', function () {
+    let quantity = parseInt($(this).val())
+    maxValue = $('.guests-form').find("input[name='guests']").val()
+    let id = $(this).data('extra')
+    let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
+    let postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'quantity': quantity
+    }
+    if (quantity <= maxValue && quantity >= 1) {
+        initialQuantity = quantity
+        $.post(`/booking/update_extra/${id}/`, postData).done(function (data) {
+            $('#total strong').text(`£${data.total}`)
+            $('#extras span').last().text(`£${data.extras}`)
+        })
     } else {
-        $(this).val(prevValue)
+        $(this).val(initialQuantity)
     }
 })
 
@@ -73,7 +102,7 @@ $('.coupon-form').submit(function (e) {
         if (data.success) {
             let subtotal = $('#subtotal')
             let discount = $('#discount')
-            if (discount.length > 0) {
+            if (discount.length) {
                 discount.find('small').text(`${data.coupon}`)
                 discount.find('span').text(`£${data.discount}`)
 
@@ -82,7 +111,7 @@ $('.coupon-form').submit(function (e) {
                 <div class="text-success"><h6 class="my-0">Promo code</h6><small>${data.coupon}</small>
                 </div><span class="text-success">-£${data.discount}</span></li>`).insertBefore('#total')
             }
-            if (subtotal.length > 0) {
+            if (subtotal.length) {
                 subtotal.children().last().text(`£${data.subtotal}`)
             } else {
                 $(`<li id="subtotal" class="list-group-item d-flex justify-content-between">
@@ -91,15 +120,61 @@ $('.coupon-form').submit(function (e) {
             }
             $('#total').children().last().text('£' + data.total)
             $('.coupon-form').find('input').removeClass('is-invalid')
-
+            $('.coupon-form').find('.w-100').remove()
         } else {
-            let invalidFeedback = $('.invalid-feedback')
-            if (invalidFeedback.length > 0) {
-                invalidFeedback.text(`Promo code ${coupon} is not valid. Please try again.`)
+            if ($('.invalid-feedback').length) {
+                ('.invalid-feedback').text(`Promo code ${data.coupon} is not valid. Please try again.`)
             } else {
-                $('.coupon-form .input-group').append(`<div class="invalid-feedback mt-2">Promo code ${coupon} is not valid. Please try again.</div>`)
+                $('.coupon-form .input-group').append(`<div class="w-100"><div class="invalid-feedback d-block mt-2">Promo code ${data.coupon} is not valid. Please try again.</div></div>`)
             }
             $('.coupon-form').find("input[name='coupon']").addClass('is-invalid')
         }
     })
+})
+
+$('.add-extra button').click(function () {
+    let id = $(this).data('extra')
+    let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
+    let postData = {
+        'csrfmiddlewaretoken': csrfToken,
+    }
+    if ($(this).children().hasClass('fa-plus')) {
+        $.post(`/booking/add_extra/${id}/`, postData).done(function (data) {
+            $('#total strong').text(`£${data.total}`)
+            if ($('#extras').length) {
+                $('#extras span').last().text(`£${data.extras}`)
+
+            } else if ($('#subtotal').length) {
+                $(`<li id="extras" class="list-group-item d-flex justify-content-between">
+                <span class="my-0">Options and Extras</span>
+                <span>£${data.extras}</span>
+            </li>`).insertAfter('#subtotal')
+            }
+            else {
+                $(`<li id="subtotal" class="list-group-item d-flex justify-content-between">
+                <span class="my-0">Base Price</span><span>£${data.subtotal}</span></li>
+                <li id="extras" class="list-group-item d-flex justify-content-between">
+                <span class="my-0">Options and Extras</span>
+                <span>£${data.extras}</span>
+            </li>`).insertBefore('#transfers')
+            }
+            $('.add-extra .btn').removeClass('btn-outline-primary')
+            $('.add-extra').find('i').addClass('fa-times')
+            $('.add-extra').find('i').removeClass('fa-plus')
+        })
+    } else {
+        $.post(`/booking/remove_extra/${id}/`, postData).done(function (data) {
+            $('#total strong').text(`£${data.total}`)
+            if (data.extras > 0) {
+                $('#extras span').last().text(`£${data.extras}`)
+                $('#subtotal strong').text(`£${data.subtotal}`)
+            } else {
+                $('#extras').remove()
+                $('#subtotal').remove()
+            }
+            $('.add-extra .btn').addClass('btn-outline-primary')
+            $('.add-extra').find('i').addClass('fa-plus')
+            $('.add-extra').find('i').removeClass('fa-times')
+        })
+    }
 })
