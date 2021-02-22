@@ -188,6 +188,7 @@ def checkout(request):
         'cards': cards,
         'paypal_client_id': settings.PAYPAL_CLIENT_ID,
         'paypal_currency': settings.PAYPAL_CURRENCY,
+        'google_api_key': settings.GOOGLE_PLACES_KEY,
     }
     return render(request, 'checkout/checkout.html', context)
 

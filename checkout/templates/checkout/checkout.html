@@ -29,49 +29,25 @@
             </div>
         </div>
         <div class="col-12 col-lg-6 mt-4 mb-3 mt-lg-0">
-            <p class="text-muted ms-3 ps-2">Please fill out the form below to complete your booking</p>
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class=" fieldset-label small text-black px-2 w-auto">Express Payments</legend>
-                    <div class="mb-3" id="paypal"></div>
-                    <div class="mb-3" id="payment-request-button">
-                        <!-- A Stripe Element will be inserted here. -->
-                    </div>
-                </fieldset>
-                <fieldset class="rounded px-3 mb-3" id="id-saved-cards">
-                    <legend class=" fieldset-label small text-black px-2 w-auto">Saved Cards</legend>
-                    {% if cards %}
-                    {% for card in cards.data %}
-                    <div class="form-check ms-2 mb-3">
-                        <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card{{forloop.counter}}">
-                        <label class="form-check-label" for="{{card.id}}">
-                            {{ card.card.brand|capfirst }} card ending {{ card.card.last4 }} (expires
-                            {{card.card.exp_month}}/{{card.card.exp_year}})
-                        </label>
-                    </div>
-                    {% endfor %}
-                    <div class="mb-3" id="cvc-element"></div>
-                </fieldset>
-                {% endif %}
-                {% if not user.is_authenticated %}
-                <fieldset class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Personal Details</legend>
+                    <legend class="fieldset-label small text-black px-2 w-auto">Personal Details </legend>
+                    {% if not user.is_authenticated %}
                     {{ booking_form.full_name | as_crispy_field }}
                     {{ booking_form.email | as_crispy_field }}
                     {{ booking_form.phone_number | as_crispy_field }}
+                    {% endif %}
                 </fieldset>
-                {% endif %}
-                <fieldset class="rounded px-3 mb-3" id="address">
+                <fieldset id="address" class="rounded px-3 mb-3">
                     <legend class="fieldset-label small text-black px-2 w-auto">Billing Address</legend>
+                    {{ booking_form.address | as_crispy_field }}
                     {{ booking_form.street_address1 | as_crispy_field }}
                     {{ booking_form.street_address2 | as_crispy_field }}
                     {{ booking_form.town_or_city | as_crispy_field }}
                     {{ booking_form.county | as_crispy_field }}
                     {{ booking_form.country | as_crispy_field }}
                     {{ booking_form.postcode | as_crispy_field }}
-                </fieldset>
-                <fieldset class="rounded px-3 mb-3">
                     {% if user.is_authenticated %}
                     {% if not profile.street_address1 %}
                     <div class="form-check ms-2 mb-3">
@@ -80,23 +56,34 @@
                         <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save-info"
                             checked>
                     </div>
-                    {% endif %}
-                    <div class="form-check ms-2 mb-3">
-                        <label class="form-check-label" for="id-default-address">Use default address:
-                            {{ profile.get_address|truncatewords:10 }}</label>
-                        <input class="form-check-input" type="checkbox" id="id-default-address" name="default-address">
-                    </div>
                     {% else %}
                     <div class="form-check ms-2 mb-3">
-                        <label class="form-check-label" for="id-save-info">
-                            <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or
-                            <a class="text-info" href="{% url 'account_login' %}">login</a> to save this information
-                        </label>
+                        <label class="form-check-label" for="id-default-address">Use default address:
+                            {{ profile.street_address1 }}</label>
+                        <input class="form-check-input" type="checkbox" id="id-default-address" name="default-address">
                     </div>
                     {% endif %}
+                    {% endif %}
                 </fieldset>
-                <fieldset class="px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                <fieldset class="rounded px-3 mb-3">
+                    <legend class="fieldset-label small text-black px-2 w-auto">Express Payments</legend>
+                    <div class="mb-2" id="paypal"></div>
+                    <div class="mb-3" id="payment-request-button">
+                        <!-- A Stripe Element will be inserted here. -->
+                    </div>
+                </fieldset>
+                {% if cards %}
+                <fieldset class="rounded px-3 mb-3">
+                    <legend class=" fieldset-label small text-black px-2 w-auto">Card Payments</legend>
+                    {% for card in cards.data %}
+                    <div id="id-saved-cards" class="form-check ms-2 mb-3">
+                        <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card{{forloop.counter}}">
+                        <label class="form-check-label" for="{{card.id}}">
+                            {{ card.card.brand|capfirst }} card ending {{ card.card.last4 }} (expires
+                            {{card.card.exp_month}}/{{card.card.exp_year}})
+                        </label>
+                    </div>
+                    {% endfor %}
                     <div id="card-element" class="mb-3">
                         <!--Stripe.js injects the Card Element-->
                     </div>
@@ -109,6 +96,7 @@
                     </div>
                     {% endif %}
                 </fieldset>
+                {% endif %}
                 <fieldset class="px-3">
                     <button class="payment-btn" type="submit">
                         <div class="spinner hidden" id="spinner"></div>
@@ -134,4 +122,6 @@
 {{ stripe_total|json_script:"id_stripe_total" }}
 <script src="{% static 'js/stripe_elements.js' %}"></script>
 <script src="{% static 'js/paypal.js' %}"></script>
+<script async src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
+<script src="{% static 'js/autocomplete.js' %}"></script>
 {% endblock %}

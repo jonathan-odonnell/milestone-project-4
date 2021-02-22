@@ -75,10 +75,14 @@ $('#id-saved-cards').find('input[type=checkbox]').change(function () {
     $('#id-saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
     $('#address').find('input,select').attr('required', false)
     if ($(this).is(':checked')) {
+        $('#id-save-card').parent().hide()
+        $('#card-element').addClass('w-50')
         card.destroy()
         cvc = elements.create('cardCvc', { style: style });
-        cvc.mount('#cvc-element');
+        cvc.mount('#card-element');
     } else {
+        $('#id-save-card').parent().show()
+        $('#card-element').removeClass('w-50')
         cvc.destroy()
         card = elements.create('card', { style: style });
         card.mount('#card-element');
