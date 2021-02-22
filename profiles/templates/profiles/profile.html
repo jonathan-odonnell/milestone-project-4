@@ -12,8 +12,11 @@
         <div class="col-12 col-lg-8 mx-auto">
             <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
+                <legend>Personal Information</legend>
                 {{ form.email_address | as_crispy_field }}
                 {{ form.phone_number | as_crispy_field }}
+                <legend>Address</legend>
+                {{ form.address | as_crispy_field }}
                 {{ form.street_address1 | as_crispy_field }}
                 {{ form.street_address2 | as_crispy_field }}
                 {{ form.town_or_city | as_crispy_field }}
@@ -30,4 +33,6 @@
 <script>
     $('#div_id_postcode .mb-3').addClass('mb-4').removeClass('mb-3')
 </script>
+<script async src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
+<script src="{% static 'js/autocomplete.js' %}"></script>
 {% endblock %}

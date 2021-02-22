@@ -173,6 +173,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 OFFER_AMOUNT = 100
 PROMO_CODE = 'HOLIDAY100'
 
+# GOOGLE PLACES
+
+GOOGLE_PLACES_KEY = os.environ.get('GOOGLE_PLACES_KEY', '')
+
 # Stripe
 
 STRIPE_CURRENCY = 'gbp'

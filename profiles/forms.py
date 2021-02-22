@@ -22,6 +22,7 @@ class UserProfileForm(forms.ModelForm):
         placeholders = {
             'email_address': 'Email Address',
             'phone_number': 'Phone Number',
+            'address': 'Address',
             'street_address1': 'Street Address 1',
             'street_address2': 'Street Address 2',
             'town_or_city': 'Town or City',
@@ -29,6 +30,7 @@ class UserProfileForm(forms.ModelForm):
             'postcode': 'Postcode',
         }
         self.fields['email_address'] = forms.EmailField(required=True)
+        self.fields['address'] = forms.CharField(required=False)
         self.fields['phone_number'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'country':
@@ -36,5 +38,8 @@ class UserProfileForm(forms.ModelForm):
                     placeholder = f'{placeholders[field]} *'
                 else:
                     placeholder = placeholders[field]
+                if field != 'address':
+                    self.fields[field].label = placeholders[field]
+                else:
+                    self.fields[field].label = False
                 self.fields[field].widget.attrs['placeholder'] = placeholder
-                self.fields[field].label = placeholders[field]

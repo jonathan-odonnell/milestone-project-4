@@ -2,11 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from .models import UserProfile
 from checkout.models import Booking
 from .forms import UserProfileForm
+from django.conf import settings
 
 
 def profile(request):
     """ Display the user's profile. """
     profile = get_object_or_404(UserProfile, user=request.user)
+    api_key = settings.GOOGLE_PLACES_KEY
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
@@ -29,6 +31,7 @@ def profile(request):
     template = 'profiles/profile.html'
     context = {
         'form': form,
+        'api_key': api_key,
     }
 
     return render(request, template, context)
