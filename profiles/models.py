@@ -14,21 +14,15 @@ class UserProfile(models.Model):
     delivery information and order history
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    phone_number = models.CharField(max_length=20, null=False, blank=False)
-    street_address1 = models.CharField(max_length=80, null=False, blank=False)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    street_address1 = models.CharField(max_length=80, null=True, blank=True)
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
-    town_or_city = models.CharField(max_length=40, null=False, blank=False)
-    county = models.CharField(max_length=80, null=False, blank=False)
-    country = CountryField(blank_label='Country', null=False, blank=False)
-    postcode = models.CharField(max_length=20, null=False, blank=False)
+    town_or_city = models.CharField(max_length=40, null=True, blank=True)
+    county = models.CharField(max_length=80, null=True, blank=True)
+    country = CountryField(blank_label='Country', null=True, blank=True)
+    postcode = models.CharField(max_length=20, null=True, blank=True)
     stripe_customer_id = models.CharField(
         max_length=254, null=True, blank=True)
-
-    def get_address(self, *args, **kwargs):
-        if self.street_address2:
-            return f'{self.street_address1} {self.street_address2}'
-        else:
-            return f'{self.street_address1}'
 
     def __str__(self):
         return self.user.get_full_name()
@@ -40,8 +34,5 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     Create or update the user profile
     """
     if created:
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        customer = stripe.Customer.create()
-        UserProfile.objects.create(
-            user=instance, stripe_customer_id=customer.id)
+        UserProfile.objects.create(user=instance)
     instance.userprofile.save()
