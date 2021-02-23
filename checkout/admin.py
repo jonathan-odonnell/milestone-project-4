@@ -1,22 +1,33 @@
 from django.contrib import admin
-from .models import Booking, PackageBooking
+from .models import Booking, BookingPackage, BookingExtra, BookingPassenger
 
 
-class PackageBookingAdminInline(admin.TabularInline):
-    model = PackageBooking
+class BookingPackageAdminInline(admin.StackedInline):
+    model = BookingPackage
     readonly_fields = ('total',)
 
 
-class BookingAdmin(admin.ModelAdmin):
-    inlines = (PackageBookingAdminInline,)
+class BookingExtraAdminInline(admin.TabularInline):
+    model = BookingExtra
+    readonly_fields = ('total',)
 
-    readonly_fields = ('booking_number', 'date', 'total', 'stripe_pid')
+
+class BookingPassengerAdminInline(admin.TabularInline):
+    model = BookingPassenger
+
+
+class BookingAdmin(admin.ModelAdmin):
+    inlines = (BookingPackageAdminInline, BookingExtraAdminInline, BookingPassengerAdminInline)
+
+    readonly_fields = ('booking_number', 'date', 'coupon', 'discount', 
+                       'total', 'paid', 'stripe_pid', 'paypal_pid')
 
     fields = ('booking_number', 'user_profile', 'date', 
               'full_name', 'email', 'phone_number',
               'street_address1', 'street_address2',
               'town_or_city',  'country', 'postcode', 
-              'county', 'total', 'stripe_pid')
+              'county', 'coupon', 'discount', 
+              'total', 'paid', 'stripe_pid', 'paypal_pid')
 
     list_display = ('booking_number', 'date', 'full_name',
                     'total',)
