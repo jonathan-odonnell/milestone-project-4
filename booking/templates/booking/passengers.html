@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+{% load booking_tools %}
+
+{% block content %}
+<section class="container p-4">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h1 class="section-heading text-center mb-0">Passenger Details</h1>
+        </div>
+        <div class="col-12 col-lg-8 mx-auto">
+            <form action="{% url 'passengers' %}" method="POST" >
+                {% csrf_token %}
+                {% for i in passenger_range %}
+                {% if forloop.counter == 1 %}
+                <fieldset>
+                    <legend class="small text-black mb-3">Lead Passenger</legend>
+                    <div class="mb-3">
+                        <label for="name{{i}}" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name{{i}}" value="{% if profile %}{{profile.user.get_full_name}}{% endif %}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="passport{{i}}" class="form-label">Passport Number</label>
+                        <input type="number" class="form-control" id="passport{{i}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dob{{i}}" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob{{i}}">
+                    </div>
+                </fieldset>
+                {% else %}
+                <fieldset>
+                    <legend class="small text-black mb-3">Passenger {{i}}</legend>
+                    <div class="mb-3">
+                        <label for="name{{i}}" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name{{i}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="passport{{i}}" class="form-label">Passport Number</label>
+                        <input type="number" class="form-control" id="passport{{i}}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="dob{{i}}" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob{{i}}">
+                    </div>
+                </fieldset>
+                {% endif %}
+                {% endfor %}
+                <fieldset class="my-3 text-center">
+                    <button class="btn btn-primary">Next</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

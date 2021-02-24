@@ -8,5 +8,6 @@ urlpatterns = [
     path('add_extra/<extra_id>/', views.add_extra, name='add_extra'),
     path('update_extra/<extra_id>/', views.update_extra, name='update_extra'),
     path('remove_extra/<extra_id>/', views.remove_extra, name='remove_extra'),
+    path('passengers/', views.passengers, name='passengers'),
     path('<holiday_id>/', views.add_booking, name='add_booking'),
 ]

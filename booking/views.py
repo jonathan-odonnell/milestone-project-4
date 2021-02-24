@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist
 from holidays.models import Package, Flight
 from extras.models import Extra
+from profiles.models import UserProfile
 from .models import Coupon
 from .contexts import booking_details
 import datetime
@@ -50,9 +51,10 @@ def update_guests(request):
     guests = int(request.POST.get('guests'))
     booking['guests'] = guests
 
-    for key, value in booking['extras'].items():
-        if value > guests:
-            booking['extras'][key] = guests
+    if booking.get('extras'):
+        for key, value in booking['extras'].items():
+            if value > guests:
+                booking['extras'][key] = guests
 
     request.session['booking'] = booking
     booking_totals = booking_details(request)
@@ -158,3 +160,24 @@ def add_coupon(request):
 
     except Coupon.DoesNotExist:
         return JsonResponse({'success': False, 'coupon': coupon_name})
+
+def passengers(request):
+    if request.method == 'POST':
+        return redirect(reverse('checkout'))
+    else:
+        if request.session.get('booking'):
+            profile = None
+
+            if request.user.is_authenticated:
+                profile = UserProfile.objects.get(user=request.user)
+
+            guests = request.session['booking']['guests']
+            passenger_range = range(guests)
+            context = {
+                'passenger_range': passenger_range,
+                'profile': profile,
+            }
+            return render(request, 'booking/passengers.html', context)
+        
+        else:
+            return HttpResponse(403)
