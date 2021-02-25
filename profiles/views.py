@@ -3,6 +3,7 @@ from .models import UserProfile
 from checkout.models import Booking
 from .forms import UserProfileForm
 from django.conf import settings
+import stripe
 
 
 def profile(request):
@@ -11,11 +12,41 @@ def profile(request):
     api_key = settings.GOOGLE_PLACES_KEY
 
     if request.method == 'POST':
+        stripe.api_key = settings.STRIPE_SECRET_KEY
         form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
-            user_profile = form.save(commit=False)
-            user_profile.user.email = request.POST['email_address']
-            user_profile.save()
+            profile = form.save(commit=False)
+            profile.user.email = request.POST['email_address']
+
+            if profile.stripe_customer_id:
+                customer = stripe.Customer.create(
+                    name=profile.user.get_full_name(),
+                    address={
+                        'line1': profile.street_address1,
+                        'line2': profile.street_address2,
+                        'city': profile.town_or_city,
+                        'state': profile.county,
+                        'country': profile.country,
+                        'postal_code': profile.postcode
+                    }
+                )
+                profile.stripe_customer_id = customer['id']
+
+            else:
+                stripe.Customer.modify(
+                    profile.stripe_customer_id,
+                    name=profile.user.get_full_name(),
+                    address={
+                        'line1': profile.street_address1,
+                        'line2': profile.street_address2,
+                        'city': profile.town_or_city,
+                        'state': profile.county,
+                        'country': profile.country,
+                        'postal_code': profile.postcode
+                    }
+                )
+    
+            profile.save()
 
     form = UserProfileForm(
         initial={'email_address': profile.user.email,
@@ -36,6 +67,7 @@ def profile(request):
 
     return render(request, template, context)
 
+
 def bookings(request):
     """ Display the user's bookings. """
     profile = get_object_or_404(UserProfile, user=request.user)
@@ -47,6 +79,7 @@ def bookings(request):
     }
 
     return render(request, template, context)
+
 
 def booking_details(request, booking_number):
     booking = get_object_or_404(Booking, booking_number=booking_number)
