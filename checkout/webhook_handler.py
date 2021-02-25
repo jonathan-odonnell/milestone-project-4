@@ -28,12 +28,10 @@ class StripeWH_Handler:
         """
         intent = event.data.object
         pid = intent.id
-        current_booking = intent.metadata.booking
+        booking_number = intent.metadata.booking_number
         save_info = intent.metadata.save_info
-        save_card = intent.metadata.save_card
         username = intent.metadata.username
         profile = None
-
         billing_details = intent.charges.data[0].billing_details
         total = round(intent.charges.data[0].amount / 100, 2)
 
@@ -46,16 +44,9 @@ class StripeWH_Handler:
         while attempt <= 5:
             try:
                 booking = Booking.objects.get(
-                    full_name__iexact=billing_details.name,
-                    email__iexact=billing_details.email,
-                    phone_number__iexact=billing_details.phone,
-                    street_address1__iexact=billing_details.address.line1,
-                    street_address2__iexact=billing_details.address.line2,
-                    town_or_city__iexact=billing_details.address.city,
-                    county__iexact=billing_details.address.state,
-                    country__iexact=billing_details.address.country,
-                    postcode__iexact=billing_details.address.postal_code,
+                    booking_number=booking_number,
                     total=total,
+                    paid=True,
                     stripe_pid=pid,
                 )
                 booking_exists = True
@@ -73,7 +64,8 @@ class StripeWH_Handler:
         else:
             booking = None
             try:
-                booking = Booking.objects.create(
+                booking = Booking.objects.get(booking_number=booking_number)
+                booking.update(
                     full_name=billing_details.name,
                     email=billing_details.email,
                     phone_number=billing_details.phone,
@@ -83,19 +75,10 @@ class StripeWH_Handler:
                     county=billing_details.address.state,
                     country=billing_details.address.country,
                     postcode=billing_details.address.postal_code,
+                    paid=True,
                     stripe_pid=pid,
                 )
-                holiday = Package.objects.get(id=current_booking['holiday_id'])
-                package_booking = PackageBooking(
-                    booking=booking,
-                    package=holiday,
-                    guests=int(current_booking['guests']),
-                    departure_date=datetime.datetime.strptime(
-                        current_booking['departure_date'], "%d/%m/%Y").date(),
-                    duration=holiday.duration,
-                    total=booking_details(self.request)['subtotal']
-                )
-                package_booking.save()
+                booking.save()
 
                 if username:
                     booking.user_profile = profile
