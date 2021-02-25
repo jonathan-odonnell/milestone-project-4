@@ -108,4 +108,4 @@ class BookingPassenger(models.Model):
     passport_number = models.CharField(max_length=9, null=False, blank=False)
 
     def __str__(self):
-        return f'{self.name} on booking {self.booking.booking_number}'
+        return f'{self.full_name} on booking {self.booking.booking_number}'
