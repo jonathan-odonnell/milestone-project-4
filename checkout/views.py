@@ -21,10 +21,9 @@ def cache_checkout_data(request):
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'booking': json.dumps(request.session.get('booking', {})),
             'save_info': request.POST.get('save_info'),
-            'save_card': request.POST.get('save_card'),
             'username': request.user,
+            'booking_number': request.session['booking']['booking_number']
         })
         return HttpResponse(status=200)
     except Exception as e:
@@ -34,7 +33,6 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    current_booking = request.session.get('booking', {})
     profile = None
 
     if not current_booking:
@@ -44,7 +42,8 @@ def checkout(request):
         profile = None
         form_data = None
         save_info = 'save-info' in request.POST
-        save_card = 'save-card' in request.POST
+        booking_number = request.session['booking']['booking_number']
+        booking = Booking.objects.get(booking_number=booking_number)
 
         if request.user.is_authenticated:
             profile = UserProfile.objects.get(user=request.user)
@@ -87,30 +86,14 @@ def checkout(request):
                 'postcode': request.POST['postcode'],
             }
 
-        booking_form = BookingForm(form_data)
+        booking_form = BookingForm(form_data, instance=booking)
 
         if booking_form.is_valid():
             booking = booking_form.save(commit=False)
             pid = request.POST.get('client_secret').split('_secret')[0]
             booking.stripe_pid = pid
+            booking.paid = True
             booking.save()
-
-            try:
-                holiday = Package.objects.get(id=current_booking['holiday_id'])
-                package_booking = PackageBooking(
-                    booking=booking,
-                    package=holiday,
-                    guests=int(current_booking['guests']),
-                    departure_date=datetime.datetime.strptime(
-                        current_booking['departure_date'], "%d/%m/%Y").date(),
-                    duration=holiday.duration,
-                    total=booking_details(request)['subtotal']
-                )
-                package_booking.save()
-
-            except Package.DoesNotExist:
-                booking.delete()
-                return redirect(reverse('booking'))
 
             if request.user.is_authenticated:
                 booking.user_profile = profile
@@ -131,23 +114,6 @@ def checkout(request):
 
                     if user_profile_form.is_valid():
                         user_profile_form.save()
-
-                if save_card and not profile.stripe_customer_id:
-
-                    customer = stripe.Customer.create(
-                        name=profile.user.get_full_name(),
-                        email=profile.user.email,
-                        address={
-                            'line1': profile.street_address1,
-                            'line2': profile.street_address2,
-                            'city': profile.town_or_city,
-                            'state': profile.county,
-                            'country': profile.country,
-                            'postal_code': profile.postcode,
-                        }
-                    )
-
-                    profile.update(stripe_customer_id=customer.id)
 
             return redirect(reverse('checkout_success', args=[booking.booking_number]))
 
