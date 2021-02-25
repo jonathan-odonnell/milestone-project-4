@@ -33,6 +33,7 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+    current_booking = request.session.get('booking', {})
     profile = None
 
     if not current_booking:
@@ -42,8 +43,9 @@ def checkout(request):
         profile = None
         form_data = None
         save_info = 'save-info' in request.POST
-        booking_number = request.session['booking']['booking_number']
+        booking_number = current_booking['booking_number']
         booking = Booking.objects.get(booking_number=booking_number)
+        stripe.api_key = settings.STRIPE_SECRET_KEY
 
         if request.user.is_authenticated:
             profile = UserProfile.objects.get(user=request.user)
@@ -113,7 +115,20 @@ def checkout(request):
                         profile_data, instance=profile)
 
                     if user_profile_form.is_valid():
-                        user_profile_form.save()
+                        user_profile_form.save(commit=False)
+                        customer = stripe.Customer.create(
+                            name=profile.user.get_full_name(),
+                            address={
+                                'line1': profile.street_address1,
+                                'line2': profile.street_address2,
+                                'city': profile.town_or_city,
+                                'state': profile.county,
+                                'country': profile.country,
+                                'postal_code': profile.postcode
+                            }
+                        )
+                        profile.stripe_customer_id = customer['id']
+                        profile.save()
 
             return redirect(reverse('checkout_success', args=[booking.booking_number]))
 

@@ -6,6 +6,7 @@ from profiles.forms import UserProfileForm
 from booking.contexts import booking_details
 import time
 import datetime
+import stripe
 
 
 class StripeWH_Handler:
@@ -28,6 +29,7 @@ class StripeWH_Handler:
         """
         intent = event.data.object
         pid = intent.id
+        stripe.api_key = settings.STRIPE_SECRET_KEY
         booking_number = intent.metadata.booking_number
         save_info = intent.metadata.save_info
         username = intent.metadata.username
@@ -98,7 +100,20 @@ class StripeWH_Handler:
                             profile_data, instance=profile)
 
                         if user_profile_form.is_valid():
-                            user_profile_form.save()
+                            profile = user_profile_form.save(commit=False)
+                            customer = stripe.Customer.create(
+                                name=profile.user.get_full_name(),
+                                address={
+                                    'line1': profile.street_address1,
+                                    'line2': profile.street_address2,
+                                    'city': profile.town_or_city,
+                                    'state': profile.county,
+                                    'country': profile.country,
+                                    'postal_code': profile.postcode
+                                }
+                            )
+                            profile.stripe_customer_id = customer['id']
+                            profile.save()
 
             except Exception as e:
                 if booking:
