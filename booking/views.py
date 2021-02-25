@@ -230,11 +230,10 @@ def passengers(request):
                     booking=booking,
                     full_name=request.POST[f'name{passenger}'],
                     date_of_birth=datetime.datetime.strptime(
-                    request.POST[f'dob{passenger}'], "%Y-%m-%d").date(),
+                    request.POST[f'dob{passenger}'], "%d/%m/%Y").date(),
                     passport_number=int(request.POST[f'passport{passenger}'])
                 ) 
                 booking_passenger.save()
-
             current_booking['booking_number'] = booking.booking_number
             request.session['booking'] = current_booking 
 
