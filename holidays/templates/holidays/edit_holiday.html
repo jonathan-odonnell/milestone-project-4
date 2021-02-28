@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <div class="row no-gutters">
+        <div class="col-12 text-center">
+            <h2 class="section-heading mb-3">Edit Holiday</h2>
+        </div>
+        <div class="col-12 col-lg-8 mx-auto mb-3">
+            <form action=""  method="POST">
+                {% csrf_token %}
+                {{ form.name | as_crispy_field }}
+                {{ form.image | as_crispy_field }}
+                {{ form.description | as_crispy_field }}
+                {{ form.category | as_crispy_field }}
+                {{ form.country | as_crispy_field }}
+                {{ form.duration | as_crispy_field }}
+                {{ form.rating | as_crispy_field }}
+                {{ form.catering | as_crispy_field }}
+                {{ form.features | as_crispy_field }}
+                {{ form.activities | as_crispy_field }}
+                {{ form.extras | as_crispy_field }}
+                {{ form.transfers_included | as_crispy_field }}
+                <div class="my-3 text-center">
+                    <button class="btn btn-primary" type="submit">Update Holiday</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
