@@ -1,4 +1,5 @@
 from django import forms
+from .widgets import CustomClearableFileInput
 from .models import Activity, Category, Country, Feature, Flight, Itinerary, Package, Price
 from extras.models import Extra
 from crispy_forms.helper import FormHelper
@@ -29,6 +30,7 @@ class PackageForm(forms.ModelForm):
         extra_names = [(e.id, e.name) for e in extras]
 
         self.fields['name'].widget.attrs['autofocus'] = True
+        self.fields['image'].widget = CustomClearableFileInput()
         self.fields['category'].choices = category_names
         self.fields['country'].choices = country_names
         self.fields['features'].choices = features_names

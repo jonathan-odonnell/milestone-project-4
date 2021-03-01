@@ -319,6 +319,30 @@ label .asteriskField {
     display: none;
 }
 
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+  
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+  
+.delete-check .form-check-input {
+    border-color: #dc3545;
+}
+  
+.delete-check .form-check-input:checked {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
 footer a {
     color: #fff;
 }
