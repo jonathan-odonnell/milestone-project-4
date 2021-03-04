@@ -6,7 +6,7 @@ from django.db.models.functions import Lower
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from .forms import PackageForm
+from .forms import PackageForm, PriceFormset, ItineraryFormset
 
 
 def category_holidays(request, category):
@@ -146,20 +146,32 @@ def holiday_details(request, slug, destination=None, category=None):
 def add_holiday(request):
     if request.method == 'POST':
         form = PackageForm(request.POST, request.FILES)
+
         if form.is_valid():
-            holiday = form.save()
-            messages.success(request, 'Successfully added holiday!')
-            return redirect(reverse('destination_details', args=[holiday.slug]))
-        else:
-            messages.error(
-                request, 'Failed to add holiday. Please ensure the form is valid.')
+            holiday = form.save(commit=False)
+            price_formset = PriceFormset(request.POST, instance=holiday)
+            itinerary_formset = ItineraryFormset(request.POST, instance=holiday)
+
+            if price_formset.is_valid() and itinerary_formset.is_valid():
+                holiday.save()
+                price_formset.save()
+                itinerary_formset.save()
+                messages.success(request, 'Successfully added holiday!')
+                return redirect(reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
+
+        messages.error(
+            request, 'Failed to add holiday. Please ensure the form is valid.')
 
     else:
         form = PackageForm()
+        price_formset = PriceFormset()
+        itinerary_formset = ItineraryFormset()
 
     template = 'holidays/add_holiday.html'
     context = {
         'form': form,
+        'price_formset': price_formset,
+        'itinerary_formset': itinerary_formset,
     }
     return render(request, template, context)
 
@@ -185,6 +197,7 @@ def edit_holiday(request, package):
     }
 
     return render(request, template, context)
+
 
 def delete_holiday(request, package):
     holiday = get_object_or_404(Package, slug=package)

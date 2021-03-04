@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container-fluid p-4">
@@ -8,22 +9,61 @@
             <h2 class="section-heading mb-3">Add Holiday</h2>
         </div>
         <div class="col-12 col-lg-8 mx-auto mb-3">
-            <form action="" method="POST">
+            <form action="{% url 'add_holiday' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.name | as_crispy_field }}
-                {{ form.image }}
-                {{ form.description | as_crispy_field }}
-                {{ form.category | as_crispy_field }}
-                {{ form.country | as_crispy_field }}
-                {{ form.duration | as_crispy_field }}
-                {{ form.rating | as_crispy_field }}
-                {{ form.catering | as_crispy_field }}
-                {{ form.features | as_crispy_field }}
-                {{ form.activities | as_crispy_field }}
-                {{ form.extras | as_crispy_field }}
-                {{ form.transfers_included | as_crispy_field }}
+                <fieldset id="package">
+                    {{ form.name | as_crispy_field }}
+                    {{ form.image }}
+                    {{ form.description | as_crispy_field }}
+                    {{ form.category | as_crispy_field }}
+                    {{ form.country | as_crispy_field }}
+                    {{ form.duration | as_crispy_field }}
+                    {{ form.rating | as_crispy_field }}
+                    {{ form.catering | as_crispy_field }}
+                    {{ form.features | as_crispy_field }}
+                    {{ form.activities | as_crispy_field }}
+                    {{ form.extras | as_crispy_field }}
+                    {{ form.transfers_included | as_crispy_field }}
+                </fieldset>
+                <fieldset id="prices" class="d-none">
+                    <div>
+                        {{price_formset.management_form.TOTAL_FORMS}}
+                        {{price_formset.management_form.INITIAL_FORMS}}
+                        {{price_formset.management_form.MIN_NUM_FORMS}}
+                        {{price_formset.management_form.MAX_NUM_FORMS}}
+                    </div>
+                    {% for form in price_formset %}
+                    <div class="price">
+                        <legend>Price 1</legend>
+                        {{form.price | as_crispy_field }}
+                        {{form.start_date | as_crispy_field }}
+                        {{form.end_date | as_crispy_field }}
+                        {{form.offer | as_crispy_field }}
+                        {{form.DELETE | as_crispy_field }}
+                    </div>
+                    {% endfor %}
+                </fieldset>
+                <fieldset id="itineraries" class="d-none">
+                    <div>
+                        {{itinerary_formset.management_form.TOTAL_FORMS}}
+                        {{itinerary_formset.management_form.INITIAL_FORMS}}
+                        {{itinerary_formset.management_form.MIN_NUM_FORMS}}
+                        {{itinerary_formset.management_form.MAX_NUM_FORMS}}
+                    </div>
+                    {% for form in itinerary_formset %}
+                    <div class="itinerary">
+                        <legend>Itinerary 1</legend>
+                        {{form.day | as_crispy_field }}
+                        {{form.title | as_crispy_field }}
+                        {{form.description | as_crispy_field }}
+                        {{form.DELETE | as_crispy_field }}
+                    </div>
+                    {% endfor %}
+                </fieldset>
                 <div class="my-3 text-center">
-                    <button class="btn btn-primary" type="submit">Add Holiday</button>
+                    <button id="back" class="btn btn-primary mx-2" type="button">Back</button>
+                    <button id="next" class="btn btn-primary mx-2" type="button">Next</button>
+                    <button class="btn btn-primary mx-2 d-none" type="submit">Add Holiday</button>
                 </div>
             </form>
         </div>
@@ -31,17 +71,73 @@
 </div>
 {% endblock %}
 {% block postloadjs %}
+<script src="{% static 'js/jquery.formset.js' %}"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.btn-file').addClass('mt-2')
-        $('#div_id_transfers_included').addClass('form-check ms-1')
-        $('#div_id_transfers_included input').addClass('form-check-input')
-        $('#div_id_transfers_included label').addClass('form-check-label')
+        $('#div_id_transfers_included, #div_id_price_set-0-offer').addClass('form-check ms-1')
+        $('#div_id_transfers_included, #div_id_price_set-0-offer').find('input').addClass('form-check-input')
+        $('#div_id_transfers_included, #div_id_price_set-0-offer').find('input').addClass('form-check-label')
+        $('fieldset .row').addClass('mb-3')
+        $('.delete-row').remove()
+        $('.itinerary').find('select').val('')
     })
     $('#new-image').change(function () {
         var file = $('#new-image')[0].files[0];
         $('#filename').text(`Image will be set to: ${file.name}`);
         $('#filename').addClass('mt-3');
     });
+    priceCounter = 1
+    let addedPrice = function () {
+        $('fieldset .row').addClass('mb-3');
+        $(`#div_id_price_set-${priceCounter}-offer`).addClass('form-check ms-1')
+        $(`#div_id_price_set-${priceCounter}-offer`).find('input').addClass('form-check-input')
+        $(`#div_id_price_set-${priceCounter}-offer`).find('input').addClass('form-check-label')
+        priceCounter += 1
+        $('.price').last().find('legend').text(`Price ${priceCounter}`)
+        $('.delete-row').remove()
+    }
+    itineraryCounter = 1
+    let addedItinerary = function () {
+        $('fieldset .row').addClass('mb-3');
+        itineraryCounter += 1
+        $('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`)
+        $('.itinerary').find('select').val('')
+        $('.delete-row').remove()
+    }
+    $('.price').formset({
+        addText: '<i class="fas fa-plus pe-2"></i>add another',
+        prefix: '{{ price_formset.prefix }}',
+        formCssClass: 'price',
+        added: addedPrice,
+    });
+    $('.itinerary').formset({
+        addText: '<i class="fas fa-plus pe-2"></i>add another',
+        prefix: '{{ itinerary_formset.prefix }}',
+        formCssClass: 'itinerary',
+        added: addedItinerary,
+    });
+    $('#next').click(function() {
+        $('fieldset').not('.d-none').next().removeClass('d-none')
+        $('fieldset').not('.d-none').first().addClass('d-none')
+        if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
+            $('#next').addClass('d-none')
+            $('button[type="submit"]').removeClass('d-none')
+        } else {
+            $('button[type="submit"]').addClass('d-none')
+            $('#next').removeClass('d-none')
+        }
+    })
+    $('#back').click(function() {
+        $('fieldset').not('.d-none').prev().removeClass('d-none')
+        $('fieldset').not('.d-none').last().addClass('d-none')
+        if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
+            $('#next').addClass('d-none')
+            $('button[type="submit"]').removeClass('d-none')
+        } else {
+            $('button[type="submit"]').addClass('d-none')
+            $('#next').removeClass('d-none')
+        }
+    })
 </script>
 {% endblock %}
