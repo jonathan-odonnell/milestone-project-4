@@ -22,9 +22,9 @@ def flights(request):
 @superuser_required
 def add_flight(request):
     if request.method == 'POST':
-        form = FlightForm(request.POST, request.FILES)
+        form = FlightForm(request.POST)
         if form.is_valid():
-            flight = form.save()
+            form.save()
             messages.success(request, 'Successfully added flight!')
             return redirect(reverse('flights'))
         else:
@@ -46,7 +46,7 @@ def add_flight(request):
 def edit_flight(request, flight_number):
     flight = get_object_or_404(Flight, name=flight_number)
     if request.method == 'POST':
-        form = FlightForm(request.POST, request.FILES, instance=flight)
+        form = FlightForm(request.POST, instance=flight)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully updated flight!')
@@ -54,6 +54,8 @@ def edit_flight(request, flight_number):
         else:
             messages.error(
                 request, 'Failed to update flight. Please ensure the form is valid.')
+    else:
+        form = FlightForm(instance=flight)
 
     template = 'flights/edit_flight.html'
     context = {
