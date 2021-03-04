@@ -61,7 +61,7 @@
                     {% endfor %}
                 </fieldset>
                 <div class="my-3 text-center">
-                    <button id="back" class="btn btn-primary mx-2" type="button">Back</button>
+                    <button id="back" class="btn btn-primary mx-2 d-none" type="button">Back</button>
                     <button id="next" class="btn btn-primary mx-2" type="button">Next</button>
                     <button class="btn btn-primary mx-2 d-none" type="submit">Add Holiday</button>
                 </div>
@@ -72,39 +72,8 @@
 {% endblock %}
 {% block postloadjs %}
 <script src="{% static 'js/jquery.formset.js' %}"></script>
+<script src="{% static 'js/add_holiday.js' %}"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.btn-file').addClass('mt-2')
-        $('#div_id_transfers_included, #div_id_price_set-0-offer').addClass('form-check ms-1')
-        $('#div_id_transfers_included, #div_id_price_set-0-offer').find('input').addClass('form-check-input')
-        $('#div_id_transfers_included, #div_id_price_set-0-offer').find('input').addClass('form-check-label')
-        $('fieldset .row').addClass('mb-3')
-        $('.delete-row').remove()
-        $('.itinerary').find('select').val('')
-    })
-    $('#new-image').change(function () {
-        var file = $('#new-image')[0].files[0];
-        $('#filename').text(`Image will be set to: ${file.name}`);
-        $('#filename').addClass('mt-3');
-    });
-    priceCounter = 1
-    let addedPrice = function () {
-        $('fieldset .row').addClass('mb-3');
-        $(`#div_id_price_set-${priceCounter}-offer`).addClass('form-check ms-1')
-        $(`#div_id_price_set-${priceCounter}-offer`).find('input').addClass('form-check-input')
-        $(`#div_id_price_set-${priceCounter}-offer`).find('input').addClass('form-check-label')
-        priceCounter += 1
-        $('.price').last().find('legend').text(`Price ${priceCounter}`)
-        $('.delete-row').remove()
-    }
-    itineraryCounter = 1
-    let addedItinerary = function () {
-        $('fieldset .row').addClass('mb-3');
-        itineraryCounter += 1
-        $('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`)
-        $('.itinerary').find('select').val('')
-        $('.delete-row').remove()
-    }
     $('.price').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ price_formset.prefix }}',
@@ -116,28 +85,6 @@
         prefix: '{{ itinerary_formset.prefix }}',
         formCssClass: 'itinerary',
         added: addedItinerary,
-    });
-    $('#next').click(function() {
-        $('fieldset').not('.d-none').next().removeClass('d-none')
-        $('fieldset').not('.d-none').first().addClass('d-none')
-        if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
-            $('#next').addClass('d-none')
-            $('button[type="submit"]').removeClass('d-none')
-        } else {
-            $('button[type="submit"]').addClass('d-none')
-            $('#next').removeClass('d-none')
-        }
-    })
-    $('#back').click(function() {
-        $('fieldset').not('.d-none').prev().removeClass('d-none')
-        $('fieldset').not('.d-none').last().addClass('d-none')
-        if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
-            $('#next').addClass('d-none')
-            $('button[type="submit"]').removeClass('d-none')
-        } else {
-            $('button[type="submit"]').addClass('d-none')
-            $('#next').removeClass('d-none')
-        }
     })
 </script>
 {% endblock %}
