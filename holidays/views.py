@@ -181,18 +181,34 @@ def edit_holiday(request, package):
     if request.method == 'POST':
         form = PackageForm(request.POST, request.FILES, instance=holiday)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Successfully updated holiday!')
-            return redirect(reverse('destination_details', args=[holiday.slug]))
+            holiday = form.save(commit=False)
+            price_formset = PriceFormset(request.POST, instance=holiday)
+            itinerary_formset = ItineraryFormset(request.POST, instance=holiday)
+
+            if price_formset.is_valid() and itinerary_formset.is_valid():
+                holiday.save()
+                price_formset.save()
+                itinerary_formset.save()
+                messages.success(request, 'Successfully updated holiday!')
+                return redirect(reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
+            else:
+                print(form.errors)
+                print(price_formset.errors)
+                print(itinerary_formset.errors)
+
         else:
             messages.error(
                 request, 'Failed to update holiday. Please ensure the form is valid.')
     else:
         form = PackageForm(instance=holiday)
+        price_formset = PriceFormset(instance=holiday)
+        itinerary_formset = ItineraryFormset(instance=holiday)
 
     template = 'holidays/edit_holiday.html'
     context = {
         'form': form,
+        'price_formset': price_formset,
+        'itinerary_formset': itinerary_formset,
         'holiday': holiday,
     }
 

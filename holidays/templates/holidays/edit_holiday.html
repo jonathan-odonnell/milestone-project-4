@@ -8,22 +8,61 @@
             <h2 class="section-heading mb-3">Edit Holiday</h2>
         </div>
         <div class="col-12 col-lg-8 mx-auto mb-3">
-            <form action="" method="POST">
+            <form action="{% url 'edit_holiday' holiday.slug %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.name | as_crispy_field }}
-                {{ form.image }}
-                {{ form.description | as_crispy_field }}
-                {{ form.category | as_crispy_field }}
-                {{ form.country | as_crispy_field }}
-                {{ form.duration | as_crispy_field }}
-                {{ form.rating | as_crispy_field }}
-                {{ form.catering | as_crispy_field }}
-                {{ form.features | as_crispy_field }}
-                {{ form.activities | as_crispy_field }}
-                {{ form.extras | as_crispy_field }}
-                {{ form.transfers_included | as_crispy_field }}
+                <fieldset id="package">
+                    {{ form.name | as_crispy_field }}
+                    {{ form.image }}
+                    {{ form.description | as_crispy_field }}
+                    {{ form.category | as_crispy_field }}
+                    {{ form.country | as_crispy_field }}
+                    {{ form.duration | as_crispy_field }}
+                    {{ form.rating | as_crispy_field }}
+                    {{ form.catering | as_crispy_field }}
+                    {{ form.features | as_crispy_field }}
+                    {{ form.activities | as_crispy_field }}
+                    {{ form.extras | as_crispy_field }}
+                    {{ form.transfers_included | as_crispy_field }}
+                </fieldset>
+                <fieldset id="prices" class="d-none">
+                    <div>
+                        {{price_formset.management_form}}
+                    </div>
+                    {% for form in price_formset %}
+                    <div class="price">
+                        <legend>Price {{ forloop.counter }}</legend>
+                        {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                        {% endfor %}
+                        {{form.price | as_crispy_field }}
+                        {{form.start_date | as_crispy_field }}
+                        {{form.end_date | as_crispy_field }}
+                        {{form.offer | as_crispy_field }}
+                        {{form.DELETE | as_crispy_field }}
+                    </div>
+                    {% endfor %}
+                </fieldset>
+                <fieldset id="itineraries" class="d-none">
+                    <div>
+                        {{itinerary_formset.management_form}}
+                    </div>
+                    {% for form in itinerary_formset %}
+                    <div class="itinerary">
+                        <legend>Itinerary {{ forloop.counter }}</legend>
+                        {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                        {% endfor %}
+                        {{form.day | as_crispy_field }}
+                        {{form.title | as_crispy_field }}
+                        {{form.description | as_crispy_field }}
+                        {{form.DELETE | as_crispy_field }}
+                    </div>
+                    {% endfor %}
+                </fieldset>
                 <div class="my-3 text-center">
-                    <button class="btn btn-primary" type="submit">Update Holiday</button>
+                    <button id="back" class="btn btn-primary mx-2 d-none" type="button">Back</button>
+                    <button id="next" class="btn btn-primary mx-2" type="button">Next</button>
+                    <button class="btn btn-primary mx-2 d-none" type="submit">Update Holiday</button>
                 </div>
             </form>
         </div>
@@ -31,17 +70,20 @@
 </div>
 {% endblock %}
 {% block postloadjs %}
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+<script src="{% static 'js/edit_holiday.js' %}"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.btn-file').addClass('mt-2')
-        $('#div_id_transfers_included').addClass('form-check ms-1')
-        $('#div_id_transfers_included input').addClass('form-check-input')
-        $('#div_id_transfers_included label').addClass('form-check-label')
-    })
-    $('#new-image').change(function () {
-        var file = $('#new-image')[0].files[0];
-        $('#filename').text(`Image will be set to: ${file.name}`);
-        $('#filename').addClass('mt-3');
+    $('.price').formset({
+        addText: '<i class="fas fa-plus pe-2"></i>add another',
+        prefix: '{{ price_formset.prefix }}',
+        formCssClass: 'price',
+        added: addedPrice,
+    });
+    $('.itinerary').formset({
+        addText: '<i class="fas fa-plus pe-2"></i>add another',
+        prefix: '{{ itinerary_formset.prefix }}',
+        formCssClass: 'itinerary',
+        added: addedItinerary,
     });
 </script>
 {% endblock %}
