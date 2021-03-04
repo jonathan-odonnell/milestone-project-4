@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'home',
     'holidays',
+    'flights',
     'booking',
     'checkout',
     'profiles',
