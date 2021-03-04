@@ -27,14 +27,14 @@
                 </fieldset>
                 <fieldset id="prices" class="d-none">
                     <div>
-                        {{price_formset.management_form.TOTAL_FORMS}}
-                        {{price_formset.management_form.INITIAL_FORMS}}
-                        {{price_formset.management_form.MIN_NUM_FORMS}}
-                        {{price_formset.management_form.MAX_NUM_FORMS}}
+                        {{price_formset.management_form}}
                     </div>
                     {% for form in price_formset %}
                     <div class="price">
                         <legend>Price 1</legend>
+                        {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                        {% endfor %}
                         {{form.price | as_crispy_field }}
                         {{form.start_date | as_crispy_field }}
                         {{form.end_date | as_crispy_field }}
@@ -45,14 +45,14 @@
                 </fieldset>
                 <fieldset id="itineraries" class="d-none">
                     <div>
-                        {{itinerary_formset.management_form.TOTAL_FORMS}}
-                        {{itinerary_formset.management_form.INITIAL_FORMS}}
-                        {{itinerary_formset.management_form.MIN_NUM_FORMS}}
-                        {{itinerary_formset.management_form.MAX_NUM_FORMS}}
+                        {{itinerary_formset.management_form}}
                     </div>
                     {% for form in itinerary_formset %}
                     <div class="itinerary">
                         <legend>Itinerary 1</legend>
+                        {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                        {% endfor %}
                         {{form.day | as_crispy_field }}
                         {{form.title | as_crispy_field }}
                         {{form.description | as_crispy_field }}
@@ -60,6 +60,9 @@
                     </div>
                     {% endfor %}
                 </fieldset>
+                {% if request.META.HTTP_REFERER %}
+                <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
+                {% endif %}
                 <div class="my-3 text-center">
                     <button id="back" class="btn btn-primary mx-2 d-none" type="button">Back</button>
                     <button id="next" class="btn btn-primary mx-2" type="button">Next</button>

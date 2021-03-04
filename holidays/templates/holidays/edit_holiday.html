@@ -59,6 +59,9 @@
                     </div>
                     {% endfor %}
                 </fieldset>
+                {% if request.META.HTTP_REFERER %}
+                <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
+                {% endif %}
                 <div class="my-3 text-center">
                     <button id="back" class="btn btn-primary mx-2 d-none" type="button">Back</button>
                     <button id="next" class="btn btn-primary mx-2" type="button">Next</button>

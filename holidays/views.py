@@ -148,6 +148,7 @@ def holiday_details(request, slug, destination=None, category=None):
 @superuser_required
 def add_holiday(request):
     if request.method == 'POST':
+        redirect_url = request.POST.get('redirect_url')
         form = PackageForm(request.POST, request.FILES)
 
         if form.is_valid():
@@ -160,7 +161,7 @@ def add_holiday(request):
                 price_formset.save()
                 itinerary_formset.save()
                 messages.success(request, 'Successfully added holiday!')
-                return redirect(reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
+                return redirect(redirect_url or reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
 
         messages.error(
             request, 'Failed to add holiday. Please ensure the form is valid.')
@@ -183,6 +184,7 @@ def add_holiday(request):
 def edit_holiday(request, package):
     holiday = get_object_or_404(Package, slug=package)
     if request.method == 'POST':
+        redirect_url = request.POST.get('redirect_url')
         form = PackageForm(request.POST, request.FILES, instance=holiday)
         if form.is_valid():
             holiday = form.save(commit=False)
@@ -194,11 +196,7 @@ def edit_holiday(request, package):
                 price_formset.save()
                 itinerary_formset.save()
                 messages.success(request, 'Successfully updated holiday!')
-                return redirect(reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
-            else:
-                print(form.errors)
-                print(price_formset.errors)
-                print(itinerary_formset.errors)
+                return redirect(redirect_url or reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
 
         else:
             messages.error(
