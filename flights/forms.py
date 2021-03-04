@@ -1,5 +1,6 @@
 from django import forms
 from holidays.models import Flight
+from crispy_forms.helper import FormHelper
 
 class FlightForm(forms.ModelForm):
 
