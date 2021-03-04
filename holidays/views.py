@@ -6,7 +6,9 @@ from django.db.models.functions import Lower
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 from .forms import PackageForm, PriceFormset, ItineraryFormset
+from .utlis import superuser_required
 
 
 def category_holidays(request, category):
@@ -142,7 +144,8 @@ def holiday_details(request, slug, destination=None, category=None):
     }
     return render(request, 'holidays/holiday_details.html', context)
 
-
+@login_required
+@superuser_required
 def add_holiday(request):
     if request.method == 'POST':
         form = PackageForm(request.POST, request.FILES)
@@ -175,7 +178,8 @@ def add_holiday(request):
     }
     return render(request, template, context)
 
-
+@login_required
+@superuser_required
 def edit_holiday(request, package):
     holiday = get_object_or_404(Package, slug=package)
     if request.method == 'POST':
@@ -214,7 +218,8 @@ def edit_holiday(request, package):
 
     return render(request, template, context)
 
-
+@login_required
+@superuser_required
 def delete_holiday(request, package):
     holiday = get_object_or_404(Package, slug=package)
     holiday.delete()

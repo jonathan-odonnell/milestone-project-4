@@ -3,6 +3,8 @@ from django.contrib import messages
 from .models import Extra
 from .forms import ExtraForm
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from holidays.utlis import superuser_required
 
 
 def extras(request):
@@ -16,6 +18,8 @@ def extras(request):
     return render(request, 'extras/extras.html', context)
 
 
+@login_required
+@superuser_required
 @require_POST
 def add_extra(request):
     form = ExtraForm(request.POST, request.FILES, prefix='add')
@@ -28,10 +32,13 @@ def add_extra(request):
     return redirect(reverse('extras'))
 
 
+@login_required
+@superuser_required
 def edit_extra(request, extra_id):
     extra = get_object_or_404(Extra, id=extra_id)
     if request.method == 'POST':
-        form = ExtraForm(request.POST, request.FILES, instance=extra, prefix='edit')
+        form = ExtraForm(request.POST, request.FILES,
+                         instance=extra, prefix='edit')
         print(form.errors)
         if form.is_valid():
             form.save()
@@ -52,6 +59,8 @@ def edit_extra(request, extra_id):
     return render(request, template, context)
 
 
+@login_required
+@superuser_required
 def delete_extra(request, extra_id):
     extra = get_object_or_404(Extra, id=extra_id)
     extra.delete()
