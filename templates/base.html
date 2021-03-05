@@ -162,6 +162,23 @@
     {% block content %}
     {% endblock %}
 
+    {% if messages %}
+    <div class="message-container">
+        {% for message in messages %}
+        {% with message.level as level %}
+        {% if level == 40 %}
+        {% include 'includes/toast_error.html' %}
+        {% elif level == 30 %}
+        {% include 'includes/toast_warning.html' %}
+        {% elif level == 25 %}
+        {% include 'includes/toast_success.html' %}
+        {% else %}
+        {% include 'includes/toast_info.html' %}
+        {% endif %}
+        {% endwith %}
+        {% endfor %}
+    </div>
+    {% endif %}
     <!-- Footer -->
     <footer class="bg-primary mt-auto">
         <div class="container p-4">
@@ -245,6 +262,11 @@
     </footer>
 
     {% block postloadjs %}
+    <script>
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        })
+    </script>
     {% endblock %}
 
 </body>
