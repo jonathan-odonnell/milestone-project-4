@@ -78,6 +78,7 @@ class Itinerary(models.Model):
         verbose_name_plural = 'Itineraries'
 
     days = (
+        ('', 'Day'),
         ('1', 'Day 1'),
         ('2', 'Day 2'),
         ('3', 'Day 3'),

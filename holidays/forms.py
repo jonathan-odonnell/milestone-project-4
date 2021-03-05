@@ -24,6 +24,8 @@ class PackageForm(forms.ModelForm):
         self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['image'].widget = CustomClearableFileInput()
         self.fields['description'].widget.attrs['rows'] = 5
+        self.fields['category'].empty_label = 'Category'
+        self.fields['country'].empty_label = 'Country'
 
 
 class PriceForm(forms.ModelForm):
@@ -52,21 +54,6 @@ class ItineraryForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3 form-label'
         self.helper.field_class = 'col-md-9'
-
-        days = (
-            ('1', 'Day 1'),
-            ('2', 'Day 2'),
-            ('3', 'Day 3'),
-            ('4', 'Day 4'),
-            ('5', 'Day 5'),
-            ('6', 'Day 6'),
-            ('7', 'Day 7'),
-            ('8', 'Day 8'),
-            ('9', 'Day 9'),
-            ('10', 'Day 10'),
-        )
-
-        self.fields['day'].choices = days
 
 
 PriceFormset = inlineformset_factory(Package, Price, form=PriceForm, extra=1)
