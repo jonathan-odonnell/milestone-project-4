@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist
-from holidays.models import Package, Flight
+from holidays.models import Package
+from flights.models import Flight
 from extras.models import Extra
 from checkout.models import Booking, BookingExtra, BookingPackage, BookingPassenger
 from profiles.models import UserProfile
@@ -26,9 +27,9 @@ def add_booking(request, holiday_id):
     return_date = departure_date + \
         datetime.timedelta(days=int(holiday.duration))
     outbound_flight = get_object_or_404(
-        Flight, outbound_flight__name=holiday.name, origin=request.POST.get('departure_airport'))
+        Flight, packages__name=holiday.name, origin=request.POST.get('departure_airport'))
     return_flight = get_object_or_404(
-        Flight, inbound_flight__name=holiday.name, destination=request.POST.get('departure_airport'))
+        Flight, packages__name=holiday.name, destination=request.POST.get('departure_airport'))
 
     guests = int(request.POST.get('guests'))
     booking = request.session.get('booking', {})

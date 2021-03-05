@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from .models import Coupon
-from holidays.models import Package, Price, Flight
+from holidays.models import Package, Price
+from flights.models import Flight
 from extras.models import Extra
 import datetime
 from decimal import Decimal
