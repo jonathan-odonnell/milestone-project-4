@@ -1,4 +1,5 @@
 from django.db import models
+from flights.models import Flight
 from extras.models import Extra
 from django_extensions.db.fields import AutoSlugField
 
@@ -57,21 +58,6 @@ class Feature(models.Model):
         return self.name
 
 
-class Flight(models.Model):
-
-    name = models.CharField(max_length=6)
-    origin = models.CharField(max_length=254)
-    destination = models.CharField(max_length=254)
-    departure_time = models.DateTimeField()
-    arrival_time = models.DateTimeField()
-    duration = models.DurationField()
-    layover = models.CharField(max_length=254, null=True, blank=True)
-    baggage = models.DecimalField(max_digits=2, decimal_places=0)
-
-    def __str__(self):
-        return self.name
-
-
 class Itinerary(models.Model):
 
     class Meta:
@@ -113,13 +99,10 @@ class Package(models.Model):
     duration = models.DecimalField(max_digits=2, decimal_places=0)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
     catering = models.CharField(max_length=254)
-    features = models.ManyToManyField('Feature')
-    activities = models.ManyToManyField('Activity')
-    extras = models.ManyToManyField(Extra, related_name='packages')
-    outbound_flight = models.ForeignKey(
-        'Flight', null=True, blank=True, on_delete=models.SET_NULL, related_name='outbound_flight')
-    return_flight = models.ForeignKey(
-        'Flight', null=True, blank=True, on_delete=models.SET_NULL, related_name='inbound_flight')
+    features = models.ManyToManyField(Feature, related_name='packages')
+    activities = models.ManyToManyField(Activity, blank=True, related_name='packages')
+    extras = models.ManyToManyField(Extra, blank=True, related_name='packages')
+    flights = models.ManyToManyField(Flight, blank=True, related_name='packages')
     transfers_included = models.BooleanField()
     slug = AutoSlugField(populate_from='name', slugify_function=slugify)
 
