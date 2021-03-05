@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <div class="row no-gutters">
+        <div class="col-12 text-center">
+            <h2 class="section-heading mb-3">Flights</h2>
+        </div>
+        <div class="col-12 col-lg-8 mx-auto mb-3">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-info">
+                        <tr>
+                            <th scope="col">Flight Number</th>
+                            <th scope="col">Origin</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for flight in flights %}
+                        <tr>
+                            <td>{{ flight.name }}</td>
+                            <td>{{ flight.origin }}</td>
+                            <td>{{ flight.destination }}</td>
+                            <td>
+                                <a href="{% url 'edit_flight' flight.name %}" class="btn btn-warning me-3">Edit</a>
+                                <a href="{% url 'delete_flight' flight.name %}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% if flights.paginator.num_pages > 1 %}
+        <div class="col-12 mb-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if flights.has_previous %}
+                    <li class="page-item">
+                        {% else %}
+                    <li class="page-item disabled">
+                        {% endif %}
+                        <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% if holidays.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">
+                        {{ flights.previous_page_number }}</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item active">
+                        <a class="page-link" href="javascript:void(0)">
+                            {{ flights.number }}</a>
+                        </li>
+                    {% if flights.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="javascript:void(0)">
+                            {{ flights.next_page_number }}</a>
+                        </li>
+                    <li class="page-item">
+                        {% else %}
+                    <li class="page-item disabled">
+                        {% endif %}
+                        <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
