@@ -5,7 +5,6 @@ $(document).ready(function () {
     $('#div_id_transfers_included, #div_id_price_set-0-offer').find('input').addClass('form-check-label')
     $('fieldset .row').addClass('mb-3')
     $('.delete-row').remove()
-    $('.itinerary').find('select').val('')
 })
 $('#new-image').change(function () {
     var file = $('#new-image')[0].files[0];
@@ -27,7 +26,6 @@ let addedItinerary = function () {
     $('fieldset .row').addClass('mb-3');
     itineraryCounter += 1
     $('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`)
-    $('.itinerary').find('select').val('')
     $('.delete-row').remove()
 }
 $('#next').click(function () {

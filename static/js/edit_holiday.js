@@ -8,7 +8,6 @@ $(document).ready(function () {
         $(this).find('.form-check').last().addClass('delete-check')
     })
     $('.delete-check label').addClass('text-danger')
-    $('.itinerary').last().find('select').val('')
 })
 $('#new-image').change(function () {
     var file = $('#new-image')[0].files[0];
@@ -35,7 +34,6 @@ let addedItinerary = function () {
     $(`#div_id_itinerary_set-${itineraryCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
     itineraryCounter += 1
     $('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`)
-    $('.itinerary').find('select').val('')
 }
 $('#next').click(function () {
     $('fieldset').not('.d-none').next().removeClass('d-none')
