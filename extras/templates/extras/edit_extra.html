@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid p-4">
+    <div class="row no-gutters">
+        <div class="col-12 text-center">
+            <h2 class="section-heading mb-3">Edit Extra</h2>
+        </div>
+        <div class="col-12 col-lg-8 mx-auto">
+            <form action="{% url 'edit_extra' extra.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.name | as_crispy_field }}
+                {{ form.image }}
+                {{ form.price | as_crispy_field }}
+                {{ form.description | as_crispy_field }}
+                <div class="my-3 text-center">
+                    <button class="btn btn-primary mt-3" type="submit">Update Extra</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.btn-file').addClass('mt-2');
+    });
+    $('#new-image').change(function () {
+        var file = $('#new-image')[0].files[0];
+        $('#filename').text(`Image will be set to: ${file.name}`);
+        $('#filename').addClass('mt-3');
+    });
+</script>
+{% endblock %}

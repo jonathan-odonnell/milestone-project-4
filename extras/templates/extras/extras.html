@@ -20,7 +20,7 @@
               <p class="card-text">{{ extra.description }}</p>
               {% if request.user.is_superuser %}
               <small class="ml-3">
-                <a class="edit-extra" href="#" data-id="{{extra.id}}">Edit</a> |
+                <a class="edit-extra" href="{% url 'edit_extra' extra.id %}">Edit</a> |
                 <a class="text-danger" href="{% url 'delete_extra' extra.id %}">Delete</a>
               </small>
               {% endif %}
@@ -37,7 +37,7 @@
               <p class="card-text">{{ extra.description }}</p>
               {% if request.user.is_superuser %}
               <small class="ml-3">
-                <a class="edit-extra" href="#" data-id="{{extra.id}}">Edit</a> |
+                <a class="edit-extra" href="{% url 'edit_extra' extra.id %}">Edit</a> |
                 <a class="text-danger" href="{% url 'delete_extra' extra.id %}">Delete</a>
               </small>
               {% endif %}
@@ -52,56 +52,5 @@
       {% endfor %}
     </div>
   </div>
-  {% if request.user.is_superuser %}
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add-extra">
-    <i class="far fa-plus-square"></i>
-  </button>
-  <!-- Add Extra Modal -->
-  <div class="modal fade" id="add-extra" tabindex="-1" aria-label="Add extra" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Extra</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{% url 'add_extra' %}" method="POST" enctype="multipart/form-data">
-          <div class="modal-body">
-            {% csrf_token %}
-            {{ form.name | as_crispy_field }}
-            {{ form.image }}
-            {{ form.price | as_crispy_field }}
-            {{ form.description | as_crispy_field }}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Add extra</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-{% endif %}
 </section>
 {% endblock %}
-{% if request.user.is_superuser %}
-{% block postloadjs %}
-<script>
-  $('#new-image').change(function () {
-    var file = $('#new-image')[0].files[0];
-    $('#filename').text(`Image will be set to: ${file.name}`);
-    $('#filename').addClass('mt-3');
-  });
-  $('.edit-extra').click(function () {
-    var id = $(this).data('id');
-    $.get(`/extras/edit/${id}/`).done(function (response) {
-      $(response).insertAfter('#add-extra');
-      $('#edit-extra').modal('show');
-    })
-  })
-  $('.container').on('hidden.bs.modal', '#edit-extra', function () {
-    $('#edit-extra').remove()
-  })
-</script>
-{% endblock %}
-{% endif %}

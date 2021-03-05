@@ -9,27 +9,36 @@ from holidays.utlis import superuser_required
 
 def extras(request):
     extras = Extra.objects.all()
-    form = ExtraForm(prefix="add")
+
+    template = 'extras/extras.html'
     context = {
         'extras': extras,
-        'form': form,
     }
 
-    return render(request, 'extras/extras.html', context)
+    return render(request, template, context)
 
 
 @login_required
 @superuser_required
-@require_POST
 def add_extra(request):
-    form = ExtraForm(request.POST, request.FILES, prefix='add')
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Successfully added extra!')
+    if request.method == 'POST':
+        form = ExtraForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully added extra!')
+            return redirect(reverse('extras'))
+        else:
+            messages.error(
+                request, 'Failed to add extra. Please ensure the form is valid.')
     else:
-        messages.error(
-            request, 'Failed to add extra. Please ensure the form is valid.')
-    return redirect(reverse('extras'))
+        form = ExtraForm()
+
+    template = 'extras/add_extra.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
 
 
 @login_required
@@ -37,24 +46,22 @@ def add_extra(request):
 def edit_extra(request, extra_id):
     extra = get_object_or_404(Extra, id=extra_id)
     if request.method == 'POST':
-        form = ExtraForm(request.POST, request.FILES,
-                         instance=extra, prefix='edit')
-        print(form.errors)
+        form = ExtraForm(request.POST, request.FILES, instance=extra)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully updated extra!')
+            return redirect(reverse('extras'))
         else:
             messages.error(
                 request, 'Failed to update extra. Please ensure the form is valid.')
-        return redirect(reverse('extras'))
     else:
-        form = ExtraForm(prefix="edit", instance=extra)
+        form = ExtraForm(instance=extra)
 
-        template = 'extras/includes/modal.html'
-        context = {
-            'form': form,
-            'extra': extra,
-        }
+    template = 'extras/edit_extra.html'
+    context = {
+        'form': form,
+        'extra': extra,
+    }
 
     return render(request, template, context)
 
