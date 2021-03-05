@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.contrib import messages
 from holidays.utlis import superuser_required
 from holidays.models import Flight
@@ -9,7 +10,10 @@ from .forms import FlightForm
 @login_required
 @superuser_required
 def flights(request):
-    flights = Flights.objects.all()
+    flights = Flight.objects.all()
+    paginated_flights = Paginator(flights, 10)
+    page_number = request.GET.get('page')
+    flights = paginated_flights.get_page(page_number)
 
     context = {
         'flights': flights,
