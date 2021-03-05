@@ -1,27 +1,7 @@
 from django.contrib import admin
-from .models import Activity, Category, Country, Feature, Flight, Itinerary, Price, Package, Region
+from .models import Activity, Category, Country, Feature, Itinerary, Price, Package, Region
+from flights.models import Flight
 from extras.models import Extra
-
-
-class ActivityInline(admin.StackedInline):
-    model = Package.activities.through
-    extra = 0
-    verbose_name = 'Activity'
-    verbose_name_plural = 'Activities'
-
-
-class ExtraInline(admin.StackedInline):
-    model = Package.extras.through
-    extra = 0
-    verbose_name = 'Extra'
-    verbose_name_plural = 'Extras'
-
-
-class FeatureInline(admin.StackedInline):
-    model = Package.features.through
-    extra = 0
-    verbose_name = 'Feature'
-    verbose_name_plural = 'Features'
 
 
 class ItineraryInline(admin.StackedInline):
@@ -37,18 +17,14 @@ class PriceInline(admin.StackedInline):
 class PackageAdmin(admin.ModelAdmin):
     inlines = [
         PriceInline,
-        ExtraInline,
-        FeatureInline,
-        ActivityInline,
         ItineraryInline,
     ]
-    exclude = ('features', 'activities', 'extras')
+    filter_horizontal = ('features', 'activities', 'extras', 'flights')
 
 
+admin.site.register(Package, PackageAdmin)
 admin.site.register(Category)
 admin.site.register(Country)
-admin.site.register(Extra)
-admin.site.register(Feature)
-admin.site.register(Flight)
-admin.site.register(Package, PackageAdmin)
 admin.site.register(Region)
+admin.site.register(Feature)
+admin.site.register(Activity)
