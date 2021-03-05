@@ -80,10 +80,10 @@
                 <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
                 {% endif %}
                 <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
-                <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
+                <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
                 {% else %}
-                <li><a class="dropdown-item" href="{% url 'account_signup' %}">Register</a></li>
-                <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign In</a></li>
+                <li><a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a></li>
+                <li><a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign In</a></li>
                 {% endif %}
             </ul>
             <!-- Collapsible wrapper -->
@@ -140,10 +140,10 @@
                             {% endif %}
                             <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a>
                             </li>
-                            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
                             {% else %}
-                            <li><a class="dropdown-item" href="{% url 'account_signup' %}">Register</a></li>
-                            <li><a class="dropdown-item" href="{% url 'account_login' %}">Sign In</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a></li>
+                            <li><a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign In</a></li>
                             {% endif %}
                         </ul>
             </div>
