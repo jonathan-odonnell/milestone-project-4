@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from .models import Booking, BookingPackage
+from booking.models import Booking, BookingPackage
 from holidays.models import Package
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm

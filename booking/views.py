@@ -5,9 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from holidays.models import Package
 from flights.models import Flight
 from extras.models import Extra
-from checkout.models import Booking, BookingExtra, BookingPackage, BookingPassenger
+from .models import Booking, BookingExtra, BookingPackage, BookingPassenger, Coupon
 from profiles.models import UserProfile
-from .models import Coupon
 from .contexts import booking_details
 import datetime
 from decimal import Decimal

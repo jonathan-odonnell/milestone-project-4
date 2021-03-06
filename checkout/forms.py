@@ -1,5 +1,5 @@
 from django import forms
-from .models import Booking
+from booking.models import Booking
 from crispy_forms.helper import FormHelper
 
 

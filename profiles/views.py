@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import UserProfile
-from checkout.models import Booking
+from booking.models import Booking
 from .forms import UserProfileForm
 from django.conf import settings
 import stripe

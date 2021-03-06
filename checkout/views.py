@@ -2,7 +2,7 @@ from django.views.decorators.http import require_POST
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from django.http import JsonResponse
 from .forms import BookingForm
-from .models import Booking, BookingPackage
+from booking.models import Booking, BookingPackage
 from holidays.models import Package
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
