@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist
@@ -18,46 +19,75 @@ def booking(request):
 
 @require_POST
 def add_booking(request, holiday_id):
-    date = datetime.datetime.now()
-    holiday = get_object_or_404(
-        Package, pk=holiday_id, price__start_date__lte=date, price__end_date__gte=date)
-    departure_date = datetime.datetime.strptime(
-        request.POST.get('departure_date'), "%d/%m/%Y").date()
-    return_date = departure_date + \
-        datetime.timedelta(days=int(holiday.duration))
-    outbound_flight = get_object_or_404(
-        Flight, packages__name=holiday.name, origin=request.POST.get('departure_airport'))
-    return_flight = get_object_or_404(
-        Flight, packages__name=holiday.name, destination=request.POST.get('departure_airport'))
+    if request.method == 'POST':
+        booking = None
+        booking_number = request.session.get('booking_number', '')
 
-    guests = int(request.POST.get('guests'))
-    booking = request.session.get('booking', {})
-    booking['holiday_id'] = holiday_id
-    booking['price'] = str(holiday.price_set.all()[0].price)
-    booking['guests'] = guests
-    booking['departure_airport'] = request.POST.get('departure_airport')
-    booking['departure_date'] = str(departure_date)
-    booking['return_date'] = str(return_date)
-    booking['outbound_flight'] = outbound_flight.pk
-    booking['return_flight'] = return_flight.pk
+        try:
+            holiday = get_object_or_404(Package, pk=holiday_id)
+            outbound_flight = Flight.objects.get(
+                packages__name=holiday.name, origin=request.POST['departure_airport'])
+            return_flight = Flight.objects.get(
+                packages__name=holiday.name, destination=request.POST['departure_airport'])
 
-    request.session['booking'] = booking
+            if booking_number:
+                booking = Booking.objects.get(booking_number=booking_number)
+                booking.booking_package.delete()
+                booking.booking_extras.all().delete()
+                booking.booking_passengers.all().delete()
+                booking.date = datetime.datetime.now()
+                booking.save()
+
+            else:
+                if request.user.is_authenticated:
+                    try:
+                        profile = UserProfile.objects.get(user=request.user)
+                        booking = Booking(user_profile=profile)
+                        booking.save()
+
+                    except UserProfile.DoesNotExist:
+                        booking = Booking()
+                        booking.save()
+
+                else:
+                    booking = Booking(user_profile=profile)
+                    booking.save()
+
+                request.session['booking_number'] = booking.booking_number
+
+            booking_package = BookingPackage(
+                booking=booking,
+                package=holiday,
+                guests=int(request.POST['guests']),
+                departure_date=datetime.datetime.strptime(
+                    request.POST['departure_date'], "%d/%m/%Y").date(),
+                outbound_flight=outbound_flight,
+                return_flight=return_flight,
+                duration=holiday.duration,
+            )
+            booking_package.save()
+
+        except Flight.DoesNotExist:
+            messages.error(
+                request, 'Unable to find flights. Please select another date and try again.')
+            return(redirect(request.META.get('HTTP_REFERER') or reverse('home')))
 
     return redirect(reverse('booking'))
-
+3
 
 @require_POST
 def update_guests(request):
-    booking = request.session.get('booking')
+    booking_number = request.session.get('booking_number')
+    booking = Booking.objects.get(booking_number=booking_number)
     guests = int(request.POST.get('guests'))
-    booking['guests'] = guests
+    booking.booking_package.guests = guests
+    booking.booking_package.save()
 
-    if booking.get('extras'):
-        for key, value in booking['extras'].items():
-            if value > guests:
-                booking['extras'][key] = guests
+    if booking.booking_extras.all():
+        for extra in booking.booking_extras.all():
+            if extra.quantity > guests:
+                extra.update(quantity=guests)
 
-    request.session['booking'] = booking
     booking_totals = booking_details(request)
     extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
@@ -75,10 +105,16 @@ def update_guests(request):
 
 @require_POST
 def add_extra(request, extra_id):
-    booking = request.session.get('booking')
-    booking['extras'] = booking.get('extras', {})
-    booking['extras'][extra_id] = booking['guests']
-    request.session['booking'] = booking
+    booking_number = request.session.get('booking_number')
+    booking = Booking.objects.get(booking_number=booking_number)
+    extra = Extra.objects.get(id=extra_id)
+    extra_quantity = 1
+    booking_extra = BookingExtra(
+        booking=booking,
+        extra=extra,
+        quantity=extra_quantity,
+    )
+    booking_extra.save()
     booking_totals = booking_details(request)
     extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
@@ -96,10 +132,10 @@ def add_extra(request, extra_id):
 
 @require_POST
 def update_extra(request, extra_id):
-    booking = request.session.get('booking')
+    booking_number = request.session.get('booking_number')
     quantity = int(request.POST['quantity'])
-    booking['extras'][extra_id] = quantity
-    request.session['booking'] = booking
+    BookingExtra.objects.filter(
+        booking__booking_number=booking_number, extra__pk=extra_id).update(quantity=quantity)
     booking_totals = booking_details(request)
     extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
@@ -116,9 +152,9 @@ def update_extra(request, extra_id):
 
 @require_POST
 def remove_extra(request, extra_id):
-    booking = request.session.get('booking')
-    del booking['extras'][extra_id]
-    request.session['booking'] = booking
+    booking_number = request.session.get('booking_number')
+    BookingExtra.objects.filter(
+        booking__booking_number=booking_number, extra__pk=extra_id).delete()
     booking_totals = booking_details(request)
     extras = booking_totals['extras_total']
     subtotal = booking_totals['subtotal']
@@ -137,14 +173,14 @@ def remove_extra(request, extra_id):
 @require_POST
 def add_coupon(request):
     coupon_name = request.POST.get('coupon')
+    booking_number = request.session.get('booking_number')
+    booking = get_object_or_404(Booking, booking_number=booking_number)
     try:
         current_date = datetime.datetime.now()
         coupon = Coupon.objects.get(
             name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
-        booking = request.session.get('booking')
-        booking['coupon_id'] = coupon.pk
-        booking['coupon'] = coupon_name
-        request.session['booking'] = booking
+        booking.coupon = coupon.name
+        booking.save()
         booking_totals = booking_details(request)
         discount = booking_totals['discount']
         subtotal = booking_totals['subtotal']
@@ -165,98 +201,46 @@ def add_coupon(request):
 
 
 def passengers(request):
+    booking_number = request.session.get('booking_number', '')
     if request.method == 'POST':
-        booking = None
-        current_booking = request.session.get('booking', {})
-        passenger_range = range(current_booking['guests'])
+        booking = Booking.objects.get(booking_number=booking_number)
+        passenger_range = range(booking.booking_package.guests)
 
-        if current_booking.get('booking_number'):
-            booking_number = current_booking.get('booking_number')
-            booking = Booking.objects.get(booking_number=booking_number)
-            booking.booking_package.delete()
-            booking.booking_extras.all().delete()
-            booking.booking_passengers.all().delete()
-            booking.date = datetime.datetime.now()
-            booking.save()
-
-        else:
-            booking = Booking()
-            booking.save()
-
-        try:
-            holiday = Package.objects.get(id=current_booking['holiday_id'])
-            outbound_flight = Flight.objects.get(
-                pk=current_booking['outbound_flight'])
-            return_flight = Flight.objects.get(
-                pk=current_booking['return_flight'])
-            booking_package = BookingPackage(
-                booking=booking,
-                package=holiday,
-                guests=current_booking['guests'],
-                departure_date=datetime.datetime.strptime(
-                    current_booking['departure_date'], "%Y-%m-%d").date(),
-                outbound_flight=outbound_flight,
-                return_flight=return_flight,
-                duration=holiday.duration,
-            )
-            booking_package.save()
-
-            if request.user.is_authenticated:
-                profile = UserProfile.objects.get(user=request.user)
-                booking.user_profile = profile
-                booking.save()
-
-            if current_booking.get('coupon'):
-                booking.coupon = current_booking['coupon']
-                booking.save()
-
-            if current_booking.get('extras'):
-                for extra_id, extra_quantity in current_booking['extras'].items():
-                    try:
-                        extra = Extra.objects.get(id=extra_id)
-                        booking_extra = BookingExtra(
-                            booking=booking,
-                            extra=extra,
-                            quantity=extra_quantity,
-                        )
-                        booking_extra.save()
-                    
-                    except Extra.DoesNotExist:
-                        booking.delete()
-                        return redirect(reverse('booking'))
-
+        if booking_number:
             for passenger in passenger_range:
                 booking_passenger = BookingPassenger(
                     booking=booking,
                     full_name=request.POST[f'name{passenger}'],
                     date_of_birth=datetime.datetime.strptime(
-                    request.POST[f'dob{passenger}'], "%d/%m/%Y").date(),
+                        request.POST[f'dob{passenger}'], "%d/%m/%Y").date(),
                     passport_number=int(request.POST[f'passport{passenger}'])
-                ) 
+                )
                 booking_passenger.save()
-            current_booking['booking_number'] = booking.booking_number
-            request.session['booking'] = current_booking 
 
-        except Package.DoesNotExist:
-            booking.delete()
+        else:
             return redirect(reverse('booking'))
 
         return redirect(reverse('checkout'))
-    
+
     else:
-        if request.session.get('booking'):
-            profile = None
+        profile = None
+        if not booking_number:
+            return redirect(reverse('booking'))
 
-            if request.user.is_authenticated:
-                profile = UserProfile.objects.get(user=request.user)
+        else:
+            try:
+                booking = Booking.objects.get(booking_number=booking_number)
+                passenger_range = range(booking.booking_package.guests)
 
-            guests = request.session['booking']['guests']
-            passenger_range = range(guests)
+                if request.user.is_authenticated:
+                    profile = UserProfile.objects.get(user=request.user)
+
+            except Booking.DoesNotExist:
+                return redirect(reverse('booking'))
+
             context = {
                 'passenger_range': passenger_range,
                 'profile': profile,
             }
-            return render(request, 'booking/passengers.html', context)
 
-        else:
-            return redirect(reverse('booking'))
+            return render(request, 'booking/passengers.html', context)
