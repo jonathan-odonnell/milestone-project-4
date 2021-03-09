@@ -164,6 +164,7 @@
 </div>
 {% endblock %}
 {% block postloadjs %}
+{{ block.super }}
 <script>
     $('#plus').click(function () {
         let currentValue = parseInt($(this).prev().val())
