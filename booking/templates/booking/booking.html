@@ -25,13 +25,13 @@
                         <tbody>
                             <tr>
                                 <td class="w-25">
-                                    <img class="img-fluid" src="{{holiday.image.url}}" alt="...">
+                                    <img class="img-fluid" src="{{booking.booking_package.package.image.url}}" alt="...">
                                 </td>
                                 <td class="px-2">
                                     <ul class="list-unstyled">
-                                        <li><a href="#"><strong>{{ holiday.name }}</strong></a></li>
-                                        <li>{{ holiday.duration}} days from {{ booking.departure_date }}</li>
-                                        <li>{{ holiday.catering }}</li>
+                                        <li><a href="#"><strong>{{ booking.booking_package.package.name }}</strong></a></li>
+                                        <li>{{ booking.booking_package.package.duration}} days from {{ booking.booking_package.departure_date }}</li>
+                                        <li>{{ booking.booking_package.package.catering }}</li>
                                     </ul>
                                 </td>
                                 <td class="w-lg-25 text-center px-2">
@@ -40,7 +40,7 @@
                                         <div class="input-group justify-content-center">
                                             <input
                                                 class="form-control form-control-sm form-control-guests text-center rounded-0"
-                                                type="number" name="guests" value="{{ booking.guests }}" />
+                                                type="number" name="guests" value="{{ booking.booking_package.guests }}" />
                                             <div class="btn-group-vertical rounded-0 shadow-none">
                                                 <button class="btn plus rounded-0 p-2 py-0" type="button">
                                                     <span>
@@ -56,7 +56,7 @@
                                         </div>
                                     </form>
                                 </td>
-                                <td class="w-25 text-center px-2">£{{ holiday.price_set.all.0.price }}</td>
+                                <td class="w-25 text-center px-2">£{{ booking.booking_package.total }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -65,8 +65,8 @@
                     <h3 class="section-subheading">Extras</h3>
                     <hr class="my-0">
                     <table class="table table-sm align-middle">
-                        {% with extras|extras_list as extras_list %}
-                        {% for extra in holiday.extras.all %}
+                        {% with booking.booking_extras.all|extras_list as extras_list %}
+                        {% for extra in booking.booking_package.package.extras.all %}
                         <tr>
                             <td class="w-25"><img class="img-fluid" src="{{ extra.image.url }}" alt=""></td>
                             <td class="w-25 px-2"><strong>{{ extra.name }}</strong></td>
@@ -76,7 +76,7 @@
                                     <div class="input-group justify-content-center">
                                         <input
                                             class="form-control form-control-sm form-control-guests text-center rounded-0"
-                                            type="number" name="quantity" value="{{ extras|extra_quantity:extra.id }}"
+                                            type="number" name="quantity" value="{{ booking.booking_extras.all|extra_quantity:extra.id }}"
                                             data-extra="{{ extra.id }}" />
                                         <div class="btn-group-vertical rounded-0 shadow-none">
                                             <button class="btn plus rounded-0 p-2 py-0" type="button">
@@ -121,12 +121,12 @@
                             </td>
                             <td>
                                 <ul class="list-unstyled mb-0">
-                                    <li class="mb-3"><a href="#"><strong>{{ holiday.name }}</strong></a></li>
-                                    <li class="mb-3">{{holiday.duration}} days from {{ booking.departure_date }}
+                                    <li class="mb-3"><a href="#"><strong>{{ booking.booking_package.package.name }}</strong></a></li>
+                                    <li class="mb-3">{{booking.booking_package.package.duration}} days from {{ booking.departure_date }}
                                     </li>
-                                    <li class="mb-3">{{ holiday.catering }}</li>
+                                    <li class="mb-3">{{ booking.booking_package.package.catering }}</li>
                                     <li class="mb-3">
-                                        £{{ holiday.price_set.all.0.price }}
+                                        £{{ booking.booking_package.total }}
                                     </li>
                                     <li class="mb-3">
                                         <form class="d-inline-block guests-form">
@@ -134,7 +134,7 @@
                                             <div class="input-group justify-content-start">
                                                 <input
                                                     class="form-control form-control-sm form-control-guests text-center rounded-0"
-                                                    type="number" name="guests" value="{{ booking.guests }}" />
+                                                    type="number" name="guests" value="{{ booking.booking_package.guests }}" />
                                                 <div class="btn-group-vertical rounded-0 shadow-none">
                                                     <button class="btn plus rounded-0 p-2 py-0" type="button">
                                                         <span>
@@ -159,8 +159,8 @@
                     <h3 class="section-subheading">Extras</h3>
                     <hr class="my-0">
                     <table class="table table-sm mb-3">
-                        {% with extras|extras_list as extras_list %}
-                        {% for extra in holiday.extras.all %}
+                        {% with booking.booking_extras.all|extras_list as extras_list %}
+                        {% for extra in booking.booking_package.package.extras.all %}
                         <tr>
                             <td class="w-25" rowspan="2">
                                 <img class="img-fluid mt-1" src="{{extra.image.url}}" alt="...">
@@ -168,7 +168,7 @@
                             <td colspan="2" class="no-border">
                                 <ul class="list-unstyled">
                                     <li class="mb-3"><strong>{{ extra.name }}</strong></li>
-                                    <li class="mb-3">£{{ holiday.price_set.all.0.price }}</li>
+                                    <li class="mb-3">£{{ extra.price }}</li>
                                 </ul>
                             </td>
                         </tr>
@@ -179,7 +179,7 @@
                                     <div class="input-group">
                                         <input
                                             class="form-control form-control-sm form-control-quantity text-center rounded-0"
-                                            type="number" name="quantity" value="{{ extras|extra_quantity:extra.id }}"
+                                            type="number" name="quantity" value="{{ booking.booking_extras.all|extra_quantity:extra.id }}"
                                             data-extra="{{ extra.id }}" />
                                         <div class="btn-group-vertical rounded-0 shadow-none">
                                             <button class="btn plus rounded-0 p-2 py-0" type="button">
@@ -216,56 +216,56 @@
                 <ul class="list-group mb-3">
                     <li class="list-group-item">
                         <div>
-                            <h6>{{booking.departure_date}} ({{flights.0.name}})</h6>
+                            <h6>{{booking.booking_package.departure_date}} ({{booking.booking_package.outbound_flight.name}})</h6>
                             <div class="row no-gutters">
                                 <div class="col text-start">
-                                    <p class="mb-0"><small>{{flights.0.origin}}</small></p>
-                                    <p class="mb-0"><small>{{flights.0.departure_time|time:'H:i'}}</small></p>
+                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.origin}}</small></p>
+                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.departure_time|time:'H:i'}}</small></p>
                                 </div>
                                 <div class="col-3 text-center pt-2">
                                     <i class="fas fa-plane"></i>
-                                    <p><small>{{flights.1.duration|duration}}</small></p>
+                                    <p><small>{{booking.booking_package.outbound_flight.duration|duration}}</small></p>
                                 </div>
                                 <div class="col text-end">
-                                    <p class="mb-0"><small>{{flights.0.destination}}</small></p>
-                                    <p class="mb-0"><small>{{flights.0.arrival_time|time:'H:i'}}</small></p>
+                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.destination}}</small></p>
+                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.arrival_time|time:'H:i'}}</small></p>
                                 </div>
                                 <div class="col-8">
-                                    {% if flights.0.layover %}
-                                    <p class="mb-0"><small>Layover in {{ flights.0.layover }}</small></p>
+                                    {% if booking.booking_package.outbound_flight.layover %}
+                                    <p class="mb-0"><small>Layover in {{ booking.booking_package.outbound_flight.layover }}</small></p>
                                     {% endif %}
                                 </div>
                                 <div class="col-4 text-end">
-                                    {% if flights.0|next_day > 0 %}
-                                    <p class="mb-0"><small>(+ {{flights.0|next_day}} day)</small></p>
+                                    {% if booking.booking_package.outbbound_flight|next_day > 0 %}
+                                    <p class="mb-0"><small>(+ {{booking.booking_package.outbound_flight|next_day}} day)</small></p>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                     </li>
                     <li class="list-group-item">
-                        <h6>{{booking.return_date}} ({{flights.1.name}})</h6>
+                        <h6>{{ return_date }} ({{booking.booking_package.return_flight.name}})</h6>
                         <div class="row no-gutters">
                             <div class="col text-start">
-                                <p class="mb-0"><small>{{flights.1.origin}}</small></p>
-                                <p class="mb-0"><small>{{flights.1.departure_time|time:'H:i'}}</small></p>
+                                <p class="mb-0"><small>{{booking.booking_package.return_flight.origin}}</small></p>
+                                <p class="mb-0"><small>{{booking.booking_package.return_flight.departure_time|time:'H:i'}}</small></p>
                             </div>
                             <div class="col-3 text-center pt-2">
                                 <i class="fas fa-plane"></i>
-                                <p><small>{{flights.1.duration|duration}}</small></p>
+                                <p><small>{{booking.booking_package.return_flight.duration|duration}}</small></p>
                             </div>
                             <div class="col text-end">
-                                <p class="mb-0"><small>{{flights.1.destination}}</small></p>
-                                <p class="mb-0"><small>{{flights.1.arrival_time|time:'H:i'}}</small></p>
+                                <p class="mb-0"><small>{{booking.booking_package.return_flight.destination}}</small></p>
+                                <p class="mb-0"><small>{{booking.booking_package.return_flight.arrival_time|time:'H:i'}}</small></p>
                             </div>
                             <div class="col-8">
-                                {% if flights.1.layover %}
-                                <p class="mb-0"><small>Layover in {{ flights.1.layover }}</small></p>
+                                {% if booking.booking_package.return_flight.layover %}
+                                <p class="mb-0"><small>Layover in {{ booking.booking_package.return_flight.layover }}</small></p>
                                 {% endif %}
                             </div>
                             <div class="col-4 text-end">
-                                {% if flights.1|next_day > 0 %}
-                                <p class="mb-0"><small>(+ {{flights.1|next_day}} day)</small></p>
+                                {% if booking.booking_package.return_flight|next_day > 0 %}
+                                <p class="mb-0"><small>(+ {{booking.booking_package.return_flight|next_day}} day)</small></p>
                                 {% endif %}
                             </div>
                         </div>

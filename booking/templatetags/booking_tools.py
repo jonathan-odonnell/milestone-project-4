@@ -26,12 +26,12 @@ def next_day(flight):
 def extras_list(extras):
     items_list = []
     for item in extras:
-        items_list.append(int(item['item_id']))
+        items_list.append(item.extra.id)
     return items_list
 
 @register.filter(name='extra_quantity')
 def extra_quantity(extras, item_id):
     for item in extras:
-        if int(item['item_id']) == item_id:
-            return item['quantity']
+        if item.extra.id == item_id:
+            return item.quantity
     return 1
