@@ -22,38 +22,31 @@ def add_booking(request, holiday_id):
     if request.method == 'POST':
         booking = None
         booking_number = request.session.get('booking_number', '')
+        holiday = Package.objects.get(pk=holiday_id)
 
         try:
-            holiday = get_object_or_404(Package, pk=holiday_id)
             outbound_flight = Flight.objects.get(
                 packages__name=holiday.name, origin=request.POST['departure_airport'])
             return_flight = Flight.objects.get(
                 packages__name=holiday.name, destination=request.POST['departure_airport'])
 
             if booking_number:
-                booking = Booking.objects.get(booking_number=booking_number)
-                booking.booking_package.delete()
-                booking.booking_extras.all().delete()
-                booking.booking_passengers.all().delete()
-                booking.date = datetime.datetime.now()
-                booking.save()
+                booking = Booking.objects.filter(
+                    booking_number=booking_number).delete()
 
-            else:
-                if request.user.is_authenticated:
-                    try:
-                        profile = UserProfile.objects.get(user=request.user)
-                        booking = Booking(user_profile=profile)
-                        booking.save()
-
-                    except UserProfile.DoesNotExist:
-                        booking = Booking()
-                        booking.save()
-
-                else:
+            if request.user.is_authenticated:
+                try:
+                    profile = UserProfile.objects.get(user=request.user)
                     booking = Booking(user_profile=profile)
                     booking.save()
 
-                request.session['booking_number'] = booking.booking_number
+                except UserProfile.DoesNotExist:
+                    booking = Booking()
+                    booking.save()
+
+            else:
+                booking = Booking()
+                booking.save()
 
             booking_package = BookingPackage(
                 booking=booking,
@@ -67,13 +60,15 @@ def add_booking(request, holiday_id):
             )
             booking_package.save()
 
+            request.session['booking_number'] = booking.booking_number
+
         except Flight.DoesNotExist:
             messages.error(
                 request, 'Unable to find flights. Please select another date and try again.')
             return(redirect(request.META.get('HTTP_REFERER') or reverse('home')))
 
     return redirect(reverse('booking'))
-3
+
 
 @require_POST
 def update_guests(request):
@@ -202,11 +197,15 @@ def add_coupon(request):
 
 def passengers(request):
     booking_number = request.session.get('booking_number', '')
-    if request.method == 'POST':
+    profile = None
+    if not booking_number:
+        return redirect(reverse('booking'))
+
+    try:
         booking = Booking.objects.get(booking_number=booking_number)
         passenger_range = range(booking.booking_package.guests)
 
-        if booking_number:
+        if request.method == 'POST':
             for passenger in passenger_range:
                 booking_passenger = BookingPassenger(
                     booking=booking,
@@ -217,30 +216,15 @@ def passengers(request):
                 )
                 booking_passenger.save()
 
-        else:
-            return redirect(reverse('booking'))
-
-        return redirect(reverse('checkout'))
-
-    else:
-        profile = None
-        if not booking_number:
-            return redirect(reverse('booking'))
+            return redirect(reverse('checkout'))
 
         else:
-            try:
-                booking = Booking.objects.get(booking_number=booking_number)
-                passenger_range = range(booking.booking_package.guests)
-
-                if request.user.is_authenticated:
-                    profile = UserProfile.objects.get(user=request.user)
-
-            except Booking.DoesNotExist:
-                return redirect(reverse('booking'))
-
             context = {
                 'passenger_range': passenger_range,
                 'profile': profile,
             }
 
             return render(request, 'booking/passengers.html', context)
+
+    except Booking.DoesNotExist:
+        return redirect(reverse('booking'))
