@@ -33,11 +33,11 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    current_booking = request.session.get('booking', {})
+    current_booking = request.session.get('booking_number', '')
     profile = None
 
     if not current_booking:
-        return HttpResponse(403)
+        return redirect(reverse('booking'))
 
     if request.method == 'POST':
         profile = None
