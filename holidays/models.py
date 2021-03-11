@@ -91,13 +91,15 @@ class Itinerary(models.Model):
 
 class Package(models.Model):
 
-    categories = models.ManyToManyField(Category, related_name='packages')
+    category = models.ForeignKey(
+        Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
     country = models.ForeignKey(
-        'Country', null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
+        Country, null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
     name = models.CharField(max_length=254)
     image = models.ImageField()
     image_url = models.CharField(max_length=254, null=True, blank=True)
     description = models.TextField()
+    offer = models.BooleanField()
     duration = models.DecimalField(max_digits=2, decimal_places=0)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
     catering = models.CharField(max_length=254)
@@ -105,7 +107,8 @@ class Package(models.Model):
     activities = models.ManyToManyField(
         Activity, blank=True, related_name='packages')
     extras = models.ManyToManyField(Extra, blank=True, related_name='packages')
-    flights = models.ManyToManyField(Flight, related_name='packages')
+    flights = models.ManyToManyField(
+        Flight, blank=True, related_name='packages')
     transfers_included = models.BooleanField()
     slug = AutoSlugField(populate_from='name', slugify_function=slugify)
 
