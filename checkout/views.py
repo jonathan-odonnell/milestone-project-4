@@ -141,16 +141,25 @@ def checkout(request):
 
         if request.user.is_authenticated:
             profile = UserProfile.objects.get(user=request.user)
-            cards = stripe.PaymentMethod.list(
-                customer=profile.stripe_customer_id,
-                type="card",
-                limit=3
-            )
-            intent = stripe.PaymentIntent.create(
-                amount=stripe_total,
-                currency=settings.STRIPE_CURRENCY,
-                customer=profile.stripe_customer_id
-            )
+
+            if profile.stripe_customer_id:
+                cards = stripe.PaymentMethod.list(
+                    customer=profile.stripe_customer_id,
+                    type="card",
+                    limit=3
+                )
+                intent = stripe.PaymentIntent.create(
+                    amount=stripe_total,
+                    currency=settings.STRIPE_CURRENCY,
+                    customer=profile.stripe_customer_id
+                )
+
+            else:
+                intent = stripe.PaymentIntent.create(
+                    amount=stripe_total,
+                    currency=settings.STRIPE_CURRENCY,
+                )
+
         else:
             intent = stripe.PaymentIntent.create(
                 amount=stripe_total,
