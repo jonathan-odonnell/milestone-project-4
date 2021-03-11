@@ -142,7 +142,11 @@
             {% endif %}
             <div class="card destination-card">
                 {% if category %}
+                {% if category == 'offers' %}
+                <a href="{% url 'category_details' 'offers' holiday.slug %}">
+                {% else %}
                 <a href="{% url 'category_details' holiday.category.slug holiday.slug %}">
+                {% endif %}
                 {% else %}
                 <a href="{% url 'destination_details' holiday.country.region.slug holiday.slug %}">
                 {% endif %}
