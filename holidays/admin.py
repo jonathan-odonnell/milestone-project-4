@@ -16,14 +16,15 @@ class PriceInline(admin.StackedInline):
 
 class PackageAdmin(admin.ModelAdmin):
     fields = ('name', 'image', 'description', 
-              'country', 'duration', 'rating',
-              'catering', 'categories', 'features', 
+              'category', 'country', 'offer', 
+              'duration', 'rating', 'catering', 
+              'transfers_included', 'features', 
               'activities', 'extras', 'flights',)
     inlines = [
         PriceInline,
         ItineraryInline,
     ]
-    filter_horizontal = ('categories', 'features', 'activities', 'extras', 'flights')
+    filter_horizontal = ('features', 'activities', 'extras', 'flights')
 
 
 admin.site.register(Package, PackageAdmin)
