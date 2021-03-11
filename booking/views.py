@@ -221,6 +221,9 @@ def passengers(request):
             return redirect(reverse('checkout'))
 
         else:
+            if request.user.is_authenticated:
+                profile = UserProfile.objects.get(user=request.user)
+
             context = {
                 'passenger_range': passenger_range,
                 'profile': profile,
