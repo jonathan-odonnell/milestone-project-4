@@ -22,9 +22,9 @@
             <a href="{% url 'booking' %}"" class=" back-btn"><i class="fas fa-arrow-left"></i></a>
             <div class="card shadow-none">
                 <div class="text-center">
-                    <h6 class="mb-2 text-muted">{{ holiday.duration }} days in {{ holiday.name }}</h5>
+                    <h6 class="mb-2 text-muted">{{ booking.booking_package.duration }} days in {{ booking.booking_package.package.name }}</h5>
                         <h3 class="mb-4">£{{ total }}</h3>
-                        <img src="{{ holiday.image.url }}" class="card-img-bottom rounded w-75" alt="...">
+                        <img src="{{ booking.booking_package.package.image.url }}" class="card-img-bottom rounded w-75" alt="...">
                 </div>
             </div>
         </div>
