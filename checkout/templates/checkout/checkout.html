@@ -72,9 +72,9 @@
                         <!-- A Stripe Element will be inserted here. -->
                     </div>
                 </fieldset>
-                {% if cards %}
                 <fieldset class="rounded px-3 mb-3">
                     <legend class=" fieldset-label small text-black px-2 w-auto">Card Payments</legend>
+                    {% if cards %}
                     {% for card in cards.data %}
                     <div id="id-saved-cards" class="form-check ms-2 mb-3">
                         <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card{{forloop.counter}}">
@@ -84,10 +84,11 @@
                         </label>
                     </div>
                     {% endfor %}
+                    {% endif %}
                     <div id="card-element" class="mb-3">
                         <!--Stripe.js injects the Card Element-->
                     </div>
-                    {% if user.is_authenticated %}
+                    {% if cards and user.is_authenticated %}
                     <div class="form-check ms-2 mb-3">
                         <label class="form-check-label" for="id-save-card" name="save-card">Save card to my
                             profile</label>
@@ -96,7 +97,6 @@
                     </div>
                     {% endif %}
                 </fieldset>
-                {% endif %}
                 <fieldset class="px-3">
                     <button class="payment-btn" type="submit">
                         <div class="spinner hidden" id="spinner"></div>
