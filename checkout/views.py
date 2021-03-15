@@ -212,12 +212,51 @@ def get_profile(request):
     return JsonResponse({'profile': profile})
 
 
-def create_paypal_transaction(request):
+def paypal(request):
     client_id = settings.PAYPAL_CLIENT_ID
     client_secret = settings.PAYPAL_CLIENT_SECRET
     booking = booking_details(request)
+    booking_number = request.session.get('booking_number', '')
     total = booking['total']
     currency = settings.PAYPAL_CURRENCY
+
+    if not booking_number:
+        return redirect(reverse('booking'))
+
+    try:
+        booking = Booking.objects.get(booking_number=booking_number)
+        # From https://stackoverflow.com/questions/59630300/getting-bytes-when-using-axios
+        form_data = json.loads(request.body)
+        save_info = 'save_info' in form_data
+        booking_form = BookingForm(form_data, instance=booking)
+
+        if booking_form.is_valid:
+            booking = booking_form.save()
+
+        if request.user.is_authenticated:
+            profile = UserProfile.objects.get(user=request.user)
+
+            if save_info:
+                profile = UserProfile(instance=request.user)
+                profile_data = {
+                    'phone_number': booking.phone_number,
+                    'street_address1': booking.street_address1,
+                    'street_address2': booking.street_address2,
+                    'town_or_city': booking.town_or_city,
+                    'county': booking.county,
+                    'country': booking.country,
+                    'postcode': booking.postcode,
+                }
+                user_profile_form = UserProfileForm(profile_data, instance=profile)
+
+                if user_profile_form.is_valid():
+                    profile = user_profile_form.save(commit=False)
+                    profile.user.email = booking.email
+                    profile.save()
+
+    except booking.DoesNotExist:
+        return redirect(reverse('booking'))
+
     environment = SandboxEnvironment(
         client_id=client_id, client_secret=client_secret)
     client = PayPalHttpClient(environment)
@@ -226,14 +265,15 @@ def create_paypal_transaction(request):
     create_transaction.request_body(
         {"intent": "CAPTURE",
          "application_context": {
-             "brand_name": "Travel Store",
+             "brand_name": "Go Explore",
              "shipping_preference": "NO_SHIPPING"
          },
             "purchase_units":
-            [{"amount": {
-             "currency_code": currency,
-             "value": str(total),
-             }}]})
+            [{"reference_id": booking_number,
+              "amount": {
+                  "currency_code": currency,
+                  "value": str(total),
+              }}]})
     response = client.execute(create_transaction)
     data = response.result.__dict__['_dict']
     return JsonResponse(data)
