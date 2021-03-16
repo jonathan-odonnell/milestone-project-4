@@ -1,25 +1,25 @@
 let csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
 paypal.Buttons({
     style: { color: 'white' },
-    onInit: function (data, actions) {
-        if ($('#id-default-address').html() === undefined) {
-            actions.disable()
-        } else {
-            actions.enable()
-        }
-    },
-    onClick: function () {
-        if ($('#id-default-address').html() === undefined) {
-            $('#payment-form')[0].reportValidity()
-        }
-    },
     createOrder: function () {
-        return fetch('/checkout/create-paypal-transaction/', {
+        return fetch('/checkout/paypal/', {
             method: 'post',
             headers: {
                 'content-type': 'application/json',
                 'X-CSRFToken': csrfToken
             },
+            body: JSON.stringify({
+                'full_name': $('#payment-form').find('#id_full_name').val(),
+                'email': $('#payment-form').find('#id_email').val(),
+                'phone_number': $('#payment-form').find('#id_phone_number').val(),
+                'street_address1': $('#payment-form').find('#id_street_address1').val(),
+                'street_address2': $('#payment-form').find('#id_street_address2').val(),
+                'town_or_city': $('#payment-form').find('#id_town_or_city').val(),
+                'county': $('#payment-form').find('#id_county').val(),
+                'country': $('#payment-form').find('#id_country').val(),
+                'postcode': $('#payment-form').find('#id_postcode').val(),
+                'save_info': $('#payment-form').find('#id_save_info').val(),
+            })
         }).then(function (res) {
             return res.json();
         }).then(function (data) {
@@ -27,14 +27,19 @@ paypal.Buttons({
         });
     },
     onApprove: function (data, actions) {
-        return actions.order.capture().then(function (details) {
-            let form = $('#payment-form').serializeArray()
-            let formData = {}
-            for (i in form) {
-                formData[form.i.name] = formData[form.i.value]
-            }
-            formData['paypal_payment_id'] = details.id
-            $.post('/checkout', formData)
-        });
+        return fetch(`/checkout/paypal/approve/`, {
+            method: 'post',
+            headers: {
+                'content-type': 'application/json',
+                'X-CSRFToken': csrfToken,
+            },
+            body: JSON.stringify({
+                'order_id': data.orderID
+              })
+        }).then(function (res) {
+            return res.json();
+        }).then(function (details) {
+            location.replace(`/checkout/checkout_success/${details.purchase_units[0].reference_id}`)
+        })
     }
 }).render('#paypal');
