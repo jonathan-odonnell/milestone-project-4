@@ -32,12 +32,10 @@
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Personal Details </legend>
-                    {% if not user.is_authenticated %}
+                    <legend class="fieldset-label small text-black px-2 w-auto">Contact Information</legend>
                     {{ booking_form.full_name | as_crispy_field }}
                     {{ booking_form.email | as_crispy_field }}
                     {{ booking_form.phone_number | as_crispy_field }}
-                    {% endif %}
                 </fieldset>
                 <fieldset id="address" class="rounded px-3 mb-3">
                     <legend class="fieldset-label small text-black px-2 w-auto">Billing Address</legend>
@@ -49,34 +47,26 @@
                     {{ booking_form.country | as_crispy_field }}
                     {{ booking_form.postcode | as_crispy_field }}
                     {% if user.is_authenticated %}
-                    {% if not profile.street_address1 %}
                     <div class="form-check ms-2 mb-3">
-                        <label class="form-check-label" for="id-save-info">Save address to my
+                        <label class="form-check-label" for="id_save_info">Save this information to my
                             profile</label>
-                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info" name="save-info"
+                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id_save_info" name="save_info"
                             checked>
                     </div>
-                    {% else %}
-                    <div class="form-check ms-2 mb-3">
-                        <label class="form-check-label" for="id-default-address">Use default address:
-                            {{ profile.street_address1 }}</label>
-                        <input class="form-check-input" type="checkbox" id="id-default-address" name="default-address">
-                    </div>
-                    {% endif %}
                     {% endif %}
                 </fieldset>
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Express Payments</legend>
+                    <legend class="fieldset-label small text-black px-2 w-auto">Express Payment</legend>
                     <div class="mb-2" id="paypal"></div>
                     <div class="mb-3" id="payment-request-button">
                         <!-- A Stripe Element will be inserted here. -->
                     </div>
                 </fieldset>
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class=" fieldset-label small text-black px-2 w-auto">Card Payments</legend>
+                    <legend class=" fieldset-label small text-black px-2 w-auto">Card Payment</legend>
                     {% if cards %}
                     {% for card in cards.data %}
-                    <div id="id-saved-cards" class="form-check ms-2 mb-3">
+                    <div id="saved-cards" class="form-check ms-2 mb-3">
                         <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card{{forloop.counter}}">
                         <label class="form-check-label" for="{{card.id}}">
                             {{ card.card.brand|capfirst }} card ending {{ card.card.last4 }} (expires
@@ -88,11 +78,11 @@
                     <div id="card-element" class="mb-3">
                         <!--Stripe.js injects the Card Element-->
                     </div>
-                    {% if cards and user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <div class="form-check ms-2 mb-3">
-                        <label class="form-check-label" for="id-save-card" name="save-card">Save card to my
+                        <label class="form-check-label" for="id_save_card">Save card to my
                             profile</label>
-                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-card" name="save-card"
+                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id_save_card" name="save_card"
                             checked>
                     </div>
                     {% endif %}
