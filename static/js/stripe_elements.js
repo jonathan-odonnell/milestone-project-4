@@ -25,6 +25,9 @@ var cvc
 var card = elements.create('card', { style: style });
 card.mount('#card-element');
 
+// Handle form submit
+var form = document.getElementById('payment-form');
+
 var paymentRequest = stripe.paymentRequest({
     country: country,
     currency: currency,
@@ -54,6 +57,13 @@ paymentRequest.canMakePayment().then(function (result) {
         document.getElementById('payment-request-button').style.display = 'none';
     }
 });
+
+// Handles form validation for payment request button. Code is from https://stackoverflow.com/questions/53707534/how-can-i-disable-the-stripe-payment-request-button-until-a-form-is-complete
+prButton.on('click', function(e) {
+    if (!form.reportValidity()) {
+      e.preventDefault();
+    }
+  });
 
 // Handle realtime validation errors on the card element
 card.addEventListener('change', function (event) {
@@ -99,9 +109,6 @@ $('#id-save-info').change(function() {
         $('id-save-card').parent().hide()
     }
 })
-
-// Handle form submit
-var form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function (ev) {
     ev.preventDefault();
