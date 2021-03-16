@@ -141,6 +141,17 @@ def checkout(request):
 
         if request.user.is_authenticated:
             profile = UserProfile.objects.get(user=request.user)
+            booking_form = BookingForm(initial={
+                'full_name': profile.user.get_full_name(),
+                'email': profile.user.email,
+                'phone_number': profile.phone_number,
+                'street_address1': profile.street_address1,
+                'street_address2': profile.street_address2,
+                'town_or_city': profile.town_or_city,
+                'county': profile.county,
+                'country': profile.country,
+                'postcode': profile.postcode,
+            })
 
             if profile.stripe_customer_id:
                 cards = stripe.PaymentMethod.list(
@@ -165,7 +176,7 @@ def checkout(request):
                 amount=stripe_total,
                 currency=settings.STRIPE_CURRENCY
             )
-        booking_form = BookingForm()
+            booking_form = BookingForm()
 
     context = {
         'booking_form': booking_form,
