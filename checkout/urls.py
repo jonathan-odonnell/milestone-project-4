@@ -10,6 +10,7 @@ urlpatterns = [
          name='cache_checkout_data'),
     path('get_profile/', views.get_profile, name='get_profile'),
     path('paypal/', views.paypal, name='paypal'),
+    path('paypal/approve/', views.paypal_approve, name='paypal_approve'),
     path('stripe-wh/', stripe_webhook, name='webhook'),
     path('paypal-wh/', paypal_webhook, name='paypal_webhook'),
 ]
