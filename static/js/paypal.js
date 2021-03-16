@@ -1,6 +1,21 @@
 let csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
 paypal.Buttons({
     style: { color: 'white' },
+    onInit: function (data, actions) {
+        actions.disable()
+        $('#payment-form').find('input, select').change(function () {
+            if ($('#payment-form')[0].checkValidity()) {
+                actions.enable()
+            } else {
+                actions.disable()
+            }
+        })
+    },
+    onClick: function () {
+        if (!$('#payment-form')[0].checkValidity()) {
+            $('#payment-form')[0].reportValidity()
+        }
+    },
     createOrder: function () {
         return fetch('/checkout/paypal/', {
             method: 'post',
@@ -35,7 +50,7 @@ paypal.Buttons({
             },
             body: JSON.stringify({
                 'order_id': data.orderID
-              })
+            })
         }).then(function (res) {
             return res.json();
         }).then(function (details) {
