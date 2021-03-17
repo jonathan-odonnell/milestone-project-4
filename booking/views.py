@@ -8,6 +8,7 @@ from flights.models import Flight
 from extras.models import Extra
 from .models import Booking, BookingExtra, BookingPackage, BookingPassenger, Coupon
 from profiles.models import UserProfile
+from .forms import PassengerForm
 from .contexts import booking_details
 import datetime
 from decimal import Decimal
@@ -198,38 +199,45 @@ def add_coupon(request):
 def passengers(request):
     booking_number = request.session.get('booking_number', '')
     profile = None
+
     if not booking_number:
         return redirect(reverse('booking'))
 
-    try:
-        booking = Booking.objects.get(booking_number=booking_number)
-        passenger_range = range(booking.booking_package.guests)
+    booking = get_object_or_404(Booking, booking_number=booking_number)
+    passenger_range = range(1, booking.booking_package.guests + 1)
 
-        if request.method == 'POST':
-            if booking.booking_passengers:
-                booking.booking_passengers.all().delete()
-            for passenger in passenger_range:
-                booking_passenger = BookingPassenger(
-                    booking=booking,
-                    full_name=request.POST[f'name{passenger}'],
-                    date_of_birth=datetime.datetime.strptime(
-                        request.POST[f'dob{passenger}'], "%d/%m/%Y").date(),
-                    passport_number=int(request.POST[f'passport{passenger}'])
-                )
-                booking_passenger.save()
+    if request.method == 'POST':
+        if booking.booking_passengers:
+            booking.booking_passengers.all().delete()
 
-            return redirect(reverse('checkout'))
-
-        else:
-            if request.user.is_authenticated:
-                profile = UserProfile.objects.get(user=request.user)
-
-            context = {
-                'passenger_range': passenger_range,
-                'profile': profile,
+        for passenger in passenger_range:
+            form_data = {
+                f'{passenger}-booking': booking,
+                f'{passenger}-full_name': request.POST[f'{passenger}-full_name'],
+                f'{passenger}-date_of_birth': request.POST[f'{passenger}-date_of_birth'],
+                f'{passenger}-passport_number': request.POST[f'{passenger}-passport_number']
             }
 
-            return render(request, 'booking/passengers.html', context)
+            form = PassengerForm(form_data, prefix=passenger)
 
-    except Booking.DoesNotExist:
-        return redirect(reverse('booking'))
+            if form.is_valid:
+                form.save()
+                return redirect(reverse('checkout'))
+
+    else:
+        formset = []
+        if request.user.is_authenticated:
+            profile = UserProfile.objects.get(user=request.user)
+
+        for passenger in passenger_range:
+            if passenger == 1:
+                formset.append(PassengerForm(initial={'full_name': profile.user.get_full_name()}, prefix=passenger))
+            else:
+                formset.append(PassengerForm(prefix=passenger))
+
+    context = {
+        'passenger_range': passenger_range,
+        'formset': formset,
+    }
+
+    return render(request, 'booking/passengers.html', context)
