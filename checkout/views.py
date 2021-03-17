@@ -42,40 +42,13 @@ def checkout(request):
     if request.method == 'POST':
         profile = None
         form_data = None
-        save_info = 'save-info' in request.POST
+        save_info = 'save_info' in request.POST
         booking_number = current_booking['booking_number']
         booking = Booking.objects.get(booking_number=booking_number)
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         if request.user.is_authenticated:
             profile = UserProfile.objects.get(user=request.user)
-            if save_info:
-                form_data = {
-                    'full_name': profile.user.get_full_name(),
-                    'email': profile.user.email,
-                    'phone_number': profile.phone_number,
-                    'street_address1': request.POST['street_address1'],
-                    'street_address2': request.POST['street_address2'],
-                    'town_or_city': request.POST['town_or_city'],
-                    'county': request.POST['county'],
-                    'country': request.POST['country'],
-                    'postcode': request.POST['postcode'],
-                }
-
-            else:
-                form_data = {
-                    'full_name': profile.user.get_full_name(),
-                    'email': profile.user.email,
-                    'phone_number': profile.phone_number,
-                    'street_address1': profile.street_address1,
-                    'street_address2': profile.street_address2,
-                    'town_or_city': profile.town_or_city,
-                    'county': profile.county,
-                    'country': profile.country,
-                    'postcode': profile.postcode,
-                }
-
-        else:
             form_data = {
                 'full_name': request.POST['full_name'],
                 'email': request.POST['email'],
@@ -115,20 +88,7 @@ def checkout(request):
                         profile_data, instance=profile)
 
                     if user_profile_form.is_valid():
-                        user_profile_form.save(commit=False)
-                        customer = stripe.Customer.create(
-                            name=profile.user.get_full_name(),
-                            address={
-                                'line1': profile.street_address1,
-                                'line2': profile.street_address2,
-                                'city': profile.town_or_city,
-                                'state': profile.county,
-                                'country': profile.country,
-                                'postal_code': profile.postcode
-                            }
-                        )
-                        profile.stripe_customer_id = customer['id']
-                        profile.save()
+                        user_profile_form.save()
 
             return redirect(reverse('checkout_success', args=[booking.booking_number]))
 
@@ -211,18 +171,6 @@ def checkout_success(request, booking_number):
     return render(request, template, context)
 
 
-def get_profile(request):
-    if request.user.is_authenticated:
-        profile = UserProfile.objects.filter(user=request.user)
-        email = profile[0].user.email
-        profile = list(profile.values())
-        profile[0]['email'] = email
-        profile = profile[0]
-    else:
-        profile = None
-    return JsonResponse({'profile': profile})
-
-
 def paypal(request):
     client_id = settings.PAYPAL_CLIENT_ID
     client_secret = settings.PAYPAL_CLIENT_SECRET
@@ -258,8 +206,6 @@ def paypal(request):
                     profile_data, instance=profile)
 
                 if user_profile_form.is_valid():
-                    profile = user_profile_form.save(commit=False)
-                    profile.user.email = booking.email
                     profile.save()
 
     environment = SandboxEnvironment(
