@@ -88,31 +88,18 @@ class StripeWH_Handler:
 
                     if save_info:
                         profile_data = {
-                            'default_phone_number': booking.phone_number,
-                            'default_street_address1': booking.street_address1,
-                            'default_street_address2': booking.street_address2,
-                            'default_town_or_city': booking.town_or_city,
-                            'default_county': booking.county,
-                            'default_country': booking.country,
-                            'default_postcode': booking.postcode,
+                            'phone_number': booking.phone_number,
+                            'street_address1': booking.street_address1,
+                            'street_address2': booking.street_address2,
+                            'town_or_city': booking.town_or_city,
+                            'county': booking.county,
+                            'country': booking.country,
+                            'postcode': booking.postcode,
                         }
                         user_profile_form = UserProfileForm(
                             profile_data, instance=profile)
 
                         if user_profile_form.is_valid():
-                            profile = user_profile_form.save(commit=False)
-                            customer = stripe.Customer.create(
-                                name=profile.user.get_full_name(),
-                                address={
-                                    'line1': profile.street_address1,
-                                    'line2': profile.street_address2,
-                                    'city': profile.town_or_city,
-                                    'state': profile.county,
-                                    'country': profile.country,
-                                    'postal_code': profile.postcode
-                                }
-                            )
-                            profile.stripe_customer_id = customer['id']
                             profile.save()
 
             except Exception as e:
