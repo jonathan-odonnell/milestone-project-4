@@ -20,8 +20,6 @@ var style = {
     }
 };
 
-var cvc
-
 var card = elements.create('card', { style: style });
 card.mount('#card-element');
 
@@ -59,11 +57,11 @@ paymentRequest.canMakePayment().then(function (result) {
 });
 
 // Handles form validation for payment request button. Code is from https://stackoverflow.com/questions/53707534/how-can-i-disable-the-stripe-payment-request-button-until-a-form-is-complete
-prButton.on('click', function(e) {
+prButton.on('click', function (e) {
     if (!form.reportValidity()) {
-      e.preventDefault();
+        e.preventDefault();
     }
-  });
+});
 
 // Handle realtime validation errors on the card element
 card.addEventListener('change', function (event) {
@@ -81,32 +79,19 @@ card.addEventListener('change', function (event) {
     }
 });
 
-$('#id-saved-cards').find('input[type=checkbox]').change(function () {
-    $('#id-saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
+$('#saved-cards').find('input[type=checkbox]').change(function () {
+    $('#saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
     $('#address').find('input,select').attr('required', false)
     if ($(this).is(':checked')) {
-        $('#id-save-card').parent().hide()
         $('#card-element').addClass('w-50')
         card.destroy()
-        cvc = elements.create('cardCvc', { style: style });
-        cvc.mount('#card-element');
+        card = elements.create('cardCvc', { style: style });
+        card.mount('#card-element');
     } else {
-        $('#id-save-card').parent().show()
         $('#card-element').removeClass('w-50')
-        cvc.destroy()
+        card.destroy()
         card = elements.create('card', { style: style });
         card.mount('#card-element');
-    }
-})
-
-$('#id-default-address').change(function () {
-    $('#address').find('input,select').attr('required', false)
-})
-
-$('#id-save-info').change(function() {
-    if ($(this).prop('checked', false)) {
-        $('id-save-card').prop('checked', false)
-        $('id-save-card').parent().hide()
     }
 })
 
@@ -115,100 +100,86 @@ form.addEventListener('submit', function (ev) {
     card.update({ 'disabled': true });
     $('#submit-button').attr('disabled', true);
     loading(true)
-    var saveInfo = $('#id-save-info').is(':checked');
-    var saveCard = $('#id-save-card').is(':checked');
-    var defaultAddress = $('#id-default-address').is(':checked');
-    var savedCard = $('#id-saved-cards').find('input:checked').attr('id');
+    var saveInfo = $('#id_save_info').is(':checked');
+    var saveCard = $('#id_save_card').is(':checked');
+    var savedCard = $('#saved-cards').find('input:checked').attr('id');
     var paymentDetails
-    var profile
 
-    $.get('/checkout/get_profile/').done(function (data) {
-        profile = data.profile
-    }).then(function () {
-        if (defaultAddress) {
-            paymentDetails = {
-                payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: profile.name,
-                        phone: profile.phone_number,
-                        email: profile.email,
-                        address: {
-                            line1: profile.street_address1,
-                            line2: profile.street_address2,
-                            city: profile.town_or_city,
-                            state: profile.county,
-                            country: profile.country,
-                            postal_code: profile.postcode,
-                        }
-                    }
+    if (savedCard) {
+        paymentDetails = {
+            payment_method: savedCard,
+            payment_method_options: {
+                card: {
+                    cvc: card,
                 },
-                setup_future_usage: saveCard ? "off_session" : ""
-            }
-        } else if (savedCard) {
-            paymentDetails = {
-                payment_method: savedCard,
-                payment_method_options: {
-                    card: {
-                      cvc: cvc,
+                billing_details: {
+                    name: $.trim(form.full_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email.value),
+                    address: {
+                        line1: $.trim(form.street_address1.value),
+                        line2: $.trim(form.street_address2.value),
+                        city: $.trim(form.town_or_city.value),
+                        state: $.trim(form.county.value),
+                        country: $.trim(form.country.value),
+                        postal_code: $.trim(form.postcode.value),
                     }
-                  },
-            }
-        } else {
-            paymentDetails = {
-                payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: billingDetails(form.full_name.value),
-                        phone: billingDetails(form.phone_number.value),
-                        email: billingDetails(form.email.value),
-                        address: {
-                            line1: billingDetails(form.street_address1.value),
-                            line2: billingDetails(form.street_address2.value),
-                            city: billingDetails(form.town_or_city.value),
-                            state: billingDetails(form.county.value),
-                            country: billingDetails(form.country.value),
-                            postal_code: billingDetails(form.postcode.value),
-                        }
-                    }
-                },
-                setup_future_usage: saveCard ? "off_session" : ""
-            }
+                }
+            },
         }
-    }).then(function () {
-        var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
-        var postData = {
-            'csrfmiddlewaretoken': csrfToken,
-            'client_secret': clientSecret,
-            'save_info': saveInfo,
-            'save_card': saveCard,
-        };
-        var url = '/checkout/cache_checkout_data/';
+    } else {
+        paymentDetails = {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: $.trim(form.full_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email.value),
+                    address: {
+                        line1: $.trim(form.street_address1.value),
+                        line2: $.trim(form.street_address2.value),
+                        city: $.trim(form.town_or_city.value),
+                        state: $.trim(form.county.value),
+                        country: $.trim(form.country.value),
+                        postal_code: $.trim(form.postcode.value),
+                    }
+                }
+            },
+            setup_future_usage: saveCard ? "on_session" : ""
+        }
+    }
+    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+        'save_info': saveInfo,
+        'save_card': saveCard,
+    };
+    var url = '/checkout/cache_checkout_data/';
 
-        $.post(url, postData).done(function () {
-            stripe.confirmCardPayment(clientSecret, paymentDetails
-            ).then(function (result) {
-                if (result.error) {
-                    loading(false)
-                    var errorDiv = document.getElementById('card-errors');
-                    var html = `
+    $.post(url, postData).done(function () {
+        stripe.confirmCardPayment(clientSecret, paymentDetails
+        ).then(function (result) {
+            if (result.error) {
+                loading(false)
+                var errorDiv = document.getElementById('card-errors');
+                var html = `
                     <span class="icon" role="alert">
                     <i class="fas fa-times"></i>
                     </span>
                     <span>${result.error.message}</span>`;
-                    $(errorDiv).html(html);
-                    card.update({ 'disabled': false });
-                    $('#submit-button').attr('disabled', false);
-                    $('#id_street_address1').change(function () {
-                        $('address').find('input,select').attr('required', true)
-                    })
-                } else {
-                    if (result.paymentIntent.status === 'succeeded') {
-                        loading(false)
-                        form.submit();
-                    }
+                $(errorDiv).html(html);
+                card.update({ 'disabled': false });
+                $('#submit-button').attr('disabled', false);
+                $('#id_street_address1').change(function () {
+                    $('address').find('input,select').attr('required', true)
+                })
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    loading(false)
+                    form.submit();
                 }
-            })
+            }
         })
     })
 });
@@ -259,11 +230,3 @@ paymentRequest.on('paymentmethod', function (ev) {
         }
     });
 });
-
-function billingDetails(item) {
-    if (typeof (item) === undefined) {
-        return ""
-    } else {
-        return $.trim(item)
-    }
-}
