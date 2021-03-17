@@ -17,35 +17,6 @@ def profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user.email = request.POST['email_address']
-
-            if profile.stripe_customer_id:
-                customer = stripe.Customer.create(
-                    name=profile.user.get_full_name(),
-                    address={
-                        'line1': profile.street_address1,
-                        'line2': profile.street_address2,
-                        'city': profile.town_or_city,
-                        'state': profile.county,
-                        'country': profile.country,
-                        'postal_code': profile.postcode
-                    }
-                )
-                profile.stripe_customer_id = customer['id']
-
-            else:
-                stripe.Customer.modify(
-                    profile.stripe_customer_id,
-                    name=profile.user.get_full_name(),
-                    address={
-                        'line1': profile.street_address1,
-                        'line2': profile.street_address2,
-                        'city': profile.town_or_city,
-                        'state': profile.county,
-                        'country': profile.country,
-                        'postal_code': profile.postcode
-                    }
-                )
-    
             profile.save()
 
     form = UserProfileForm(
