@@ -229,11 +229,14 @@ def passengers(request):
         if request.user.is_authenticated:
             profile = UserProfile.objects.get(user=request.user)
 
-        for passenger in passenger_range:
-            if passenger == 1:
+        for passenger_number in passenger_range:
+            if passenger_number == 1 and not booking.booking_passengers:
                 formset.append(PassengerForm(initial={'full_name': profile.user.get_full_name()}, prefix=passenger))
+            elif not booking.booking_passengers:
+                formset.append(PassengerForm(prefix=passenger_number))
             else:
-                formset.append(PassengerForm(prefix=passenger))
+                passenger = booking.booking_passengers.all()[passenger_number -1]
+                formset.append(PassengerForm(prefix=passenger_number, instance=passenger))
 
     context = {
         'passenger_range': passenger_range,
