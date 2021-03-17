@@ -8,7 +8,6 @@ urlpatterns = [
          views.checkout_success, name='checkout_success'),
     path('cache_checkout_data/', views.cache_checkout_data,
          name='cache_checkout_data'),
-    path('get_profile/', views.get_profile, name='get_profile'),
     path('paypal/', views.paypal, name='paypal'),
     path('paypal/approve/', views.paypal_approve, name='paypal_approve'),
     path('stripe-wh/', stripe_webhook, name='webhook'),
