@@ -7,14 +7,15 @@
 
 {% block extra_js %}
 <!--Paypal Javascript-->
-<script src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency={{paypal_currency}}&disable-funding=credit,card"></script>
+<script
+    src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency={{paypal_currency}}&disable-funding=credit,card"></script>
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container p-4">
     <div class="row">
         <div class="col">
-            <h1 class="section-heading text-center my-4">Checkout</h1>
+            <h1 class="section-heading text-center mb-4">Checkout</h1>
         </div>
     </div>
     <div class="row no-gutters">
@@ -22,9 +23,11 @@
             <a href="{% url 'booking' %}"" class=" back-btn"><i class="fas fa-arrow-left"></i></a>
             <div class="card shadow-none">
                 <div class="text-center">
-                    <h6 class="mb-2 text-muted">{{ booking.booking_package.duration }} days in {{ booking.booking_package.package.name }}</h5>
+                    <h6 class="mb-2 text-muted">{{ booking.booking_package.duration }} days in 
+                        {{ booking.booking_package.package.name }}</h5>
                         <h3 class="mb-4">£{{ total }}</h3>
-                        <img src="{{ booking.booking_package.package.image.url }}" class="card-img-bottom rounded w-75" alt="...">
+                        <img src="{{ booking.booking_package.package.image.url }}" class="card-img-bottom rounded w-75"
+                            alt="...">
                 </div>
             </div>
         </div>
@@ -32,7 +35,7 @@
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Contact Information</legend>
+                    <legend class="fieldset-label small text-black px-2 w-auto">Booking Contact</legend>
                     {{ booking_form.full_name | as_crispy_field }}
                     {{ booking_form.email | as_crispy_field }}
                     {{ booking_form.phone_number | as_crispy_field }}
@@ -46,7 +49,7 @@
                     {{ booking_form.county | as_crispy_field }}
                     {{ booking_form.country | as_crispy_field }}
                     {{ booking_form.postcode | as_crispy_field }}
-                    {% if user.is_authenticated %}
+                    {% if user.is_authenticated and not profile.street_address1 %}
                     <div class="form-check ms-2 mb-3">
                         <label class="form-check-label" for="id_save_info">Save this information to my
                             profile</label>
@@ -60,6 +63,8 @@
                     <div class="mb-2" id="paypal"></div>
                     <div class="mb-3" id="payment-request-button">
                         <!-- A Stripe Element will be inserted here. -->
+                        <!-- Used to display payment request button errors -->
+                        <div class="mb-3 text-danger" id="payment-request-button-errors" role="alert"></div>
                     </div>
                 </fieldset>
                 <fieldset class="rounded px-3 mb-3">
@@ -67,7 +72,7 @@
                     {% if cards %}
                     {% for card in cards.data %}
                     <div id="saved-cards" class="form-check ms-2 mb-3">
-                        <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card{{forloop.counter}}">
+                        <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card" value="True">
                         <label class="form-check-label" for="{{card.id}}">
                             {{ card.card.brand|capfirst }} card ending {{ card.card.last4 }} (expires
                             {{card.card.exp_month}}/{{card.card.exp_year}})
@@ -84,6 +89,8 @@
                             profile</label>
                         <input class="form-check-input ml-2 mr-0" type="checkbox" id="id_save_card" name="save_card"
                             checked>
+                        <!-- Used to display card errors -->
+                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                     </div>
                     {% endif %}
                 </fieldset>
@@ -92,8 +99,8 @@
                         <div class="spinner hidden" id="spinner"></div>
                         <span id="button-text">Pay</span>
                     </button>
-                    <!-- Used to display form errors -->
-                    <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                    <!--Payment Type-->
+                    <input type="hidden" name="payment" value="">
                     <!-- Pass the client secret to the view so we can get the payment intent id -->
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 </fieldset>
@@ -101,7 +108,6 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
@@ -112,6 +118,7 @@
 {{ stripe_total|json_script:"id_stripe_total" }}
 <script src="{% static 'js/stripe_elements.js' %}"></script>
 <script src="{% static 'js/paypal.js' %}"></script>
-<script async src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
 <script src="{% static 'js/autocomplete.js' %}"></script>
 {% endblock %}
