@@ -33,22 +33,53 @@ def cache_checkout_data(request):
 def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    current_booking = request.session.get('booking_number', '')
+    stripe.api_key = stripe_secret_key
+    booking_number = request.session.get('booking_number', '')
     profile = None
 
-    if not current_booking:
+    if not booking_number:
         return redirect(reverse('booking'))
 
     if request.method == 'POST':
         profile = None
         form_data = None
         save_info = 'save_info' in request.POST
-        booking_number = current_booking['booking_number']
+        saved_card = 'card' in request.POST
+        payment_type = request.POST['payment']
+        pid = request.POST.get('client_secret').split('_secret')[0]
         booking = Booking.objects.get(booking_number=booking_number)
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and saved_card:
             profile = UserProfile.objects.get(user=request.user)
+            form_data = {
+                'full_name': profile.user.get_full_name(),
+                'email': profile.user.email,
+                'phone_number': profile.phone_number,
+                'street_address1': profile.street_address1,
+                'street_address2': profile.street_address2,
+                'town_or_city': profile.town_or_city,
+                'county': profile.county,
+                'country': profile.country,
+                'postcode': profile.postcode,
+            }
+
+        elif payment_type == 'payment_button':
+            intent = stripe.PaymentMethod.retrieve(pid)
+            billing_details = intent.charges.data[0].billing_details
+            form_data = {
+                'full_name': billing_details.name,
+                'email': billing_details.email,
+                'phone_number': billing_details.phone,
+                'street_address1': billing_details.address.line1,
+                'street_address2': billing_details.address.line2,
+                'town_or_city': billing_details.address.city,
+                'county': billing_details.address.state,
+                'country': billing_details.address.country,
+                'postcode': billing_details.address.postal_code
+            }
+
+        else:
             form_data = {
                 'full_name': request.POST['full_name'],
                 'email': request.POST['email'],
@@ -65,7 +96,6 @@ def checkout(request):
 
         if booking_form.is_valid():
             booking = booking_form.save(commit=False)
-            pid = request.POST.get('client_secret').split('_secret')[0]
             booking.stripe_pid = pid
             booking.paid = True
             booking.save()
@@ -96,7 +126,6 @@ def checkout(request):
         booking = booking_details(request)
         total = booking['total']
         stripe_total = round(total * 100)
-        stripe.api_key = stripe_secret_key
         cards = None
 
         if request.user.is_authenticated:
@@ -113,23 +142,17 @@ def checkout(request):
                 'postcode': profile.postcode,
             })
 
-            if profile.stripe_customer_id:
-                cards = stripe.PaymentMethod.list(
-                    customer=profile.stripe_customer_id,
-                    type="card",
-                    limit=3
-                )
-                intent = stripe.PaymentIntent.create(
-                    amount=stripe_total,
-                    currency=settings.STRIPE_CURRENCY,
-                    customer=profile.stripe_customer_id
-                )
+            cards = stripe.PaymentMethod.list(
+                customer=profile.stripe_customer_id,
+                type="card",
+                limit=3
+            )
 
-            else:
-                intent = stripe.PaymentIntent.create(
-                    amount=stripe_total,
-                    currency=settings.STRIPE_CURRENCY,
-                )
+            intent = stripe.PaymentIntent.create(
+                amount=stripe_total,
+                currency=settings.STRIPE_CURRENCY,
+                customer=profile.stripe_customer_id
+            )
 
         else:
             intent = stripe.PaymentIntent.create(
