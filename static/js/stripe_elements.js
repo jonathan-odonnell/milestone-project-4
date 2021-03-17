@@ -26,43 +26,6 @@ card.mount('#card-element');
 // Handle form submit
 var form = document.getElementById('payment-form');
 
-var paymentRequest = stripe.paymentRequest({
-    country: country,
-    currency: currency,
-    total: {
-        label: 'Total',
-        amount: total,
-    },
-    requestPayerName: true,
-    requestPayerEmail: true,
-});
-
-var prButton = elements.create('paymentRequestButton', {
-    paymentRequest: paymentRequest,
-    style: {
-        paymentRequestButton: {
-            type: 'buy',
-            theme: 'light-outline',
-            height: '64px'
-        },
-    },
-});
-
-paymentRequest.canMakePayment().then(function (result) {
-    if (result) {
-        prButton.mount('#payment-request-button');
-    } else {
-        document.getElementById('payment-request-button').style.display = 'none';
-    }
-});
-
-// Handles form validation for payment request button. Code is from https://stackoverflow.com/questions/53707534/how-can-i-disable-the-stripe-payment-request-button-until-a-form-is-complete
-prButton.on('click', function (e) {
-    if (!form.reportValidity()) {
-        e.preventDefault();
-    }
-});
-
 // Handle realtime validation errors on the card element
 card.addEventListener('change', function (event) {
     var errorDiv = document.getElementById('card-errors');
@@ -83,11 +46,13 @@ $('#saved-cards').find('input[type=checkbox]').change(function () {
     $('#saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
     $('#address').find('input,select').attr('required', false)
     if ($(this).is(':checked')) {
+        $('#id_save_card').parent().hide()
         $('#card-element').addClass('w-50')
         card.destroy()
         card = elements.create('cardCvc', { style: style });
         card.mount('#card-element');
     } else {
+        $('#id_save_card').parent().show()
         $('#card-element').removeClass('w-50')
         card.destroy()
         card = elements.create('card', { style: style });
@@ -104,6 +69,8 @@ form.addEventListener('submit', function (ev) {
     var saveCard = $('#id_save_card').is(':checked');
     var savedCard = $('#saved-cards').find('input:checked').attr('id');
     var paymentDetails
+    $('input[name="payment"]').val('card')
+    $('#card-errors, #payment-request-button-errors').html('')
 
     if (savedCard) {
         paymentDetails = {
@@ -112,19 +79,6 @@ form.addEventListener('submit', function (ev) {
                 card: {
                     cvc: card,
                 },
-                billing_details: {
-                    name: $.trim(form.full_name.value),
-                    phone: $.trim(form.phone_number.value),
-                    email: $.trim(form.email.value),
-                    address: {
-                        line1: $.trim(form.street_address1.value),
-                        line2: $.trim(form.street_address2.value),
-                        city: $.trim(form.town_or_city.value),
-                        state: $.trim(form.county.value),
-                        country: $.trim(form.country.value),
-                        postal_code: $.trim(form.postcode.value),
-                    }
-                }
             },
         }
     } else {
@@ -199,27 +153,79 @@ var loading = function (isLoading) {
     }
 };
 
+var paymentRequest = stripe.paymentRequest({
+    country: country,
+    currency: currency,
+    total: {
+        label: 'Total',
+        amount: total,
+    },
+    requestPayerName: true,
+    requestPayerEmail: true,
+});
+
+var prButton = elements.create('paymentRequestButton', {
+    paymentRequest: paymentRequest,
+    style: {
+        paymentRequestButton: {
+            type: 'book',
+            theme: 'dark',
+            height: '64px'
+        },
+    },
+});
+
+paymentRequest.canMakePayment().then(function (result) {
+    if (result) {
+        prButton.mount('#payment-request-button');
+    } else {
+        document.getElementById('payment-request-button').style.display = 'none';
+    }
+});
+
+// Handles form validation for payment request button. Code is from https://stackoverflow.com/questions/53707534/how-can-i-disable-the-stripe-payment-request-button-until-a-form-is-complete
+prButton.on('click', function (e) {
+    if (!form.reportValidity()) {
+        $('#address').find('input,select').attr('required', false)
+        e.preventDefault();
+    }
+});
+
 // Handle payment request button
 paymentRequest.on('paymentmethod', function (ev) {
-    stripe.confirmCardPayment(
-        clientSecret,
-        { payment_method: ev.paymentMethod.id },
-        { handleActions: false }
-    ).then(function (confirmResult) {
+    $('input[name="payment"]').val('payment_button')
+    $('#card-errors, #payment-request-button-errors').html('')
+    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+        'save_info': saveInfo,
+        'save_card': saveCard,
+    };
+    var url = '/checkout/cache_checkout_data/';
+    $.post(url, postData).done(function () {
+        stripe.confirmCardPayment(
+            clientSecret,
+            { payment_method: ev.paymentMethod.id },
+            { handleActions: false }
+        )
+    }).then(function (confirmResult) {
         if (confirmResult.error) {
             ev.complete('fail');
+            $('#address').find('input,select').attr('required', false)
         } else {
             ev.complete('success');
             if (confirmResult.paymentIntent.status === "requires_action") {
                 stripe.confirmCardPayment(clientSecret).then(function (result) {
                     if (result.error) {
-                        var errorDiv = document.getElementById('card-errors');
+                        var errorDiv = document.getElementById('payment-request-button-errors');
                         var html = `
                             <span class="icon" role="alert">
                             <i class="fas fa-times"></i>
                             </span>
                             <span>${result.error.message}</span>`;
                         $(errorDiv).html(html);
+                        $('#address').find('input,select').attr('required', false)
                     } else {
                         form.submit()
                     }
