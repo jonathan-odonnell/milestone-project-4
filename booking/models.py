@@ -116,7 +116,7 @@ class BookingPassenger(models.Model):
         Booking, null=False, blank=False, on_delete=models.CASCADE, related_name='booking_passengers')
     full_name = models.CharField(max_length=50, null=False, blank=False)
     date_of_birth = models.DateField(null=False, blank=False)
-    passport_number = models.CharField(max_length=9, null=False, blank=False)
+    passport_number = models.DecimalField(max_digits=9, decimal_places=0, null=False, blank=False)
 
     def __str__(self):
         return f'{self.full_name} on booking {self.booking.booking_number}'
