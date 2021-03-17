@@ -207,7 +207,7 @@ def passengers(request):
 
         if request.method == 'POST':
             if booking.booking_passengers:
-                booking.booking_passengers.delete()
+                booking.booking_passengers.all().delete()
             for passenger in passenger_range:
                 booking_passenger = BookingPassenger(
                     booking=booking,
