@@ -56,7 +56,7 @@ paypal.Buttons({
         }).then(function (res) {
             return res.json();
         }).then(function (details) {
-            location.replace(`/checkout/checkout_success/${details.purchase_units[0].reference_id}`)
+            location.replace(`/checkout/checkout_success/${details.purchase_units[0].reference_id}/`)
         })
     }
 }).render('#paypal');
