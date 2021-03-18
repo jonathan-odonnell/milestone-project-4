@@ -169,7 +169,6 @@ def checkout(request):
         'stripe_country': settings.STRIPE_COUNTRY,
         'stripe_currency': settings.STRIPE_CURRENCY,
         'stripe_total': stripe_total,
-        'profile': profile,
         'cards': cards,
         'paypal_client_id': settings.PAYPAL_CLIENT_ID,
         'paypal_currency': settings.PAYPAL_CURRENCY,
