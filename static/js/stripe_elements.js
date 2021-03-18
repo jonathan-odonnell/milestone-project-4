@@ -44,7 +44,6 @@ card.addEventListener('change', function (event) {
 
 $('#saved-cards').find('input[type=checkbox]').change(function () {
     $('#saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
-    $('#address').find('input,select').attr('required', false)
     if ($(this).is(':checked')) {
         $('#id_save_card').parent().hide()
         $('#card-element').addClass('w-50')
@@ -80,6 +79,18 @@ form.addEventListener('submit', function (ev) {
                     cvc: card,
                 },
             },
+            shipping: {
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
+                address: {
+                    line1: $.trim(form.street_address1.value),
+                    line2: $.trim(form.street_address2.value),
+                    city: $.trim(form.town_or_city.value),
+                    state: $.trim(form.county.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
+                }
+            },
         }
     } else {
         paymentDetails = {
@@ -97,6 +108,18 @@ form.addEventListener('submit', function (ev) {
                         country: $.trim(form.country.value),
                         postal_code: $.trim(form.postcode.value),
                     }
+                }
+            },
+            shipping: {
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
+                address: {
+                    line1: $.trim(form.street_address1.value),
+                    line2: $.trim(form.street_address2.value),
+                    city: $.trim(form.town_or_city.value),
+                    state: $.trim(form.county.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
                 }
             },
             setup_future_usage: saveCard ? "on_session" : ""
@@ -186,7 +209,6 @@ paymentRequest.canMakePayment().then(function (result) {
 // Handles form validation for payment request button. Code is from https://stackoverflow.com/questions/53707534/how-can-i-disable-the-stripe-payment-request-button-until-a-form-is-complete
 prButton.on('click', function (e) {
     if (!form.reportValidity()) {
-        $('#address').find('input,select').attr('required', false)
         e.preventDefault();
     }
 });
@@ -200,19 +222,31 @@ paymentRequest.on('paymentmethod', function (ev) {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
         'save_info': saveInfo,
-        'save_card': saveCard,
     };
     var url = '/checkout/cache_checkout_data/';
     $.post(url, postData).done(function () {
         stripe.confirmCardPayment(
             clientSecret,
-            { payment_method: ev.paymentMethod.id },
-            { handleActions: false }
+            {
+                payment_method: ev.paymentMethod.id,
+                shipping: {
+                    name: $.trim(form.full_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    address: {
+                        line1: $.trim(form.street_address1.value),
+                        line2: $.trim(form.street_address2.value),
+                        city: $.trim(form.town_or_city.value),
+                        state: $.trim(form.county.value),
+                        country: $.trim(form.country.value),
+                        postal_code: $.trim(form.postcode.value),
+                    }
+                },
+            },
+            { handleActions: false },
         )
     }).then(function (confirmResult) {
         if (confirmResult.error) {
             ev.complete('fail');
-            $('#address').find('input,select').attr('required', false)
         } else {
             ev.complete('success');
             if (confirmResult.paymentIntent.status === "requires_action") {
@@ -225,7 +259,6 @@ paymentRequest.on('paymentmethod', function (ev) {
                             </span>
                             <span>${result.error.message}</span>`;
                         $(errorDiv).html(html);
-                        $('#address').find('input,select').attr('required', false)
                     } else {
                         form.submit()
                     }
