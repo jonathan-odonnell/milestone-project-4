@@ -35,6 +35,7 @@ class StripeWH_Handler:
         username = intent.metadata.username
         profile = None
         billing_details = intent.charges.data[0].billing_details
+        shipping_details = intent.shipping
         total = round(intent.charges.data[0].amount / 100, 2)
 
         for field, value in billing_details.address.items():
@@ -68,15 +69,15 @@ class StripeWH_Handler:
             try:
                 booking = Booking.objects.get(booking_number=booking_number)
                 booking.update(
-                    full_name=billing_details.name,
+                    full_name=shipping_details.name,
                     email=billing_details.email,
-                    phone_number=billing_details.phone,
-                    street_address1=billing_details.address.line1,
-                    street_address2=billing_details.address.line2,
-                    town_or_city=billing_details.address.city,
-                    county=billing_details.address.state,
-                    country=billing_details.address.country,
-                    postcode=billing_details.address.postal_code,
+                    phone_number=shipping_details.phone,
+                    street_address1=shipping_details.address.line1,
+                    street_address2=shipping_details.address.line2,
+                    town_or_city=shipping_details.address.city,
+                    county=shipping_details.address.state,
+                    country=shipping_details.address.country,
+                    postcode=shipping_details.address.postal_code,
                     paid=True,
                     stripe_pid=pid,
                 )
