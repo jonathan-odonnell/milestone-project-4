@@ -41,41 +41,37 @@ def holidays(request, category=None, destination=None):
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
-    if request.method == 'POST':
-        if 'sort' in request.POST:
-            sort = request.POST['sort']
+    if request.GET:
+        if 'sort' in request.GET:
+            sort = request.GET['sort']
             if sort == 'price':
                 sort = 'min_price'
-            if 'direction' in request.POST:
-                direction = request.POST['direction']
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
                 if direction == 'desc':
                     sort = f'-{sort}'
 
                 holidays = holidays.order_by(sort)
 
-        if 'category' in request.POST:
-            current_categories = request.POST['category'].replace(
+        if 'categories' in request.GET:
+            current_categories = request.GET['categories'].replace(
                 '_', ' ').split(',')
             holidays = holidays.annotate(lower_category=Lower('category__name')).filter(
                 lower_category__in=current_categories)
-            current_categories = Category.objects.annotate(lower_name=Lower('name')).filter(
-                lower_name__in=current_categories).values_list('name', flat=True)
 
-        if 'country' in request.POST:
-            current_countries = request.POST['country'].replace(
+        if 'countries' in request.GET:
+            current_countries = request.GET['countries'].replace(
                 '_', ' ').split(',')
             holidays = holidays.annotate(lower_country=Lower('country__name')).filter(
                 lower_country__in=current_countries)
-            current_countries = Country.objects.annotate(lower_name=Lower('name')).filter(
-                lower_name__in=current_countries).values_list('name', flat=True)
 
         # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
         holidays = Paginator(holidays, 12)
-        page_number = request.POST['page']
+        page_number = request.GET['page']
         holidays = holidays.get_page(page_number)
         html = render_to_string(
             'holidays/includes/holiday_cards.html', {'holidays': holidays, 'category': category, 'destination': destination})
-        return JsonResponse({'holidays': html, 'pages': holidays.paginator.num_pages})
+        return JsonResponse({'holidays': html})
 
     else:
         holidays = Paginator(holidays, 12)

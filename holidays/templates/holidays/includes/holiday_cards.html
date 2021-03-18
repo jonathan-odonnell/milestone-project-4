@@ -1,20 +1,67 @@
-{% for holiday in holidays %}
-<div class="col-sm-6 col-md-4 col-xl-3 py-3">
-    <div class="card destination-card">
-        {% if category %}
-        <a href="{% url 'category_details' category.slug holiday.slug %}">
-        {% else %}
-        <a href="{% url 'destination_details' destination.slug holiday.slug %}">
-        {% endif %}
-            <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-        </a>
-        <span class="badge bg-danger">From £{{holiday.min_price}}</span>
-        <div class="card-body">
-            <h5 class="card-title">{{holiday.name}}</h5>
-            <small class="d-block card-text rating mb-2">{{holiday.rating}}</small>
-            <small class="d-block card-text mb-2"><i class="far fa-clock pe-1"></i>{{holiday.duration}}
-                days</small>
+<div class="col-10 offset-1 col-sm-12 offset-sm-0 mb-3">
+    <div class="row">
+        {% for holiday in holidays %}
+        <div class="col-sm-6 col-md-4 col-xl-3 py-3">
+            <div class="card destination-card">
+                {% if category %}
+                <a href="{% url 'category_details' category.slug holiday.slug %}">
+                    {% else %}
+                    <a href="{% url 'destination_details' destination.slug holiday.slug %}">
+                        {% endif %}
+                        <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                    </a>
+                    <span class="badge bg-danger">From £{{holiday.min_price}}</span>
+                    <div class="card-body">
+                        <h5 class="card-title">{{holiday.name}}</h5>
+                        <small class="d-block card-text rating mb-2">{{holiday.rating}}</small>
+                        <small class="d-block card-text mb-2"><i class="far fa-clock pe-1"></i>{{holiday.duration}}
+                            days</small>
+                    </div>
+            </div>
         </div>
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
+{% if holidays.paginator.num_pages > 1%}
+<div class="col-12 mb-3">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if holidays.has_previous %}
+            <li class="page-item">
+                {% else %}
+            <li class="page-item disabled">
+                {% endif %}
+                <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% if holidays.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                    {{ holidays.previous_page_number }}
+                </a>
+            </li>
+            {% endif %}
+            <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">
+                    {{ holidays.number }}
+                </a>
+            </li>
+            {% if holidays.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">
+                    {{ holidays.next_page_number }}
+                </a>
+            </li>
+            <li class="page-item">
+                {% else %}
+            <li class="page-item disabled">
+                {% endif %}
+                <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+{% endif %}
