@@ -37,11 +37,13 @@
                 <fieldset class="rounded px-3 mb-3">
                     <legend class="fieldset-label small text-black px-2 w-auto">Booking Contact</legend>
                     {{ booking_form.full_name | as_crispy_field }}
+                    {% if not request.user.is_authenticated %}
                     {{ booking_form.email | as_crispy_field }}
+                    {% endif %}
                     {{ booking_form.phone_number | as_crispy_field }}
                 </fieldset>
                 <fieldset id="address" class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Billing Address</legend>
+                    <legend class="fieldset-label small text-black px-2 w-auto">Address</legend>
                     {{ booking_form.address | as_crispy_field }}
                     {{ booking_form.street_address1 | as_crispy_field }}
                     {{ booking_form.street_address2 | as_crispy_field }}
@@ -49,7 +51,7 @@
                     {{ booking_form.county | as_crispy_field }}
                     {{ booking_form.country | as_crispy_field }}
                     {{ booking_form.postcode | as_crispy_field }}
-                    {% if user.is_authenticated and not profile.street_address1 %}
+                    {% if user.is_authenticated %}
                     <div class="form-check ms-2 mb-3">
                         <label class="form-check-label" for="id_save_info">Save this information to my
                             profile</label>
