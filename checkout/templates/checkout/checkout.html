@@ -65,9 +65,9 @@
                     <div class="mb-2" id="paypal"></div>
                     <div class="mb-3" id="payment-request-button">
                         <!-- A Stripe Element will be inserted here. -->
-                        <!-- Used to display payment request button errors -->
-                        <div class="mb-3 text-danger" id="payment-request-button-errors" role="alert"></div>
                     </div>
+                    <!-- Used to display payment request button errors -->
+                    <div class="mb-3 text-danger" id="payment-request-button-errors" role="alert"></div>
                 </fieldset>
                 <fieldset class="rounded px-3 mb-3">
                     <legend class=" fieldset-label small text-black px-2 w-auto">Card Payment</legend>
@@ -85,14 +85,14 @@
                     <div id="card-element" class="mb-3">
                         <!--Stripe.js injects the Card Element-->
                     </div>
+                    <!-- Used to display card errors -->
+                    <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                     {% if user.is_authenticated %}
                     <div class="form-check ms-2 mb-3">
                         <label class="form-check-label" for="id_save_card">Save card to my
                             profile</label>
                         <input class="form-check-input ml-2 mr-0" type="checkbox" id="id_save_card" name="save_card"
                             checked>
-                        <!-- Used to display card errors -->
-                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                     </div>
                     {% endif %}
                 </fieldset>
