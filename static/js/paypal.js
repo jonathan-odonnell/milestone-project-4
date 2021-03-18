@@ -2,7 +2,9 @@ let csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
 paypal.Buttons({
     style: { color: 'white' },
     onInit: function (data, actions) {
-        actions.disable()
+        if(!$('#payment-form')[0].checkValidity()) {
+            actions.disable()
+        }
         $('#payment-form').find('input, select').change(function () {
             if ($('#payment-form')[0].checkValidity()) {
                 actions.enable()
