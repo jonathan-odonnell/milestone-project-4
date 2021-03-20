@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Package, Category, Country, Region
+from flights.models import Flight
 from django.db.models import Min
 from django.db.models.functions import Lower
 from django.template.loader import render_to_string
@@ -94,30 +95,29 @@ def holiday_details(request, slug, destination=None, category=None):
                                 .annotate(min_price=Min('price__price')), slug=slug)
 
     if category == 'offers':
-        print(category)
         related_holidays = Package.objects.filter(offer=True).exclude(
             name=holiday.name).annotate(min_price=Min('price__price'))
-        related_holidays = related_holidays.order_by('-rating')
+        related_holidays = related_holidays.order_by('-rating')[:4]
 
     elif category:
         category = category.replace('-', ' ')
         related_holidays = Package.objects.exclude(name=holiday.name).annotate(
             lower_category=Lower('category__name'), min_price=Min('price__price'))
         related_holidays = related_holidays.filter(
-            lower_category=category).order_by('-rating')
+            lower_category=category).order_by('-rating')[:4]
 
     else:
         destination = destination.replace('-', ' ')
         related_holidays = Package.objects.exclude(name=holiday.name).annotate(
             lower_region=Lower('country__region__name'), min_price=Min('price__price'))
         related_holidays = related_holidays.filter(
-            lower_region=destination).order_by('-rating')
+            lower_region=destination).order_by('-rating')[:4]
 
     context = {
         'holiday': holiday,
         'related_holidays': related_holidays,
         'category': category,
-        'destination': destination
+        'destination': destination,
     }
     return render(request, 'holidays/holiday_details.html', context)
 
