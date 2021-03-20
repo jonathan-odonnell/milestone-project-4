@@ -2,14 +2,17 @@ from django.db import models
 from flights.models import Flight
 from extras.models import Extra
 from django_extensions.db.fields import AutoSlugField
+import unidecode
 
 
-def slugify(content):
+def slugify(name):
     """
     A function to generate the package's slug. Code is from 
-    https://django-extensions.readthedocs.io/en/latest/field_extensions.html
+    https://django-extensions.readthedocs.io/en/latest/field_extensions.html 
+    and https://stackoverflow.com/questions/33328645/how-to-remove-accent-in-python-3-5-and-get-a-string-with-unicodedata-or-other-so
     """
-    return content.replace(' ', '-').lower()
+    name = unidecode.unidecode(name)
+    return name.replace(' ', '-').lower()
 
 
 class Activity(models.Model):
@@ -34,6 +37,10 @@ class Category(models.Model):
     image = models.ImageField()
     image_url = models.CharField(max_length=254, null=True, blank=True)
     slug = AutoSlugField(populate_from='name', slugify_function=slugify)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -112,6 +119,11 @@ class Package(models.Model):
     transfers_included = models.BooleanField()
     slug = AutoSlugField(populate_from='name', slugify_function=slugify)
 
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -135,6 +147,10 @@ class Region(models.Model):
     image = models.ImageField()
     image_url = models.CharField(max_length=254, null=True, blank=True)
     slug = AutoSlugField(populate_from='name', slugify_function=slugify)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
