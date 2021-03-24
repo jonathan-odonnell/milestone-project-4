@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('.form-check input').addClass('form-check-input').attr('type', 'checkbox')
     $('.form-check label').addClass('form-check-label').show()
     $('fieldset .row').addClass('mb-3')
-    $('.price, .itinerary').each(function() {
+    $('.activity, .itinerary').each(function() {
         $(this).find('.form-check').last().addClass('delete-check')
     })
     $('.delete-check label').addClass('text-danger')
@@ -14,17 +14,15 @@ $('#new-image').change(function () {
     $('#filename').text(`Image will be set to: ${file.name}`);
     $('#filename').addClass('mt-3');
 });
-priceCounter = $('.price').length
-let addedPrice = function () {
+activityCounter = $('.activity').length
+let addedActivity = function () {
     $('fieldset .row').addClass('mb-3');
-    $(`#div_id_price_set-${priceCounter}-offer, #div_id_price_set-${priceCounter}-DELETE`).addClass('form-check ms-1')
-    $(`#div_id_price_set-${priceCounter}-offer input`).addClass('form-check-input')
-    $(`#div_id_price_set-${priceCounter}-offer label`).addClass('form-check-label')
-    $(`#div_id_price_set-${priceCounter}-DELETE`).addClass('delete-check')
-    $(`<input type="checkbox" name="price_set-${priceCounter}-DELETE" id="id_price_set-${priceCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_price_set-${priceCounter}-DELETE label`)
-    $(`#div_id_price_set-${priceCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
-    priceCounter += 1
-    $('.price').last().find('legend').text(`Price ${priceCounter}`)
+    $(`#div_id_activity_set-${activityCounter}-DELETE`).addClass('form-check ms-1')
+    $(`#div_id_activity_set-${activityCounter}-DELETE`).addClass('delete-check')
+    $(`<input type="checkbox" name="activity_set-${activityCounter}-DELETE" id="id_activity_set-${activityCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_activity_set-${activityCounter}-DELETE label`)
+    $(`#div_id_activity_set-${activityCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
+    activityCounter += 1
+    $('.activity').last().find('legend').text(`Activity ${activityCounter}`)
 }
 itineraryCounter = $('.itinerary').length
 let addedItinerary = function () {
