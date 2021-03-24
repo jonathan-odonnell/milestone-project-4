@@ -19,7 +19,10 @@ class Activity(models.Model):
 
     class Meta:
         verbose_name_plural = 'Activities'
+        ordering = ['id']
 
+    package = models.ForeignKey(
+        'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='activities')
     activity = models.CharField(max_length=254)
     description = models.TextField()
 
@@ -52,8 +55,6 @@ class Country(models.Model):
         verbose_name_plural = 'Countries'
 
     name = models.CharField(max_length=254)
-    region = models.ForeignKey(
-        'Region', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.name
@@ -71,6 +72,7 @@ class Itinerary(models.Model):
 
     class Meta:
         verbose_name_plural = 'Itineraries'
+        ordering = ['day']
 
     days = (
         ('', 'Day'),
@@ -89,7 +91,7 @@ class Itinerary(models.Model):
     title = models.CharField(max_length=254)
     description = models.TextField()
     package = models.ForeignKey(
-        'Package', null=True, blank=True, on_delete=models.CASCADE)
+        'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='itineries')
     day = models.CharField(choices=days, max_length=2)
 
     def __str__(self):
@@ -98,21 +100,25 @@ class Itinerary(models.Model):
 
 class Package(models.Model):
 
+    class Meta:
+        ordering = ['id']
+
     category = models.ForeignKey(
         Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
     country = models.ForeignKey(
         Country, null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
+    region = models.ForeignKey(
+        'Region', null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
     name = models.CharField(max_length=254)
     image = models.ImageField()
     image_url = models.CharField(max_length=254, null=True, blank=True)
     description = models.TextField()
     offer = models.BooleanField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     duration = models.DecimalField(max_digits=2, decimal_places=0)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
     catering = models.CharField(max_length=254)
     features = models.ManyToManyField(Feature, related_name='packages')
-    activities = models.ManyToManyField(
-        Activity, blank=True, related_name='packages')
     extras = models.ManyToManyField(Extra, blank=True, related_name='packages')
     flights = models.ManyToManyField(
         Flight, blank=True, related_name='packages')
@@ -126,18 +132,6 @@ class Package(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Price(models.Model):
-
-    package = models.ForeignKey(
-        'Package', null=True, blank=True, on_delete=models.CASCADE)
-    start_date = models.DateField()
-    end_date = models.DateField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-
-    def __str__(self):
-        return "{} {} - {}".format(self.package, self.start_date, self.end_date)
 
 
 class Region(models.Model):
