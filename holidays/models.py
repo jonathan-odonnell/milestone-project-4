@@ -23,11 +23,11 @@ class Activity(models.Model):
 
     package = models.ForeignKey(
         'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='activities')
-    activity = models.CharField(max_length=254)
+    name = models.CharField(max_length=254)
     description = models.TextField()
 
     def __str__(self):
-        return self.activity
+        return self.name
 
 
 class Category(models.Model):
@@ -88,14 +88,14 @@ class Itinerary(models.Model):
         ('10', 'Day 10'),
     )
 
-    title = models.CharField(max_length=254)
-    description = models.TextField()
     package = models.ForeignKey(
         'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='itineries')
+    name = models.CharField(max_length=254)
+    description = models.TextField()
     day = models.CharField(choices=days, max_length=2)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Package(models.Model):
