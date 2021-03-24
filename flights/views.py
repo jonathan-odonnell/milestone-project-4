@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -6,6 +7,10 @@ from holidays.utlis import superuser_required
 from holidays.models import Flight
 from .forms import FlightForm
 
+def airports(request):
+    airports = Flight.objects.distinct()
+    airports = list(airports.values_list('origin', flat=True))
+    return JsonResponse({'airports': airports})
 
 @login_required
 @superuser_required
