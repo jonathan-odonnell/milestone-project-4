@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from .forms import PackageForm, PriceFormset, ItineraryFormset
+from .forms import PackageForm, ActivityFormset, ItineraryFormset
 from .utlis import superuser_required
 
 
@@ -24,29 +24,27 @@ def holidays(request, category=None, destination=None):
     if category == 'offers':
         category = get_object_or_404(Category, slug=category)
         holidays = Package.objects.filter(
-            offer=True).annotate(min_price=Min('price__price'))
+            offer=True)
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
     elif category:
         category = get_object_or_404(Category, slug=category)
         holidays = Package.objects.filter(
-            category=category).annotate(min_price=Min('price__price'))
+            category=category)
         countries = holidays.values_list(
             'country__name', flat=True).distinct().order_by('country__name')
 
     else:
         destination = get_object_or_404(Region, slug=destination)
         holidays = Package.objects.filter(
-            country__region=destination).annotate(min_price=Min('price__price'))
+            region=destination)
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
     if request.GET:
         if 'sort' in request.GET:
             sort = request.GET['sort']
-            if sort == 'price':
-                sort = 'min_price'
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
@@ -91,27 +89,19 @@ def holidays(request, category=None, destination=None):
 
 def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
-    holiday = get_object_or_404(Package.objects
-                                .annotate(min_price=Min('price__price')), slug=slug)
+    holiday = get_object_or_404(Package.objects.order_by('itineries__description'), slug=slug)
 
     if category == 'offers':
         related_holidays = Package.objects.filter(offer=True).exclude(
-            name=holiday.name).annotate(min_price=Min('price__price'))
-        related_holidays = related_holidays.order_by('-rating')[:4]
+            name=holiday.name).order_by('-rating')[:4]
 
     elif category:
         category = category.replace('-', ' ')
-        related_holidays = Package.objects.exclude(name=holiday.name).annotate(
-            lower_category=Lower('category__name'), min_price=Min('price__price'))
-        related_holidays = related_holidays.filter(
-            lower_category=category).order_by('-rating')[:4]
+        related_holidays = Package.objects.exclude(name=holiday.name).order_by('-rating')[:4]
 
     else:
         destination = destination.replace('-', ' ')
-        related_holidays = Package.objects.exclude(name=holiday.name).annotate(
-            lower_region=Lower('country__region__name'), min_price=Min('price__price'))
-        related_holidays = related_holidays.filter(
-            lower_region=destination).order_by('-rating')[:4]
+        related_holidays = Package.objects.exclude(name=holiday.name).order_by('-rating')[:4]
 
     context = {
         'holiday': holiday,
@@ -131,30 +121,30 @@ def add_holiday(request):
 
         if form.is_valid():
             holiday = form.save(commit=False)
-            price_formset = PriceFormset(request.POST, instance=holiday)
+            activity_formset = ActivityFormset(request.POST, instance=holiday)
             itinerary_formset = ItineraryFormset(
                 request.POST, instance=holiday)
 
-            if price_formset.is_valid() and itinerary_formset.is_valid():
+            if activity_formset.is_valid() and itinerary_formset.is_valid():
                 holiday.save()
                 form.save_m2m()
-                price_formset.save()
+                activity_formset.save()
                 itinerary_formset.save()
                 messages.success(request, 'Successfully added holiday!')
-                return redirect(redirect_url or reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
+                return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
 
         messages.error(
             request, 'Failed to add holiday. Please ensure the form is valid.')
 
     else:
         form = PackageForm()
-        price_formset = PriceFormset()
+        activity_formset = ActivityFormset()
         itinerary_formset = ItineraryFormset()
 
     template = 'holidays/add_holiday.html'
     context = {
         'form': form,
-        'price_formset': price_formset,
+        'activity_formset': activity_formset,
         'itinerary_formset': itinerary_formset,
     }
     return render(request, template, context)
@@ -169,30 +159,30 @@ def edit_holiday(request, package):
         form = PackageForm(request.POST, request.FILES, instance=holiday)
         if form.is_valid():
             holiday = form.save(commit=False)
-            price_formset = PriceFormset(request.POST, instance=holiday)
+            activity_formset = ActivityFormset(request.POST, instance=holiday)
             itinerary_formset = ItineraryFormset(
                 request.POST, instance=holiday)
 
-            if price_formset.is_valid() and itinerary_formset.is_valid():
+            if activity_formset.is_valid() and itinerary_formset.is_valid():
                 holiday.save()
                 form.save_m2m()
-                price_formset.save()
+                activity_formset.save()
                 itinerary_formset.save()
                 messages.success(request, 'Successfully updated holiday!')
-                return redirect(redirect_url or reverse('destination_details', args=[holiday.country.region.slug, holiday.slug]))
+                return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
 
         else:
             messages.error(
                 request, 'Failed to update holiday. Please ensure the form is valid.')
     else:
         form = PackageForm(instance=holiday)
-        price_formset = PriceFormset(instance=holiday)
+        activity_formset = ActivityFormset(instance=holiday)
         itinerary_formset = ItineraryFormset(instance=holiday)
 
     template = 'holidays/edit_holiday.html'
     context = {
         'form': form,
-        'price_formset': price_formset,
+        'activity_formset': activity_formset,
         'itinerary_formset': itinerary_formset,
         'holiday': holiday,
     }
