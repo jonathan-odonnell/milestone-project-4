@@ -89,7 +89,7 @@ class Itinerary(models.Model):
     )
 
     package = models.ForeignKey(
-        'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='itineries')
+        'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='itineraries')
     name = models.CharField(max_length=254)
     description = models.TextField()
     day = models.CharField(choices=days, max_length=2)
