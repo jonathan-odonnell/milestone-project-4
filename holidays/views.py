@@ -89,7 +89,7 @@ def holidays(request, category=None, destination=None):
 
 def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
-    holiday = get_object_or_404(Package.objects.order_by('itineries__description'), slug=slug)
+    holiday = get_object_or_404(Package.objects, slug=slug)
 
     if category == 'offers':
         related_holidays = Package.objects.filter(offer=True).exclude(

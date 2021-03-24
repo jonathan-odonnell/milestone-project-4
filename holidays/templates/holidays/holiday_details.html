@@ -23,13 +23,13 @@
                     <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
                         aria-controls="overview" aria-selected="true">Overview</a>
                 </li>
-                {% if holiday.itinerary_set.all %}
+                {% if holiday.itineraries.all %}
                 <li class="nav-item py-0" role="presentation">
                     <a class="nav-link" id="itinerary-tab" data-bs-toggle="tab" href="#itinerary" role="tab"
                         aria-controls="itinerary" aria-selected="false">Itinerary</a>
                 </li>
                 {% endif %}
-                {% if holiday.activity_set.all %}
+                {% if holiday.activities.all %}
                 <li class="nav-item py-0" role="presentation">
                     <a class="nav-link" id="activities-tab" data-bs-toggle="tab" href="#activities" role="tab"
                         aria-controls="activities" aria-selected="false">Activities</a>
@@ -78,7 +78,7 @@
                                     type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false"
                                     aria-controls="collapse{{forloop.counter}}">
-                                    <strong>Day {{ itinerary.day }} - {{ itinerary.title }}</strong>
+                                    <strong>Day {{ itinerary.day }} - {{ itinerary.name }}</strong>
                                 </button>
                             </h2>
                             <div id="collapse{{forloop.counter}}"
@@ -93,11 +93,13 @@
                     </div>
                 </div>
                 {% endif %}
-                {% if holiday.activity_set.all %}
+                {% if holiday.activities.all %}
+                {% for activity in holiday.activities.all %}
                 <div class="tab-pane fade py-3" id="activities" role="tabpanel" aria-labelledby="activities-tab">
                     <p><strong>{{ activity.name }}</strong></p>
-                    <p>{{ activity.description }}<< /p>
+                    <p>{{ activity.description }}</p>
                 </div>
+                {% endfor %}
                 {% endif %}
             </div>
         </div>
@@ -149,7 +151,7 @@
                 <a href="{% url 'category_details' holiday.category.slug holiday.slug %}">
                 {% endif %}
                 {% else %}
-                <a href="{% url 'destination_details' holiday.country.region.slug holiday.slug %}">
+                <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
                     {% endif %}
                     <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                 </a>
