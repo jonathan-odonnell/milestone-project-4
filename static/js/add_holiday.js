@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $('.btn-file').addClass('mt-2')
-    $('#div_id_transfers_included, #div_id_price_set-0-offer').addClass('form-check ms-1')
-    $('#div_id_transfers_included, #div_id_price_set-0-offer').find('input').addClass('form-check-input')
-    $('#div_id_transfers_included, #div_id_price_set-0-offer').find('input').addClass('form-check-label')
+    $('.custom-checkbox').addClass('form-check ms-1')
+    $('.form-check input').addClass('form-check-input')
+    $('.form-check label').addClass('form-check-label')
     $('fieldset .row').addClass('mb-3')
     $('.delete-row').remove()
 })
@@ -11,14 +11,11 @@ $('#new-image').change(function () {
     $('#filename').text(`Image will be set to: ${file.name}`);
     $('#filename').addClass('mt-3');
 });
-priceCounter = 1
-let addedPrice = function () {
+activityCounter = 1
+let addedActivity = function () {
     $('fieldset .row').addClass('mb-3');
-    $(`#div_id_price_set-${priceCounter}-offer`).addClass('form-check ms-1')
-    $(`#div_id_price_set-${priceCounter}-offer`).find('input').addClass('form-check-input')
-    $(`#div_id_price_set-${priceCounter}-offer`).find('input').addClass('form-check-label')
-    priceCounter += 1
-    $('.price').last().find('legend').text(`Price ${priceCounter}`)
+    activityCounter += 1
+    $('.activity').last().find('legend').text(`Activity ${activityCounter}`)
     $('.delete-row').remove()
 }
 itineraryCounter = 1

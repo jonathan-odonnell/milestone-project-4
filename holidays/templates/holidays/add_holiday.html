@@ -15,31 +15,31 @@
                     {{ form.name | as_crispy_field }}
                     {{ form.image }}
                     {{ form.description | as_crispy_field }}
+                    {{ form.price | as_crispy_field }}
                     {{ form.category | as_crispy_field }}
                     {{ form.country | as_crispy_field }}
+                    {{ form.region | as_crispy_field }}
+                    {{ form.offer | as_crispy_field}}
                     {{ form.duration | as_crispy_field }}
                     {{ form.rating | as_crispy_field }}
                     {{ form.catering | as_crispy_field }}
                     {{ form.features | as_crispy_field }}
-                    {{ form.activities | as_crispy_field }}
                     {{ form.extras | as_crispy_field }}
                     {{ form.flights | as_crispy_field }}
                     {{ form.transfers_included | as_crispy_field }}
                 </fieldset>
-                <fieldset id="prices" class="d-none">
+                <fieldset id="activities" class="d-none">
                     <div>
-                        {{price_formset.management_form}}
+                        {{activity_formset.management_form}}
                     </div>
-                    {% for form in price_formset %}
-                    <div class="price">
-                        <legend>Price 1</legend>
+                    {% for form in activity_formset %}
+                    <div class="activity">
+                        <legend>Activity 1</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
                         {% endfor %}
-                        {{form.price | as_crispy_field }}
-                        {{form.start_date | as_crispy_field }}
-                        {{form.end_date | as_crispy_field }}
-                        {{form.offer | as_crispy_field }}
+                        {{form.name | as_crispy_field }}
+                        {{form.description | as_crispy_field }}
                         {{form.DELETE | as_crispy_field }}
                     </div>
                     {% endfor %}
@@ -55,7 +55,7 @@
                         {{ hidden }}
                         {% endfor %}
                         {{form.day | as_crispy_field }}
-                        {{form.title | as_crispy_field }}
+                        {{form.name | as_crispy_field }}
                         {{form.description | as_crispy_field }}
                         {{form.DELETE | as_crispy_field }}
                     </div>
@@ -78,11 +78,11 @@
 <script src="{% static 'js/jquery.formset.js' %}"></script>
 <script src="{% static 'js/add_holiday.js' %}"></script>
 <script type="text/javascript">
-    $('.price').formset({
+    $('.activity').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
-        prefix: '{{ price_formset.prefix }}',
-        formCssClass: 'price',
-        added: addedPrice,
+        prefix: '{{ activity_formset.prefix }}',
+        formCssClass: 'activity',
+        added: addedActivity,
     });
     $('.itinerary').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
