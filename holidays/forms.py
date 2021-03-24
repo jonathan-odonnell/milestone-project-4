@@ -4,7 +4,7 @@ from .widgets import CustomClearableFileInput
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Field, Div
 from crispy_forms.bootstrap import InlineField
-from .models import Activity, Category, Country, Feature, Flight, Itinerary, Package, Price
+from .models import Activity, Category, Country, Feature, Flight, Itinerary, Package
 from extras.models import Extra
 
 
@@ -26,12 +26,13 @@ class PackageForm(forms.ModelForm):
         self.fields['description'].widget.attrs['rows'] = 5
         self.fields['category'].empty_label = 'Category'
         self.fields['country'].empty_label = 'Country'
+        self.fields['region'].empty_label = 'Region'
 
 
-class PriceForm(forms.ModelForm):
+class ActivityForm(forms.ModelForm):
 
     class Meta:
-        model = Price
+        model = Activity
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
@@ -56,6 +57,6 @@ class ItineraryForm(forms.ModelForm):
         self.helper.field_class = 'col-md-9'
 
 
-PriceFormset = inlineformset_factory(Package, Price, form=PriceForm, extra=1)
+ActivityFormset = inlineformset_factory(Package, Activity, form=ActivityForm, extra=1)
 ItineraryFormset = inlineformset_factory(
     Package, Itinerary, form=ItineraryForm, extra=1)
