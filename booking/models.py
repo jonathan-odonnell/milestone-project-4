@@ -85,9 +85,7 @@ class BookingPackage(models.Model):
         max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
-        current_date = datetime.datetime.now()
-        price_qs = self.package.price_set.get(start_date__lte=current_date, end_date__gte=current_date)
-        self.total = price_qs.price * self.guests
+        self.total = self.package.price * self.guests
         super().save(*args, **kwargs)
 
     def __str__(self):
