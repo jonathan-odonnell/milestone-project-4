@@ -67,10 +67,10 @@
                         </div>
                     </div>
                 </div>
-                {% if holiday.itinerary_set.all %}
+                {% if holiday.itineraries.all %}
                 <div class="tab-pane fade py-3" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
                     <div class="accordion accordion-flush" id="accordionExample">
-                        {% for itinerary in holiday.itinerary_set.all %}
+                        {% for itinerary in holiday.itineraries.all %}
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="heading{{forloop.counter}}">
                                 <button
@@ -103,22 +103,23 @@
         </div>
         <div class="col col-lg-3 mb-3">
             <h2 class="text-uppercase section-heading booking-form mb-3">Trip Booking</h2>
-            <form class="shadow p-3" action="{% url 'add_booking' holiday.id %}"  method="POST">
+            <form class="shadow p-3" action="{% url 'add_booking' holiday.id %}" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="departure_date" class="form-label">Departure Date</label>
                     <input type="date" class="form-control" id="departure_date" name="departure_date" required>
                 </div>
-                <div class="mb-3">
+                <div class="position-relative mb-3">
                     <label for="departure_airport" class="form-label">Departure Airport</label>
-                    <input type="text" class="form-control" id="departure_airport" name="departure_airport" required>
+                    <input type="text" class="form-control" id="departure_airport" name="departure_airport" required autocomplete="off">
+                    <div id="airports-list" class="position-absolute w-100 d-none"></div>
                 </div>
                 <label for="guests" class="form-label">Guests</label>
                 <div class="input-group guests me-auto mb-4">
                     <button id="minus" class="input-group-text btn shadow-none border py-0" type="button"><i
                             class="fas fa-minus"></i></button>
-                    <input type="number" class="form-control text-center" id="guests" name="guests" min="1" max="10" value="1"
-                        required>
+                    <input type="number" class="form-control text-center" id="guests" name="guests" min="1" max="10"
+                        value="1" required>
                     <button id="plus" class="input-group-text btn shadow-none border py-0" type="button"><i
                             class="fas fa-plus"></i></button>
                 </div>
@@ -135,11 +136,11 @@
         {% for holiday in related_holidays %}
         {% if forloop.counter == 1 %}
         <div class="d-none d-lg-block col-lg-3 p-3">
-            {% elif forloop.counter == 2 %}
-            <div class="d-none d-md-block col-md-4 col-lg-3 p-3">
-            {% else %}
-            <div class="col-6 col-md-4 col-lg-3 p-3">
-            {% endif %}
+        {% elif forloop.counter == 2 %}
+        <div class="d-none d-md-block col-md-4 col-lg-3 p-3">
+        {% else %}
+        <div class="col-6 col-md-4 col-lg-3 p-3">
+        {% endif %}
             <div class="card destination-card">
                 {% if category %}
                 {% if category == 'offers' %}
@@ -149,7 +150,7 @@
                 {% endif %}
                 {% else %}
                 <a href="{% url 'destination_details' holiday.country.region.slug holiday.slug %}">
-                {% endif %}
+                    {% endif %}
                     <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                 </a>
                 <span class="badge bg-danger">From £{{holiday.min_price}}</span>
@@ -170,18 +171,22 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
+    let airports
+
     $('#plus').click(function () {
         let currentValue = parseInt($(this).prev().val())
         if (currentValue < 10) {
             $(this).prev().val(currentValue + 1);
         }
     });
+
     $('#minus').click(function () {
         let currentValue = parseInt($(this).next().val())
         if (currentValue > 1) {
             $(this).next().val(currentValue - 1);
         }
     });
+
     $(document).ready(function generateStars() {
         let fullStar = "<i class='fas fa-star pe-1'></i>"
         let halfStar = "<i class='fas fa-star-half-alt pe-1'></i>"
@@ -200,6 +205,48 @@
             }
             $(this).html(displayStars)
         })
+        $.get('/flights/airports').done(function(data) {
+            airports = data.airports
+        })
+    })
+
+    $('#airports-list').on('mousedown', 'button', function() {
+        $('#departure_airport').val($(this).text())
+    })
+
+    $('#departure_airport').on('focus blur', function() {
+        if ($(this).val()) {
+            $('#airports-list').toggleClass('d-none')
+        }
+    })     
+    
+    $('#departure_airport').on('blur', function() {
+        if (!airports.includes($(this).val())) {
+            $(this).val('')
+        }
+    }) 
+
+    $('#departure_airport').on('input click', function() {
+        let search = $(this).val()
+        let matches = airports.filter(function (airport) {
+            let regex = new RegExp(`^${search}`, 'gi')
+            return airport.match(regex)  
+        })
+        if (matches.length === 0) {
+            $('#airports-list').html('<ul class="list-group"><li class="list-group-item small text-black">No search results</li></ul>').removeClass('d-none')
+        } else if (search.length === 0) {
+            matches = []
+            $('#airports-list').html('').addClass('d-none')
+        } else {
+            let html = matches.map(function (match) {
+                // Code for substring method is from https://www.w3schools.com/jsref/jsref_substr.asp
+                let innerHtml = `<button class="list-group-item list-group-item-action small text-black" type="button"><strong>${match.substr(0, search.length)}</strong>`
+                innerHtml += `${match.substr(search.length, match.length)}</button>`
+                return innerHtml
+            }).join('')
+            html = `<div class="list-group">${html}</div>`
+            $('#airports-list').html(html).removeClass('d-none')
+        } 
     })
 </script>
 {% endblock %}

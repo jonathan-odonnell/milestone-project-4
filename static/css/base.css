@@ -343,6 +343,15 @@ label .asteriskField {
     border-color: #dc3545;
 }
 
+#airports-list {
+    height: 150px;
+    background-color: #fff;
+    top: 75px;
+    left: 0;
+    overflow-y: scroll;
+    z-index: 3;
+}
+
 footer a {
     color: #fff;
 }
