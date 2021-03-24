@@ -18,13 +18,18 @@ class PackageAdmin(admin.ModelAdmin):
     fields = ('name', 'image', 'image_url',
               'description', 'category', 'country',
               'region', 'offer', 'price', 'duration',
-              'rating', 'catering', 'transfers_included', 
+              'rating', 'catering', 'transfers_included',
               'features', 'extras', 'flights',)
+    
     inlines = [
         ActivityInline,
         ItineraryInline,
     ]
+
     filter_horizontal = ('features', 'extras', 'flights')
+    
+    list_display = ('name', 'country', 'category',
+                    'price',)
 
 
 admin.site.register(Package, PackageAdmin)
