@@ -31,6 +31,10 @@ class PackageAdmin(admin.ModelAdmin):
     list_display = ('name', 'country', 'category',
                     'price',)
 
+    ordering = ('country',)
+
+    list_per_page = 20
+
 
 admin.site.register(Package, PackageAdmin)
 admin.site.register(Category)
