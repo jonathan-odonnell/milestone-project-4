@@ -86,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
                 'booking.contexts.booking_details',
             ],
             'builtins': [
@@ -180,13 +181,20 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Cloudinary Configuration
 if 'USE_CLOUDINARY' in os.environ:
 
+    CLOUDINARY_CLOUD_NAME = os.environ.get('CLOUDINARY_CLOUD_NAME')
+    CLOUDINARY_API_KEY = os.environ.get('CLOUDINARY_API_KEY')
+    CLOUDINARY_API_SECRET = os.environ.get('CLOUDINARY_API_SECRET')
+    CLOUDINARY_CUSTOM_DOMAIN = f'res.cloudinary.com/{CLOUDINARY_CLOUD_NAME}/image/upload/v1/'
+
     CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET')
+        'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+        'API_KEY': CLOUDINARY_API_KEY,
+        'API_SECRET': CLOUDINARY_API_SECRET
     }
 
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    MEDIAFILES_LOCATION = 'media'
+    MEDIA_URL = f'https://{CLOUDINARY_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
 
 # Offers
 
