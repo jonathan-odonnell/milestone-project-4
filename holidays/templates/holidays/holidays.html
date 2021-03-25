@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-{% if category %}
+{% if category == 'offers' %}
+<div class="container-fluid hero-image p-0"
+    style="background-image: url('{{ MEDIA_URL }}offers_tbv13g')">
+    <div class="overlay">&nbsp;</div>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4 text-center">Offers</h1>
+                    <div class="block-divider my-3 mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% elif category %}
 <div class="container-fluid hero-image {% if category.name == 'City Breaks' %}hero-image-bottom {% endif %}{% if category.name == 'Beach' %}hero-image-top{% endif %} p-0"
     style="background-image: url('{{ category.image.url }}')">
     <div class="overlay">&nbsp;</div>
