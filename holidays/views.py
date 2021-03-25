@@ -22,7 +22,6 @@ def holidays(request, category=None, destination=None):
     direction = None
 
     if category == 'offers':
-        category = get_object_or_404(Category, slug=category)
         holidays = Package.objects.filter(
             offer=True)
         categories = holidays.values_list(
