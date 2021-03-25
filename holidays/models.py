@@ -19,7 +19,6 @@ class Activity(models.Model):
 
     class Meta:
         verbose_name_plural = 'Activities'
-        ordering = ['id']
 
     package = models.ForeignKey(
         'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='activities')
@@ -34,6 +33,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+        ordering = ('name',)
 
     name = models.CharField(max_length=254)
     page_title = models.CharField(max_length=254)
@@ -53,6 +53,7 @@ class Country(models.Model):
 
     class Meta:
         verbose_name_plural = 'Countries'
+        ordering = ('name',)
 
     name = models.CharField(max_length=254)
 
@@ -72,7 +73,7 @@ class Itinerary(models.Model):
 
     class Meta:
         verbose_name_plural = 'Itineraries'
-        ordering = ['day']
+        ordering = ('day',)
 
     days = (
         ('', 'Day'),
@@ -90,18 +91,15 @@ class Itinerary(models.Model):
 
     package = models.ForeignKey(
         'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='itineraries')
+    day = models.CharField(choices=days, max_length=2)
     name = models.CharField(max_length=254)
     description = models.TextField()
-    day = models.CharField(choices=days, max_length=2)
 
     def __str__(self):
         return self.name
 
 
 class Package(models.Model):
-
-    class Meta:
-        ordering = ['id']
 
     category = models.ForeignKey(
         Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
