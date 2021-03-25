@@ -3,20 +3,22 @@
         {% for holiday in holidays %}
         <div class="col-sm-6 col-md-4 col-xl-3 py-3">
             <div class="card destination-card">
-                {% if category %}
+                {% if category == 'offers' %}
+                <a href="{% url 'category_details' 'offers' holiday.slug %}">
+                {% elif category %}
                 <a href="{% url 'category_details' category.slug holiday.slug %}">
-                    {% else %}
-                    <a href="{% url 'destination_details' destination.slug holiday.slug %}">
-                        {% endif %}
-                        <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                    </a>
-                    <span class="badge bg-danger">£{{holiday.price|floatformat:"0"}}</span>
-                    <div class="card-body">
-                        <h5 class="card-title">{{holiday.name}}</h5>
-                        <small class="d-block card-text rating mb-2">{{holiday.rating}}</small>
-                        <small class="d-block card-text mb-2"><i class="far fa-clock pe-1"></i>{{holiday.duration}}
-                            days</small>
-                    </div>
+                {% else %}
+                <a href="{% url 'destination_details' destination.slug holiday.slug %}">
+                {% endif %}
+                    <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                </a>
+                <span class="badge bg-danger">£{{holiday.price|floatformat:"0"}}</span>
+                <div class="card-body">
+                    <h5 class="card-title">{{holiday.name}}</h5>
+                    <small class="d-block card-text rating mb-2">{{holiday.rating}}</small>
+                    <small class="d-block card-text mb-2"><i class="far fa-clock pe-1"></i>{{holiday.duration}}
+                        days</small>
+                </div>
             </div>
         </div>
         {% endfor %}
