@@ -100,9 +100,9 @@
                         </a>
                         <ul class="dropdown-menu w-100 w-lg-auto" aria-labelledby="holidayTypes">
                             <li><a class="dropdown-item" href="{% url 'categories' 'activity' %}">Activity</a></li>
-                            <li><a class="dropdown-item" href="{% url 'categories' 'beach' %}">Beach</a></li>
-                            <li><a class="dropdown-item" href="{% url 'categories' 'city-breaks' %}">City Break</a></li>
+                            <li><a class="dropdown-item" href="{% url 'categories' 'city-breaks' %}">City Breaks</a></li>
                             <li><a class="dropdown-item" href="{% url 'categories' 'resort' %}">Resort</a></li>
+                            <li><a class="dropdown-item" href="{% url 'categories' 'villas' %}">Villas</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown border-bottom">
@@ -189,18 +189,18 @@
                         <div class="col-6 col-md-3 col-lg-4 order-1 order-md-0">
                             <h5 class="footer-headings">Links</h5>
                             <ul class="list-unstyled mb-0 mb-md-3">
-                                <li><a href="#">Activities</a></li>
-                                <li><a href="#">City Breaks</a></li>
-                                <li><a href="#">Resorts</a></li>
-                                <li><a href="#">Tours</a></li>
+                                <li><a href="{% url 'categories' 'activity' %}">Activity</a></li>
+                                <li><a href="{% url 'categories' 'city-breaks' %}">City Breaks</a></li>
+                                <li><a href="{% url 'categories' 'resort' %}">Resort</a></li>
+                                <li><a href="{% url 'categories' 'villas' %}">Villas</a></li>
                             </ul>
                         </div>
                         <!-- Links col 2 -->
                         <div class="col-6 col-md-3 col-lg-4 mt-4 order-2 order-md-1">
                             <ul class="list-unstyled mb-0 mb-md-3">
-                                <li><a href="#">Offers</a></li>
-                                <li><a href="#">Extras</a></li>
-                                <li><a href="#">Manage Booking</a></li>
+                                <li><a href="{% url 'categories' 'offers' %}">Offers</a></li>
+                                <li><a href="{% url 'extras' %}">Extras</a></li>
+                                <li><a href="{% url 'bookings' %}">Manage Booking</a></li>
                                 <li><a href="#">Contact Us</a></li>
                             </ul>
                         </div>
