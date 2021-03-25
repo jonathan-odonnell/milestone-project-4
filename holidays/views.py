@@ -96,11 +96,11 @@ def holiday_details(request, slug, destination=None, category=None):
 
     elif category:
         category = category.replace('-', ' ')
-        related_holidays = Package.objects.exclude(name=holiday.name).order_by('-rating')[:4]
+        related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_category=Lower('category__name')).filter(lower_category=category).order_by('?')[:4]
 
     else:
         destination = destination.replace('-', ' ')
-        related_holidays = Package.objects.exclude(name=holiday.name).order_by('-rating')[:4]
+        related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_region=Lower('region__name')).filter(lower_region=destination).order_by('?')[:4]
 
     context = {
         'holiday': holiday,
