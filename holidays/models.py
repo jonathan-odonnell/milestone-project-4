@@ -73,25 +73,11 @@ class Itinerary(models.Model):
 
     class Meta:
         verbose_name_plural = 'Itineraries'
-        ordering = ('day',)
-
-    days = (
-        ('', 'Day'),
-        ('1', 'Day 1'),
-        ('2', 'Day 2'),
-        ('3', 'Day 3'),
-        ('4', 'Day 4'),
-        ('5', 'Day 5'),
-        ('6', 'Day 6'),
-        ('7', 'Day 7'),
-        ('8', 'Day 8'),
-        ('9', 'Day 9'),
-        ('10', 'Day 10'),
-    )
+        ordering = ('id',)
 
     package = models.ForeignKey(
         'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='itineraries')
-    day = models.CharField(choices=days, max_length=2)
+    day = models.CharField(max_length=254)
     name = models.CharField(max_length=254)
     description = models.TextField()
 
