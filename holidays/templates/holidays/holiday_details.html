@@ -15,7 +15,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid p-4">
+<div class="container p-4">
     <div class="row no-gutters">
         <div class="col-12 col-lg-9">
             <ul class="nav nav-tabs border-bottom" id="myTab" role="tablist">
@@ -69,28 +69,14 @@
                 </div>
                 {% if holiday.itineraries.all %}
                 <div class="tab-pane fade py-3" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
-                    <div class="accordion accordion-flush" id="accordionExample">
-                        {% for itinerary in holiday.itineraries.all %}
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading{{forloop.counter}}">
-                                <button
-                                    class="accordion-button border-0 shadow-none px-0 {% if forloop.counter > 1%}collapsed{% endif %}"
-                                    type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse{{forloop.counter}}" aria-expanded="false"
-                                    aria-controls="collapse{{forloop.counter}}">
-                                    <strong>Day {{ itinerary.day }} - {{ itinerary.name }}</strong>
-                                </button>
-                            </h2>
-                            <div id="collapse{{forloop.counter}}"
-                                class="accordion-collapse collapse {% if forloop.counter == 1 %}show {% endif %} border-0"
-                                aria-labelledby="heading{{forloop.counter}}" data-bs-parent="#accordionExample">
-                                <div class="accordion-body px-0">
-                                    {{ itinerary.description }}
-                                </div>
-                            </div>
+                    {% for itinerary in holiday.itineraries.all %}
+                    <div class="card itinerary-item shadow-none">
+                        <div class="card-body ps-5">
+                            <h5 class="card-title"><strong>{{ itinerary.day }} - {{ itinerary.name }}</strong></h5>
+                            <p class="card-text">{{ itinerary.description }}</p>
                         </div>
-                        {% endfor %}
-                    </div>
+                        </div>
+                    {% endfor %}
                 </div>
                 {% endif %}
                 {% if holiday.activities.all %}
