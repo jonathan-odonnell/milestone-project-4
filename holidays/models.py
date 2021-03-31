@@ -63,6 +63,11 @@ class Country(models.Model):
 
 class Feature(models.Model):
 
+    class Meta:
+        ordering = ('id',)
+
+    package = models.ForeignKey(
+        'Package', on_delete=models.CASCADE, related_name='features')
     name = models.CharField(max_length=254)
 
     def __str__(self):
@@ -101,8 +106,8 @@ class Package(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     duration = models.DecimalField(max_digits=2, decimal_places=0)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
+    accomodation = models.CharField(max_length=254)
     catering = models.CharField(max_length=254)
-    features = models.ManyToManyField(Feature, related_name='packages')
     extras = models.ManyToManyField(Extra, blank=True, related_name='packages')
     flights = models.ManyToManyField(
         Flight, blank=True, related_name='packages')

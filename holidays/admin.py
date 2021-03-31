@@ -9,6 +9,11 @@ class ActivityInline(admin.StackedInline):
     extra = 1
 
 
+class FeatureInline(admin.StackedInline):
+    model = Feature
+    extra = 1
+
+
 class ItineraryInline(admin.StackedInline):
     model = Itinerary
     extra = 1
@@ -18,15 +23,16 @@ class PackageAdmin(admin.ModelAdmin):
     fields = ('name', 'image', 'image_url',
               'description', 'category', 'country',
               'region', 'offer', 'price', 'duration',
-              'rating', 'catering', 'transfers_included',
-              'features', 'extras', 'flights',)
+              'rating', 'accomodation', 'catering',
+              'transfers_included', 'extras', 'flights',)
     
     inlines = [
         ActivityInline,
+        FeatureInline,
         ItineraryInline,
     ]
 
-    filter_horizontal = ('features', 'extras', 'flights')
+    filter_horizontal = ('extras', 'flights')
     
     list_display = ('name', 'country', 'category',
                     'price',)
@@ -40,5 +46,3 @@ admin.site.register(Package, PackageAdmin)
 admin.site.register(Category)
 admin.site.register(Country)
 admin.site.register(Region)
-admin.site.register(Feature)
-admin.site.register(Activity)
