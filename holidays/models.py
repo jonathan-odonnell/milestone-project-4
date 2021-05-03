@@ -19,6 +19,7 @@ class Activity(models.Model):
 
     class Meta:
         verbose_name_plural = 'Activities'
+        ordering = ('id',)
 
     package = models.ForeignKey(
         'Package', null=True, blank=True, on_delete=models.CASCADE, related_name='activities')
@@ -137,3 +138,20 @@ class Region(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Review(models.Model):
+
+    class Meta:
+        ordering = ('-date',)
+
+    package = models.ForeignKey(
+        'Package', null=False, blank=False, on_delete=models.CASCADE, related_name='reviews')
+    date = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=254)
+    rating = models.DecimalField(max_digits=1, decimal_places=0)
+    title = models.CharField(max_length=254)
+    review = models.TextField()
+
+    def __str__(self):
+        return self.title
