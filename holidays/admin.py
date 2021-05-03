@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Activity, Category, Country, Feature, Itinerary, Package, Region
+from .models import Activity, Category, Country, Feature, Itinerary, Package, Region, Review
 from flights.models import Flight
 from extras.models import Extra
 
@@ -18,6 +18,11 @@ class ItineraryInline(admin.StackedInline):
     model = Itinerary
     extra = 1
 
+class ReviewInline(admin.StackedInline):
+    model = Review
+    extra = 1
+    fields = ('name', 'rating', 'title', 'review',)
+
 
 class PackageAdmin(admin.ModelAdmin):
     fields = ('name', 'image', 'image_url',
@@ -27,9 +32,10 @@ class PackageAdmin(admin.ModelAdmin):
               'transfers_included', 'extras', 'flights',)
     
     inlines = [
-        ActivityInline,
         FeatureInline,
+        ActivityInline,
         ItineraryInline,
+        ReviewInline,
     ]
 
     filter_horizontal = ('extras', 'flights')
