@@ -25,7 +25,7 @@
                 <div class="value">
                     <h4 class="mb-2">Location:</h4>
                     <p class="mb-0">6th Floor, Hudson's Bay,</p>
-                    <p class="mb-0">176 Yonge Street, Toronto,</p> 
+                    <p class="mb-0">176 Yonge Street, Toronto,</p>
                     <p class="mb-0">ON, M5C 2L7</p>
                 </div>
             </div>
@@ -60,7 +60,8 @@
         </div>
         <div class="col-12 col-md-8 p-4 order-md-0">
             <h2 class="mb-4"><strong>Get In Touch</strong></h2>
-            <form action="">
+            <form>
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-6">
                         {{ form.name | as_crispy_field }}
@@ -84,4 +85,27 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    $('form .btn').click(function (e) {
+        e.preventDefault()
+        if ($('form')[0].reportValidity()) {
+            let formData = {
+                'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                'name': $('#id_name').val(),
+                'email': $('#id_email').val(),
+                'subject': $('#id_subject').val(),
+                'message': $('#id_message').val(),
+            }
+            $.post('{% url "contact" %}', formData).done(function () {
+                $(`<div class="d-flex justify-content-center align-items-center h-100 ">
+                    <p>Thank you for your message. A member of the team will be in touch shortly</p>
+            </div>`).insertAfter('form')
+                $('form').remove()
+            })
+        }
+    })
+</script>
 {% endblock %}
