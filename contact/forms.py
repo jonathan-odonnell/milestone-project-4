@@ -22,16 +22,6 @@ class ContactForm(forms.ModelForm):
             'message': 'Message',
         }
 
-        subjects = [
-            ('', 'Subject *'),
-            ('Holiday Information', 'Holiday Information'),
-            ('Offers', 'Offers'),
-            ('Bookings', 'Bookings'),
-            ('General Enquiries', 'General Enquiries'),
-            ('Other', 'Other')
-        ]
-
-        self.fields['subject'] = forms.ChoiceField(choices=subjects)
         self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['message'].widget.attrs['rows'] = 6
 
