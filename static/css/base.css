@@ -35,12 +35,12 @@ section {
     background-color: #006994 !important;
 }
 
-.btn-secondary {
+.btn-secondary, .btn-secondary:hover {
     background-color: #d13574;
 }
 
-.btn-secondary:hover {
-    background-color: #d13574;
+.btn-info, .btn-info:hover {
+    background-color: #49c5b6;
 }
 
 .btn-outline-primary {
@@ -378,6 +378,33 @@ label .asteriskField {
     left: 0;
     overflow-y: scroll;
     z-index: 3;
+}
+
+.contact-info-item .key {
+    padding-right: 21px;
+    padding-top: 5px;
+    vertical-align: top;
+    display: inline-block;
+    width: 20%;
+}
+
+.contact-info-item .value {
+    display: inline-block;
+    width: 70%;
+}
+
+.contact-info-item i, .contact-info-item h4 {
+    font-size: 1.3rem;
+}
+
+.contact-info-item i {
+    background-color: #49c5b6;
+    color: #fff;
+    height: 40px;
+    width: 40px;
+    border-radius: 25px;
+    text-align: center;
+    line-height: 40px;
 }
 
 footer a {

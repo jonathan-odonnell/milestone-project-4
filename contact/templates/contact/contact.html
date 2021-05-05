@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid hero-image p-0" style="background-image: url('{{ MEDIA_URL }}contact.jpg')">
+    <div class="overlay">&nbsp;</div>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4 text-center">Contact Us</h1>
+                    <div class="block-divider my-3 mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container py-4">
+    <div class="row g-0">
+        <div class="col-12 col-md-4 p-4 order-md-1">
+            <div class="contact-info-item mb-3">
+                <div class="key">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="value">
+                    <h4 class="mb-2">Location:</h4>
+                    <p class="mb-0">6th Floor, Hudson's Bay,</p>
+                    <p class="mb-0">176 Yonge Street, Toronto,</p> 
+                    <p class="mb-0">ON, M5C 2L7</p>
+                </div>
+            </div>
+            <div class="contact-info-item mb-3">
+                <div class="key">
+                    <i class="far fa-clock"></i>
+                </div>
+                <div class="value">
+                    <h4 class="mb-2">Open Hours:</h4>
+                    <p class="mb-0">Monday - Friday</p>
+                    <p class="mb-0">09:00 - 17:00</p>
+                </div>
+            </div>
+            <div class="contact-info-item mb-3">
+                <div class="key">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="value">
+                    <h4 class="mb-2">Email:</h4>
+                    <p class="mb-0">info@goexplore.com</p>
+                </div>
+            </div>
+            <div class="contact-info-item">
+                <div class="key">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="value">
+                    <h4 class="mb-2">Telephone:</h4>
+                    <p class="mb-0">+1 1234 55488 55</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-8 p-4 order-md-0">
+            <h2 class="mb-4"><strong>Get In Touch</strong></h2>
+            <form action="">
+                <div class="row">
+                    <div class="col-6">
+                        {{ form.name | as_crispy_field }}
+                    </div>
+                    <div class="col-6">
+                        {{ form.email | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form.subject | as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        {{ form.message | as_crispy_field }}
+                    </div>
+                </div>
+                <button class="btn btn-info">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
