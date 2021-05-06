@@ -459,7 +459,14 @@ footer a:hover {
     }
 }
 
+@media (min-width: 576px) {
+    #holidays img {
+        height: 10rem;
+    }
+}
+
 @media (min-width: 768px) {
+    #holidays img, 
     .destination-card img {
         height: 12rem;
     }
@@ -483,13 +490,15 @@ footer a:hover {
         max-width: 100%;
     }
 
+    #holidays img,
     .destination-card img {
         height: 10rem;
     }
 }
 
 @media (min-width: 1200px) {
-    .destination-card img {
+    #popular-destinations img {
         height: 12rem;
     }
+    
 }
