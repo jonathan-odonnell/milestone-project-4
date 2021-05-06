@@ -206,6 +206,15 @@ if 'USE_AWS' in os.environ:
 OFFER_AMOUNT = 100
 PROMO_CODE = 'HOLIDAY100'
 
+# Popular Destinations
+
+POPULAR_DESTINATION_1 = 'Miami'
+POPULAR_DESTINATION_2 = 'Praia Da Rocha'
+POPULAR_DESTINATION_3 = 'Dublin'
+POPULAR_DESTINATION_4 = 'Lefkas'
+POPULAR_DESTINATION_5 = 'Melbourne and Victoria'
+POPULAR_DESTINATION_6 = 'North Island'
+
 # GOOGLE PLACES
 
 GOOGLE_PLACES_KEY = os.environ.get('GOOGLE_PLACES_KEY', '')
