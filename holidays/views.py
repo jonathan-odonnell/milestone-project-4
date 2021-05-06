@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Package, Category, Country, Region
 from flights.models import Flight
-from django.db.models import Min
+from django.db.models import Min, Count
 from django.db.models.functions import Lower
 from django.template.loader import render_to_string
 from django.http import JsonResponse
@@ -23,21 +23,21 @@ def holidays(request, category=None, destination=None):
 
     if category == 'offers':
         holidays = Package.objects.filter(
-            offer=True)
+            offer=True).annotate(num_reviews=Count('reviews'))
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
     elif category:
         category = get_object_or_404(Category, slug=category)
         holidays = Package.objects.filter(
-            category=category)
+            category=category).annotate(num_reviews=Count('reviews'))
         countries = holidays.values_list(
             'country__name', flat=True).distinct().order_by('country__name')
 
     else:
         destination = get_object_or_404(Region, slug=destination)
         holidays = Package.objects.filter(
-            region=destination)
+            region=destination).annotate(num_reviews=Count('reviews'))
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
