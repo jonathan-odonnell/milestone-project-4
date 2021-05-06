@@ -1,7 +1,80 @@
 {% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+{% endblock %}
 {% load static %}
 
 {% block content %}
-<h1>Success</h1>
-
+<section class="bg-grey">
+    <div class="container p-4">
+        <div class="row g-0">
+            <div class="col-12 pb-4">
+                <h1 class="text-center section-heading section-heading-blue">Popular Destinations</h1>
+                <div class="block-divider block-divider-blue mx-auto"></div>
+            </div>
+        </div>
+        <div class="row g-0">
+            <div id="arrows" class="col-12 text-md-end">
+            </div>
+        </div>
+        <div id="popular-destinations" class="row g-0">
+            {% for holiday in holidays %}
+            <div class="col-12 col-md-6 col-lg-4 p-3">
+                <div class="card destination-card">
+                    <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                    <span class="badge bg-danger">£{{holiday.price|floatformat:"0"}}</span>
+                    <div class="card-body">
+                        <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
+                            <h5 class="card-title mb-1">{{holiday.name}}</h5>
+                        </a>
+                        <p class="small mb-1">{{holiday.country}}</p>
+                        <div class="d-flex justify-content-between">
+                            <p class="d-block card-text small mb-2">
+                                <span class="rating">{{holiday.rating}}</span> ({{ holiday.num_reviews }} reviews)</p>
+                            <p class="d-block card-text small mb-2"><i class="far fa-clock pe-1"></i>{{holiday.duration}}
+                            days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+<script src="{% static 'js/ratings.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $('#popular-destinations').slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+    {
+      breakpoint: 998,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      }
+    }],
+    appendArrows: '#arrows',
+    prevArrow: '<button type="button" class="btn shadow-0 slick-prev"><i class="fas fa-arrow-left fa-2x"></i></button>',
+    nextArrow: '<button type="button" class="btn shadow-0 slick-next"><i class="fas fa-arrow-right fa-2x"></i></button>',
+  });
+});
+</script>      
 {% endblock %}
