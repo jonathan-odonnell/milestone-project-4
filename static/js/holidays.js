@@ -1,28 +1,4 @@
 // jQuery for each function is from https://stackoverflow.com/questions/17258119/jquery-each-run-function-for-each-instance-of-selector
-function generateStars() {
-    let fullStar = "<i class='fas fa-star pe-1'></i>"
-    let halfStar = "<i class='fas fa-star-half-alt pe-1'></i>"
-    let emptyStar = "<i class='far fa-star pe-1'></i>"
-    $('.rating').each(function () {
-        rating = parseFloat($(this).html())
-        displayStars = ""
-        for (let i = 1; i <= 5; i++) {
-            if (Math.round(rating) >= i) {
-                displayStars += fullStar
-            } else if (rating >= i - 1) {
-                displayStars += halfStar
-            } else {
-                displayStars += emptyStar
-            }
-        }
-        $(this).html(displayStars)
-    })
-}
-
-$(document).ready(function () {
-    generateStars()
-})
-
 let currentUrl = new URL(window.location)
 
 $('#holidays').on('click', '.page-link', function () {
