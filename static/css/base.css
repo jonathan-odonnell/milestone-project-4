@@ -118,19 +118,7 @@ section {
     margin: 0 1rem;
 }
 
-.hero-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 60vh;
-    background-size: cover;
-    background-position: center center;
-}
-
-.holiday-hero-image {
-    height: calc(100vh - 73px);
-}
+/* Hero Image Start */
 
 .hero-image-top {
     background-position: center top;
@@ -149,7 +137,7 @@ section {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.hero-image .row {
+.hero-image .jumbotron {
     z-index: 1;
 }
 
@@ -162,6 +150,111 @@ section {
     font-weight: bold;
 }
 
+/* Hero Image End */
+
+/* Hero Image Carousel Start */
+
+#hero-image-carousel .slick-slide {
+    display: flex;
+    height: calc(100vh - 105px);
+}
+
+#hero-image-carousel .slick-prev {
+    left: 25px;
+}
+
+#hero-image-carousel .slick-next {
+    right: 25px;
+}
+
+#hero-image-carousel .slick-prev,
+#hero-image-carousel .slick-next {
+    position: absolute;
+    top: 50%;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    line-height: 24px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translate(0, -50%);
+    cursor: pointer;
+    z-index: 2;
+}
+
+.slick-dots {
+    position: absolute;
+    bottom: 10px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: .75;
+    color: #fff;
+}
+
+.slick-dots li button:before {
+    font-family: 'slick';
+    font-size: 20px;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    content: '•';
+    text-align: center;
+    opacity: .25;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+
+.hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 60vh;
+    background-size: cover;
+    background-position: center center;
+}
+
+/* Hero Image Carousel End */ 
+
+/* Block Divider Start */
+
 .block-divider {
     width: 75px;
     height: 5px;
@@ -173,11 +266,17 @@ section {
     background-color: #006994;
 }
 
+/* Block Divider End */
+
+/* Form Start */
+
 .form-select:focus {
     border-color: #bdbdbd;
 }
 
-/* Code for image hover effects is from .destination-card img:hover */
+/* Form End */
+
+/* Destination Card Start. Code for image hover effects is from .destination-card img:hover */
 
 .destination-card {
     border-radius: 10px;
@@ -230,6 +329,8 @@ section {
 .fa-star, .fa-star-half-alt {
     color: gold;
 }
+
+/* Destination Card End */
 
 .pagination .active .page-link {
     background-color: #d13574;
