@@ -71,8 +71,16 @@ section {
     color: #d13574;
 }
 
-.section-heading-blue {
+.text-blue {
     color: #006994;
+}
+
+.text-pink {
+    color: #d13574;
+}
+
+.text-black {
+    color: #000;
 }
 
 .section-subheading {

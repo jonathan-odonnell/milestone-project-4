@@ -31,38 +31,69 @@
     <div class="container p-4">
         <div class="row px-3">
             <div class="col-12 col-md-8 pt-3 pb-4">
-                <h1 class="text-center text-md-start section-heading section-heading-blue">Popular Destinations</h1>
+                <h1 class="text-center text-md-start section-heading text-blue">Popular Destinations</h1>
             </div>
             <div class="col-12 col-md-4">
                 <div id="arrows" class="col-12 text-md-end">
+                </div>
             </div>
-        </div>
-        <div id="popular-destinations" class="row g-0">
-            {% for holiday in holidays %}
-            <div class="col-12 col-md-6 col-lg-4 p-3">
-                <div class="card destination-card">
-                    <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                    <span class="badge bg-danger">£{{holiday.price|floatformat:"0"}}</span>
-                    <div class="card-body">
-                        <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
-                            <h5 class="card-title mb-1">{{holiday.name}}</h5>
-                        </a>
-                        <p class="small mb-1">{{holiday.country}}</p>
-                        <div class="d-flex justify-content-between">
-                            <p class="d-block card-text small mb-2">
-                                <span class="rating">{{holiday.rating}}</span> ({{ holiday.num_reviews }} reviews)
-                            </p>
-                            <p class="d-block card-text small mb-2"><i
-                                    class="far fa-clock pe-1"></i>{{holiday.duration}}
-                                days</p>
+            <div id="popular-destinations" class="row g-0">
+                {% for holiday in holidays %}
+                <div class="col-12 col-md-6 col-lg-4 p-3">
+                    <div class="card destination-card">
+                        <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                        <span class="badge bg-danger">£{{holiday.price|floatformat:"0"}}</span>
+                        <div class="card-body">
+                            <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
+                                <h5 class="card-title mb-1">{{holiday.name}}</h5>
+                            </a>
+                            <p class="small mb-1">{{holiday.country}}</p>
+                            <div class="d-flex justify-content-between">
+                                <p class="d-block card-text small mb-2">
+                                    <span class="rating">{{holiday.rating}}</span> ({{ holiday.num_reviews }} reviews)
+                                </p>
+                                <p class="d-block card-text small mb-2"><i
+                                        class="far fa-clock pe-1"></i>{{holiday.duration}}
+                                    days</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+        </div>
+</section>
+<div class="container p-4">
+    <div class="row features">
+        <div class="col-12 col-md-6 col-lg-4 text-center pt-4">
+            <h3 class="text-black mb-3">
+                <i class="far fa-credit-card d-block fa-lg text-pink mb-3"></i>Refund Guarantee
+            </h3>
+            <p class="mb-3">
+                If we have to cancel, we guarantee a speedy and smooth refund, so you can book with confidence.
+                T&Cs apply.
+            </p>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 text-center pt-4">
+            <h3 class="text-black mb-3">
+                <i class="fas fa-shield-alt d-block fa-lg text-pink mb-3"></i>ATOL Protected
+            </h3>
+            <p class="mb-3">
+                Every holiday package we sell is ATOL protected, which means that you’ll never be left stranded
+                or lose your money.
+            </p>
+        </div>
+        <div class="col-12 col-lg-4 d-md-none d-lg-block text-center pt-4">
+            <h3 class="text-black mb-3">
+                <i class="far fa-smile d-block fa-lg text-pink mb-3"></i>Excellent Reviews
+            </h3>
+            <p class="mb-3">
+                We’re really proud of our famously friendly service and we’ve got the trophies and reviews to
+                prove just how good it is.
+            </p>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
