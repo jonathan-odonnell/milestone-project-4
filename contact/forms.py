@@ -24,6 +24,7 @@ class ContactForm(forms.ModelForm):
 
         self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['message'].widget.attrs['rows'] = 6
+        self.fields['subject'].widget.attrs['class'] = 'form-select'
 
         for field in self.fields:
             if field != 'subject':

@@ -16,7 +16,7 @@
 </div>
 <div class="container py-4">
     <div class="row g-0">
-        <div class="col-12 col-md-4 p-4 order-md-1">
+        <div class="col-12 col-lg-4 p-4 order-lg-1">
             <div class="contact-info-item mb-3">
                 <div class="key">
                     <i class="fas fa-map-marker-alt"></i>
@@ -57,15 +57,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-8 p-4 order-md-0">
+        <div class="col-12 col-lg-8 p-4 order-lg-0">
             <h2 class="mb-4"><strong>Get In Touch</strong></h2>
             <form>
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         {{ form.name | as_crispy_field }}
                     </div>
-                    <div class="col-6">
+                    <div class="col-12 col-md-6">
                         {{ form.email | as_crispy_field }}
                     </div>
                 </div>
@@ -88,6 +88,18 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
+    let subjectSelected = $("#id_subject").val();
+    if (!subjectSelected) {
+        $("#id_subject").css("color", "#a9a9a9");
+    }
+    $("#id_subject").change(function () {
+        subjectSelected = $(this).val();
+        if (!subjectSelected) {
+            $(this).css("color", "#a9a9a9");
+        } else {
+            $(this).css("color", "#4a4a4a");
+        }
+    });
     $('form .btn').click(function (e) {
         e.preventDefault()
         if ($('form')[0].reportValidity()) {
