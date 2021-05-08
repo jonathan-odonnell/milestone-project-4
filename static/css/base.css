@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap');
 
 body {
     font-family: 'PT Sans', sans-serif;
@@ -145,7 +146,7 @@ section {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.hero-image .jumbotron {
+.hero-image .row {
     z-index: 1;
 }
 
@@ -153,10 +154,17 @@ section {
     background-color: transparent;
 }
 
+.jumbotron .display-1 {
+    color: white;
+    font-weight: bold;
+    font-family: 'Nothing You Could Do', sans-serif;
+}
+
 .jumbotron .display-4 {
     color: white;
     font-weight: bold;
 }
+
 
 /* Hero Image End */
 

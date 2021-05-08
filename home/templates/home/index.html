@@ -16,10 +16,17 @@
             {% for offer in offers %}
             <div class="hero-image" style="background-image: url('{{ offer.image.url }}')">
                 <div class="overlay">&nbsp;</div>
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-4 text-center">{{offer.name}}</h1>
-                        <div class="block-divider my-3 mx-auto"></div>
+                <div class="row g-0">
+                    <div class="col-12">
+                        <div class="jumbotron jumbotron-fluid text-center">
+                            <div class="container">
+                                <h1 class="display-1">{{offer.name}}</h1>
+                                <br>
+                                <h4 class="text-white">{{offer.duration}} days from £{{ offer.price }} per person</h4>
+                                <br>
+                                <a href="{% url 'destination_details' offer.region.slug offer.slug %}" class="btn btn-lg btn-info">Explore Now</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
