@@ -276,6 +276,22 @@ section {
 
 /* Block Divider End */
 
+/* Features Start */
+
+.features p {
+    line-height: 30px;
+}
+
+.features h3 {
+    margin-bottom: 10px;
+}
+
+.features i {
+    margin-bottom: 40px;
+}
+
+/* Features End */
+
 /* Form Start */
 
 .form-select:focus {
