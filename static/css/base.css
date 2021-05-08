@@ -15,11 +15,6 @@ section {
     min-height: calc(100vh - 73px);
 }
 
-.small {
-    font-size: 0.8rem;
-    color: #fff;
-}
-
 .bg-primary {
     background-color: #006994 !important;
 }
@@ -55,16 +50,6 @@ section {
 
 .btn-grey {
     background: #c8c8c8;
-}
-
-.btn-newsletter {
-    background-color: #d13574;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.btn-newsletter i {
-    color: #fff;
 }
 
 .section-heading {
@@ -336,6 +321,11 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.newsletter-signup .form-control:focus {
+    box-shadow: none;
+    border: none !important;
+}
+
 /* Form End */
 
 /* Destination Card Start. Code for image hover effects is from .destination-card img:hover */
@@ -587,6 +577,8 @@ label .asteriskField {
     line-height: 40px;
 }
 
+/* Footer Start */
+
 footer a {
     color: #fff;
 }
@@ -595,14 +587,36 @@ footer a:hover {
     color: #70c8df;
 }
 
+.footer-2 {
+    margin-top: 32px;
+}
+
 .footer-headings {
     font-weight: 600;
     color: #fff;
 }
 
-.footer-divider hr {
-    border-top-color: rgba(255, 255, 255, 0.5);
+.newsletter-signup {
+    max-width: 300px;
 }
+
+.btn-newsletter {
+    position: inherit !important;
+    background-color: #d13574;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-newsletter i {
+    color: #fff;
+}
+
+footer .small {
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+/* Footer End */
 
 @media (min-width: 450px) {
     .destination-card img {

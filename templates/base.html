@@ -186,9 +186,9 @@
                 <div class="col-12 col-xl-10 mx-auto">
                     <div class="row no-gutters">
                         <!-- Links col 1 -->
-                        <div class="col-6 col-md-3 col-lg-4 order-1 order-md-0">
+                        <div class="col-6 col-md-3 col-lg-4 mb-4 mb-md-3">
                             <h5 class="footer-headings">Links</h5>
-                            <ul class="list-unstyled mb-0 mb-md-3">
+                            <ul class="list-unstyled mb-0">
                                 <li><a href="{% url 'categories' 'activity' %}">Activity</a></li>
                                 <li><a href="{% url 'categories' 'city-breaks' %}">City Breaks</a></li>
                                 <li><a href="{% url 'categories' 'resort' %}">Resort</a></li>
@@ -196,20 +196,20 @@
                             </ul>
                         </div>
                         <!-- Links col 2 -->
-                        <div class="col-6 col-md-3 col-lg-4 mt-4 order-2 order-md-1">
-                            <ul class="list-unstyled mb-0 mb-md-3">
+                        <div class="col-6 col-md-3 col-lg-4 footer-2 mb-4 mb-md-3">
+                            <ul class="list-unstyled mb-0">
                                 <li><a href="{% url 'categories' 'offers' %}">Offers</a></li>
                                 <li><a href="{% url 'extras' %}">Extras</a></li>
-                                <li><a href="{% url 'bookings' %}">Manage Booking</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="{% url 'bookings' %}">Manage Bookings</a></li>
+                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
                             </ul>
                         </div>
                         <!-- Newsletter sign up -->
-                        <div class="col-12 col-md-6 col-lg-4 order-0 order-md-2">
-                            <form class="form-group mb-3">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <form class="form-group newsletter-signup mb-4">
                                 <h5 class="footer-headings mb-3">Sign up for our Newsletter!</h5>
                                 <div class="input-group">
-                                    <input type="text" class="form-control border-0 shadow-none"
+                                    <input type="text" class="form-control border-0"
                                         placeholder="Enter your email address" aria-label="Enter your email address"
                                         aria-describedby="button-addon">
                                     <div class="input-group-append">
@@ -219,20 +219,9 @@
                                 </div>
                             </form>
                         </div>
-                        <!-- Footnote -->
-                        <div class="col-12 col-sm-10 col-md-12 text-md-center order-5 order-md-4">
-                            <p class="small mb-2">Registered Address: 6th Floor, Hudson's Bay, Queen Street, 176 Yonge
-                                Street,
-                                Toronto, ON, M5C 2L7</p>
-                            <p class="small mb-0">Website designed and developed by Jonathan O'Donnell</p>
-                        </div>
-                        <!-- Divider -->
-                        <div class="col-12 d-md-none order-4 footer-divider">
-                            <hr>
-                        </div>
                         <!-- Social Media Links -->
-                        <div class="col-12 text-md-center order-6 order-md-5">
-                            <ul class="list-inline my-3">
+                        <div class="col-12 text-md-center">
+                            <ul class="list-inline mb-3 mt-1 mt-md-0">
                                 <li class="list-inline-item pe-3 ps-md-3">
                                     <a href="https://www.facebook.com" class="hvr-icon-bounce" target="_blank">
                                         <i class="hvr-icon fab fa-facebook fa-lg"></i>
@@ -254,6 +243,12 @@
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+                        <!-- Footnote -->
+                        <div class="col-12 col-sm-10 col-md-12 text-md-center">
+                            <p class="small mb-2">Registered Address: 6th Floor, Hudson's Bay, 176 Yonge
+                                Street, Toronto, ON, M5C 2L7</p>
+                            <p class="small mb-0">Website designed and developed by Jonathan O'Donnell</p>
                         </div>
                     </div>
                 </div>
