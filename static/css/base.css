@@ -155,14 +155,13 @@ section {
 }
 
 .jumbotron .display-1 {
-    color: white;
     font-weight: bold;
     font-family: 'Nothing You Could Do', sans-serif;
 }
 
-.jumbotron .display-4 {
-    color: white;
+.jumbotron .display-2 {
     font-weight: bold;
+    font-family: 'Nothing You Could Do', sans-serif;
 }
 
 
