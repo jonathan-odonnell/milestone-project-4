@@ -91,6 +91,15 @@ section {
     font-weight: 700;
 }
 
+.navbar-brand h2 {
+    font-weight: bold;
+    color: #70c8df
+}
+
+.navbar-brand i {
+    color: #006994
+}
+
 .navbar-toggler i {
     color: #000063;
 }
