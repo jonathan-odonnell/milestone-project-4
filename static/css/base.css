@@ -576,7 +576,7 @@ label .asteriskField {
     border-color: #dc3545;
 }
 
-#flight-table tr td:last-of-type {
+#flights-table tr td:last-of-type {
     min-width: 185px;
 }
 
@@ -670,7 +670,7 @@ footer .small {
     .destination-card img {
         height: 12rem;
     }
-    #flight-table tr td:last-of-type {
+    #flights-table tr td:last-of-type {
         min-width: 0;
     }
 }

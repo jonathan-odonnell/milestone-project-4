@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -7,40 +8,46 @@ from holidays.utlis import superuser_required
 from holidays.models import Flight
 from .forms import FlightForm
 
+
 def airports(request):
     airports = Flight.objects.distinct()
     airports = list(airports.values_list('origin', flat=True))
     return JsonResponse({'airports': airports})
 
+
 @login_required
 @superuser_required
 def flights(request):
     flights = Flight.objects.all()
-    current_sorting = None
 
     if request.GET:
-         if 'sort' in request.GET:
-            sortkey = request.GET['sort']
-            sort = sortkey
-            if sortkey == 'number':
-                sortkey = 'name'
+        if 'sort' in request.GET:
+            sort = request.GET['sort']
+            if sort == 'number':
+                sort = 'name'
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
-                    sortkey = f'-{sortkey}'
-                flights = flights.order_by(sortkey)
-            current_sorting = f'{sort}_{direction}'
-    
-    paginated_flights = Paginator(flights, 10)
-    page_number = request.GET.get('page')
-    flights = paginated_flights.get_page(page_number)
+                    sort = f'-{sort}'
+                flights = flights.order_by(sort)
 
-    context = {
-        'flights': flights,
-        'current_sorting': current_sorting
-    }
+        paginated_flights = Paginator(flights, 10)
+        page_number = request.GET.get('page')
+        flights = paginated_flights.get_page(page_number)
+        html = render_to_string(
+            'flights/includes/flights_table.html', {'flights': flights})
+        return JsonResponse({'flights': html})
 
-    return render(request, 'flights/flights.html', context)
+    else:
+        paginated_flights = Paginator(flights, 10)
+        page_number = request.GET.get('page')
+        flights = paginated_flights.get_page(page_number)
+
+        context = {
+            'flights': flights,
+        }
+
+        return render(request, 'flights/flights.html', context)
 
 
 @login_required
