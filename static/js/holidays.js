@@ -2,7 +2,8 @@
 let currentUrl = new URL(window.location)
 
 $('#holidays').on('click', '.page-link', function () {
-    currentUrl.searchParams.set("page", parseInt($(this).closest('a').text()));
+    let page = $(this).data('page');
+    currentUrl.searchParams.set("page", page);
     $.get(currentUrl).done(function (data) {
         $('#holidays').html(data.holidays)
         generateStars()
