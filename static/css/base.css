@@ -123,6 +123,16 @@ section {
 
 /* Hero Image Start */
 
+.hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 60vh;
+    background-size: cover;
+    background-position: center center;
+}
+
 .hero-image-top {
     background-position: center top;
 }
@@ -162,6 +172,15 @@ section {
     margin: 30px 0 50px 0;
 }
 
+.btn-hero {
+    background-color: #49c5b6;
+    color: #fff;
+}
+
+.btn-hero:hover {
+    background-color: #70c8df;
+    color: #fff;
+}
 
 /* Hero Image End */
 
@@ -252,16 +271,6 @@ section {
     border: 0;
     outline: none;
     background: transparent;
-}
-
-.hero-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    height: 60vh;
-    background-size: cover;
-    background-position: center center;
 }
 
 /* Hero Image Carousel End */ 

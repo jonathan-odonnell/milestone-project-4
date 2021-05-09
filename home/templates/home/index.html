@@ -10,7 +10,7 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid bg-danger p-0">
+<div class="container-fluid p-0">
     <div class="row g-0">
         <div id="hero-image-carousel" class="col-12">
             {% for offer in offers %}
@@ -21,8 +21,8 @@
                         <div class="jumbotron jumbotron-fluid text-center">
                             <div class="container">
                                 <h1 class="display-1 text-white">{{offer.name}}</h1>
-                                <h3 class="text-white">{{offer.duration}} days from £{{ offer.price }} per person</h3>
-                                <a href="{% url 'destination_details' offer.region.slug offer.slug %}" class="btn btn-lg btn-info">Explore Now</a>
+                                <h3 class="text-white">{{offer.duration}} days from £{{ offer.price|floatformat:0 }} per person</h3>
+                                <a href="{% url 'destination_details' offer.region.slug offer.slug %}" class="btn btn-hero btn-lg">Explore Now</a>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                 <div class="col-12 col-md-6 col-lg-4 p-3">
                     <div class="card destination-card">
                         <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                        <span class="badge bg-danger">£{{holiday.price|floatformat:"0"}}</span>
+                        <span class="badge bg-danger">£{{holiday.price|floatformat:0}}</span>
                         <div class="card-body">
                             <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
                                 <h5 class="card-title mb-1">{{holiday.name}}</h5>
