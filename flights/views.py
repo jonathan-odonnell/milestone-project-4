@@ -16,12 +16,28 @@ def airports(request):
 @superuser_required
 def flights(request):
     flights = Flight.objects.all()
+    current_sorting = None
+
+    if request.GET:
+         if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            if sortkey == 'number':
+                sortkey = 'name'
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+                flights = flights.order_by(sortkey)
+            current_sorting = f'{sort}_{direction}'
+    
     paginated_flights = Paginator(flights, 10)
     page_number = request.GET.get('page')
     flights = paginated_flights.get_page(page_number)
 
     context = {
         'flights': flights,
+        'current_sorting': current_sorting
     }
 
     return render(request, 'flights/flights.html', context)
