@@ -356,6 +356,11 @@ input[type="number"]::-webkit-inner-spin-button {
     border: none !important;
 }
 
+#flight-sort-selector, #flight-sort-selector:focus {
+    color: #4a4a4a;
+    border-color: #d3d3d3;
+}
+
 /* Form End */
 
 /* Destination Card Start. Code for image hover effects is from .destination-card img:hover */
@@ -571,6 +576,10 @@ label .asteriskField {
     border-color: #dc3545;
 }
 
+#flight-table tr td:last-of-type {
+    min-width: 185px;
+}
+
 #airports-list {
     height: 150px;
     background-color: #fff;
@@ -660,6 +669,9 @@ footer .small {
     #holidays img, 
     .destination-card img {
         height: 12rem;
+    }
+    #flight-table tr td:last-of-type {
+        min-width: 0;
     }
 }
 
