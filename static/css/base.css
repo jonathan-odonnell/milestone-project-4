@@ -356,7 +356,10 @@ input[type="number"]::-webkit-inner-spin-button {
     border: none !important;
 }
 
-#flight-sort-selector, #flight-sort-selector:focus {
+#sort-selector, 
+#sort-selector:focus, 
+#flight-sort-selector, 
+#flight-sort-selector:focus {
     color: #4a4a4a;
     border-color: #d3d3d3;
 }
