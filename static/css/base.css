@@ -1,18 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nothing+You+Could+Do&display=swap');
 
+/* Body and Section Start. Code for height styling is from https://stackoverflow.com/questions/39527808/make-content-min-height-fill-the-screen */
+
 body {
     font-family: 'PT Sans', sans-serif;
-}
-
-strong {
-    font-weight: bold;
 }
 
 section {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 73px);
+    min-height: calc(100vh - 105px);
+}
+
+/* Body and Section End */
+
+a {
+    color: #006994;
+}
+
+a:hover {
+    color: #70c8df;
+}
+
+strong {
+    font-weight: bold;
 }
 
 .bg-primary {
@@ -32,7 +44,7 @@ section {
 }
 
 .btn-primary {
-    background-color: #006994 !important;
+    background-color: #70c8df !important;
 }
 
 .btn-secondary, .btn-secondary:hover {
@@ -54,7 +66,7 @@ section {
 
 .section-heading {
     font-weight: bold;
-    color: #d13574;
+    color: #006994;
 }
 
 .text-blue {
@@ -599,10 +611,6 @@ label .asteriskField {
 
 footer a {
     color: #fff;
-}
-
-footer a:hover {
-    color: #70c8df;
 }
 
 .footer-2 {
