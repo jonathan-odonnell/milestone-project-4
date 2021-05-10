@@ -8,8 +8,7 @@
         <div class="col-12">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4 text-center">{{ holiday.name }}</h1>
-                    <div class="block-divider my-3 mx-auto"></div>
+                    <h1 class="display-2 text-center text-white">{{ holiday.name }}</h1>
                 </div>
             </div>
         </div>
@@ -35,6 +34,12 @@
                         aria-controls="activities" aria-selected="false">Activities</a>
                 </li>
                 {% endif %}
+                {% if holiday.reviews.all %}
+                <li class="nav-item py-0" role="presentation">
+                    <a class="nav-link" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab"
+                        aria-controls="reviews" aria-selected="false">Reviews</a>
+                </li>
+                {% endif %}
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active py-3" id="overview" role="tabpanel"
@@ -43,7 +48,7 @@
                         <div class="col-12 col-sm-6 my-3">
                             <ul class="list-group">
                                 <li class="list-group-item px-0 border-0">
-                                    <i class="fas fa-tag me-3"></i>£{{ holiday.price|floatformat:"0" }}
+                                    <i class="fas fa-tag me-3"></i>£{{ holiday.price|floatformat:0 }}
                                 </li>
                                 <li class="list-group-item px-0 border-0">
                                     <i class="far fa-calendar-alt mx-0 me-3"></i>{{ holiday.duration }} days
@@ -88,12 +93,20 @@
                 </div>
                 {% endif %}
                 {% if holiday.activities.all %}
-                {% for activity in holiday.activities.all %}
                 <div class="tab-pane fade py-3" id="activities" role="tabpanel" aria-labelledby="activities-tab">
+                    {% for activity in holiday.activities.all %}
                     <p><strong>{{ activity.name }}</strong></p>
                     <p>{{ activity.description }}</p>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                {% endif %}
+                {% if holiday.reviews.all %}
+                <div class="tab-pane fade py-3" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    {% for review in holiday.reviews.all %}
+                    <p><strong>{{ review.title }}</strong></p>
+                    <p>{{ review.review }}</p>
+                    {% endfor %}
+                </div>
                 {% endif %}
             </div>
         </div>
