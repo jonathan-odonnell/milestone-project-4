@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('.form-check input').addClass('form-check-input').attr('type', 'checkbox')
     $('.form-check label').addClass('form-check-label').show()
     $('fieldset .row').addClass('mb-3')
-    $('.activity, .itinerary').each(function() {
+    $('.feature, .activity, .itinerary').each(function() {
         $(this).find('.form-check').last().addClass('delete-check')
     })
     $('.delete-check label').addClass('text-danger')
@@ -14,22 +14,32 @@ $('#new-image').change(function () {
     $('#filename').text(`Image will be set to: ${file.name}`);
     $('#filename').addClass('mt-3');
 });
+featureCounter = $('.feature').length
+let addedFeature = function () {
+    $('fieldset .row').addClass('mb-3');
+    $(`#div_id_features-${featureCounter}-DELETE`).addClass('form-check ms-1')
+    $(`#div_id_features-${featureCounter}-DELETE`).addClass('delete-check')
+    $(`<input type="checkbox" name="features-${featureCounter}-DELETE" id="id_features-${featureCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_features-${featureCounter}-DELETE label`)
+    $(`#div_id_features-${featureCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
+    featureCounter += 1
+    $('.feature').last().find('legend').text(`Feature ${featureCounter}`)
+}
 activityCounter = $('.activity').length
 let addedActivity = function () {
     $('fieldset .row').addClass('mb-3');
-    $(`#div_id_activity_set-${activityCounter}-DELETE`).addClass('form-check ms-1')
-    $(`#div_id_activity_set-${activityCounter}-DELETE`).addClass('delete-check')
-    $(`<input type="checkbox" name="activity_set-${activityCounter}-DELETE" id="id_activity_set-${activityCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_activity_set-${activityCounter}-DELETE label`)
-    $(`#div_id_activity_set-${activityCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
+    $(`#div_id_activities-${activityCounter}-DELETE`).addClass('form-check ms-1')
+    $(`#div_id_activities-${activityCounter}-DELETE`).addClass('delete-check')
+    $(`<input type="checkbox" name="activities-${activityCounter}-DELETE" id="id_activities-${activityCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_activities-${activityCounter}-DELETE label`)
+    $(`#div_id_activities-${activityCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
     activityCounter += 1
     $('.activity').last().find('legend').text(`Activity ${activityCounter}`)
 }
 itineraryCounter = $('.itinerary').length
 let addedItinerary = function () {
     $('fieldset .row').addClass('mb-3');
-    $(`#div_id_itinerary_set-${itineraryCounter}-DELETE`).addClass('form-check delete-check ms-1')
-    $(`<input type="checkbox" name="itinerary_set-${itineraryCounter}-DELETE" id="id_itinerary_set-${itineraryCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_itinerary_set-${itineraryCounter}-DELETE label`)
-    $(`#div_id_itinerary_set-${itineraryCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
+    $(`#div_id_itineraries-${itineraryCounter}-DELETE`).addClass('form-check delete-check ms-1')
+    $(`<input type="checkbox" name="itineraries-${itineraryCounter}-DELETE" id="id_itineraries-${itineraryCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_itineraries-${itineraryCounter}-DELETE label`)
+    $(`#div_id_itineraries-${itineraryCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
     itineraryCounter += 1
     $('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`)
 }

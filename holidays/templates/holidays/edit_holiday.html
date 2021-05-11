@@ -21,13 +21,28 @@
                     {{ form.offer | as_crispy_field}}
                     {{ form.duration | as_crispy_field }}
                     {{ form.rating | as_crispy_field }}
+                    {{ form.accomodation | as_crispy_field }}
                     {{ form.catering | as_crispy_field }}
-                    {{ form.features | as_crispy_field }}
                     {{ form.extras | as_crispy_field }}
                     {{ form.flights | as_crispy_field }}
                     {{ form.transfers_included | as_crispy_field }}
                 </fieldset>
-                <fieldset id="prices" class="d-none">
+                <fieldset id="features" class="d-none">
+                    <div>
+                    {{ feature_formset.management_form}}
+                    </div>
+                    {% for form in feature_formset %}
+                    <div class="feature">
+                        <legend>Feature 1</legend>
+                        {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                        {% endfor %}
+                        {{form.name | as_crispy_field }}
+                        {{form.DELETE | as_crispy_field }}
+                    </div>
+                    {% endfor %}
+                </fieldset>
+                <fieldset id="activities" class="d-none">
                     <div>
                         {{ activity_formset.management_form }}
                     </div>
@@ -77,17 +92,23 @@
 <script src="{% static 'js/jquery.formset.js' %}"></script>
 <script src="{% static 'js/edit_holiday.js' %}"></script>
 <script type="text/javascript">
+     $('.feature').formset({
+        addText: '<i class="fas fa-plus pe-2"></i>add another',
+        prefix: '{{ feature_formset.prefix }}',
+        formCssClass: 'feature',
+        added: addedFeature,
+    });
     $('.activity').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ activity_formset.prefix }}',
         formCssClass: 'activity',
-        added: addedPrice,
+        added: addedActivity,
     });
     $('.itinerary').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ itinerary_formset.prefix }}',
         formCssClass: 'itinerary',
         added: addedItinerary,
-    });
+    })
 </script>
 {% endblock %}
