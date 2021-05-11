@@ -11,6 +11,13 @@ $('#new-image').change(function () {
     $('#filename').text(`Image will be set to: ${file.name}`);
     $('#filename').addClass('mt-3');
 });
+featureCounter = 1
+let addedFeature = function () {
+    $('fieldset .row').addClass('mb-3');
+    featureCounter += 1
+    $('.feature').last().find('legend').text(`Feature ${featureCounter}`)
+    $('.delete-row').remove()
+}
 activityCounter = 1
 let addedActivity = function () {
     $('fieldset .row').addClass('mb-3');
