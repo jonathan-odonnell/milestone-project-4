@@ -106,9 +106,11 @@
                     <p><strong>{{ review.title }}</strong></p>
                     <p>{{ review.review }}</p>
                     {% endfor %}
+                    {% if not_reviewed %}
                     <a href="{% url 'review' holiday.slug %}" class="btn btn-primary">
                         Write Review
                     </a>
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>

@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.contrib import messages
-from .models import Package, Category, Country, Region
+from .models import Package, Category, Country, Region, Review
+from booking.models import Booking
+from profiles.models import UserProfile
 from flights.models import Flight
 from django.db.models import Min, Count
 from django.db.models.functions import Lower
@@ -89,6 +91,7 @@ def holidays(request, category=None, destination=None):
 def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
     holiday = get_object_or_404(Package.objects, slug=slug)
+    not_reviewed = False
 
     if category == 'offers':
         related_holidays = Package.objects.filter(offer=True).exclude(
@@ -97,23 +100,49 @@ def holiday_details(request, slug, destination=None, category=None):
     elif category:
         category = category.replace('-', ' ')
         related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_category=Lower('category__name')).filter(lower_category=category).order_by('?')[:4]
-
+    
     else:
         destination = destination.replace('-', ' ')
         related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_region=Lower('region__name')).filter(lower_region=destination).order_by('?')[:4]
+
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+        bookings = Booking.objects.filter(user_profile=profile, booking_package__package=holiday)
+        
+        if bookings:
+            try:
+                Review.objects.get(package=holiday, name=profile.user.get_full_name())
+
+            except Review.DoesNotExist:
+                not_reviewed = True
 
     context = {
         'holiday': holiday,
         'related_holidays': related_holidays,
         'category': category,
         'destination': destination,
+        'not_reviewed': not_reviewed,
     }
     return render(request, 'holidays/holiday_details.html', context)
 
-
+@login_required
 def review(request, package):
+    holiday = get_object_or_404(Package, slug=package)
+    profile = UserProfile.objects.get(user=request.user)
+    bookings = Booking.objects.filter(user_profile=profile, booking_package__package=holiday)
+    
+    if not bookings:
+        return HttpResponse(status=403)
+
+    if bookings:
+        try:
+            Review.objects.get(package=holiday, name=profile.user.get_full_name())
+            return HttpResponse(status=403)
+
+        except Review.DoesNotExist:
+            pass
+
     if request.POST:
-        holiday = get_object_or_404(Package, slug=package)
         form = ReviewForm(request.POST, instance=holiday)
         redirect_url = request.POST.get('redirect_url')
 
