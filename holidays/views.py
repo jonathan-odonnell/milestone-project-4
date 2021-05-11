@@ -237,7 +237,7 @@ def edit_holiday(request, package):
                 request, 'Failed to update holiday. Please ensure the form is valid.')
     else:
         form = PackageForm(instance=holiday)
-        feature_formset = ActivityFormset(instance=holiday)
+        feature_formset = FeatureFormset(instance=holiday)
         activity_formset = ActivityFormset(instance=holiday)
         itinerary_formset = ItineraryFormset(instance=holiday)
 
