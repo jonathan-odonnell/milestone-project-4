@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="container-fluid p-4">
+    <div class="row g-0">
+        <div class="col-12 text-center">
+            <h1 class="section-heading mb-3">Write Review</h1>
+        </div>
+        <div class="col-12 col-lg-8 mx-auto">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                {{ form.name | as_crispy_field }}
+                <p class="form-label mb-2">Rating</p>
+                <div class="rating-stars mb-3">
+                    <button class="btn shadow-none p-0 me-1" type="button" data-rating="1">
+                        <i class="far fa-star fa-lg"></i>
+                    </button>
+                    <button class="btn shadow-none p-0 me-1" type="button" data-rating="2">
+                        <i class="far fa-star fa-lg"></i>
+                    </button>
+                    <button class="btn shadow-none p-0 me-1" type="button" data-rating="3">
+                        <i class="far fa-star fa-lg"></i>
+                    </button>
+                    <button class="btn shadow-none p-0 me-1" type="button" data-rating="4">
+                        <i class="far fa-star fa-lg"></i>
+                    </button>
+                    <button class="btn shadow-none p-0 me-1" type="button" data-rating="5">
+                        <i class="far fa-star fa-lg"></i>
+                    </button>
+                </div>
+                {{ form.rating | as_crispy_field }}
+                {{ form.title | as_crispy_field }}
+                {{ form.review | as_crispy_field }}
+                {% if request.META.HTTP_REFERER %}
+                <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
+                {% endif %}
+                <div class="mt-4 text-center">
+                    <button class="btn btn-primary" type="submit">Add Review</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    let rating = $('input[name="rating"]').val()
+    $(document).ready(function() {
+        $('#div_id_rating').addClass('d-none')
+    })
+    $('.rating-stars .btn').mouseenter(function () {
+        $(this).prevAll().find('i').addClass('fas').removeClass('far')
+        $(this).find('i').addClass('fas').removeClass('far')
+        $(this).nextAll().find('i').addClass('far').removeClass('fas')
+    })
+    $('.rating-stars .btn').click(function () {
+        $(this).prevAll().find('i').addClass('fas').removeClass('far')
+        $(this).find('i').addClass('fas').removeClass('far')
+        $(this).nextAll().find('i').addClass('far').removeClass('fas')
+        $('input[name="rating"]').val($(this).data('rating'))
+        rating = $('input[name="rating"]').val()
+    })
+    $('.rating-stars').mouseleave(function () {
+        if (rating) {
+            console.log(rating)
+            $(this).find('i').slice(0, parseInt(rating)).addClass('fas').removeClass('far')
+            $(this).find('i').slice(parseInt(rating), 5).addClass('far').removeClass('fas')
+        } else {
+            $(this).find('i').addClass('far').removeClass('fas')
+        }
+    })
+</script>
+{% endblock %}

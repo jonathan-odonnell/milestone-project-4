@@ -366,6 +366,9 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Form End */
 
+.rating-stars .btn {
+    font-size: 1.33rem;
+}
 /* Destination Card Start. Code for image hover effects is from .destination-card img:hover */
 
 .destination-card {
