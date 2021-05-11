@@ -10,8 +10,8 @@ from .forms import FlightForm
 
 
 def airports(request, holiday_id):
-    airports = Flight.objects.filter(packages=holiday_id).distinct()
-    airports = list(airports.values_list('origin', flat=True))
+    airports = Flight.objects.filter(packages=holiday_id)
+    airports = list(airports.values_list('origin', flat=True).distinct())
     return JsonResponse({'airports': airports})
 
 
