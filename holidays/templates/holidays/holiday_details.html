@@ -106,6 +106,9 @@
                     <p><strong>{{ review.title }}</strong></p>
                     <p>{{ review.review }}</p>
                     {% endfor %}
+                    <a href="{% url 'review' holiday.slug %}" class="btn btn-primary">
+                        Write Review
+                    </a>
                 </div>
                 {% endif %}
             </div>
