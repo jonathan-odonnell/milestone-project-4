@@ -33,19 +33,21 @@ let addedItinerary = function () {
     $('.delete-row').remove()
 }
 $('#next').click(function () {
-    $('fieldset').not('.d-none').next().removeClass('d-none')
-    $('fieldset').not('.d-none').first().addClass('d-none')
-    if ($('fieldset').not('.d-none').attr('id') === 'package') {
-        $('#back').addClass('d-none')
-    } else {
-        $('#back').removeClass('d-none')
-    }
-    if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
-        $('#next').addClass('d-none')
-        $('button[type="submit"]').removeClass('d-none')
-    } else {
-        $('button[type="submit"]').addClass('d-none')
-        $('#next').removeClass('d-none')
+    if ($('form')[0].reportValidity()) {
+        $('fieldset').not('.d-none').next().removeClass('d-none')
+        $('fieldset').not('.d-none').first().addClass('d-none')
+        if ($('fieldset').not('.d-none').attr('id') === 'package') {
+            $('#back').addClass('d-none')
+        } else {
+            $('#back').removeClass('d-none')
+        }
+        if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
+            $('#next').addClass('d-none')
+            $('button[type="submit"]').removeClass('d-none')
+        } else {
+            $('button[type="submit"]').addClass('d-none')
+            $('#next').removeClass('d-none')
+        }
     }
 })
 $('#back').click(function () {

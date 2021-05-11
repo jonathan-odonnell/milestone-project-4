@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('.form-check input').addClass('form-check-input').attr('type', 'checkbox')
     $('.form-check label').addClass('form-check-label').show()
     $('fieldset .row').addClass('mb-3')
-    $('.feature, .activity, .itinerary').each(function() {
+    $('.feature, .activity, .itinerary').each(function () {
         $(this).find('.form-check').last().addClass('delete-check')
     })
     $('.delete-check label').addClass('text-danger')
@@ -44,19 +44,21 @@ let addedItinerary = function () {
     $('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`)
 }
 $('#next').click(function () {
-    $('fieldset').not('.d-none').next().removeClass('d-none')
-    $('fieldset').not('.d-none').first().addClass('d-none')
-    if ($('fieldset').not('.d-none').attr('id') === 'package') {
-        $('#back').addClass('d-none')
-    } else {
-        $('#back').removeClass('d-none')
-    }
-    if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
-        $('#next').addClass('d-none')
-        $('button[type="submit"]').removeClass('d-none')
-    } else {
-        $('button[type="submit"]').addClass('d-none')
-        $('#next').removeClass('d-none')
+    if ($('form')[0].reportValidity()) {
+        $('fieldset').not('.d-none').next().removeClass('d-none')
+        $('fieldset').not('.d-none').first().addClass('d-none')
+        if ($('fieldset').not('.d-none').attr('id') === 'package') {
+            $('#back').addClass('d-none')
+        } else {
+            $('#back').removeClass('d-none')
+        }
+        if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
+            $('#next').addClass('d-none')
+            $('button[type="submit"]').removeClass('d-none')
+        } else {
+            $('button[type="submit"]').addClass('d-none')
+            $('#next').removeClass('d-none')
+        }
     }
 })
 $('#back').click(function () {
