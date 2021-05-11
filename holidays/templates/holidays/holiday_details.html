@@ -217,7 +217,7 @@
             }
             $(this).html(displayStars)
         })
-        $.get('/flights/airports').done(function(data) {
+        $.get('{% url "airports" holiday.id %}').done(function(data) {
             airports = data.airports
         })
     })
