@@ -29,6 +29,20 @@ class PackageForm(forms.ModelForm):
         self.fields['region'].empty_label = 'Region'
 
 
+class FeatureForm(forms.ModelForm):
+
+    class Meta:
+        model = Feature
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-3 form-label'
+        self.helper.field_class = 'col-md-9'
+
+
 class ActivityForm(forms.ModelForm):
 
     class Meta:
@@ -71,7 +85,11 @@ class ReviewForm(forms.ModelForm):
         self.fields['review'].widget.attrs['rows'] = 6
 
 
+FeatureFormset = inlineformset_factory(
+    Package, Activity, form=FeatureForm, extra=1)
+
 ActivityFormset = inlineformset_factory(
     Package, Activity, form=ActivityForm, extra=1)
+
 ItineraryFormset = inlineformset_factory(
     Package, Itinerary, form=ItineraryForm, extra=1)
