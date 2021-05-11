@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from .forms import PackageForm, ActivityFormset, ItineraryFormset, ReviewForm
+from .forms import PackageForm, FeatureFormset, ActivityFormset, ItineraryFormset, ReviewForm
 from .utlis import superuser_required
 
 
@@ -178,11 +178,12 @@ def add_holiday(request):
 
         if form.is_valid():
             holiday = form.save(commit=False)
+            feature_formset = FeatureFormset(request.POST, instance=holiday)
             activity_formset = ActivityFormset(request.POST, instance=holiday)
             itinerary_formset = ItineraryFormset(
                 request.POST, instance=holiday)
 
-            if activity_formset.is_valid() and itinerary_formset.is_valid():
+            if feature_formset.is_valid() and activity_formset.is_valid() and itinerary_formset.is_valid():
                 holiday.save()
                 form.save_m2m()
                 activity_formset.save()
@@ -195,12 +196,14 @@ def add_holiday(request):
 
     else:
         form = PackageForm()
+        feature_formset = FeatureFormset()
         activity_formset = ActivityFormset()
         itinerary_formset = ItineraryFormset()
 
     template = 'holidays/add_holiday.html'
     context = {
         'form': form,
+        'feature_formset': feature_formset,
         'activity_formset': activity_formset,
         'itinerary_formset': itinerary_formset,
     }
@@ -216,11 +219,12 @@ def edit_holiday(request, package):
         form = PackageForm(request.POST, request.FILES, instance=holiday)
         if form.is_valid():
             holiday = form.save(commit=False)
+            feature_formset = FeatureFormset(request.POST, instance=holiday)
             activity_formset = ActivityFormset(request.POST, instance=holiday)
             itinerary_formset = ItineraryFormset(
                 request.POST, instance=holiday)
 
-            if activity_formset.is_valid() and itinerary_formset.is_valid():
+            if feature_formset.is_valid() and activity_formset.is_valid() and itinerary_formset.is_valid():
                 holiday.save()
                 form.save_m2m()
                 activity_formset.save()
@@ -233,12 +237,14 @@ def edit_holiday(request, package):
                 request, 'Failed to update holiday. Please ensure the form is valid.')
     else:
         form = PackageForm(instance=holiday)
+        feature_formset = ActivityFormset(instance=holiday)
         activity_formset = ActivityFormset(instance=holiday)
         itinerary_formset = ItineraryFormset(instance=holiday)
 
     template = 'holidays/edit_holiday.html'
     context = {
         'form': form,
+        'feature_formset': feature_formset,
         'activity_formset': activity_formset,
         'itinerary_formset': itinerary_formset,
         'holiday': holiday,
