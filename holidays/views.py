@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from .forms import PackageForm, ActivityFormset, ItineraryFormset
+from .forms import PackageForm, ActivityFormset, ItineraryFormset, ReviewForm
 from .utlis import superuser_required
 
 
@@ -109,6 +109,29 @@ def holiday_details(request, slug, destination=None, category=None):
         'destination': destination,
     }
     return render(request, 'holidays/holiday_details.html', context)
+
+
+def review(request, package):
+    if request.POST:
+        holiday = get_object_or_404(Package, slug=package)
+        form = ReviewForm(request.POST, instance=holiday)
+        redirect_url = request.POST.get('redirect_url')
+
+        if form.is_valid():
+            form.save()
+            return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
+
+        messages.error(
+            request, 'Failed to add review. Please ensure the form is valid.')    
+    
+    else:
+        form = ReviewForm()
+
+    template = 'holidays/review.html'
+    context = {
+        'form': form,
+    }
+    return render(request, template, context)
 
 
 @login_required
