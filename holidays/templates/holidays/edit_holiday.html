@@ -33,7 +33,7 @@
                     </div>
                     {% for form in feature_formset %}
                     <div class="feature">
-                        <legend>Feature 1</legend>
+                        <legend>Feature {{ forloop.counter }}</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
                         {% endfor %}
