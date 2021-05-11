@@ -60,7 +60,7 @@ class ItineraryForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        exclude = ('package', 'date',)
+        exclude = ('package', 'name', 'date',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -68,7 +68,6 @@ class ReviewForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
-        self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['review'].widget.attrs['rows'] = 6
 
 

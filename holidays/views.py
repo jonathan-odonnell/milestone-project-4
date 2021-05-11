@@ -143,7 +143,13 @@ def review(request, package):
             pass
 
     if request.POST:
-        form = ReviewForm(request.POST, instance=holiday)
+        review_data = {
+            'name': profile.user.get_full_name(),
+            'rating': request.POST['rating'],
+            'title': request.POST['title'],
+            'review': request.POST['review'],
+        }
+        form = ReviewForm(review_data, instance=holiday)
         redirect_url = request.POST.get('redirect_url')
 
         if form.is_valid():

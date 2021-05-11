@@ -9,7 +9,6 @@
         <div class="col-12 col-lg-8 mx-auto">
             <form action="#" method="POST">
                 {% csrf_token %}
-                {{ form.name | as_crispy_field }}
                 <p class="form-label mb-2">Rating</p>
                 <div class="rating-stars mb-3">
                     <button class="btn shadow-none p-0 me-1" type="button" data-rating="1">
