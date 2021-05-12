@@ -186,6 +186,7 @@ def add_holiday(request):
             if feature_formset.is_valid() and activity_formset.is_valid() and itinerary_formset.is_valid():
                 holiday.save()
                 form.save_m2m()
+                feature_formset.save()
                 activity_formset.save()
                 itinerary_formset.save()
                 messages.success(request, 'Successfully added holiday!')
@@ -227,6 +228,7 @@ def edit_holiday(request, package):
             if feature_formset.is_valid() and activity_formset.is_valid() and itinerary_formset.is_valid():
                 holiday.save()
                 form.save_m2m()
+                feature_formset.save()
                 activity_formset.save()
                 itinerary_formset.save()
                 messages.success(request, 'Successfully updated holiday!')
