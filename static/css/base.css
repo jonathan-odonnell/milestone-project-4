@@ -469,6 +469,10 @@ input[type="number"]::-webkit-inner-spin-button {
     color: #d13574;
 }
 
+.holiday-features i {
+    width: 30px;
+}
+
 .itinerary-item:after {
     content: '';
     display: block;
