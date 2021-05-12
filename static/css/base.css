@@ -64,6 +64,10 @@ strong {
     background: #c8c8c8;
 }
 
+.border-primary {
+    border-color: #006994 !important;
+}
+
 .section-heading {
     font-weight: bold;
     color: #006994;
@@ -86,7 +90,7 @@ strong {
     color: #70c8df;
 }
 
-.booking-form {
+.booking-form h2 {
     font-size: 1.5rem;
 }
 
@@ -506,11 +510,11 @@ input[type="number"]::-webkit-inner-spin-button {
     z-index: 1;
 }
 
-.guests {
-    max-width: 200px;
+.guests button {
+    width: 30%;
 }
 
-.plus, .minus {
+#plus, #minus {
     background-color: #c8c8c8;
 }
 
@@ -697,10 +701,6 @@ footer .small {
 
     .navbar-nav .border-bottom {
         border-bottom: 0 !important;
-    }
-
-    .guests {
-        max-width: 100%;
     }
 
     #holidays img,
