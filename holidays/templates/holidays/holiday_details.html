@@ -42,10 +42,10 @@
                 {% endif %}
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active py-3" id="overview" role="tabpanel"
+                <div class="tab-pane fade show active pt-4" id="overview" role="tabpanel"
                     aria-labelledby="overview-tab">
-                    <div class="row no-gutters mb-3">
-                        <div class="col-12 col-sm-6 my-3">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-sm-6">
                             <ul class="list-group holiday-features">
                                 <li class="list-group-item px-0 border-0">
                                     <i class="fas fa-tag"></i>£{{ holiday.price|floatformat:0 }}
@@ -65,7 +65,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-12 col-sm-6 my-3">
+                        <div class="col-12 col-sm-6">
                             <ul class="list-group holiday-features">
                                 {% for feature in holiday.features.all %}
                                 <li class="list-group-item px-0 border-0">
@@ -74,13 +74,13 @@
                                 {% endfor %}
                             </ul>
                         </div>
-                        <div class="col-12 mt-3">
-                            <p>{{ holiday.description }}</p>
+                        <div class="col-12 mt-4">
+                            <p class="mb-0">{{ holiday.description }}</p>
                         </div>
                     </div>
                 </div>
                 {% if holiday.itineraries.all %}
-                <div class="tab-pane fade py-3" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
+                <div class="tab-pane fade py-4" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
                     {% for itinerary in holiday.itineraries.all %}
                     <div class="card itinerary-item shadow-none">
                         <div class="card-body ps-5">
@@ -92,17 +92,17 @@
                 </div>
                 {% endif %}
                 {% if holiday.activities.all %}
-                <div class="tab-pane fade py-3" id="activities" role="tabpanel" aria-labelledby="activities-tab">
+                <div class="tab-pane fade pt-4" id="activities" role="tabpanel" aria-labelledby="activities-tab">
                     {% for activity in holiday.activities.all %}
-                    <p><strong>{{ activity.name }}</strong></p>
-                    <p>{{ activity.description }}</p>
+                    <h5><strong>{{ activity.name }}</strong></h5>
+                    <p class="{% if forloop.counter == holiday.activities.all|length %}mb-0{% else%}mb-3{%endif %}">{{ activity.description }}</p>
                     {% endfor %}
                 </div>
                 {% endif %}
                 {% if holiday.reviews.all %}
-                <div class="tab-pane fade py-3" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                <div class="tab-pane fade pt-4" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                     {% for review in holiday.reviews.all %}
-                    <p><strong>{{ review.title }}</strong></p>
+                    <h5><strong>{{ review.title }}</strong></h5>
                     <p>{{ review.review }}</p>
                     {% endfor %}
                     {% if not_reviewed %}
@@ -114,7 +114,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col col-lg-4 col-xl-3 mb-4 mb-lg-0">
+        <div class="col col-lg-4 col-xl-3 mt-4 mt-lg-0">
             <div class="booking-form border border-2 border-primary p-4">
                 <h2 class="text-center text-uppercase section-heading mb-3">Trip Booking</h2>
                 <form action="{% url 'add_booking' holiday.id %}" method="POST">
@@ -144,6 +144,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="bg-light">
+    <div class="container p-4">
     <div class="row no-gutters">
         <div class="col-12">
             <h2 class="text-uppercase section-heading booking-form">related holidays</h2>
@@ -180,6 +183,7 @@
             </div>
         </div>
         {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
