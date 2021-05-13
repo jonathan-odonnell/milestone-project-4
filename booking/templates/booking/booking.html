@@ -9,7 +9,7 @@
             <h1 class="section-heading text-center mb-0">Your Booking</h1>
         </div>
         {% if booking %}
-        <div class="d-none d-md-block col-md px-3">
+        <div class="d-none d-md-block col-md px-lg-3">
             <div class="row g-0">
                 <div class="col-12 table-responsive mb-3">
                     <h3 class="section-subheading">Holiday</h3>
@@ -30,7 +30,9 @@
                                 <td class="p-2">
                                     <ul class="list-unstyled">
                                         <li><strong>{{ booking.booking_package.package.name }}</strong></li>
-                                        <li class="mb-0">{{ booking.booking_package.package.duration}} days from {{ booking.booking_package.departure_date }}</li>
+                                        <li class="mb-0">{{ booking.booking_package.departure_date }}</li>
+                                        <li class="mb-0">{{ booking.booking_package.package.duration}} nights</li>
+                                        <li class="mb-0">{{ booking.booking_package.package.catering }}</li>
                                     </ul>
                                 </td>
                                 <td class="w-25 p-2 ps-4">
@@ -127,11 +129,12 @@
                             <td class="w-25 py-3">
                                 <img class="img-fluid mt-1" src="{{ booking.booking_package.package.image.url }}" alt="...">
                             </td>
-                            <td class="py-3">
+                            <td class="pt-3 pb-4">
                                 <ul class="list-unstyled my-0">
                                     <li class="mb-3"><strong>{{ booking.booking_package.package.name }}</strong></li>
-                                    <li class="mb-3">{{booking.booking_package.package.duration}} days from {{ booking.booking_package.departure_date }}
-                                    </li>
+                                    <li class="mb-0">{{ booking.booking_package.departure_date }}</li>
+                                    <li class="mb-0">{{ booking.booking_package.package.duration}} nights</li>
+                                    <li class="mb-3">{{ booking.booking_package.package.catering }}</li>
                                     <li class="mb-3">
                                         £{{ booking.booking_package.total }}
                                     </li>
@@ -180,7 +183,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="pt-0 pb-3">
+                            <td class="pt-0 pb-4">
                                 <form class="d-inline-block quantity-form">
                                     {% csrf_token %}
                                     <div class="input-group">
