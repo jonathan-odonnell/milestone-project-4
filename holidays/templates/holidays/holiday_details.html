@@ -193,41 +193,12 @@
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
+<script src="{% static 'js/ratings.js' %}"></script>
 <script>
     let airports
 
-    $('#plus').click(function () {
-        let currentValue = parseInt($(this).prev().val())
-        if (currentValue < 10) {
-            $(this).prev().val(currentValue + 1);
-        }
-    });
-
-    $('#minus').click(function () {
-        let currentValue = parseInt($(this).next().val())
-        if (currentValue > 1) {
-            $(this).next().val(currentValue - 1);
-        }
-    });
-
-    $(document).ready(function generateStars() {
-        let fullStar = "<i class='fas fa-star pe-1'></i>"
-        let halfStar = "<i class='fas fa-star-half-alt pe-1'></i>"
-        let emptyStar = "<i class='far fa-star pe-1'></i>"
-        $('.rating').each(function () {
-            rating = parseFloat($(this).html())
-            displayStars = ""
-            for (let i = 1; i <= 5; i++) {
-                if (Math.round(rating) >= i) {
-                    displayStars += fullStar
-                } else if (rating >= i - 1) {
-                    displayStars += halfStar
-                } else {
-                    displayStars += emptyStar
-                }
-            }
-            $(this).html(displayStars)
-        })
+    $(document).ready(function () {
+        $('.rating i').addClass('pe-1')
         $.get('{% url "airports" holiday.id %}').done(function(data) {
             airports = data.airports
         })
@@ -271,5 +242,19 @@
             $('#airports-list').html(html).removeClass('d-none')
         } 
     })
+
+    $('#plus').click(function () {
+        let currentValue = parseInt($(this).prev().val())
+        if (currentValue < 10) {
+            $(this).prev().val(currentValue + 1);
+        }
+    });
+
+    $('#minus').click(function () {
+        let currentValue = parseInt($(this).next().val())
+        if (currentValue > 1) {
+            $(this).next().val(currentValue - 1);
+        }
+    });
 </script>
 {% endblock %}
