@@ -18,8 +18,8 @@
                             <tr>
                                 <th scope="col" class="p-2">Details</th>
                                 <th scope="col" class="p-2"></th>
-                                <th scope="col" class="text-center p-2">Guests</th>
-                                <th scope="col" class="text-center p-2">Price Per Person</th>
+                                <th scope="col" class="p-2 ps-4">Guests</th>
+                                <th scope="col" class="p-2">Price Per Person</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,10 +33,10 @@
                                         <li class="mb-0">{{ booking.booking_package.package.duration}} days from {{ booking.booking_package.departure_date }}</li>
                                     </ul>
                                 </td>
-                                <td class="w-25 text-center p-2">
+                                <td class="w-25 p-2 ps-4">
                                     <form class="guests-form">
                                         {% csrf_token %}
-                                        <div class="input-group justify-content-center">
+                                        <div class="input-group justify-content-start">
                                             <input
                                                 class="form-control form-control-sm form-control-guests text-center rounded-0"
                                                 type="number" name="guests" value="{{ booking.booking_package.guests }}" />
@@ -55,7 +55,7 @@
                                         </div>
                                     </form>
                                 </td>
-                                <td class="w-25 text-center p-2">£{{ booking.booking_package.total }}</td>
+                                <td class="w-25 p-2">£{{ booking.booking_package.total }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -67,8 +67,8 @@
                             <tr>
                                 <th scope="col" class="p-2">Details</th>
                                 <th scope="col" class="p-2"></th>
-                                <th scope="col" class="text-center p-2">Quantity</th>
-                                <th scope="col" class="text-center p-2">Price</th>
+                                <th scope="col" class="p-2 ps-4">Quantity</th>
+                                <th scope="col" class="p-2">Price</th>
                                 <th scope="col" class="p-2"></th>
                             </tr>
                         </thead>
@@ -80,10 +80,10 @@
                                     <img class="img-fluid" src="{{ extra.image.url }}" alt="Image of {{extra.name}}">
                                 </td>
                                 <td class="w-25 p-2"><strong>{{ extra.name }}</strong></td>
-                                <td class="w-25 text-center p-2">
+                                <td class="w-25 p-2 ps-4">
                                     <form class="quantity-form">
                                         {% csrf_token %}
-                                        <div class="input-group justify-content-center">
+                                        <div class="input-group justify-content-start">
                                             <input
                                                 class="form-control form-control-sm form-control-guests text-center rounded-0"
                                                 type="number" name="quantity" value="{{ booking.booking_extras.all|extra_quantity:extra.id }}"
@@ -103,8 +103,8 @@
                                         </div>
                                     </form>
                                 </td>
-                                <td class="text-center p-2">£{{ extra.price }}</td>
-                                <td class="text-center p-2">
+                                <td class="p-2">£{{ extra.price }}</td>
+                                <td class="p-2">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in extras_list %}checked{% endif %}>
                                     </div>
@@ -129,10 +129,9 @@
                             </td>
                             <td class="py-3">
                                 <ul class="list-unstyled my-0">
-                                    <li class="mb-3"><a href="#"><strong>{{ booking.booking_package.package.name }}</strong></a></li>
-                                    <li class="mb-3">{{booking.booking_package.package.duration}} days from {{ booking.departure_date }}
+                                    <li class="mb-3"><strong>{{ booking.booking_package.package.name }}</strong></li>
+                                    <li class="mb-3">{{booking.booking_package.package.duration}} days from {{ booking.booking_package.departure_date }}
                                     </li>
-                                    <li class="mb-3">{{ booking.booking_package.package.catering }}</li>
                                     <li class="mb-3">
                                         £{{ booking.booking_package.total }}
                                     </li>
@@ -218,7 +217,7 @@
         </div>
         <div class="col-lg-4 mt-2">
             <div class="px-lg-3">
-                <h5 class="d-flex justify-content-between align-items-center mb-3">Booking Summary</h5>
+                <h3 class="section-subheading d-flex justify-content-between align-items-center mb-3">Booking Summary</h3>
                 <ul class="list-group mb-3">
                     <li class="list-group-item p-3">
                         <div>
@@ -318,7 +317,7 @@
                         <button class="btn btn-grey rounded-0 rounded-end shadow-none" type="submit">Apply</button>
                     </div>
                 </form>
-                <a class="btn btn-primary shadow-none w-100 mb-3" href="{% url 'passengers' %}">Proceed to Passengers</a>
+                <a class="btn btn-primary shadow-none w-100 mb-3" href="{% url 'passengers' %}">Continue to Passengers</a>
             </div>
         </div>
         {% else %}
