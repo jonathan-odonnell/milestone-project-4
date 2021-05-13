@@ -21,9 +21,12 @@ def booking_details(request):
 
     if booking_number:
         booking = get_object_or_404(Booking, booking_number=booking_number)
+        flight_departure = booking.booking_package.outbound_flight.departure_time
+        flight_arrival = booking.booking_package.outbound_flight.departure_time
+        flight_days = (flight_arrival - flight_departure).days
         return_date = booking.booking_package.departure_date + \
             datetime.timedelta(
-                days=int(booking.booking_package.package.duration))
+                days=int(booking.booking_package.package.duration + flight_days + 1))
 
         if booking.booking_extras:
             for item in booking.booking_extras.all():
