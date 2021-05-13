@@ -8,7 +8,7 @@ function generateStars() {
         for (let i = 1; i <= 5; i++) {
             if (Math.round(rating) >= i) {
                 displayStars += fullStar
-            } else if (rating >= i - 1) {
+            } else if (rating >= i - 0.5) {
                 displayStars += halfStar
             } else {
                 displayStars += emptyStar
