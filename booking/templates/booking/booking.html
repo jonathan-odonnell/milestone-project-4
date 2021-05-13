@@ -4,12 +4,12 @@
 
 {% block content %}
 <section class="container p-4">
-    <div class="row">
+    <div class="row g-0">
         <div class="col-12 mb-4">
             <h1 class="section-heading text-center mb-0">Your Booking</h1>
         </div>
         {% if booking %}
-        <div class="d-none d-md-block col-md">
+        <div class="d-none d-md-block col-md px-3">
             <div class="row g-0">
                 <div class="col-12 table-responsive mb-3">
                     <h3 class="section-subheading">Holiday</h3>
@@ -29,7 +29,7 @@
                                 </td>
                                 <td class="px-2">
                                     <ul class="list-unstyled">
-                                        <li><a href="#"><strong>{{ booking.booking_package.package.name }}</strong></a></li>
+                                        <li><strong>{{ booking.booking_package.package.name }}</strong></li>
                                         <li>{{ booking.booking_package.package.duration}} days from {{ booking.booking_package.departure_date }}</li>
                                         <li>{{ booking.booking_package.package.catering }}</li>
                                     </ul>
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-md-none col">
+        <div class="d-md-none col px-3">
             <div class="row g-0">
                 <div class="col-12 table-responsive mb-3">
                     <h3 class="section-subheading">Holiday</h3>
@@ -117,7 +117,7 @@
                     <table class="table table-sm mb-3">
                         <tr>
                             <td class="w-25">
-                                <img class="img-fluid mt-1" src="{{holiday.image.url}}" alt="...">
+                                <img class="img-fluid mt-1" src="{{ booking.booking_package.image.url }}" alt="...">
                             </td>
                             <td>
                                 <ul class="list-unstyled mb-0">
@@ -214,58 +214,62 @@
             <div class="px-lg-3">
                 <h5 class="d-flex justify-content-between align-items-center mb-3">Booking Summary</h5>
                 <ul class="list-group mb-3">
-                    <li class="list-group-item">
+                    <li class="list-group-item p-3">
                         <div>
                             <h6>{{booking.booking_package.departure_date}} ({{booking.booking_package.outbound_flight.name}})</h6>
-                            <div class="row no-gutters">
-                                <div class="col text-start">
-                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.origin}}</small></p>
-                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.departure_time|time:'H:i'}}</small></p>
+                            <div class="row g-0">
+                                <div class="col">
+                                    <small>{{booking.booking_package.outbound_flight.origin}}</small>
                                 </div>
-                                <div class="col-3 text-center pt-2">
+                                <div class="col text-center my-auto">
                                     <i class="fas fa-plane"></i>
-                                    <p><small>{{booking.booking_package.outbound_flight.duration|duration}}</small></p>
                                 </div>
                                 <div class="col text-end">
-                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.destination}}</small></p>
-                                    <p class="mb-0"><small>{{booking.booking_package.outbound_flight.arrival_time|time:'H:i'}}</small></p>
+                                    <small>{{booking.booking_package.outbound_flight.destination}}</small>
                                 </div>
-                                <div class="col-8">
-                                    {% if booking.booking_package.outbound_flight.layover %}
-                                    <p class="mb-0"><small>Layover in {{ booking.booking_package.outbound_flight.layover }}</small></p>
-                                    {% endif %}
+                            </div>
+                            <div class="row g-0">
+                                <div class="col-4">
+                                    <small>{{booking.booking_package.outbound_flight.departure_time|time:'H:i'}}</small>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <small>{{booking.booking_package.outbound_flight.duration|duration}}</small>
                                 </div>
                                 <div class="col-4 text-end">
-                                    {% if booking.booking_package.outbbound_flight|next_day > 0 %}
-                                    <p class="mb-0"><small>(+ {{booking.booking_package.outbound_flight|next_day}} day)</small></p>
+                                    <small>{{booking.booking_package.outbound_flight.arrival_time|time:'H:i'}}</small>
+                                    <br>
+                                    {% if booking.booking_package.outbound_flight|next_day > 0 %}
+                                        <small>(+ {{booking.booking_package.outbound_flight|next_day}} day)</small>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item">
+                    <li class="list-group-item p-3">
                         <h6>{{ return_date }} ({{booking.booking_package.return_flight.name}})</h6>
-                        <div class="row no-gutters">
-                            <div class="col text-start">
-                                <p class="mb-0"><small>{{booking.booking_package.return_flight.origin}}</small></p>
-                                <p class="mb-0"><small>{{booking.booking_package.return_flight.departure_time|time:'H:i'}}</small></p>
+                        <div class="row g-0">
+                            <div class="col">
+                                <small>{{booking.booking_package.return_flight.origin}}</small>
                             </div>
-                            <div class="col-3 text-center pt-2">
+                            <div class="col text-center my-auto">
                                 <i class="fas fa-plane"></i>
-                                <p><small>{{booking.booking_package.return_flight.duration|duration}}</small></p>
                             </div>
                             <div class="col text-end">
-                                <p class="mb-0"><small>{{booking.booking_package.return_flight.destination}}</small></p>
-                                <p class="mb-0"><small>{{booking.booking_package.return_flight.arrival_time|time:'H:i'}}</small></p>
+                                <small>{{booking.booking_package.return_flight.destination}}</small>
                             </div>
-                            <div class="col-8">
-                                {% if booking.booking_package.return_flight.layover %}
-                                <p class="mb-0"><small>Layover in {{ booking.booking_package.return_flight.layover }}</small></p>
-                                {% endif %}
+                        </div>
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <small>{{booking.booking_package.return_flight.departure_time|time:'H:i'}}</small>
+                            </div>
+                            <div class="col-4 text-center">
+                                <small>{{booking.booking_package.return_flight.duration|duration}}</small>
                             </div>
                             <div class="col-4 text-end">
+                                <small>{{booking.booking_package.return_flight.arrival_time|time:'H:i'}}</small>
+                                <br>
                                 {% if booking.booking_package.return_flight|next_day > 0 %}
-                                <p class="mb-0"><small>(+ {{booking.booking_package.return_flight|next_day}} day)</small></p>
+                                    <small>(+ {{booking.booking_package.return_flight|next_day}} day)</small>
                                 {% endif %}
                             </div>
                         </div>
@@ -308,8 +312,7 @@
                         <button class="btn btn-grey rounded-0 rounded-end shadow-none" type="submit">Apply</button>
                     </div>
                 </form>
-                <a class="btn btn-primary shadow-none w-100 mb-3" href="#">Proceed to Checkout</a>
-                <a class="btn btn-outline-primary shadow-none w-100 mb-3" href="#">Amend Booking</a>
+                <a class="btn btn-primary shadow-none w-100 mb-3" href="{% url 'passengers' %}">Proceed to Passengers</a>
             </div>
         </div>
         {% else %}
