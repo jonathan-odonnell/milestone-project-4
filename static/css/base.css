@@ -368,6 +368,14 @@ input[type="number"]::-webkit-inner-spin-button {
     border-color: #d3d3d3;
 }
 
+.form-switch .form-check-input[type=checkbox]:checked {
+    background-color: #70c8df;
+}
+
+.form-switch .form-check-input:checked[type=checkbox]:after {
+    background-color: #fff;
+}
+
 /* Form End */
 
 .rating-stars .btn {
@@ -514,16 +522,12 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 30%;
 }
 
-#plus, #minus {
+.plus, .minus, #plus, #minus {
     background-color: #c8c8c8;
 }
 
 .table th {
     font-weight: bold;
-}
-
-.table .no-border {
-    border: 1px solid Transparent!important;
 }
 
 .input-group .form-control {
