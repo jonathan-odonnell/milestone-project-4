@@ -132,13 +132,13 @@ $('.coupon-form').submit(function (e) {
     })
 })
 
-$('.add-extra button').click(function () {
-    let id = $(this).data('extra')
+$('input[type="checkbox"]').change(function () {
+    let id = $(this).attr('id')
     let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
     let postData = {
         'csrfmiddlewaretoken': csrfToken,
     }
-    if ($(this).children().hasClass('fa-plus')) {
+    if ($(this).prop('checked')) {
         $.post(`/booking/add_extra/${id}/`, postData).done(function (data) {
             $('#total strong').text(`£${data.total}`)
             if ($('#extras').length) {
