@@ -67,7 +67,7 @@ class StripeWH_Handler:
         else:
             booking = None
             try:
-                booking = Booking.objects.get(booking_number=booking_number)
+                booking = Booking.objects.filter(booking_number=booking_number)
                 booking.update(
                     full_name=shipping_details.name,
                     email=billing_details.email,
