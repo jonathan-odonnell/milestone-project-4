@@ -1,6 +1,7 @@
 from django import forms
 from .models import BookingPassenger
 from crispy_forms.helper import FormHelper
+from django.forms import SelectDateWidget
 
 
 class PassengerForm(forms.ModelForm):
@@ -13,3 +14,4 @@ class PassengerForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
+        self.fields['date_of_birth'].widget = forms.SelectDateWidget(years=reversed(range(1900, 2022)), empty_label=['Year', 'Month', 'Day'])

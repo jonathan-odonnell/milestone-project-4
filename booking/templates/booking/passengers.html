@@ -3,33 +3,35 @@
 {% load booking_tools %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 {% endblock %}
 
 {% block extra_js %}
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 {% endblock %}
 
 {% block content %}
 <section class="container p-4">
-    <div class="row">
+    <div class="row g-0">
         <div class="col-12 mb-4">
             <h1 class="section-heading text-center mb-0">Passenger Details</h1>
         </div>
         <div class="col-12 col-lg-8 mx-auto">
-            <form action="{% url 'passengers' %}" method="POST" >
+            <form action="{% url 'passengers' %}" method="POST">
                 {% csrf_token %}
                 {% for form in formset %}
                 {% if forloop.counter == 1 %}
                 <fieldset>
-                    <legend class="small text-black mb-3">Lead Passenger</legend>
+                    <legend class="section-subheading mb-3">Lead Passenger</legend>
                     {{ form.full_name | as_crispy_field }}
                     {{ form.date_of_birth | as_crispy_field }}
                     {{ form.passport_number | as_crispy_field }}
                 </fieldset>
                 {% else %}
                 <fieldset>
-                    <legend class="small text-black mb-3">Passenger {{i}}</legend>
+                    <legend class="section-subheading mb-3">Passenger {{i}}</legend>
                     {{ form.full_name | as_crispy_field }}
                     {{ form.date_of_birth | as_crispy_field }}
                     {{ form.passport_number | as_crispy_field }}
@@ -45,15 +47,23 @@
 </section>
 
 <script>
-    // https://formden.com/blog/date-picker
-    $(document).ready(function(){
-      var date_input=$('.dateinput');
-      var options={
-        format: 'dd/mm/yyyy',
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
+    $(document).ready(function () {
+        $('select').wrap('<div class="col-12 col-md-4 mb-3">')
+        $('.col-md-4').parent().addClass('row').removeClass('mb-3')
+        $('select').each(function () {
+            let selectedVal = $(this).val();
+            if (selectedVal) {
+                $(this).css("color", "#4a4a4a");
+            }
+
+        })
     })
+    $("select").change(function () {
+        if (!$(this).val()) {
+            $(this).css("color", "#a9a9a9");
+        } else {
+            $(this).css("color", "#4a4a4a");
+        }
+    });
 </script>
 {% endblock %}
