@@ -37,9 +37,7 @@
                 <fieldset class="rounded px-3 mb-3">
                     <legend class="section-subheading">Booking Contact</legend>
                     {{ booking_form.full_name | as_crispy_field }}
-                    {% if not request.user.is_authenticated %}
                     {{ booking_form.email | as_crispy_field }}
-                    {% endif %}
                     {{ booking_form.phone_number | as_crispy_field }}
                 </fieldset>
                 <fieldset id="address" class="rounded px-3 mb-3">
@@ -53,7 +51,7 @@
                     {{ booking_form.postcode | as_crispy_field }}
                     {% if user.is_authenticated %}
                     <div class="form-check ms-2 mb-3">
-                        <label class="form-check-label" for="id_save_info">Save this information to my
+                        <label class="form-check-label" for="id_save_info">Save contact information to my
                             profile</label>
                         <input class="form-check-input ml-2 mr-0" type="checkbox" id="id_save_info" name="save_info"
                             checked>
@@ -101,8 +99,6 @@
                         <div class="spinner hidden" id="spinner"></div>
                         <span id="button-text"><i class="fas fa-lock me-2"></i>Pay</span>
                     </button>
-                    <!--Payment Type-->
-                    <input type="hidden" name="payment" value="">
                     <!-- Pass the client secret to the view so we can get the payment intent id -->
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
                 </fieldset>
