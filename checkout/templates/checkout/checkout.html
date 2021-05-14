@@ -20,10 +20,10 @@
     </div>
     <div class="row no-gutters">
         <div class="col-12 col-lg-6">
-            <a href="{% url 'booking' %}"" class=" back-btn"><i class="fas fa-arrow-left"></i></a>
+            <a href="{% url 'passengers' %}"" class="back-btn"><i class="fas fa-chevron-left"></i></a>
             <div class="card shadow-none">
                 <div class="text-center">
-                    <h6 class="mb-2 text-muted">{{ booking.booking_package.duration }} days in 
+                    <h6 class="mb-2 text-muted">{{ booking.booking_package.duration }} nights in 
                         {{ booking.booking_package.package.name }}</h5>
                         <h3 class="mb-4">£{{ total }}</h3>
                         <img src="{{ booking.booking_package.package.image.url }}" class="card-img-bottom rounded w-75"
@@ -35,7 +35,7 @@
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Booking Contact</legend>
+                    <legend class="section-subheading">Booking Contact</legend>
                     {{ booking_form.full_name | as_crispy_field }}
                     {% if not request.user.is_authenticated %}
                     {{ booking_form.email | as_crispy_field }}
@@ -43,7 +43,7 @@
                     {{ booking_form.phone_number | as_crispy_field }}
                 </fieldset>
                 <fieldset id="address" class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Address</legend>
+                    <legend class="section-subheading">Address</legend>
                     {{ booking_form.address | as_crispy_field }}
                     {{ booking_form.street_address1 | as_crispy_field }}
                     {{ booking_form.street_address2 | as_crispy_field }}
@@ -61,7 +61,7 @@
                     {% endif %}
                 </fieldset>
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class="fieldset-label small text-black px-2 w-auto">Express Payment</legend>
+                    <legend class="section-subheading">Express Payment</legend>
                     <div class="mb-2" id="paypal"></div>
                     <div class="mb-3" id="payment-request-button">
                         <!-- A Stripe Element will be inserted here. -->
@@ -70,7 +70,7 @@
                     <div class="mb-3 text-danger" id="payment-request-button-errors" role="alert"></div>
                 </fieldset>
                 <fieldset class="rounded px-3 mb-3">
-                    <legend class=" fieldset-label small text-black px-2 w-auto">Card Payment</legend>
+                    <legend class="section-subheading">Card Payment</legend>
                     {% if cards %}
                     {% for card in cards.data %}
                     <div id="saved-cards" class="form-check ms-2 mb-3">
@@ -99,7 +99,7 @@
                 <fieldset class="px-3">
                     <button class="payment-btn" type="submit">
                         <div class="spinner hidden" id="spinner"></div>
-                        <span id="button-text">Pay</span>
+                        <span id="button-text"><i class="fas fa-lock me-2"></i>Pay</span>
                     </button>
                     <!--Payment Type-->
                     <input type="hidden" name="payment" value="">
