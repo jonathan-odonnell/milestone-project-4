@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.conf import settings
 from .models import UserProfile
 from django.contrib.auth.models import User
+from allauth.account.models import EmailAddress
 import stripe
 
 @receiver(post_save, sender=User)
@@ -20,6 +21,15 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         instance.userprofile.stripe_customer_id = customer['id']
     instance.userprofile.save()
 
+
+@receiver(post_save, sender=UserProfile)
+def update_user_email(sender, instance, created, **kwargs):
+    """
+    Updates the email address
+    """
+    if not created:
+        email = EmailAddress.objects.filter(user=instance.user)
+        email.update(email=instance.user.email, primary=True)
 
 @receiver(post_save, sender=UserProfile)
 def stripe_update_on_save(sender, instance, created, **kwargs):
