@@ -42,8 +42,8 @@ card.addEventListener('change', function (event) {
     }
 });
 
-$('#saved-cards').find('input[type=checkbox]').change(function () {
-    $('#saved-cards').find('input[type=checkbox]').not(this).prop('checked', false);
+$('#saved-cards input').change(function () {
+    $('#saved-cards input').not(this).prop('checked', false);
     if ($(this).is(':checked')) {
         $('#id_save_card').parent().hide()
         $('#card-element').addClass('w-50')
@@ -66,9 +66,8 @@ form.addEventListener('submit', function (ev) {
     loading(true)
     var saveInfo = $('#id_save_info').is(':checked');
     var saveCard = $('#id_save_card').is(':checked');
-    var savedCard = $('#saved-cards').find('input:checked').attr('id');
+    var savedCard = $('#saved-cards').find('input').is(':checked').attr('id');
     var paymentDetails
-    $('input[name="payment"]').val('card')
     $('#card-errors, #payment-request-button-errors').html('')
 
     if (savedCard) {
@@ -148,9 +147,6 @@ form.addEventListener('submit', function (ev) {
                 $(errorDiv).html(html);
                 card.update({ 'disabled': false });
                 $('#submit-button').attr('disabled', false);
-                $('#id_street_address1').change(function () {
-                    $('address').find('input,select').attr('required', true)
-                })
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
                     loading(false)
@@ -215,7 +211,6 @@ prButton.on('click', function (e) {
 
 // Handle payment request button
 paymentRequest.on('paymentmethod', function (ev) {
-    $('input[name="payment"]').val('payment_button')
     $('#card-errors, #payment-request-button-errors').html('')
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     var postData = {
