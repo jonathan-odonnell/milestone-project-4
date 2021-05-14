@@ -66,7 +66,7 @@ form.addEventListener('submit', function (ev) {
     loading(true)
     var saveInfo = $('#id_save_info').is(':checked');
     var saveCard = $('#id_save_card').is(':checked');
-    var savedCard = $('#saved-cards').find('input').is(':checked').attr('id');
+    var savedCard = $('#saved-cards input:checked').attr('id');
     var paymentDetails
     $('#card-errors, #payment-request-button-errors').html('')
 
