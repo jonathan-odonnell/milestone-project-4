@@ -129,7 +129,6 @@ form.addEventListener('submit', function (ev) {
         'csrfmiddlewaretoken': csrfToken,
         'client_secret': clientSecret,
         'save_info': saveInfo,
-        'save_card': saveCard,
     };
     var url = '/checkout/cache_checkout_data/';
 
@@ -154,6 +153,8 @@ form.addEventListener('submit', function (ev) {
                 }
             }
         })
+    }).fail(function() {
+        location.reload();
     })
 });
 
@@ -262,5 +263,7 @@ paymentRequest.on('paymentmethod', function (ev) {
                 form.submit()
             }
         }
+    }).fail(function() {
+        location.reload();
     });
 });
