@@ -211,10 +211,15 @@ def passengers(request):
             booking.booking_passengers.all().delete()
 
         for passenger in passenger_range:
+
+            dob_day = request.POST[f'{passenger}-date_of_birth_day']
+            dob_month = request.POST[f'{passenger}-date_of_birth_month']
+            dob_year = request.POST[f'{passenger}-date_of_birth_year']
+
             form_data = {
                 f'{passenger}-booking': booking,
                 f'{passenger}-full_name': request.POST[f'{passenger}-full_name'],
-                f'{passenger}-date_of_birth': request.POST[f'{passenger}-date_of_birth'],
+                f'{passenger}-date_of_birth': f'{dob_year}-{dob_month}-{dob_day}',
                 f'{passenger}-passport_number': request.POST[f'{passenger}-passport_number']
             }
 
@@ -230,12 +235,12 @@ def passengers(request):
             profile = UserProfile.objects.get(user=request.user)
 
         for passenger_number in passenger_range:
-            if passenger_number == 1 and not booking.booking_passengers.all():
+            if passenger_number == 1 and profile and not booking.booking_passengers.all():
                 formset.append(PassengerForm(initial={'full_name': profile.user.get_full_name()}, prefix=passenger_number))
             elif not booking.booking_passengers.all():
                 formset.append(PassengerForm(prefix=passenger_number))
             else:
-                passenger = booking.booking_passengers.all()[passenger_number]
+                passenger = booking.booking_passengers.all()[passenger_number - 1]
                 formset.append(PassengerForm(prefix=passenger_number, instance=passenger))
 
     context = {
