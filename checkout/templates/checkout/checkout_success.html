@@ -199,13 +199,13 @@
             <div class="row g-0">
                 <div class="col-12">
                     <h5 class="section-subheading">Billing Information</h5>
-                    {% if booking.subtotal != booking.total %}
+                    {% if booking.subtotal != booking.grand_total %}
                     <div class="row g-0">
                         <div class="col-6">
                             <p class="small text-black font-weight-bold mb-0">Subtotal</p>
                         </div>
                         <div class="col-6">
-                            <p class="small text-end mb-0">{{ subtotal }}</p>
+                            <p class="small text-end mb-0">{{ booking.subtotal }}</p>
                         </div>
                     </div>
                     {% endif %}
