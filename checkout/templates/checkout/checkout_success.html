@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load booking_tools %}
 
 {% block extra_css %}
 
@@ -8,32 +9,249 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
+<div class="container p-4">
+    <div class="row g-0">
         <div class="col">
-            <h1 class="section-heading text-center my-4">Checkout</h1>
+            <h1 class="section-heading text-center mb-4">{% if from_booking %}Booking Details{% else %}Thank You{% endif %}</h1>
         </div>
     </div>
-    <div class="row no-gutters">
-        <div class="col-12 col-lg-6">
-        </div>
+    <div class="row g-0">
         {% if not from_booking %}
-        <div class="col-12 col-lg-6 mt-4 mb-3 mt-lg-0">
-            <h2 class="logo-font mb-4">Thank You</h2>
-                <hr>
-                <p class="text-black">Your booking information is below. A confirmation email will be sent to <strong>{{ booking.email }}</strong>.</p>
+        <div class="col-12 col-lg-8 mx-auto">
+            <p class="text-center">Your booking information is below. A confirmation email will be sent to <strong class="text-black">{{ booking.email }}</strong>.</p>
         </div>
         {% endif %}
+        <div class="col-12 col-lg-8 mx-auto border p-3">
+            <div class="row g-0 mb-3">
+                <div class="col-12">
+                    <div class="row g-0">
+                        <div class="col-12">
+                            <h5 class="section-subheading mb-3">Booking Information</h5>
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <p class="small text-black font-weight-bold mb-0">Booking Number</p>
+                        </div>
+                        <div class="col-8 text-end">
+                            <p class="small mb-0">{{ booking.booking_number }}</p>
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <p class="small text-black font-weight-bold mb-0">Date</p>
+                        </div>
+                        <div class="col-8 text-end">
+                            <p class="small mb-0">{{ booking.date }}</p>
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <p class="small text-black font-weight-bold mb-0">Full Name</p>
+                        </div>
+                        <div class="col-8 text-end">
+                            <p class="small mb-0">{{ booking.full_name }}</p>
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <p class="small text-black font-weight-bold mb-0">Phone Number</p>
+                        </div>
+                        <div class="col-8 text-end">
+                            <p class="small mb-0">{{ booking.phone_number }}</p>
+                        </div>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <p class="small text-black font-weight-bold mb-0">Address</p>
+                        </div>
+                        <div class="col-8 text-end">
+                            <p class="small mb-0">{{ booking.street_address1 }}</p>
+                            {% if booking.street_address2 %}
+                            <p class="small mb-0">{{ booking.street_address2 }}</p>
+                            {% endif %}
+                            <p class="small mb-0">{{ booking.town_or_city }}</p>
+                            <p class="small mb-0">{{ booking.county }}</p>
+                            <p class="small mb-0">{{ booking.postcode }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0 mb-3">
+                <div class="col-12">
+                    <h5 class="section-subheading mb-3">Holiday Details</h5>
+                    <div class="row g-0">
+                        <div class="col-3">
+                            <img class="img-fluid" src="{{ booking.booking_package.package.image.url }}" alt="Image of {{ booking.booking_package.package.name }}">
+                        </div>
+                        <div class="col-9 ps-3 text-end">
+                            <p class="small text-black font-weight-bold mb-0">{{ booking.booking_package.package.name }}</p>
+                            <p class="small mb-0">{{ booking.booking_package.duration }} Nights</p>
+                            <p class="small mb-0">{{ booking.booking_package.package.catering }}</p>
+                            <p class="small mb-0">{{ booking.booking_package.guests }} x £{{ booking.booking_package.total }}</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if booking.booking_extras.all %}
+            <div class="row g-0 mb-3">
+                <div class="col-12">
+                    <h5 class="section-subheading mb-3">Extras</h5>
+                    {% for extra in booking.booking_extras.all %}
+                    <div class="row g-0 mb-3">
+                        <div class="col-3">
+                            <img class="img-fluid" src="{{ extra.extra.image.url }}" alt="Image of {{ extra.extra.name }}">
+                        </div>
+                        <div class="col-9 ps-3 text-end">
+                            <p class="small text-black font-weight-bold mb-0">{{ extra.extra.name }}</p>
+                            <p class="small mb-0">{{ extra.quantity }} x £{{ extra.total }}</p>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <div class="row g-0 mb-3">
+                <div class="col-12">
+                    <h5 class="section-subheading mb-3">Flights</h5>
+                </div>
+                <div class="col-12">
+                    <p class="small text-black font-weight-bold">
+                        Outbound {{booking.booking_package.departure_date}}  ({{booking.booking_package.outbound_flight.name}})
+                    </p>
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <p class="small">{{booking.booking_package.outbound_flight.origin}}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="small text-center">{{booking.booking_package.outbound_flight.duration|duration}}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="small text-end">{{booking.booking_package.outbound_flight.destination}}</p>
+                        </div>
+                        <div class="col-12 flight-line">
+                            <div class="circle-start"></div>
+                            <div class="plane">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="circle-end"></div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <p class="small">{{booking.booking_package.outbound_flight.departure_time|time:'H:i'}}</p>
+                        </div>
+                        <div class="col-4 mt-3">
+                            {% if booking.booking_package.outbound_flight.layover %}
+                            <p class="small text-center">Layover in {{booking.booking_package.outbound_flight.layover}}</p>
+                            {% else %}
+                            <p class="small text-center">Direct</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-4 mt-3">
+                            <p class="small text-end mb-0">{{booking.booking_package.outbound_flight.arrival_time|time:'H:i'}}</p>
+                            {% if booking.booking_package.outbound_flight|next_day > 0 %}
+                                <p class="small text-end">(+ {{booking.booking_package.outbound_flight|next_day}} day)</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <p class="small text-black font-weight-bold">
+                        Return {{ return_date }}  ({{booking.booking_package.return_flight.name}})
+                    </p>
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <p class="small">{{booking.booking_package.return_flight.origin}}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="small text-center">{{booking.booking_package.return_flight.duration|duration}}</p>
+                        </div>
+                        <div class="col-4">
+                            <p class="small text-end">{{booking.booking_package.return_flight.destination}}</p>
+                        </div>
+                        <div class="col-12 flight-line">
+                            <div class="circle-start"></div>
+                            <div class="plane">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                            <div class="circle-end"></div>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <p class="small mb-0">{{booking.booking_package.return_flight.departure_time|time:'H:i'}}</p>
+                        </div>
+                        <div class="col-4 mt-3">
+                            {% if booking.booking_package.return_flight.layover %}
+                            <p class="small text-center mb-0">Layover in {{booking.booking_package.return_flight.layover}}</p>
+                            {% else %}
+                            <p class="small text-center mb-0">Direct</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-4 mt-3">
+                            <p class="small text-end mb-0">{{booking.booking_package.return_flight.arrival_time|time:'H:i'}}</p>
+                            {% if booking.booking_package.return_flight|next_day > 0 %}
+                                <p class="small text-end mb-0">(+ {{booking.booking_package.return_flight|next_day}} day)</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col-12">
+                    <h5 class="section-subheading">Billing Information</h5>
+                    {% if subtotal != booking.total %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Subtotal</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-end mb-0">{{ subtotal }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if extras_total %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Extras</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-end mb-0">£{{ extras_total }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if booking.discount %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Discount</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-danger text-end mb-0">- £{{ booking.discount }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Total</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-end mb-0">{{ booking.total }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-8 mx-auto text-end mt-4">
+            {% if from_profile %}
+            <a href="{% url 'bookings' %}" class="btn btn-primary">
+                Back to Bookings<i class="fas fa-chevron-right ms-2"></i>
+            </a>
+            {% else %}
+            <a href="{% url 'categories' 'offers' %}" class="btn btn-primary">
+                Now check out the latest offers!<i class="fas fa-chevron-right ms-2"></i>
+            </a>
+            {% endif %}
+        </div>
     </div>
 </div>
 
-{% endblock %}
-{% block postloadjs %}
-{{ block.super }}
-{{ stripe_public_key|json_script:"id_stripe_public_key" }}
-{{ client_secret|json_script:"id_client_secret" }}
-{{ stripe_country|json_script:"id_stripe_country" }}
-{{ stripe_currency|json_script:"id_stripe_currency" }}
-{{ stripe_total|json_script:"id_stripe_total" }}
-<script src="{% static 'js/stripe_elements.js' %}"></script>
 {% endblock %}
