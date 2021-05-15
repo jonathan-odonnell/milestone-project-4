@@ -33,11 +33,11 @@
                             <td>
                                 <ul class="list-unstyled">
                                     <li>
-                                        {{booking.booking_package.duration}} Nights in {{ booking.booking_package.package.name }}
+                                        {{booking.booking_package.package.duration}} Nights in {{ booking.booking_package.package.name }}
                                     </li>
                                 </ul>
                             </td>
-                            <td>£{{ booking.total }}</td>
+                            <td>£{{ booking.grand_total }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
