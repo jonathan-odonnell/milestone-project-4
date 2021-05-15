@@ -49,15 +49,21 @@ def add_booking(request, holiday_id):
                 booking = Booking()
                 booking.save()
 
+            flight_departure = outbound_flight.departure_time
+            flight_arrival = outbound_flight.departure_time
+            flight_days = (flight_arrival - flight_departure).days
+            departure_date = datetime.datetime.strptime(
+                request.POST['departure_date'], "%d/%m/%Y").date()
+            return_date = departure_date + datetime.timedelta(days=int(holiday.duration + flight_days + 1))
+
             booking_package = BookingPackage(
                 booking=booking,
                 package=holiday,
                 guests=int(request.POST['guests']),
-                departure_date=datetime.datetime.strptime(
-                    request.POST['departure_date'], "%d/%m/%Y").date(),
+                departure_date=departure_date,
+                return_date=return_date,
                 outbound_flight=outbound_flight,
                 return_flight=return_flight,
-                duration=holiday.duration,
             )
             booking_package.save()
 
@@ -81,13 +87,13 @@ def update_guests(request):
 
     if booking.booking_extras.all():
         for extra in booking.booking_extras.all():
-            if extra.quantity > guests:
-                extra.update(quantity=guests)
+            if extra.quantity != guests:
+                extra.quantity = guests
+                extra.save()
 
-    booking_totals = booking_details(request)
-    extras = booking_totals['extras_total']
-    subtotal = booking_totals['subtotal']
-    total = booking_totals['total']
+    extras = booking.extras_total
+    subtotal = booking.subtotal
+    total = booking.grand_total
 
     response = {
         'success': True,
@@ -111,10 +117,9 @@ def add_extra(request, extra_id):
         quantity=extra_quantity,
     )
     booking_extra.save()
-    booking_totals = booking_details(request)
-    extras = booking_totals['extras_total']
-    subtotal = booking_totals['subtotal']
-    total = booking_totals['total']
+    extras = booking.extras_total
+    subtotal = booking.subtotal
+    total = booking.grand_total
 
     response = {
         'success': True,
@@ -130,12 +135,13 @@ def add_extra(request, extra_id):
 def update_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
     quantity = int(request.POST['quantity'])
-    BookingExtra.objects.filter(
-        booking__booking_number=booking_number, extra__pk=extra_id).update(quantity=quantity)
-    booking_totals = booking_details(request)
-    extras = booking_totals['extras_total']
-    subtotal = booking_totals['subtotal']
-    total = booking_totals['total']
+    booking = Booking.objects.get(booking_number=booking_number)
+    booking_extras = booking.booking_extras.get(extra=extra_id)
+    booking_extras.quantity = quantity
+    booking_extras.save()
+    extras = booking.extras_total
+    subtotal = booking.subtotal
+    total = booking.grand_total
 
     response = {
         'success': True,
@@ -149,12 +155,11 @@ def update_extra(request, extra_id):
 @require_POST
 def remove_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
-    BookingExtra.objects.filter(
-        booking__booking_number=booking_number, extra__pk=extra_id).delete()
-    booking_totals = booking_details(request)
-    extras = booking_totals['extras_total']
-    subtotal = booking_totals['subtotal']
-    total = booking_totals['total']
+    booking = Booking.objects.get(booking_number=booking_number)
+    booking.booking_extras.get(extra=extra_id).delete()
+    extras = booking.extras_total
+    subtotal = booking.subtotal
+    total = booking.grand_total
 
     response = {
         'success': True,
@@ -177,10 +182,9 @@ def add_coupon(request):
             name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
         booking.coupon = coupon.name
         booking.save()
-        booking_totals = booking_details(request)
-        discount = booking_totals['discount']
-        subtotal = booking_totals['subtotal']
-        total = booking_totals['total']
+        discount = booking.discount
+        subtotal = booking.subtotal
+        total = booking.grand_total
 
         response = {
             'success': True,
@@ -236,12 +240,15 @@ def passengers(request):
 
         for passenger_number in passenger_range:
             if passenger_number == 1 and profile and not booking.booking_passengers.all():
-                formset.append(PassengerForm(initial={'full_name': profile.user.get_full_name()}, prefix=passenger_number))
+                formset.append(PassengerForm(
+                    initial={'full_name': profile.user.get_full_name()}, prefix=passenger_number))
             elif not booking.booking_passengers.all():
                 formset.append(PassengerForm(prefix=passenger_number))
             else:
-                passenger = booking.booking_passengers.all()[passenger_number - 1]
-                formset.append(PassengerForm(prefix=passenger_number, instance=passenger))
+                passenger = booking.booking_passengers.all()[
+                    passenger_number - 1]
+                formset.append(PassengerForm(
+                    prefix=passenger_number, instance=passenger))
 
     context = {
         'passenger_range': passenger_range,
