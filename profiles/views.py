@@ -43,7 +43,7 @@ def profile(request):
 def bookings(request):
     """ Display the user's bookings. """
     profile = get_object_or_404(UserProfile, user=request.user)
-    bookings = profile.bookings.all()
+    bookings = profile.bookings.filter(paid=True)
 
     template = 'profiles/bookings.html'
     context = {
