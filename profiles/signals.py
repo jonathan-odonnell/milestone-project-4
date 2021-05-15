@@ -29,7 +29,9 @@ def update_user_email(sender, instance, created, **kwargs):
     """
     if not created:
         email = EmailAddress.objects.filter(user=instance.user)
-        email.update(email=instance.user.email, primary=True)
+
+        if email != instance.user.email:
+            email.update(email=instance.user.email, primary=True)
 
 @receiver(post_save, sender=UserProfile)
 def stripe_update_on_save(sender, instance, created, **kwargs):
