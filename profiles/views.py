@@ -18,7 +18,7 @@ def profile(request):
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user.email = request.POST['email_address']
-            profile.save()
+            profile.user.save()
 
     form = UserProfileForm(
         initial={'email_address': profile.user.email,
