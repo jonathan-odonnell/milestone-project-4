@@ -7,7 +7,6 @@ from booking.models import Booking, BookingPackage
 from holidays.models import Package
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
-from booking.contexts import booking_details
 from django.conf import settings
 from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
 from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest
@@ -43,11 +42,12 @@ def checkout(request):
     if not booking_number:
         return redirect(reverse('booking'))
 
+    booking = Booking.objects.get(booking_number=booking_number)
+
     if request.method == 'POST':
         form_data = None
         save_info = 'save_info' in request.POST
         pid = request.POST.get('client_secret').split('_secret')[0]
-        booking = Booking.objects.get(booking_number=booking_number)
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         form_data = {
@@ -98,8 +98,7 @@ def checkout(request):
                 Please double check your information.')
 
     else:
-        booking = booking_details(request)
-        total = booking['total']
+        total = booking.grand_total
         stripe_total = round(total * 100)
         stripe.api_key = stripe_secret_key
 
@@ -172,9 +171,9 @@ def checkout_success(request, booking_number):
 def paypal(request):
     client_id = settings.PAYPAL_CLIENT_ID
     client_secret = settings.PAYPAL_CLIENT_SECRET
-    booking = booking_details(request)
     booking_number = request.session.get('booking_number', '')
-    total = booking['total']
+    booking = Booking.objects.get(booking_number=booking_number)
+    total = booking.grand_total
     currency = settings.PAYPAL_CURRENCY
 
     booking = Booking.objects.get(booking_number=booking_number)
