@@ -60,7 +60,7 @@ class Booking(models.Model):
             'total__sum'] or 0
         self.subtotal = package_total
         self.extras_total = extras_total
-        self.total = package_total + extras_total - self.discount
+        self.grand_total = package_total + extras_total - self.discount
         self.save()
 
     def save(self, *args, **kwargs):
