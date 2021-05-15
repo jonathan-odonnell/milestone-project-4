@@ -23,7 +23,7 @@
             <a href="{% url 'passengers' %}"" class="back-btn"><i class="fas fa-chevron-left"></i></a>
             <div class="card shadow-none">
                 <div class="text-center">
-                    <h6 class="mb-2 text-muted">{{ booking.booking_package.duration }} nights in 
+                    <h6 class="mb-2 text-muted">{{ booking.booking_package.package.duration }} nights in 
                         {{ booking.booking_package.package.name }}</h5>
                         <h3 class="mb-4">£{{ total }}</h3>
                         <img src="{{ booking.booking_package.package.image.url }}" class="card-img-bottom rounded w-75"
