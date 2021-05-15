@@ -3,7 +3,6 @@ from booking.models import Booking, BookingPackage
 from holidays.models import Package
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
-from booking.contexts import booking_details
 import time
 import datetime
 import stripe
