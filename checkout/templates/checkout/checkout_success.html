@@ -34,7 +34,7 @@
                             <p class="small text-black font-weight-bold mb-0">Booking Number</p>
                         </div>
                         <div class="col-8 text-end">
-                            <p class="small mb-0">{{ booking.booking_number }}</p>
+                            <p class="small text-break mb-0">{{ booking.booking_number }}</p>
                         </div>
                     </div>
                     <div class="row g-0">
@@ -42,7 +42,7 @@
                             <p class="small text-black font-weight-bold mb-0">Date</p>
                         </div>
                         <div class="col-8 text-end">
-                            <p class="small mb-0">{{ booking.date }}</p>
+                            <p class="small mb-0">{{ booking.date|date }}</p>
                         </div>
                     </div>
                     <div class="row g-0">
@@ -158,7 +158,7 @@
                 </div>
                 <div class="col-12">
                     <p class="small text-black font-weight-bold">
-                        Return {{ return_date }}  ({{booking.booking_package.return_flight.name}})
+                        Return {{ booking.booking_package.return_date }}  ({{booking.booking_package.return_flight.name}})
                     </p>
                     <div class="row g-0">
                         <div class="col-4">
@@ -199,7 +199,7 @@
             <div class="row g-0">
                 <div class="col-12">
                     <h5 class="section-subheading">Billing Information</h5>
-                    {% if subtotal != booking.total %}
+                    {% if booking.subtotal != booking.total %}
                     <div class="row g-0">
                         <div class="col-6">
                             <p class="small text-black font-weight-bold mb-0">Subtotal</p>
@@ -209,13 +209,13 @@
                         </div>
                     </div>
                     {% endif %}
-                    {% if extras_total %}
+                    {% if booking.extras_total %}
                     <div class="row g-0">
                         <div class="col-6">
                             <p class="small text-black font-weight-bold mb-0">Extras</p>
                         </div>
                         <div class="col-6">
-                            <p class="small text-end mb-0">£{{ extras_total }}</p>
+                            <p class="small text-end mb-0">£{{ booking.extras_total }}</p>
                         </div>
                     </div>
                     {% endif %}
@@ -234,7 +234,7 @@
                             <p class="small text-black font-weight-bold mb-0">Total</p>
                         </div>
                         <div class="col-6">
-                            <p class="small text-end mb-0">{{ booking.total }}</p>
+                            <p class="small text-end mb-0">{{ booking.grand_total }}</p>
                         </div>
                     </div>
                 </div>
