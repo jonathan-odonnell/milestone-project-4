@@ -2,17 +2,17 @@
 {% load static %}
 {% block content %}
 
-<div class="container">
+<section class="container p-4">
     <div class="row">
         <div class="col">
-            <h2 class="my-4 section-heading text-center">Bookings</h2>
+            <h1 class="mb-4 section-heading text-center">Bookings</h1>
         </div>
     </div>
     <div class="row">
         <div class="col-12 col-lg-10 mb-4 mx-auto">
             <div class="table-responsive">
-                <table class="table table-sm table-borderless">
-                    <thead>
+                <table class="table table-hover">
+                    <thead class="table-info">
                         <tr>
                             <th>Booking Number</th>
                             <th>Departure Date</th>
@@ -29,11 +29,11 @@
                                     {{ booking.booking_number|truncatechars:9 }}
                                 </a>
                             </td>
-                            <td>{{ booking.package_booking.departure_date|date:"j M Y" }}</td>
+                            <td>{{ booking.booking_package.departure_date }}</td>
                             <td>
                                 <ul class="list-unstyled">
-                                    <li class="small text-black">
-                                        {{booking.package_booking.duration}} days in {{ booking.package_booking.package.name }}
+                                    <li>
+                                        {{booking.booking_package.duration}} Nights in {{ booking.booking_package.package.name }}
                                     </li>
                                 </ul>
                             </td>
@@ -45,6 +45,5 @@
             </div>
         </div>
     </div>
-</div>
-</div>
+</section>
 {% endblock %}
