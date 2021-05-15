@@ -1,0 +1,17 @@
+Hello {{ booking.full_name }}!
+
+This is a confirmation of your booking with Go Explore. Your booking information is below:
+
+Booking Number: {{ booking.order_number }}
+Booking Date: {{ booking.date }}
+Booking Total: ${{ booking.grand_total }}
+
+Your flight for your holiday to {{ booking.booking_package.package.name }} will depart from {{ booking.booking_package.outbound_flight.origin }} Airport at {{ booking.booking_package.outbound_flight.departure_time|time:"H:i" }} on {{ booking.booking_package.outbound_flight.departure_time|date }}.
+
+We've got your phone number on file as {{ booking.phone_number }}.
+
+If you have any questions, feel free to contact us at {{ contact_email }}.
+
+Thank you for booking with us!
+
+Go Explore

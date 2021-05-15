@@ -1,0 +1,1 @@
+Go Explore Confirmation for Booking Number {{ booking.booking_number }}
