@@ -28,7 +28,7 @@ class BookingAdmin(admin.ModelAdmin):
               'street_address1', 'street_address2',
               'town_or_city',  'country', 'postcode', 
               'county', 'coupon', 'subtotal', 'discount', 
-              'extras_total', 'total', 'paid', 'stripe_pid',
+              'extras_total', 'grand_total', 'paid', 'stripe_pid',
               'paypal_pid')
 
     list_display = ('booking_number', 'date', 'full_name',

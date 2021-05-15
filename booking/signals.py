@@ -28,4 +28,4 @@ def extra_update_on_delete(sender, instance, **kwargs):
     """
     Update order total on booking extras delete
     """
-    instance.booking.update_total()
+    instance.booking.update_totals()
