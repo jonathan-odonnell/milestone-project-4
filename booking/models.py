@@ -37,9 +37,13 @@ class Booking(models.Model):
     postcode = models.CharField(max_length=20, null=False, blank=False, default='')
     date = models.DateTimeField(auto_now_add=True)
     coupon = models.CharField(max_length=20, null=True, blank=True)
+    subtotal = models.DecimalField(
+        max_digits=10, decimal_places=2, null=False, default=0)
+    extras_total = models.DecimalField(
+        max_digits=10, decimal_places=2, null=False, default=0)
     discount = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0, editable=False)
-    total = models.DecimalField(
+    grand_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0)
     paid = models.BooleanField(null=False, blank=False, default=False, editable=False)
     stripe_pid = models.CharField(
@@ -50,10 +54,12 @@ class Booking(models.Model):
     def _generate_booking_number(self):
         return uuid.uuid4().hex.upper()
 
-    def update_total(self):
+    def update_totals(self):
         package_total = self.booking_package.total
         extras_total = self.booking_extras.aggregate(Sum('total'))[
             'total__sum'] or 0
+        self.subtotal = package_total
+        self.extras_total = extras_total
         self.total = package_total + extras_total - self.discount
         self.save()
 
@@ -76,11 +82,11 @@ class BookingPackage(models.Model):
         Package, null=False, blank=False, on_delete=models.CASCADE)
     guests = models.IntegerField(null=False, blank=False)
     departure_date = models.DateField(null=False, blank=False)
+    return_date = models.DateField(null=False, blank=False)
     outbound_flight = models.ForeignKey(
         Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='booking_outbound_flight')
     return_flight = models.ForeignKey(
         Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='booking_inbound_flight')
-    duration = models.IntegerField(null=False, blank=False)
     total = models.DecimalField(
         max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
