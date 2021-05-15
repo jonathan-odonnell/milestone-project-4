@@ -75,7 +75,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% with booking.booking_extras.all|extras_list as extras_list %}
                             {% for extra in booking.booking_package.package.extras.all %}
                             <tr>
                                 <td class="w-25 p-2">
@@ -108,12 +107,11 @@
                                 <td class="p-2">£{{ extra.price }}</td>
                                 <td class="p-2">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in extras_list %}checked{% endif %}>
+                                        <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in selected_extras %}checked{% endif %}>
                                     </div>
                                 </td>
                             </tr>
                             {% endfor %}
-                            {% endwith %}
                         </tbody>
                     </table>
                 </div>
@@ -169,7 +167,6 @@
                     <h3 class="section-subheading">Extras</h3>
                     <hr class="my-0">
                     <table class="table table-sm mb-3">
-                        {% with booking.booking_extras.all|extras_list as extras_list %}
                         {% for extra in booking.booking_package.package.extras.all %}
                         <tr>
                             <td class="w-25 pt-3 pb-0" rowspan="2">
@@ -208,12 +205,11 @@
                             </td>
                             <td class="text-center">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in extras_list %}checked{% endif %}>
+                                    <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in seleted_extras %}checked{% endif %}>
                                 </div>
                             </td>
                         </tr>
                         {% endfor %}
-                        {% endwith %}
                     </table>
                 </div>
             </div>
@@ -254,7 +250,7 @@
                         </div>
                     </li>
                     <li class="list-group-item p-3">
-                        <h6>{{ return_date }} ({{booking.booking_package.return_flight.name}})</h6>
+                        <h6>{{ booking.booking_package.return_date }} ({{booking.booking_package.return_flight.name}})</h6>
                         <div class="row g-0">
                             <div class="col">
                                 <small>{{booking.booking_package.return_flight.origin}}</small>
@@ -282,16 +278,16 @@
                             </div>
                         </div>
                     </li>
-                    {% if subtotal != total %}
+                    {% if booking.subtotal != booking.grand_total %}
                     <li id="subtotal" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Base Price</span>
-                        <span>£{{ subtotal|floatformat:2 }}</span>
+                        <span>£{{ booking.subtotal|floatformat:2 }}</span>
                     </li>
                     {% endif %}
-                    {% if extras_total %}
+                    {% if booking.extras_total %}
                     <li id="extras" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Options and Extras</span>
-                        <span>£{{ extras_total|floatformat:2 }}</span>
+                        <span>£{{ booking.extras_total|floatformat:2 }}</span>
                     </li>
                     {% endif %}
                     <li id="transfers" class="list-group-item d-flex justify-content-between">
@@ -299,18 +295,18 @@
                         <span class="my-0">{% if holiday.transfers_included == True %}Included{% else %}
                             Not Included{% endif %}</span>
                     </li>
-                    {% if discount %}
+                    {% if booking.discount %}
                     <li id="discount" class="list-group-item d-flex justify-content-between">
                         <div class="text-success">
                             <h6 class="my-0">Promo code</h6>
-                            <small class="text-uppercase">{{coupon}}</small>
+                            <small class="text-uppercase">{{booking.coupon}}</small>
                         </div>
-                        <span class="text-success">-£{{discount}}</span>
+                        <span class="text-success">-£{{booking.discount}}</span>
                     </li>
                     {% endif %}
                     <li id="total" class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
-                        <strong>£{{ total|floatformat:2 }}</strong>
+                        <strong>£{{ booking.grand_total|floatformat:2 }}</strong>
                     </li>
                 </ul>
                 <form class="coupon-form">
