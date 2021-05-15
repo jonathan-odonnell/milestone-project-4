@@ -110,7 +110,7 @@ def add_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.get(booking_number=booking_number)
     extra = Extra.objects.get(id=extra_id)
-    extra_quantity = 1
+    extra_quantity = int(request.POST['quantity'])
     booking_extra = BookingExtra(
         booking=booking,
         extra=extra,
