@@ -22,13 +22,6 @@ def next_day(flight):
 
     return difference.days
 
-@register.filter(name='extras_list')
-def extras_list(extras):
-    items_list = []
-    for item in extras:
-        items_list.append(item.extra.id)
-    return items_list
-
 @register.filter(name='extra_quantity')
 def extra_quantity(extras, item_id):
     for item in extras:
