@@ -71,22 +71,24 @@ $('input[name="guests"]').on('change', function () {
 })
 
 $('input[name="quantity"]').on('change', function () {
-    let quantity = parseInt($(this).val())
-    maxValue = $('.guests-form').find("input[name='guests']").val()
-    let id = $(this).data('extra')
-    let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
-    let postData = {
-        'csrfmiddlewaretoken': csrfToken,
-        'quantity': quantity
-    }
-    if (quantity <= maxValue && quantity >= 1) {
-        initialQuantity = quantity
-        $.post(`/booking/update_extra/${id}/`, postData).done(function (data) {
-            $('#total strong').text(`£${data.total}`)
-            $('#extras span').last().text(`£${data.extras}`)
-        })
-    } else {
-        $(this).val(initialQuantity)
+    if ($(this).closest('tr').find('input[type="checkbox"]').is(':checked')) {
+        let quantity = parseInt($(this).val())
+        maxValue = $('.guests-form').find("input[name='guests']").val()
+        let id = $(this).data('extra')
+        let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
+        let postData = {
+            'csrfmiddlewaretoken': csrfToken,
+            'quantity': quantity
+        }
+        if (quantity <= maxValue && quantity >= 1) {
+            initialQuantity = quantity
+            $.post(`/booking/update_extra/${id}/`, postData).done(function (data) {
+                $('#total strong').text(`£${data.total}`)
+                $('#extras span').last().text(`£${data.extras}`)
+            })
+        } else {
+            $(this).val(initialQuantity)
+        }
     }
 })
 
@@ -135,8 +137,10 @@ $('.coupon-form').submit(function (e) {
 $('input[type="checkbox"]').change(function () {
     let id = $(this).attr('id')
     let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
+    let quantity = $(this).closest('tr').find('input[name="quantity"]').val()
     let postData = {
         'csrfmiddlewaretoken': csrfToken,
+        'quantity': quantity,
     }
     if ($(this).prop('checked')) {
         $.post(`/booking/add_extra/${id}/`, postData).done(function (data) {
