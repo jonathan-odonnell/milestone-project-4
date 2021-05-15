@@ -19,18 +19,20 @@ class BookingPassengerAdminInline(admin.TabularInline):
 class BookingAdmin(admin.ModelAdmin):
     inlines = (BookingPackageAdminInline, BookingExtraAdminInline, BookingPassengerAdminInline)
 
-    readonly_fields = ('booking_number', 'date', 'coupon', 'discount', 
-                       'total', 'paid', 'stripe_pid', 'paypal_pid')
+    readonly_fields = ('booking_number', 'date', 'coupon', 'subtotal',
+                       'extras_total', 'discount', 'grand_total', 'paid',
+                       'stripe_pid', 'paypal_pid')
 
     fields = ('booking_number', 'user_profile', 'date', 
               'full_name', 'email', 'phone_number',
               'street_address1', 'street_address2',
               'town_or_city',  'country', 'postcode', 
-              'county', 'coupon', 'discount', 
-              'total', 'paid', 'stripe_pid', 'paypal_pid')
+              'county', 'coupon', 'subtotal', 'discount', 
+              'extras_total', 'total', 'paid', 'stripe_pid',
+              'paypal_pid')
 
     list_display = ('booking_number', 'date', 'full_name',
-                    'total',)
+                    'grand_total',)
 
     ordering = ('-date',)
 

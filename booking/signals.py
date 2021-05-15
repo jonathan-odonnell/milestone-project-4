@@ -7,21 +7,21 @@ def package_update_on_save(sender, instance, created, **kwargs):
     """
     Update order total on booking package update/create
     """
-    instance.booking.update_total()
+    instance.booking.update_totals()
 
 @receiver(post_delete, sender=BookingPackage)
 def package_update_on_delete(sender, instance, **kwargs):
     """
     Update order total on booking package delete
     """
-    instance.booking.update_total()
+    instance.booking.update_totals()
 
 @receiver(post_save, sender=BookingExtra)
 def extra_update_on_save(sender, instance, created, **kwargs):
     """
     Update order total on booking extras update/create
     """
-    instance.booking.update_total()
+    instance.booking.update_totals()
 
 @receiver(post_delete, sender=BookingExtra)
 def extra_update_on_delete(sender, instance, **kwargs):
