@@ -607,6 +607,41 @@ label .asteriskField {
     z-index: 3;
 }
 
+.flight-line {
+    border-top: 2px solid #4f4f4f;
+    position: relative;
+    width: 100%;
+}
+
+.flight-line .circle-start {
+    border-radius: 50%;
+    background-color: #4f4f4f;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    left: -2px;
+    top: -6px;
+}
+
+.flight-line .circle-end {
+    border-radius: 50%;
+    background-color: #4f4f4f;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: -2px;
+    top: -6px;
+}
+
+.flight-line .plane {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 0 5px;
+}
+
 .contact-info-item .key {
     padding-right: 21px;
     padding-top: 5px;
