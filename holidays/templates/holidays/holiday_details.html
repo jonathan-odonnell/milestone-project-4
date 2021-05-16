@@ -155,39 +155,7 @@
         <div class="col-12">
             <h2 class="text-uppercase section-heading booking-form">related holidays</h2>
         </div>
-        {% for holiday in related_holidays %}
-        {% if forloop.counter == 1 %}
-        <div class="d-none d-lg-block col-lg-3 p-3">
-        {% elif forloop.counter == 2 %}
-        <div class="d-none d-md-block col-md-4 col-lg-3 p-3">
-        {% else %}
-        <div class="col-6 col-md-4 col-lg-3 p-3">
-        {% endif %}
-            <div class="card destination-card">
-                {% if category %}
-                {% if category == 'offers' %}
-                <a href="{% url 'category_details' 'offers' holiday.slug %}">
-                {% else %}
-                <a href="{% url 'category_details' holiday.category.slug holiday.slug %}">
-                {% endif %}
-                {% else %}
-                <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
-                    {% endif %}
-                    <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                </a>
-                <span class="badge bg-danger">£{{holiday.price}}</span>
-                <div class="card-body">
-                    <h5 class="card-title">{{holiday.name}}</h5>
-                    <small class="d-block card-text rating mb-2">{{holiday.rating}}</small>
-                    <small class="d-block card-text mb-2">
-                        <i class="far fa-clock pe-1"></i>
-                        {{holiday.duration}} days
-                    </small>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-        </div>
+        {% include 'holidays/includes/holiday_cards.html' %}
     </div>
 </div>
 {% endblock %}
@@ -198,7 +166,6 @@
     let airports
 
     $(document).ready(function () {
-        $('.rating i').addClass('pe-1')
         $.get('{% url "airports" holiday.id %}').done(function(data) {
             airports = data.airports
         })
