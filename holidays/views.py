@@ -24,22 +24,19 @@ def holidays(request, category=None, destination=None):
     direction = None
 
     if category == 'offers':
-        holidays = Package.objects.filter(
-            offer=True).annotate(num_reviews=Count('reviews'))
+        holidays = Package.objects.filter(offer=True)
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
     elif category:
         category = get_object_or_404(Category, slug=category)
-        holidays = Package.objects.filter(
-            category=category).annotate(num_reviews=Count('reviews'))
+        holidays = Package.objects.filter(category=category)
         countries = holidays.values_list(
             'country__name', flat=True).distinct().order_by('country__name')
 
     else:
         destination = get_object_or_404(Region, slug=destination)
-        holidays = Package.objects.filter(
-            region=destination).annotate(num_reviews=Count('reviews'))
+        holidays = Package.objects.filter(region=destination)
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
@@ -92,19 +89,19 @@ def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
     holiday = get_object_or_404(Package.objects, slug=slug)
     not_reviewed = False
+    random_related_holidays = []
 
     if category == 'offers':
-        related_holidays = Package.objects.filter(offer=True).exclude(
-            name=holiday.name).order_by('-rating')[:4]
+        holidays = Package.objects.filter(offer=True).exclude(name=holiday.name).order_by('?')[:4]
 
     elif category:
         category = category.replace('-', ' ')
-        related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_category=Lower('category__name')).filter(lower_category=category).order_by('?')[:4]
+        holidays = Package.objects.exclude(name=holiday.name).annotate(lower_category=Lower('category__name')).filter(lower_category=category).order_by('?')[:4]
     
     else:
         destination = destination.replace('-', ' ')
-        related_holidays = Package.objects.exclude(name=holiday.name).annotate(lower_region=Lower('region__name')).filter(lower_region=destination).order_by('?')[:4]
-
+        holidays = Package.objects.exclude(name=holiday.name).annotate(lower_region=Lower('region__name')).filter(lower_region=destination).order_by('?')[:4]
+    
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         bookings = Booking.objects.filter(user_profile=profile, booking_package__package=holiday)
@@ -118,7 +115,7 @@ def holiday_details(request, slug, destination=None, category=None):
 
     context = {
         'holiday': holiday,
-        'related_holidays': related_holidays,
+        'holidays': holidays,
         'category': category,
         'destination': destination,
         'not_reviewed': not_reviewed,
