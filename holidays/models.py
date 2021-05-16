@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.db.models import Avg
 from flights.models import Flight
 from extras.models import Extra
 from django_extensions.db.fields import AutoSlugField
@@ -155,3 +158,12 @@ class Review(models.Model):
 
     def __str__(self):
         return self.title
+
+@receiver(post_save, sender=Review)
+def create_or_update_user_profile(sender, instance, created, **kwargs):
+    """
+    Update the package ratings
+    """
+    instance.package.rating = instance.package.reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+    instance.package.save()
+
