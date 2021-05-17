@@ -141,7 +141,7 @@ def review(request, package):
 
     if request.POST:
         review_data = {
-            'name': profile.user.get_full_name(),
+            'full_name': profile.user.get_full_name(),
             'rating': request.POST['rating'],
             'title': request.POST['title'],
             'review': request.POST['review'],
