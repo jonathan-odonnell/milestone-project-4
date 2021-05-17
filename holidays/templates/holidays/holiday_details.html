@@ -44,22 +44,22 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active pt-4" id="overview" role="tabpanel"
                     aria-labelledby="overview-tab">
-                    <div class="row no-gutters">
-                        <div class="col-12 col-sm-6">
+                    <div class="row g-0">
+                        <div class="col-12 col-sm-6 pb-4 pb-sm-0">
                             <ul class="list-group holiday-features">
-                                <li class="list-group-item px-0 border-0">
+                                <li class="list-group-item p-0 mb-3 border-0">
                                     <i class="fas fa-tag"></i>£{{ holiday.price|floatformat:"-2" }}
                                 </li>
-                                <li class="list-group-item px-0 border-0">
-                                    <i class="far fa-calendar-alt"></i>{{ holiday.duration }} days
+                                <li class="list-group-item p-0 mb-3 border-0">
+                                    <i class="far fa-calendar-alt"></i>{{ holiday.duration }} Nights
                                 </li>
-                                <li class="list-group-item px-0 border-0">
-                                    <i class="fas fa-hotel"></i>{{ holiday.accomodation }}
+                                <li class="list-group-item p-0 mb-3 border-0">
+                                    <i class="fas fa-star"></i>{{ holiday.rating }}
                                 </li>
-                                <li class="list-group-item px-0 border-0">
+                                <li class="list-group-item p-0 mb-3 border-0">
                                     <i class="fas fa-utensils"></i>{{ holiday.catering }}
                                 </li>
-                                <li class="list-group-item px-0 border-0">
+                                <li class="list-group-item p-0 border-0">
                                     <i class="fas fa-bus"></i>Transfers {% if holiday.transfers_included %}
                                     included{% else %}not included{% endif %}
                                 </li>
@@ -68,9 +68,15 @@
                         <div class="col-12 col-sm-6">
                             <ul class="list-group holiday-features">
                                 {% for feature in holiday.features.all %}
-                                <li class="list-group-item px-0 border-0">
+                                {% if forloop.counter == holiday.features.all|length %}
+                                <li class="list-group-item p-0 border-0">
                                     <i class="fas fa-check"></i>{{ feature }}
                                 </li>
+                                {% else %}
+                                <li class="list-group-item p-0 mb-3 border-0">
+                                    <i class="fas fa-check"></i>{{ feature }}
+                                </li>
+                                {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
@@ -106,7 +112,7 @@
                         <h5><strong>{{ review.title }}</strong></h5>
                         <p class="rating mb-2">{{ review.rating }}</p>
                         <p class="mb-2">{{ review.review }}</p>
-                        <small>Reviewed by {{ review.name }} on {{ review.date|date }}</small>
+                        <small>Reviewed by {{ review.full_name }} on {{ review.date|date }}</small>
                     </div>
                     {% endfor %}
                     {% if not_reviewed %}
