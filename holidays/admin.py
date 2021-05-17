@@ -28,8 +28,8 @@ class PackageAdmin(admin.ModelAdmin):
     fields = ('name', 'image', 'image_url',
               'description', 'category', 'country',
               'region', 'offer', 'price', 'duration',
-              'rating', 'accomodation', 'catering',
-              'transfers_included', 'extras', 'flights',)
+              'rating', 'catering', 'transfers_included', 
+              'extras', 'flights',)
     
     inlines = [
         FeatureInline,
@@ -43,7 +43,7 @@ class PackageAdmin(admin.ModelAdmin):
     list_display = ('name', 'country', 'category',
                     'price',)
 
-    ordering = ('country',)
+    ordering = ('country', 'name')
 
     list_per_page = 20
 
