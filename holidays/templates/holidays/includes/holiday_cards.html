@@ -9,9 +9,9 @@
                     {% if category == 'offers' %}
                     <a href="{% url 'category_details' 'offers' holiday.slug %}">
                     {% elif category %}
-                    <a href="{% url 'category_details' holiday.category.slug holiday.slug %}">
+                    <a href="{% url 'category_details' category.slug holiday.slug %}">
                     {% else %}
-                    <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
+                    <a href="{% url 'destination_details' destination.slug holiday.slug %}">
                     {% endif %}
                         <h5 class="card-title mb-1">{{holiday.name}}</h5>
                     </a>
