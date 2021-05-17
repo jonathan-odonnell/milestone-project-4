@@ -10,7 +10,7 @@ from .forms import FlightForm
 
 
 def airports(request, holiday_id):
-    airports = Flight.objects.filter(packages=holiday_id)
+    airports = Flight.objects.filter(packages=holiday_id, direction='Outbound')
     airports = list(airports.values_list('origin', flat=True).distinct())
     return JsonResponse({'airports': airports})
 
@@ -24,7 +24,7 @@ def flights(request):
         if 'sort' in request.GET:
             sort = request.GET['sort']
             if sort == 'number':
-                sort = 'name'
+                sort = 'flight_number'
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
@@ -76,7 +76,7 @@ def add_flight(request):
 @login_required
 @superuser_required
 def edit_flight(request, flight_number):
-    flight = get_object_or_404(Flight, name=flight_number)
+    flight = get_object_or_404(Flight, flight_number=flight_number)
     if request.method == 'POST':
         form = FlightForm(request.POST, instance=flight)
         if form.is_valid():
