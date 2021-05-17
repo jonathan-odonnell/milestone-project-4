@@ -90,10 +90,12 @@ def update_guests(request):
             if extra.quantity != guests:
                 extra.quantity = guests
                 extra.save()
-
-    extras = booking.extras_total
-    subtotal = booking.subtotal
-    total = booking.grand_total
+    
+    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    
+    extras = f'{float(booking.extras_total):g}'
+    subtotal = f'{float(booking.subtotal):g}'
+    total = f'{float(booking.grand_total):g}'
 
     response = {
         'success': True,
@@ -117,9 +119,12 @@ def add_extra(request, extra_id):
         quantity=extra_quantity,
     )
     booking_extra.save()
-    extras = booking.extras_total
-    subtotal = booking.subtotal
-    total = booking.grand_total
+
+    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+
+    extras = f'{float(booking.extras_total):g}'
+    subtotal = f'{float(booking.subtotal):g}'
+    total = f'{float(booking.grand_total):g}'
 
     response = {
         'success': True,
@@ -139,9 +144,12 @@ def update_extra(request, extra_id):
     booking_extras = booking.booking_extras.get(extra=extra_id)
     booking_extras.quantity = quantity
     booking_extras.save()
-    extras = booking.extras_total
-    subtotal = booking.subtotal
-    total = booking.grand_total
+
+    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+
+    extras = f'{float(booking.extras_total):g}'
+    subtotal = f'{float(booking.subtotal):g}'
+    total = f'{float(booking.grand_total):g}'
 
     response = {
         'success': True,
@@ -157,9 +165,12 @@ def remove_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.get(booking_number=booking_number)
     booking.booking_extras.get(extra=extra_id).delete()
-    extras = booking.extras_total
-    subtotal = booking.subtotal
-    total = booking.grand_total
+    
+    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    
+    extras = f'{float(booking.extras_total):g}'
+    subtotal = f'{float(booking.subtotal):g}'
+    total = f'{float(booking.grand_total):g}'
 
     response = {
         'success': True,
@@ -182,9 +193,12 @@ def add_coupon(request):
             name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
         booking.coupon = coupon.name
         booking.save()
-        discount = booking.discount
-        subtotal = booking.subtotal
-        total = booking.grand_total
+
+        # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+        
+        discount = f'{float(booking.discount):g}'
+        subtotal = f'{float(booking.subtotal):g}'
+        total = f'{float(booking.grand_total):g}'
 
         response = {
             'success': True,
