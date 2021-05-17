@@ -89,18 +89,17 @@ def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
     holiday = get_object_or_404(Package.objects, slug=slug)
     not_reviewed = False
-    random_related_holidays = []
 
     if category == 'offers':
         holidays = Package.objects.filter(offer=True).exclude(name=holiday.name).order_by('?')[:4]
 
     elif category:
-        category = category.replace('-', ' ')
-        holidays = Package.objects.exclude(name=holiday.name).annotate(lower_category=Lower('category__name')).filter(lower_category=category).order_by('?')[:4]
+        category = get_object_or_404(Category, slug=category)
+        holidays = Package.objects.exclude(name=holiday.name).filter(category=category).order_by('?')[:4]
     
     else:
-        destination = destination.replace('-', ' ')
-        holidays = Package.objects.exclude(name=holiday.name).annotate(lower_region=Lower('region__name')).filter(lower_region=destination).order_by('?')[:4]
+        destination = get_object_or_404(Region, slug=destination)
+        holidays = Package.objects.exclude(name=holiday.name).filter(region=destination).order_by('?')[:4]
     
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
@@ -108,7 +107,7 @@ def holiday_details(request, slug, destination=None, category=None):
         
         if bookings:
             try:
-                Review.objects.get(package=holiday, name=profile.user.get_full_name())
+                Review.objects.get(package=holiday, full_name=profile.user.get_full_name())
 
             except Review.DoesNotExist:
                 not_reviewed = True
