@@ -56,23 +56,23 @@
     <!--Navbar container-->
     <header class="container-fluid p-0">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light py-3 py-lg-0">
+        <nav class="navbar navbar-expand-lg navbar-light p-3 py-lg-0">
             <!-- Toggle button -->
-            <button class="navbar-toggler border-0 py-2 px-3 ms-3" type="button" data-bs-toggle="collapse"
+            <button class="navbar-toggler border-0 ps-3 py-0" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
             <!-- Navbar brand -->
-            <a class="navbar-brand ms-3" href="{% url 'home' %}">
+            <a class="navbar-brand mx-auto ps-lg-3 order-lg-0" href="{% url 'home' %}">
                 <h2 class="mb-0"><i class="fas fa-globe-europe me-3"></i>Go Explore</h2>
             </a>
             <!-- User Options Dropdown -->
-            <a class="nav-link d-lg-none me-3" href="#" role="button" id="user-options-mobile" data-bs-toggle="dropdown"
+            <a class="nav-link ps-3 py-0 order-lg-2 text-lg-end" href="#" role="button" id="user-options" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 <i class="fas fa-user fa-lg"></i>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-options-mobile">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-options">
                 {% if request.user.is_authenticated %}
                 {% if request.user.is_superuser %}
                 <li><a class="dropdown-item" href="{% url 'add_holiday' %}">Add Holiday</a></li>
@@ -121,37 +121,12 @@
                         </ul>
                     </li>
                     <li class=" nav-item border-bottom">
-                                    <a class="nav-link" href="{% url 'categories' 'offers' %}">Offers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'extras' %}">Extras</a>
-                            </li>
-                        </ul>
-                        <!-- User Options Dropdown -->
-                        <a class="nav-link d-none d-lg-block me-3" href="#" role="button" id="user-options"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user fa-lg"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-options">
-                            {% if request.user.is_authenticated %}
-                            {% if request.user.is_superuser %}
-                            <li><a class="dropdown-item" href="{% url 'add_holiday' %}">Add Holiday</a></li>
-                            <li><a class="dropdown-item" href="{% url 'flights' %}">Manage Flights</a></li>
-                            {% else %}
-                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
-                            {% endif %}
-                            <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign
-                                    Out</a></li>
-                            {% else %}
-                            <li><a class="dropdown-item"
-                                    href="{% url 'account_signup' %}?next={{request.path}}">Register</a></li>
-                            <li><a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign
-                                    In</a></li>
-                            {% endif %}
-                        </ul>
+                        <a class="nav-link" href="{% url 'categories' 'offers' %}">Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'extras' %}">Extras</a>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="row g-0 text-center">
