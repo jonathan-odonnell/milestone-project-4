@@ -37,7 +37,7 @@
                                     </li>
                                 </ul>
                             </td>
-                            <td>£{{ booking.grand_total }}</td>
+                            <td>£{{ booking.grand_total|floatformat|"-2" }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -57,7 +57,7 @@
                                         </div>
                                     </form>
                                 </td>
-                                <td class="w-25 p-2">£{{ booking.booking_package.total }}</td>
+                                <td class="w-25 p-2">£{{ booking.booking_package.total|floatformat:"-2" }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -104,7 +104,7 @@
                                         </div>
                                     </form>
                                 </td>
-                                <td class="p-2">£{{ extra.price }}</td>
+                                <td class="p-2">£{{ extra.price|floatformat:"-2" }}</td>
                                 <td class="p-2">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in selected_extras %}checked{% endif %}>
@@ -134,7 +134,7 @@
                                     <li class="mb-0">{{ booking.booking_package.package.duration}} nights</li>
                                     <li class="mb-3">{{ booking.booking_package.package.catering }}</li>
                                     <li class="mb-3">
-                                        £{{ booking.booking_package.total }}
+                                        £{{ booking.booking_package.total|floatformat:"-2" }}
                                     </li>
                                     <li>
                                         <form class="d-inline-block guests-form">
@@ -175,7 +175,7 @@
                             <td colspan="2" class="border-0 pt-3 pb-0">
                                 <ul class="list-unstyled py-0">
                                     <li class="mb-3"><strong>{{ extra.name }}</strong></li>
-                                    <li class="mb-3">£{{ extra.price }}</li>
+                                    <li class="mb-3">£{{ extra.price|floatformat:"-2" }}</li>
                                 </ul>
                             </td>
                         </tr>
@@ -281,13 +281,13 @@
                     {% if booking.subtotal != booking.grand_total %}
                     <li id="subtotal" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Base Price</span>
-                        <span>£{{ booking.subtotal|floatformat:2 }}</span>
+                        <span>£{{ booking.subtotal|floatformat:"-2" }}</span>
                     </li>
                     {% endif %}
                     {% if booking.extras_total %}
                     <li id="extras" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Options and Extras</span>
-                        <span>£{{ booking.extras_total|floatformat:2 }}</span>
+                        <span>£{{ booking.extras_total|floatformat:"-2" }}</span>
                     </li>
                     {% endif %}
                     <li id="transfers" class="list-group-item d-flex justify-content-between">
@@ -301,12 +301,12 @@
                             <h6 class="my-0">Promo code</h6>
                             <small class="text-uppercase">{{booking.coupon}}</small>
                         </div>
-                        <span class="text-success">-£{{booking.discount}}</span>
+                        <span class="text-success">-£{{booking.discount|floatformat:"-2"}}</span>
                     </li>
                     {% endif %}
                     <li id="total" class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
-                        <strong>£{{ booking.grand_total|floatformat:2 }}</strong>
+                        <strong>£{{ booking.grand_total|floatformat:"-2" }}</strong>
                     </li>
                 </ul>
                 <form class="coupon-form">

@@ -22,7 +22,7 @@
                             <div class="jumbotron jumbotron-fluid text-center">
                                 <div class="container">
                                     <h1 class="display-1 text-white">{{offer.name}}</h1>
-                                    <h3 class="text-white">{{offer.duration}} days from £{{ offer.price|floatformat:0 }}
+                                    <h3 class="text-white">{{offer.duration}} days from £{{ offer.price|floatformat:"-2" }}
                                         per person</h3>
                                     <a href="{% url 'category_details' 'offers' offer.slug %}"
                                         class="btn btn-hero btn-lg">Explore Now</a>
@@ -50,7 +50,7 @@
                     <div class="col-12 col-md-6 col-lg-4 p-3">
                         <div class="card destination-card">
                             <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                            <span class="badge bg-danger">£{{holiday.price|floatformat:0}}</span>
+                            <span class="badge bg-danger">£{{holiday.price|floatformat:"-2"}}</span>
                             <div class="card-body">
                                 <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
                                     <h5 class="card-title mb-1">{{holiday.name}}</h5>

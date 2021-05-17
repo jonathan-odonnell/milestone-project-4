@@ -205,7 +205,7 @@
                             <p class="small text-black font-weight-bold mb-0">Subtotal</p>
                         </div>
                         <div class="col-6">
-                            <p class="small text-end mb-0">{{ booking.subtotal }}</p>
+                            <p class="small text-end mb-0">{{ booking.subtotal|floatformat:"-2" }}</p>
                         </div>
                     </div>
                     {% endif %}
@@ -215,7 +215,7 @@
                             <p class="small text-black font-weight-bold mb-0">Extras</p>
                         </div>
                         <div class="col-6">
-                            <p class="small text-end mb-0">£{{ booking.extras_total }}</p>
+                            <p class="small text-end mb-0">£{{ booking.extras_total|floatformat:"-2" }}</p>
                         </div>
                     </div>
                     {% endif %}
@@ -225,7 +225,7 @@
                             <p class="small text-black font-weight-bold mb-0">Discount</p>
                         </div>
                         <div class="col-6">
-                            <p class="small text-danger text-end mb-0">- £{{ booking.discount }}</p>
+                            <p class="small text-danger text-end mb-0">- £{{ booking.discount|floatformat:"-2" }}</p>
                         </div>
                     </div>
                     {% endif %}
@@ -234,7 +234,7 @@
                             <p class="small text-black font-weight-bold mb-0">Total</p>
                         </div>
                         <div class="col-6">
-                            <p class="small text-end mb-0">{{ booking.grand_total }}</p>
+                            <p class="small text-end mb-0">{{ booking.grand_total|floatformat:"-2" }}</p>
                         </div>
                     </div>
                 </div>

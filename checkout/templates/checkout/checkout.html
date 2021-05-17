@@ -25,7 +25,7 @@
                 <div class="text-center">
                     <h6 class="mb-2 text-muted">{{ booking.booking_package.package.duration }} nights in 
                         {{ booking.booking_package.package.name }}</h5>
-                        <h3 class="mb-4">£{{ booking.grand_total }}</h3>
+                        <h3 class="mb-4">£{{ booking.grand_total|floatformat:"-2" }}</h3>
                         <img src="{{ booking.booking_package.package.image.url }}" class="card-img-bottom rounded w-75"
                             alt="...">
                 </div>
