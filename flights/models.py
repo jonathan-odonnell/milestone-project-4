@@ -22,4 +22,4 @@ class Flight(models.Model):
     baggage = models.DecimalField(max_digits=2, decimal_places=0, null=False, blank=False)
 
     def __str__(self):
-        return self.name
+        return self.flight_number
