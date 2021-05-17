@@ -96,6 +96,9 @@ class Itinerary(models.Model):
 
 class Package(models.Model):
 
+    class Meta:
+        ordering = ('id',)
+
     category = models.ForeignKey(
         Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
     country = models.ForeignKey(
@@ -104,13 +107,12 @@ class Package(models.Model):
         'Region', null=True, blank=True, on_delete=models.SET_NULL, related_name='packages')
     name = models.CharField(max_length=254)
     image = models.ImageField()
-    image_url = models.CharField(max_length=254, null=True, blank=True)
+    image_url = models.URLField(max_length=1024, null=True, blank=True)
     description = models.TextField()
     offer = models.BooleanField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     duration = models.DecimalField(max_digits=2, decimal_places=0)
     rating = models.DecimalField(max_digits=2, decimal_places=1)
-    accomodation = models.CharField(max_length=254)
     catering = models.CharField(max_length=254)
     extras = models.ManyToManyField(Extra, blank=True, related_name='packages')
     flights = models.ManyToManyField(
@@ -151,7 +153,7 @@ class Review(models.Model):
     package = models.ForeignKey(
         'Package', null=False, blank=False, on_delete=models.CASCADE, related_name='reviews')
     date = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=254)
+    full_name = models.CharField(max_length=254)
     rating = models.DecimalField(max_digits=1, decimal_places=0)
     title = models.CharField(max_length=254)
     review = models.TextField()
