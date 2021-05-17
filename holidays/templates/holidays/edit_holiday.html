@@ -11,21 +11,13 @@
             <form action="{% url 'edit_holiday' holiday.slug %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <fieldset id="package">
-                    {{ form.name | as_crispy_field }}
-                    {{ form.image }}
-                    {{ form.description | as_crispy_field }}
-                    {{ form.price | as_crispy_field }}
-                    {{ form.category | as_crispy_field }}
-                    {{ form.country | as_crispy_field }}
-                    {{ form.region | as_crispy_field }}
-                    {{ form.offer | as_crispy_field}}
-                    {{ form.duration | as_crispy_field }}
-                    {{ form.rating | as_crispy_field }}
-                    {{ form.accomodation | as_crispy_field }}
-                    {{ form.catering | as_crispy_field }}
-                    {{ form.extras | as_crispy_field }}
-                    {{ form.flights | as_crispy_field }}
-                    {{ form.transfers_included | as_crispy_field }}
+                    {% for field in form %}
+                        {% if field.name == 'image' %}
+                            {{ field }}
+                        {% else %}
+                            {{ field | as_crispy_field}}
+                        {% endif %}
+                    {% endfor %}
                 </fieldset>
                 <fieldset id="features" class="d-none">
                     <div>
