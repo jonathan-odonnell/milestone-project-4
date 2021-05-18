@@ -1,6 +1,7 @@
 from django import forms
 from .models import UserProfile
 from crispy_forms.helper import FormHelper
+from allauth.account.forms import SignupForm
 
 
 class UserProfileForm(forms.ModelForm):
@@ -43,3 +44,31 @@ class UserProfileForm(forms.ModelForm):
                 else:
                     self.fields[field].label = False
                 self.fields[field].widget.attrs['placeholder'] = placeholder
+
+
+class CustomSignupForm(SignupForm):
+
+    # https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'] = forms.CharField(max_length=30)
+        self.fields['last_name'] = forms.CharField(max_length=30)
+        
+        placeholders = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'email': 'Email Address',
+            'password1': 'Password',
+            'password2': 'Confirm Password',
+        }
+
+        for field in self.fields:
+            self.fields[field].widget.attrs['placeholder'] = placeholders[field]
+            self.fields[field].label = False
+    
+    def signup(self, request, user):
+        user.first_name = self.first_name
+        user.last_name = self.last_name
+        user.save()
+        return user
