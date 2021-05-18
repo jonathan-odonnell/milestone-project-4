@@ -107,13 +107,13 @@ class StripeWH_Handler:
 
                     if save_info:
                         profile_data = {
-                            'phone_number': booking.phone_number,
-                            'street_address1': booking.street_address1,
-                            'street_address2': booking.street_address2,
-                            'town_or_city': booking.town_or_city,
-                            'county': booking.county,
-                            'country': booking.country,
-                            'postcode': booking.postcode,
+                            'phone_number': booking[0].phone_number,
+                            'street_address1': booking[0].street_address1,
+                            'street_address2': booking[0].street_address2,
+                            'town_or_city': booking[0].town_or_city,
+                            'county': booking[0].county,
+                            'country': booking[0].country,
+                            'postcode': booking[0].postcode,
                         }
                         user_profile_form = UserProfileForm(
                             profile_data, instance=profile)
@@ -121,11 +121,9 @@ class StripeWH_Handler:
                         if user_profile_form.is_valid():
                             user_profile_form.save()
 
-            except Exception as e:
-                if booking:
-                    booking.delete()
+            except Booking.DoesNotExist:
                 return HttpResponse(
-                    content=f'Webhook received: {event["type"]} | ERROR: {e}',
+                    content=f'Webhook received: {event["type"]} | ERROR: Booking does not exist',
                     status=500)
 
         self._send_confirmation_email(booking)
