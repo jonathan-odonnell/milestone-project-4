@@ -67,7 +67,7 @@ class StripeWH_Handler:
             try:
                 booking = Booking.objects.get(
                     booking_number=booking_number,
-                    total=total,
+                    grand_total=total,
                     paid=True,
                     stripe_pid=pid,
                 )
