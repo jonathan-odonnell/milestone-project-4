@@ -1,4 +1,3 @@
-let csrfToken = $('input[name="csrfmiddlewaretoken"]').val()
 paypal.Buttons({
     style: { color: 'white' },
     onInit: function (data, actions) {
