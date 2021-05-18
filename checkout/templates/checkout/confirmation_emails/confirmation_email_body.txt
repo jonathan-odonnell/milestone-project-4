@@ -2,7 +2,7 @@ Hello {{ booking.full_name }}!
 
 This is a confirmation of your booking with Go Explore. Your booking information is below:
 
-Booking Number: {{ booking.order_number }}
+Booking Number: {{ booking.booking_number }}
 Booking Date: {{ booking.date }}
 Booking Total: ${{ booking.grand_total }}
 
