@@ -3,8 +3,8 @@ Hello {{ booking.full_name }}!
 This is a confirmation of your booking with Go Explore. Your booking information is below:
 
 Booking Number: {{ booking.booking_number }}
-Booking Date: {{ booking.date }}
-Booking Total: ${{ booking.grand_total }}
+Booking Date: {{ booking.date|date }}
+Booking Total: £{{ booking.grand_total|floatformat:"-2" }}
 
 Your flight for your holiday to {{ booking.booking_package.package.name }} will depart from {{ booking.booking_package.outbound_flight.origin }} Airport at {{ booking.booking_package.outbound_flight.departure_time|time:"H:i" }} on {{ booking.booking_package.outbound_flight.departure_time|date }}.
 
