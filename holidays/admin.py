@@ -21,7 +21,7 @@ class ItineraryInline(admin.StackedInline):
 class ReviewInline(admin.StackedInline):
     model = Review
     extra = 1
-    fields = ('name', 'rating', 'title', 'review',)
+    fields = ('full_name', 'rating', 'title', 'review',)
 
 
 class PackageAdmin(admin.ModelAdmin):
