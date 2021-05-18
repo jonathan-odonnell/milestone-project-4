@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 import stripe
 
+
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
@@ -22,18 +23,17 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
     instance.userprofile.save()
 
 
-@receiver(post_save, sender=UserProfile)
+@receiver(post_save, sender=User)
 def update_user_email(sender, instance, created, **kwargs):
     """
     Updates the email address
     """
-
     if not created:
-        existing_email = EmailAddress.objects.get(user=instance.user)
+        existing_email = EmailAddress.objects.get(user=instance)
 
-        if existing_email.email != instance.user.email:
-            new_email = EmailAddress(email=instance.user.email, user=instance.user, primary=True)
-            new_email.save()
+        if existing_email and existing_email.email != instance.email:
+            EmailAddress.objects.create(
+                email=instance.email, user=instance, primary=True)
             existing_email.delete()
 
 
