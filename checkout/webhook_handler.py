@@ -32,7 +32,7 @@ class StripeWH_Handler:
             body,
             settings.DEFAULT_FROM_EMAIL,
             [cust_email]
-        )        
+        )       
 
     def handle_event(self, event):
         """
@@ -81,7 +81,7 @@ class StripeWH_Handler:
         if booking_exists:
             self._send_confirmation_email(booking)
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'Webhook received: {event["type"]} | SUCCESS: Verified booking already in database',
                 status=200)
 
         else:
@@ -130,7 +130,7 @@ class StripeWH_Handler:
 
         self._send_confirmation_email(booking)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]}',
+            content=f'Webhook received: {event["type"]} | SUCCESS: Created booking in webhook',
             status=200)
 
     def handle_payment_intent_payment_failed(self, event):
