@@ -57,9 +57,9 @@ class StripeWH_Handler:
         shipping_details = intent.shipping
         total = round(intent.charges.data[0].amount / 100, 2)
 
-        for field, value in billing_details.address.items():
+        for field, value in shipping_details.address.items():
             if value == "":
-                billing_details.address[field] = None
+                shipping_details.address[field] = None
 
         booking_exists = False
         attempt = 1
@@ -101,11 +101,9 @@ class StripeWH_Handler:
                     paid=True,
                     stripe_pid=pid,
                 )
-                booking.save()
 
                 if username:
-                    booking.user_profile = profile
-                    booking.save()
+                    booking.update(user_profile=profile)
 
                     if save_info:
                         profile_data = {
@@ -121,7 +119,7 @@ class StripeWH_Handler:
                             profile_data, instance=profile)
 
                         if user_profile_form.is_valid():
-                            profile.save()
+                            user_profile_form.save()
 
             except Exception as e:
                 if booking:
