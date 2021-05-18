@@ -124,6 +124,7 @@ form.addEventListener('submit', function (ev) {
             setup_future_usage: saveCard ? "on_session" : ""
         }
     }
+    var saveInfo = $('#id_save_info').is(':checked');
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
@@ -213,6 +214,7 @@ prButton.on('click', function (e) {
 // Handle payment request button
 paymentRequest.on('paymentmethod', function (ev) {
     $('#card-errors, #payment-request-button-errors').html('')
+    var saveInfo = $('#id_save_info').is(':checked');
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
