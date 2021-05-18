@@ -3,6 +3,14 @@ var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var country = $('#id_stripe_country').text().slice(1, -1);
 var currency = $('#id_stripe_currency').text().slice(1, -1);
 var total = parseInt($('#id_stripe_total').text());
+var saveInfo = $('#id_save_info').is(':checked');
+var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+var postData = {
+    'csrfmiddlewaretoken': csrfToken,
+    'client_secret': clientSecret,
+    'save_info': saveInfo,
+};
+let url = '/checkout/cache_checkout_data/';
 var stripe = Stripe(stripePublicKey);
 var elements = stripe.elements();
 var style = {
@@ -64,7 +72,6 @@ form.addEventListener('submit', function (ev) {
     card.update({ 'disabled': true });
     $('#submit-button').attr('disabled', true);
     loading(true)
-    var saveInfo = $('#id_save_info').is(':checked');
     var saveCard = $('#id_save_card').is(':checked');
     var savedCard = $('#saved-cards input:checked').attr('id');
     var paymentDetails
@@ -124,15 +131,6 @@ form.addEventListener('submit', function (ev) {
             setup_future_usage: saveCard ? "on_session" : ""
         }
     }
-    var saveInfo = $('#id_save_info').is(':checked');
-    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
-    var postData = {
-        'csrfmiddlewaretoken': csrfToken,
-        'client_secret': clientSecret,
-        'save_info': saveInfo,
-    };
-    var url = '/checkout/cache_checkout_data/';
-
     $.post(url, postData).done(function () {
         stripe.confirmCardPayment(clientSecret, paymentDetails
         ).then(function (result) {
@@ -214,14 +212,6 @@ prButton.on('click', function (e) {
 // Handle payment request button
 paymentRequest.on('paymentmethod', function (ev) {
     $('#card-errors, #payment-request-button-errors').html('')
-    var saveInfo = $('#id_save_info').is(':checked');
-    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
-    var postData = {
-        'csrfmiddlewaretoken': csrfToken,
-        'client_secret': clientSecret,
-        'save_info': saveInfo,
-    };
-    var url = '/checkout/cache_checkout_data/';
     $.post(url, postData).done(function () {
         stripe.confirmCardPayment(
             clientSecret,
@@ -241,30 +231,30 @@ paymentRequest.on('paymentmethod', function (ev) {
                 },
             },
             { handleActions: false },
-        )
-    }).then(function (confirmResult) {
-        if (confirmResult.error) {
-            ev.complete('fail');
-        } else {
-            ev.complete('success');
-            if (confirmResult.paymentIntent.status === "requires_action") {
-                stripe.confirmCardPayment(clientSecret).then(function (result) {
-                    if (result.error) {
-                        var errorDiv = document.getElementById('payment-request-button-errors');
-                        var html = `
-                            <span class="icon" role="alert">
-                            <i class="fas fa-times"></i>
-                            </span>
-                            <span>${result.error.message}</span>`;
-                        $(errorDiv).html(html);
-                    } else {
-                        form.submit()
-                    }
-                });
+        ).then(function (confirmResult) {
+            if (confirmResult.error) {
+                ev.complete('fail');
             } else {
-                form.submit()
+                ev.complete('success');
+                if (confirmResult.paymentIntent.status === "requires_action") {
+                    stripe.confirmCardPayment(clientSecret).then(function (result) {
+                        if (result.error) {
+                            var errorDiv = document.getElementById('payment-request-button-errors');
+                            var html = `
+                                <span class="icon" role="alert">
+                                <i class="fas fa-times"></i>
+                                </span>
+                                <span>${result.error.message}</span>`;
+                            $(errorDiv).html(html);
+                        } else {
+                            form.submit()
+                        }
+                    });
+                } else {
+                    form.submit()
+                }
             }
-        }
+        })
     }).fail(function() {
         location.reload();
     });
