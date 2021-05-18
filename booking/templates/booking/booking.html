@@ -220,7 +220,7 @@
                 <ul class="list-group mb-3">
                     <li class="list-group-item p-3">
                         <div>
-                            <h6>{{booking.booking_package.departure_date}} ({{booking.booking_package.outbound_flight.name}})</h6>
+                            <h6>{{booking.booking_package.departure_date}} ({{booking.booking_package.outbound_flight.flight_number})</h6>
                             <div class="row g-0">
                                 <div class="col">
                                     <small>{{booking.booking_package.outbound_flight.origin}}</small>
@@ -250,7 +250,7 @@
                         </div>
                     </li>
                     <li class="list-group-item p-3">
-                        <h6>{{ booking.booking_package.return_date }} ({{booking.booking_package.return_flight.name}})</h6>
+                        <h6>{{ booking.booking_package.return_date }} ({{booking.booking_package.return_flight.flight_number}})</h6>
                         <div class="row g-0">
                             <div class="col">
                                 <small>{{booking.booking_package.return_flight.origin}}</small>
