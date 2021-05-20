@@ -48,3 +48,10 @@
 #div_id_remember {
     margin-left: 5px;
 }
+
+.sign-up-img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 40% 0%;
+    height: 100%;
+}
