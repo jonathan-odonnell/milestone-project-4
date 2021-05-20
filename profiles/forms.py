@@ -52,20 +52,21 @@ class CustomSignupForm(SignupForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['first_name'] = forms.CharField(max_length=30)
-        self.fields['last_name'] = forms.CharField(max_length=30)
+        self.fields['first_name'] = forms.CharField(max_length=30, label='First Name')
+        self.fields['last_name'] = forms.CharField(max_length=30, label='Last Name')
+        self.fields['email'].label = 'Email Address'
+        self.fields['password2'].label = 'Confirm Password'
         
         placeholders = {
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
-            'email': 'Email Address',
-            'password1': 'Password',
-            'password2': 'Confirm Password',
+            'first_name': 'Enter your first name',
+            'last_name': 'Enter your last name',
+            'email': 'Enter your email address',
+            'password1': 'Enter your password',
+            'password2': 'Confirm  your password',
         }
 
         for field in self.fields:
             self.fields[field].widget.attrs['placeholder'] = placeholders[field]
-            self.fields[field].label = False
     
     def signup(self, request, user):
         user.first_name = self.first_name
