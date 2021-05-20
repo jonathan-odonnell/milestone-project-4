@@ -6,48 +6,42 @@
     <div class="col-12 mb-4">
       <h1 class="section-heading text-center mb-0">Extras</h1>
     </div>
-    <div class="col-12">
+    <div class="col-12 col-lg-10 mx-auto">
       {% for extra in extras %}
-      {% if not forloop.counter|divisibleby:2 == False %}
-      <div class="card shadow-none mb-3">
-        <div class="row g-0">
-          <div class="col-3">
-            <img class="img-fluid" src="{{extra.image.url}}" alt="Image of {{extra.name}}">
-          </div>
-          <div class="col-9">
-            <div class="card-body py-0">
-              <h5 class="card-title section-subheading">{{extra.name}}</h5>
-              <p class="card-text">{{ extra.description }}</p>
-              {% if request.user.is_superuser %}
-              <small class="ml-3">
-                <a class="edit-extra" href="{% url 'edit_extra' extra.id %}">Edit</a> |
-                <a class="text-danger" href="{% url 'delete_extra' extra.id %}">Delete</a>
-              </small>
+      <div class="card extra-card shadow-none">
+        <div class="card-body">
+          <div class="row g-0 text-center text-md-start">
+            <div class="col-12 d-md-none mb-3">
+              <img class="rounded-circle" src="{{ extra.image.url }}" alt="Image of {{ extra.name }}" height="150" width="150">
+            </div>
+            <div class="col-12 d-md-flex align-items-center">
+              {% if not forloop.counter|divisibleby:2 %}
+              <div class="flex-shrink-0 d-none d-md-block pe-3">
+                <img class="rounded-circle" src="{{ extra.image.url }}" alt="Image of {{ extra.name }}" height="150" width="150">
+              </div>
+              {% endif %}
+              <div class="flex-grow-1 me-3">
+                <h4 class="section-subheading">{{ extra.name }}</h4>
+                <p class="mb-2">{{ extra.description }}</p>
+                <p class="lead font-weight-bold mb-0">£{{ extra.price|floatformat:"-2" }}</p>
+                {% if request.user.is_superuser %}
+                <p class="small ml-3 mt-2 mb-0">
+                  <a href="{% url 'edit_extra' extra.id %}">Edit</a> |
+                  <a href="{% url 'delete_extra' extra.id %}">Delete</a>
+                </p>
+                {% endif %}
+              </div>
+              {% if forloop.counter|divisibleby:2 %}
+              <div class="flex-shrink-0 d-none d-md-block pe-3">
+                <img class="rounded-circle" src="{{ extra.image.url }}" alt="Image of {{ extra.name }}" height="150" width="150">
+              </div>
               {% endif %}
             </div>
           </div>
         </div>
       </div>
-      {% else %}
-      <div class="card shadow-none mb-3">
-        <div class="row g-0">
-          <div class="col-9">
-            <div class="card-body py-0">
-              <h5 class="card-title section-subheading">{{extra.name}}</h5>
-              <p class="card-text">{{ extra.description }}</p>
-              {% if request.user.is_superuser %}
-              <small class="ml-3">
-                <a class="edit-extra" href="{% url 'edit_extra' extra.id %}">Edit</a> |
-                <a class="text-danger" href="{% url 'delete_extra' extra.id %}">Delete</a>
-              </small>
-              {% endif %}
-            </div>
-          </div>
-          <div class="col-3">
-            <img class="img-fluid" src="{{extra.image.url}}" alt="Image of {{extra.name}}">
-          </div>
-        </div>
-      </div>
+      {% if forloop.counter != extras|length %}
+      <hr>
       {% endif %}
       {% endfor %}
     </div>
