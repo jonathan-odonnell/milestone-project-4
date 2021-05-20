@@ -105,7 +105,6 @@
                             <li><a class="dropdown-item" href="{% url 'categories' 'city-breaks' %}">City Breaks</a>
                             </li>
                             <li><a class="dropdown-item" href="{% url 'categories' 'resort' %}">Resort</a></li>
-                            <li><a class="dropdown-item" href="{% url 'categories' 'villas' %}">Villas</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown border-bottom">
@@ -173,15 +172,22 @@
                                 <li><a href="{% url 'categories' 'activity' %}">Activity</a></li>
                                 <li><a href="{% url 'categories' 'city-breaks' %}">City Breaks</a></li>
                                 <li><a href="{% url 'categories' 'resort' %}">Resort</a></li>
-                                <li><a href="{% url 'categories' 'villas' %}">Villas</a></li>
+                                {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'categories' 'offers' %}">Offers</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <!-- Links col 2 -->
                         <div class="col-6 col-md-3 col-lg-4 footer-2 mb-4 mb-md-3">
                             <ul class="list-unstyled mb-0">
+                                {% if not request.user.is_authenticated %}
                                 <li><a href="{% url 'categories' 'offers' %}">Offers</a></li>
+                                {% endif %}
                                 <li><a href="{% url 'extras' %}">Extras</a></li>
+                                {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'profile' %}">Profile</a></li>
                                 <li><a href="{% url 'bookings' %}">Manage Bookings</a></li>
+                                {% endif %}
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
                             </ul>
                         </div>
