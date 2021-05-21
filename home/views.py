@@ -1,6 +1,5 @@
 from django.shortcuts import render, HttpResponse
 from django.views.decorators.http import require_POST
-from django.db.models import Count
 from .models import NewsletterSignUp
 from holidays.models import Package
 from django.conf import settings
@@ -10,20 +9,21 @@ from django.conf import settings
 
 def index(request):
     """A view to retun the index page"""
-    holidays = []
-    offers = []
+    holidays = [
+        settings.POPULAR_DESTINATION_1,
+        settings.POPULAR_DESTINATION_2,
+        settings.POPULAR_DESTINATION_3, 
+        settings.POPULAR_DESTINATION_4,
+        settings.POPULAR_DESTINATION_5,
+        settings.POPULAR_DESTINATION_6,
+    ]
+    offers = [
+        settings.OFFER_DESTINATION_1,
+        settings.OFFER_DESTINATION_2,
+        settings.OFFER_DESTINATION_3,
+    ]
 
-    # https://stackoverflow.com/questions/9437726/how-to-get-the-value-of-a-variable-given-its-name-in-a-string
-    for i in range(1, 7):
-        name = f'settings.POPULAR_DESTINATION_{i}'
-        holidays.append(eval(name))
-
-    for i in range(1, 4):
-        name = f'settings.OFFER_DESTINATION_{i}'
-        offers.append(eval(name))
-
-    holidays = Package.objects.filter(
-        name__in=holidays).annotate(num_reviews=Count('reviews'))
+    holidays = Package.objects.filter(name__in=holidays)
     offers = Package.objects.filter(name__in=offers)
 
     template = 'home/index.html'
