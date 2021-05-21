@@ -1,5 +1,5 @@
-<div class="col-12 table-responsive mb-4">
-    <table class="table caption-top table-hover align-middle">
+<div class="col-12 table-responsive">
+    <table class="table caption-top table-hover align-middle mb-4">
         <thead class="table-info">
             <tr>
                 <th scope="col">Flight Number</th>
@@ -28,7 +28,7 @@
 {% if flights.paginator.num_pages > 1 %}
 <div class="col-12">
     <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
+        <ul class="pagination justify-content-center mb-0">
             <li class="page-item{% if not flights.has_previous %} disabled{% endif %}">
                 <a class="page-link" href="javascript:void(0)" data-page="1" aria-label="First">
                     <span aria-hidden="true">&laquo;</span>
