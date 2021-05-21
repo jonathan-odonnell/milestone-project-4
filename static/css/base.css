@@ -328,6 +328,10 @@ strong {
 
 /* Form Start */
 
+.form-label {
+    text-transform: capitalize;
+}
+
 .form-control::placeholder {
     color: #a9a9a9;
   }
@@ -614,6 +618,10 @@ label .asteriskField {
     left: 0;
     overflow-y: scroll;
     z-index: 3;
+}
+
+.input-group-text {
+   background-color: #e9ecef;
 }
 
 .flight-line {

@@ -13,4 +13,12 @@ class FlightForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
+
+        directions = [
+            ('', ''),
+            ('Outbound', 'Outbound'),
+            ('Return', 'Return'),
+        ]
+
         self.fields['flight_number'].widget.attrs['autofocus'] = True
+        self.fields['direction'].choices = directions

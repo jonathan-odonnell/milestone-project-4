@@ -3,21 +3,29 @@
 
 {% block content %}
 <div class="container-fluid p-4">
-    <div class="row no-gutters">
+    <div class="row">
         <div class="col-12 text-center">
             <h2 class="section-heading mb-3">Add Flight</h2>
         </div>
-        <div class="col-12 col-lg-8 mx-auto">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
             <form action="{% url 'add_flight' %}" method="POST">
                 {% csrf_token %}
                 {% for field in form %}
                     {{ field | as_crispy_field }}
                 {% endfor %}
-                <div class="my-3 text-center">
-                    <button class="btn btn-primary mt-3" type="submit">Add Flight</button>
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" type="submit">Add Flight</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+<script>
+     $(document).ready(function() {
+         $('#div_id_baggage .mb-3').addClass('input-group').append('<span class="input-group-text">KG</span>')
+     })
+</script>
 {% endblock %}
