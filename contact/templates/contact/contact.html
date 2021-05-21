@@ -16,7 +16,7 @@
 </div>
 <div class="container py-4">
     <div class="row g-0">
-        <div class="col-12 col-lg-4 p-4 order-lg-1">
+        <div class="col-12 col-lg-4 pb-3 pb-lg-0 px-4 order-lg-1">
             <div class="contact-info-item mb-3">
                 <div class="key">
                     <i class="fas fa-map-marker-alt"></i>
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-8 p-4 order-lg-0">
+        <div class="col-12 col-lg-8 pt-3 pt-lg-0 px-4 order-lg-0">
             <h2 class="mb-4"><strong>Get In Touch</strong></h2>
             <form>
                 {% csrf_token %}
@@ -79,7 +79,9 @@
                         {{ form.message | as_crispy_field }}
                     </div>
                 </div>
-                <button class="btn btn-info">Send Message</button>
+                <div class="text-center">
+                    <button class="btn btn-primary">Send Message</button>
+                </div>
             </form>
         </div>
     </div>

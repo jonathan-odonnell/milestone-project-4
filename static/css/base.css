@@ -660,12 +660,11 @@ label .asteriskField {
     padding-top: 5px;
     vertical-align: top;
     display: inline-block;
-    width: 20%;
+    width: 70px;
 }
 
 .contact-info-item .value {
     display: inline-block;
-    width: 70%;
 }
 
 .contact-info-item i, .contact-info-item h4 {
@@ -673,7 +672,7 @@ label .asteriskField {
 }
 
 .contact-info-item i {
-    background-color: #49c5b6;
+    background-color: #70c8df;
     color: #fff;
     height: 40px;
     width: 40px;
