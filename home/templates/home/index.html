@@ -22,7 +22,7 @@
                             <div class="jumbotron jumbotron-fluid text-center">
                                 <div class="container">
                                     <h1 class="display-1 text-white">{{offer.name}}</h1>
-                                    <h3 class="text-white">{{offer.duration}} days from £{{ offer.price|floatformat:"-2" }}
+                                    <h3 class="text-white">{{offer.duration}} nights from £{{ offer.price|floatformat:"-2" }}
                                         per person</h3>
                                     <a href="{% url 'category_details' 'offers' offer.slug %}"
                                         class="btn btn-hero btn-lg">Explore Now</a>
@@ -58,12 +58,11 @@
                                 <p class="small mb-1">{{holiday.country}}</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="d-block card-text small mb-2">
-                                        <span class="rating">{{holiday.rating}}</span> ({{ holiday.num_reviews }}
-                                        reviews)
+                                        <span class="rating">{{holiday.rating}}</span>
                                     </p>
                                     <p class="d-block card-text small mb-2"><i
                                             class="far fa-clock pe-1"></i>{{holiday.duration}}
-                                        days</p>
+                                        nights</p>
                                 </div>
                             </div>
                         </div>
@@ -119,8 +118,8 @@
             autoplay: true,
             autoplaySpeed: 5000,
             dots: true,
-            prevArrow: '<button type="button" class="btn shadow-0 slick-prev"><i class="fas fa-chevron-left"></i></button>',
-            nextArrow: '<button type="button" class="btn shadow-0 slick-next"><i class="fas fa-chevron-right"></i></button>',
+            prevArrow: '<button type="button" class="btn shadow-0 slick-prev d-none d-md-block"><i class="fas fa-chevron-left"></i></button>',
+            nextArrow: '<button type="button" class="btn shadow-0 slick-next d-none d-md-block"><i class="fas fa-chevron-right"></i></button>',
         })
         $('#popular-destinations').slick({
             infinite: true,
