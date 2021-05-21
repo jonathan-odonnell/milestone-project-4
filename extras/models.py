@@ -11,6 +11,10 @@ def slugify(content):
 
 
 class Extra(models.Model):
+
+    class Meta:
+        ordering = ('id',)
+
     name = models.CharField(max_length=254)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
