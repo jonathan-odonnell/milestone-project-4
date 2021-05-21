@@ -11,7 +11,13 @@ def contact(request):
             form.save()
             return HttpResponse(200)
 
-    form = ContactForm()
+    else:
+        if request.user.is_authenticated:
+            form = ContactForm(initial={
+                'name': request.user.get_full_name(),
+                'email': request.user.email})
+        else:
+            form = ContactForm()
     template = 'contact/contact.html'
     context = {
         'form': form,
