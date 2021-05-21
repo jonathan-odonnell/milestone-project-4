@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
+<!--Datepicker stylesheet and script are from https://gijgo.com/datepicker/-->
+
+{% block extra_css %}
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+{% endblock %}
+
 {% block content %}
 <div class="container-fluid p-4">
     <div class="row no-gutters">
@@ -23,9 +33,5 @@
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
-<script>
-     $(document).ready(function() {
-         $('#div_id_baggage .mb-3').addClass('input-group').append('<span class="input-group-text">KG</span>')
-     })
-</script>
+<script src="{% static 'js/flights.js' %}"></script>
 {% endblock %}
