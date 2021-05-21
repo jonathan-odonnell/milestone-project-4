@@ -1,10 +1,10 @@
 from django.db import models
 
 
-class Contact(models.Model):
+class CustomerContact(models.Model):
 
     SUBJECTS = [
-            ('', 'Subject *'),
+            ('', 'Subject'),
             ('Holiday Information', 'Holiday Information'),
             ('Offers', 'Offers'),
             ('Bookings', 'Bookings'),
@@ -12,7 +12,7 @@ class Contact(models.Model):
             ('Other', 'Other')
         ]
 
-    name = models.CharField(max_length=254)
+    full_name = models.CharField(max_length=254)
     email = models.EmailField(max_length=254)
     date = models.DateTimeField(auto_now_add=True)
     subject = models.CharField(max_length=254, choices=SUBJECTS)

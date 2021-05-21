@@ -1,12 +1,13 @@
 from django.contrib import admin
-from .models import Contact
+from .models import CustomerContact
 
-class ContactAdmin(admin.ModelAdmin):
+class CustomerContactAdmin(admin.ModelAdmin):
 
-    list_display = ('subject', 'name', 'date',)
+    list_display = ('subject', 'full_name', 'date',)
     readonly_fields = ('date',)
-    fields = ('name', 'email', 'date', 'subject', 'message',)
+    fields = ('full_name', 'email', 'date', 'subject', 'message',)
+    ordering = ('-date',)
     list_per_page = 20
 
 
-admin.site.register(Contact, ContactAdmin)
+admin.site.register(CustomerContact, CustomerContactAdmin)
