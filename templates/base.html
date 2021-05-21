@@ -194,12 +194,13 @@
                         <!-- Newsletter sign up -->
                         <div class="col-12 col-md-6 col-lg-4">
                             <h5 class="footer-headings mb-3">Sign up for our Newsletter!</h5>
+                            <!--- Code for pattern attribute is from https://www.w3schools.com/tags/att_input_pattern.asp-->
                             <form id="newsletter" class="form-group newsletter-signup mb-4">
                                 {% csrf_token %}
                                 <div class="input-group">
                                     <input type="email" class="form-control border-0" name="newsletter"
                                         placeholder="Enter your email address" aria-label="Enter your email address"
-                                        aria-describedby="button-addon">
+                                        aria-describedby="button-addon" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-newsletter shadow-none"><i
                                                 class="fas fa-arrow-right fa-lg"></i></button>
