@@ -1,12 +1,12 @@
 from django import forms
 from holidays.widgets import CustomClearableFileInput
-from .models import Contact
+from .models import CustomerContact
 from crispy_forms.helper import FormHelper
 
 
 class ContactForm(forms.ModelForm):
     class Meta:
-        model = Contact
+        model = CustomerContact
         exclude = ('date',)
 
     def __init__(self, *args, **kwargs):
@@ -16,13 +16,23 @@ class ContactForm(forms.ModelForm):
         self.helper.label_class = 'form-label'
 
         placeholders = {
-            'name': 'Full Name',
+            'full_name': 'Full Name',
             'email': 'Email Address',
             'subject': 'Subject',
             'message': 'Message',
         }
 
-        self.fields['name'].widget.attrs['autofocus'] = True
+        subjects = [
+            ('', 'Subject *'),
+            ('Holiday Information', 'Holiday Information'),
+            ('Offers', 'Offers'),
+            ('Bookings', 'Bookings'),
+            ('General Enquiries', 'General Enquiries'),
+            ('Other', 'Other')
+        ]
+
+        self.fields['full_name'].widget.attrs['autofocus'] = True
+        self.fields['subject'].choices = subjects
         self.fields['message'].widget.attrs['rows'] = 6
         self.fields['subject'].widget.attrs['class'] = 'form-select'
 
