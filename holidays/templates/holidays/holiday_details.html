@@ -80,15 +80,9 @@
                         <div class="col-12 col-sm-6">
                             <ul class="list-group holiday-features">
                                 {% for feature in holiday.features.all %}
-                                {% if forloop.counter == holiday.features.all|length %}
-                                <li class="list-group-item p-0 border-0">
+                                <li class="list-group-item p-0 {% if not forloop.counter == holiday.features.all|length %}mb-3{% endif %} border-0">
                                     <i class="fas fa-check"></i>{{ feature }}
                                 </li>
-                                {% else %}
-                                <li class="list-group-item p-0 mb-3 border-0">
-                                    <i class="fas fa-check"></i>{{ feature }}
-                                </li>
-                                {% endif %}
                                 {% endfor %}
                             </ul>
                         </div>
