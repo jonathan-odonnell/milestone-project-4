@@ -257,4 +257,4 @@ def delete_holiday(request, package):
     holiday = get_object_or_404(Package, slug=package)
     holiday.delete()
     messages.success(request, 'Holiday deleted!')
-    return redirect(reverse('destinations'))
+    return redirect(reverse('home'))
