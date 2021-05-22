@@ -141,7 +141,7 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="departure_date" class="form-label">Departure Date</label>
-                        <input type="text" class="form-control" id="departure_date" name="departure_date" required readonly>
+                        <input type="text" class="form-control" id="departure_date" name="departure_date" required>
                     </div>
                     <div id="departure-airport-container" class="position-relative mb-3">
                         <label for="departure_airport" class="form-label">Departure Airport</label>
@@ -188,6 +188,10 @@
             airports = data.airports
         })
     })
+
+    $("#departure_date").keydown(function(e){
+        e.preventDefault();
+    });
 
     $('#airports-list').on('mousedown', 'li', function() {
         $('#departure_airport').val($(this).text())
