@@ -4,11 +4,13 @@
 <!--Datepicker stylesheet and script are from https://gijgo.com/datepicker/-->
 
 {% block extra_css %}
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 {% endblock %}
 
 {% block extra_js %}
-    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -94,8 +96,10 @@
                             <p class="mb-0">{{ holiday.description }}</p>
                             {% if request.user.is_superuser %}
                             <p class="mt-3">
-                                <a class="text-primary small pe-2" href="{% url 'edit_holiday' holiday.slug %}"><i class="fas fa-edit"></i></a> | 
-                                <a class="text-secondary small ps-2" href="{% url 'delete_holiday' holiday.slug %}"><i class="fas fa-trash"></i></a>
+                                <a class="text-primary small pe-2" href="{% url 'edit_holiday' holiday.slug %}"><i
+                                        class="fas fa-edit"></i></a> |
+                                <a class="text-secondary small ps-2" href="{% url 'delete_holiday' holiday.slug %}"><i
+                                        class="fas fa-trash"></i></a>
                             </p>
                             {% endif %}
                         </div>
@@ -109,7 +113,7 @@
                             <h5 class="card-title"><strong>{{ itinerary.day }} - {{ itinerary.name }}</strong></h5>
                             <p class="card-text">{{ itinerary.description }}</p>
                         </div>
-                        </div>
+                    </div>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -117,7 +121,8 @@
                 <div class="tab-pane fade pt-4" id="activities" role="tabpanel" aria-labelledby="activities-tab">
                     {% for activity in holiday.activities.all %}
                     <h5><strong>{{ activity.name }}</strong></h5>
-                    <p class="{% if forloop.counter == holiday.activities.all|length %}mb-0{% else%}mb-3{%endif %}">{{ activity.description }}</p>
+                    <p class="{% if forloop.counter == holiday.activities.all|length %}mb-0{% else%}mb-3{%endif %}">{{
+                        activity.description }}</p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -151,7 +156,8 @@
                     </div>
                     <div id="departure-airport-container" class="position-relative mb-3">
                         <label for="departure_airport" class="form-label">Departure Airport</label>
-                        <input type="text" class="form-control" id="departure_airport" name="departure_airport" required autocomplete="off">
+                        <input type="text" class="form-control" id="departure_airport" name="departure_airport" required
+                            autocomplete="off">
                         <div id="airports-list" class="position-absolute shadow w-100 d-none"></div>
                     </div>
                     <label for="guests" class="form-label">Guests</label>
@@ -173,11 +179,46 @@
 </div>
 <div class="bg-light">
     <div class="container p-4">
-    <div class="row no-gutters">
-        <div class="col-12">
-            <h2 class="text-uppercase section-heading booking-form">related holidays</h2>
+        <div class="row g-0">
+            <div class="col-12 col-md-8 col-xl-12">
+                <h2 class="text-uppercase section-heading">related holidays</h2>
+            </div>
+            <div class="col-12 col-md-4 d-xl-none">
+                <div id="arrows" class="col-12 text-md-end">
+                </div>
+            </div>
         </div>
-        {% include 'holidays/includes/holiday_cards.html' %}
+        <div id="related-holidays" class="row g-0 my-3">
+            {% for holiday in holidays %}
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="card destination-card">
+                    <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                    <span class="badge bg-danger">£{{holiday.price|floatformat:"-2"}}</span>
+                    <div class="card-body">
+                        {% if category == 'offers' %}
+                        <a href="{% url 'category_details' 'offers' holiday.slug %}">
+                        {% elif category %}
+                        <a href="{% url 'category_details' category.slug holiday.slug %}">
+                        {% else %}
+                        <a href="{% url 'destination_details' destination.slug holiday.slug %}">
+                        {% endif %}
+                            <h5 class="card-title mb-1">{{holiday.name}}</h5>
+                        </a>
+                        <p class="small mb-1">{{holiday.country}}</p>
+                        <div class="d-flex justify-content-between">
+                            <p class="small mb-0">
+                                <span class="rating">{{holiday.rating}}</span>
+                            </p>
+                            <p class="small mb-0">
+                                <i class="far fa-clock"></i>
+                                <span>{{holiday.duration}} Nights</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}

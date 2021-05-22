@@ -6,6 +6,36 @@ $(document).ready(function () {
     $.get('{% url "airports" holiday.id %}').done(function (data) {
         airports = data.airports
     })
+    $('#related-holidays').slick({
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 998,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                }
+            }],
+        appendArrows: '#arrows',
+        prevArrow: '<button type="button" class="btn shadow-0 ps-0"><i class="fas fa-arrow-left fa-2x"></i></button>',
+        nextArrow: '<button type="button" class="btn shadow-0"><i class="fas fa-arrow-right fa-2x"></i></button>',
+    });
 })
 
 $("#departure_date").keydown(function (e) {

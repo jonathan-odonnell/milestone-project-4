@@ -236,6 +236,14 @@ strong {
     z-index: 2;
 }
 
+.slick-slider .slick-slide {
+    margin-left: 1.5rem;
+}
+
+.slick-slider .slick-list {
+    margin-left: -1.5rem;
+}
+
 .slick-dots {
     position: absolute;
     bottom: 10px;
