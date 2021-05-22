@@ -121,8 +121,8 @@
                 <div class="tab-pane fade pt-4" id="activities" role="tabpanel" aria-labelledby="activities-tab">
                     {% for activity in holiday.activities.all %}
                     <h5><strong>{{ activity.name }}</strong></h5>
-                    <p class="{% if forloop.counter == holiday.activities.all|length %}mb-0{% else%}mb-3{%endif %}">{{
-                        activity.description }}</p>
+                    <p class="{% if forloop.counter == holiday.activities.all|length %}mb-0{% else%}mb-3{%endif %}">
+                        {{ activity.description }}</p>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -197,23 +197,23 @@
                     <div class="card-body">
                         {% if category == 'offers' %}
                         <a href="{% url 'category_details' 'offers' holiday.slug %}">
-                        {% elif category %}
-                        <a href="{% url 'category_details' category.slug holiday.slug %}">
-                        {% else %}
-                        <a href="{% url 'destination_details' destination.slug holiday.slug %}">
-                        {% endif %}
-                            <h5 class="card-title mb-1">{{holiday.name}}</h5>
-                        </a>
-                        <p class="small mb-1">{{holiday.country}}</p>
-                        <div class="d-flex justify-content-between">
-                            <p class="small mb-0">
-                                <span class="rating">{{holiday.rating}}</span>
-                            </p>
-                            <p class="small mb-0">
-                                <i class="far fa-clock"></i>
-                                <span>{{holiday.duration}} Nights</span>
-                            </p>
-                        </div>
+                            {% elif category %}
+                            <a href="{% url 'category_details' category.slug holiday.slug %}">
+                                {% else %}
+                                <a href="{% url 'destination_details' destination.slug holiday.slug %}">
+                                    {% endif %}
+                                    <h5 class="card-title mb-1">{{holiday.name}}</h5>
+                                </a>
+                                <p class="small mb-1">{{holiday.country}}</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="small mb-0">
+                                        <span class="rating">{{holiday.rating}}</span>
+                                    </p>
+                                    <p class="small mb-0">
+                                        <i class="far fa-clock"></i>
+                                        <span>{{holiday.duration}} Nights</span>
+                                    </p>
+                                </div>
                     </div>
                 </div>
             </div>
@@ -225,5 +225,13 @@
 {% block postloadjs %}
 {{ block.super }}
 <script src="{% static 'js/ratings.js' %}"></script>
+<script>
+    let airports
+    $(document).ready(function () {
+        $.get('{% url "airports" holiday.id %}').done(function (data) {
+            airports = data.airports
+        })
+    })
+</script>
 <script src="{% static 'js/holiday_details.js' %}"></script>
 {% endblock %}

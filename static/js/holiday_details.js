@@ -1,11 +1,7 @@
-let airports
 let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
 $(document).ready(function () {
     $('#departure_date').removeClass('gj-textbox-md')
-    $.get('{% url "airports" holiday.id %}').done(function (data) {
-        airports = data.airports
-    })
     $('#related-holidays').slick({
         infinite: true,
         slidesToShow: 4,
