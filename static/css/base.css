@@ -73,12 +73,12 @@ strong {
     color: #006994;
 }
 
-.text-blue {
-    color: #006994;
+.text-primary {
+    color: #70c8df !important;
 }
 
-.text-pink {
-    color: #d13574;
+.text-secondary {
+    color: #d13574 !important;
 }
 
 .text-black {

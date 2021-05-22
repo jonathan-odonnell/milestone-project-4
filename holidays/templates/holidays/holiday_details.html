@@ -92,6 +92,12 @@
                         </div>
                         <div class="col-12 mt-4">
                             <p class="mb-0">{{ holiday.description }}</p>
+                            {% if request.user.is_superuser %}
+                            <p class="mt-3">
+                                <a class="text-primary small pe-2" href="{% url 'edit_holiday' holiday.slug %}"><i class="fas fa-edit"></i></a> | 
+                                <a class="text-secondary small ps-2" href="{% url 'delete_holiday' holiday.slug %}"><i class="fas fa-trash"></i></a>
+                            </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
