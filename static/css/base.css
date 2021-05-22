@@ -510,6 +510,8 @@ input[type="number"]::-webkit-inner-spin-button {
     color: #4f4f4f;
 }
 
+/* Itinerery Start */
+
 .itinerary-item:after {
     content: '';
     display: block;
@@ -517,7 +519,7 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 2px;
     background-color: #70c8df;
     top: 0;
-    left: 0;
+    left: 15px;
     height: 100%;
 }
 
@@ -532,16 +534,20 @@ input[type="number"]::-webkit-inner-spin-button {
 .itinerary-item:before {
     height: 30px;
     width: 30px;
-    margin-top: 15px;
+    margin-left: 15px;
     display: block;
     position: absolute;
     left: -14px;
+    top: -3px;
     border: 2px solid #70c8df;
     border-radius: 50%;
     content: '';
     background-color: #fff;
     z-index: 1;
 }
+
+
+/* Itinerery End */
 
 .guests button {
     width: 30%;

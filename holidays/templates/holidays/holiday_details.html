@@ -106,10 +106,10 @@
                     </div>
                 </div>
                 {% if holiday.itineraries.all %}
-                <div class="tab-pane fade py-4" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
+                <div class="tab-pane fade pt-4" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
                     {% for itinerary in holiday.itineraries.all %}
                     <div class="card itinerary-item shadow-none">
-                        <div class="card-body ps-5">
+                        <div class="card-body ps-5 py-0{% if not forloop.counter == holiday.itineraries.all|length %} mb-3 {% endif %}">
                             <h5 class="card-title"><strong>{{ itinerary.day }} - {{ itinerary.name }}</strong></h5>
                             <p class="card-text">{{ itinerary.description }}</p>
                         </div>
