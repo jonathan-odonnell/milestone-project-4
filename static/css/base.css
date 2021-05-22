@@ -65,7 +65,7 @@ strong {
 }
 
 .border-primary {
-    border-color: #006994 !important;
+    border-color: #70c8df !important;
 }
 
 .section-heading {
@@ -334,7 +334,11 @@ strong {
 
 .form-control::placeholder {
     color: #a9a9a9;
-  }
+}
+
+.form-control:read-only {
+    background-color: inherit;
+}
 
 .form-control {
     border-color: #d3d3d3;
@@ -535,8 +539,8 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 30%;
 }
 
-.plus, .minus, #plus, #minus {
-    background-color: #c8c8c8;
+.plus, .minus {
+    background-color: #c8c8c8 !important;
 }
 
 .table th {
@@ -612,12 +616,13 @@ label .asteriskField {
 }
 
 #airports-list {
-    height: 150px;
-    background-color: #fff;
-    top: 75px;
-    left: 0;
+    max-height: 150px;
     overflow-y: scroll;
     z-index: 3;
+}
+
+#airports-list li:hover {
+    background-color: #e9ecef;
 }
 
 .input-group-text {
