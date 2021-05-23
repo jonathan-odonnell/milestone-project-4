@@ -29,15 +29,15 @@
 <div class="container p-4">
     <div class="row no-gutters">
         <div class="col-12 col-lg-8 col-xl-9">
-            <ul class="nav nav-tabs border-bottom" id="myTab" role="tablist">
+            <ul class="nav nav-tabs border-bottom d-none d-sm-flex" role="tablist">
                 <li class="nav-item m-0 py-0 ps-0" role="presentation">
                     <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#overview" role="tab"
                         aria-controls="overview" aria-selected="true">Overview</a>
                 </li>
                 {% if holiday.itineraries.all %}
                 <li class="nav-item py-0" role="presentation">
-                    <a class="nav-link" id="itinerary-tab" data-bs-toggle="tab" href="#itinerary" role="tab"
-                        aria-controls="itinerary" aria-selected="false">Itinerary</a>
+                    <a class="nav-link" id="itineraries-tab" data-bs-toggle="tab" href="#itineraries" role="tab"
+                        aria-controls="itineraries" aria-selected="false">Itinerary</a>
                 </li>
                 {% endif %}
                 {% if holiday.activities.all %}
@@ -53,7 +53,28 @@
                 </li>
                 {% endif %}
             </ul>
-            <div class="tab-content" id="myTabContent">
+            <div class="border-bottom pb-4 d-sm-none" role="presentation">
+                <div class="row g-0">
+                    <div class="dropdown col-10 mx-auto">
+                        <button class="btn btn-secondary w-100 dropdown-toggle" type="button" id="tabs-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            overview
+                        </button>
+                        <ul class="dropdown-menu text-center w-100" aria-labelledby="tabs-dropdown">
+                            <li><button class="dropdown-item text-capitalize" type="button">overview</button></li>
+                            {% if holiday.itineraries.all %}
+                            <li><button class="dropdown-item text-capitalize" type="button">itineraries</button></li>
+                            {% endif %}
+                            {% if holiday.activities.all %}
+                            <li><button class="dropdown-item text-capitalize" type="button">activities</button></li>
+                            {% endif %}
+                            {% if holiday.reviews.all %}
+                            <li><button class="dropdown-item text-capitalize" type="button">reviews</button></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
                 <div class="tab-pane fade show active pt-4" id="overview" role="tabpanel"
                     aria-labelledby="overview-tab">
                     <div class="row g-0">
@@ -100,7 +121,7 @@
                     </div>
                 </div>
                 {% if holiday.itineraries.all %}
-                <div class="tab-pane fade pt-4" id="itinerary" role="tabpanel" aria-labelledby="itinerary-tab">
+                <div class="tab-pane fade pt-4" id="itineraries" role="tabpanel" aria-labelledby="itineraries-tab">
                     {% for itinerary in holiday.itineraries.all %}
                     <div class="card itinerary-item shadow-none">
                         <div class="card-body ps-5 py-0{% if not forloop.counter == holiday.itineraries.all|length %} mb-3 {% endif %}">

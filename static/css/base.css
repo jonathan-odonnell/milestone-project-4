@@ -47,8 +47,8 @@ strong {
     background-color: #70c8df !important;
 }
 
-.btn-secondary, .btn-secondary:hover {
-    background-color: #d13574;
+.btn-secondary {
+    background-color: #d13574 !important;
 }
 
 .btn-info, .btn-info:hover {

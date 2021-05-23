@@ -34,6 +34,13 @@ $(document).ready(function () {
     });
 })
 
+$('#tabs-dropdown').next().find('button').click(function() {
+    let tab = $(this).html()
+    $('.tab-content .tab-pane').removeClass('show active')
+    $(`#${tab}`).addClass('show active')
+    $('#tabs-dropdown').html(`${tab}`)
+})
+
 $("#departure_date").keydown(function (e) {
     e.preventDefault();
 });
