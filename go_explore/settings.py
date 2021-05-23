@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     # Other
     'crispy_forms',
     'storages',
+    'timezone_field'
 ]
 
 MIDDLEWARE = [
@@ -164,7 +165,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-gb'
 
-TIME_ZONE = 'GMT'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
