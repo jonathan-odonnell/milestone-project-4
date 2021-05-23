@@ -2,6 +2,7 @@ let today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date()
 $(document).ready(function () {
     $('#div_id_departure_time input').removeClass('gj-textbox-md')
     $('#div_id_arrival_time input').removeClass('gj-textbox-md')
+    $('#id_destination_time_zone').prepend('<option value="" selected></option>')
 })
 $('#id_departure_time').datetimepicker({
     footer: true,
