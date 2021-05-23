@@ -86,7 +86,7 @@ class ReviewForm(forms.ModelForm):
 
 
 FeatureFormset = inlineformset_factory(
-    Package, Feature, form=FeatureForm, extra=1)
+    Package, Feature, form=FeatureForm, extra=5, max_num=5)
 
 ActivityFormset = inlineformset_factory(
     Package, Activity, form=ActivityForm, extra=1)

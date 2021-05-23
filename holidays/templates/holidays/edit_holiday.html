@@ -5,9 +5,9 @@
 <div class="container-fluid p-4">
     <div class="row no-gutters">
         <div class="col-12 text-center">
-            <h2 class="section-heading mb-3">Edit Holiday</h2>
+            <h1 class="section-heading mb-4">Edit Holiday</h1>
         </div>
-        <div class="col-12 col-lg-8 mx-auto mb-3">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
             <form action="{% url 'edit_holiday' holiday.slug %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <fieldset id="package">
@@ -25,7 +25,7 @@
                     </div>
                     {% for form in feature_formset %}
                     <div class="feature">
-                        <legend>Feature {{ forloop.counter }}</legend>
+                        <legend class="section-subheading">Feature {{ forloop.counter }}</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
                         {% endfor %}
@@ -40,7 +40,7 @@
                     </div>
                     {% for form in activity_formset %}
                     <div class="activity">
-                        <legend>Activity {{ forloop.counter }}</legend>
+                        <legend class="section-subheading text-grey">Activity {{ forloop.counter }}</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
                         {% endfor %}
@@ -56,7 +56,7 @@
                     </div>
                     {% for form in itinerary_formset %}
                     <div class="itinerary">
-                        <legend>Itinerary {{ forloop.counter }}</legend>
+                        <legend class="section-subheading">Itinerary {{ forloop.counter }}</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
                         {% endfor %}
@@ -70,10 +70,10 @@
                 {% if request.META.HTTP_REFERER %}
                 <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}
-                <div class="my-3 text-center">
-                    <button id="back" class="btn btn-primary mx-2 d-none" type="button">Back</button>
-                    <button id="next" class="btn btn-primary mx-2" type="button">Next</button>
-                    <button class="btn btn-primary mx-2 d-none" type="submit">Update Holiday</button>
+                <div class="text-center mt-3 mb-2">
+                    <button id="back" class="btn btn-primary btn-holidays mx-2 d-none" type="button"><i class="fas fa-chevron-left me-2"></i> Back</button>
+                    <button id="next" class="btn btn-primary btn-holidays mx-2" type="button">Next <i class="fas fa-chevron-right ms-2"></i></button>
+                    <button class="btn btn-primary btn-holidays mx-2 d-none" type="submit">Update Holiday <i class="fas fa-chevron-right ms-2"></i></button>
                 </div>
             </form>
         </div>
@@ -84,12 +84,6 @@
 <script src="{% static 'js/jquery.formset.js' %}"></script>
 <script src="{% static 'js/edit_holiday.js' %}"></script>
 <script type="text/javascript">
-     $('.feature').formset({
-        addText: '<i class="fas fa-plus pe-2"></i>add another',
-        prefix: '{{ feature_formset.prefix }}',
-        formCssClass: 'feature',
-        added: addedFeature,
-    });
     $('.activity').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ activity_formset.prefix }}',

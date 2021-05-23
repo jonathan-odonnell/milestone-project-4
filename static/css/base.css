@@ -64,6 +64,10 @@ strong {
     background: #c8c8c8;
 }
 
+.btn-holidays {
+    width: 160px;
+}
+
 .border-primary {
     border-color: #70c8df !important;
 }

@@ -14,16 +14,6 @@ $('#new-image').change(function () {
     $('#filename').text(`Image will be set to: ${file.name}`);
     $('#filename').addClass('mt-3');
 });
-featureCounter = $('.feature').length
-let addedFeature = function () {
-    $('fieldset .row').addClass('mb-3');
-    $(`#div_id_features-${featureCounter}-DELETE`).addClass('form-check ms-1')
-    $(`#div_id_features-${featureCounter}-DELETE`).addClass('delete-check')
-    $(`<input type="checkbox" name="features-${featureCounter}-DELETE" id="id_features-${featureCounter}-DELETE" class="form-check-input">`).insertBefore(`#div_id_features-${featureCounter}-DELETE label`)
-    $(`#div_id_features-${featureCounter}-DELETE label`).addClass('form-check-label, text-danger').show()
-    featureCounter += 1
-    $('.feature').last().find('legend').text(`Feature ${featureCounter}`)
-}
 activityCounter = $('.activity').length
 let addedActivity = function () {
     $('fieldset .row').addClass('mb-3');
