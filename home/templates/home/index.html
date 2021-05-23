@@ -37,18 +37,17 @@
     </div>
     <div class="bg-grey">
         <div class="container p-4">
-            <div class="row px-3">
-                <div class="col-12 col-md-8 pt-3 pb-4">
+            <div class="row g-0">
+                <div class="col-12 col-md-8">
                     <h1 class="text-center text-md-start section-heading text-blue">Popular Destinations</h1>
                 </div>
                 <div class="col-12 col-md-4">
                     <div id="arrows" class="col-12 text-md-end">
                     </div>
                 </div>
-                <div id="popular-destinations" class="row g-0">
+                <div id="popular-destinations" class="my-3">
                     {% for holiday in holidays %}
-                    <div class="col-12 col-md-6 col-lg-4 p-3">
-                        <div class="card destination-card">
+                        <div class="card destination-card d-flex">
                             <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                             <span class="badge bg-danger">£{{holiday.price|floatformat:"-2"}}</span>
                             <div class="card-body">
@@ -66,7 +65,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -76,7 +74,7 @@
         <div class="row features">
             <div class="col-12 col-md-6 col-lg-4 text-center pt-3">
                 <h3 class="text-black">
-                    <i class="far fa-credit-card d-block fa-lg text-pink"></i>Refund Guarantee
+                    <i class="far fa-credit-card d-block fa-lg text-secondary"></i>Refund Guarantee
                 </h3>
                 <p>
                     If we have to cancel, we guarantee a speedy and smooth refund, so you can book with confidence.
@@ -85,7 +83,7 @@
             </div>
             <div class="col-12 col-md-6 col-lg-4 text-center pt-3">
                 <h3 class="text-black">
-                    <i class="fas fa-shield-alt d-block fa-lg text-pink"></i>ATOL Protected
+                    <i class="fas fa-shield-alt d-block fa-lg text-secondary"></i>ATOL Protected
                 </h3>
                 <p>
                     Every holiday package we sell is ATOL protected, which means that you’ll never be left stranded
@@ -94,7 +92,7 @@
             </div>
             <div class="col-12 col-lg-4 d-md-none d-lg-block text-center pt-3">
                 <h3 class="text-black">
-                    <i class="far fa-smile d-block fa-lg text-pink"></i>Excellent Reviews
+                    <i class="far fa-smile d-block fa-lg text-secondary"></i>Excellent Reviews
                 </h3>
                 <p>
                     We’re really proud of our famously friendly service and we’ve got the trophies and reviews to
@@ -141,8 +139,8 @@
                     }
                 }],
             appendArrows: '#arrows',
-            prevArrow: '<button type="button" class="btn shadow-0"><i class="fas fa-arrow-left fa-2x"></i></button>',
-            nextArrow: '<button type="button" class="btn shadow-0"><i class="fas fa-arrow-right fa-2x"></i></button>',
+            prevArrow: '<button type="button" class="btn shadow-0 ps-0"><i class="fas fa-arrow-left fa-2x"></i></button>',
+            nextArrow: '<button type="button" class="btn shadow-0 pe-md-0"><i class="fas fa-arrow-right fa-2x"></i></button>',
         });
     });
 </script>
