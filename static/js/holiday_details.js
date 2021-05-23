@@ -30,7 +30,7 @@ $(document).ready(function () {
             }],
         appendArrows: '#arrows',
         prevArrow: '<button type="button" class="btn shadow-0 ps-0"><i class="fas fa-arrow-left fa-2x"></i></button>',
-        nextArrow: '<button type="button" class="btn shadow-0"><i class="fas fa-arrow-right fa-2x"></i></button>',
+        nextArrow: '<button type="button" class="btn shadow-0 pe-md-0"><i class="fas fa-arrow-right fa-2x"></i></button>',
     });
 })
 
