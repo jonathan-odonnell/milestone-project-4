@@ -47,11 +47,12 @@ $("#departure_date").keydown(function (e) {
 
 $('#airports-list').on('mousedown', 'li', function () {
     $('#departure_airport').val($(this).text())
+    $(this).addClass('d-none')
 })
 
 function validateAirport() {
     if ($('#departure_airport').val()) {
-        $('#airports-list').toggleClass('d-none')
+        $('#airports-list').addClass('d-none')
     }
     if (!airports.includes($('#departure_airport').val())) {
         $('#departure_airport').val('')
