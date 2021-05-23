@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load tz %}
 {% load booking_tools %}
 
 {% block content %}
@@ -237,13 +238,13 @@
                                     <small>{{booking.booking_package.outbound_flight.departure_time|time:'H:i'}}</small>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <small>{{booking.booking_package.outbound_flight.duration|duration}}</small>
+                                    <small>{{ outbound_flight_duration|duration }}</small>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <small>{{booking.booking_package.outbound_flight.arrival_time|time:'H:i'}}</small>
+                                    <small>{{booking.booking_package.outbound_flight.arrival_time|timezone:time_zone|time:'H:i'}}</small>
                                     <br>
-                                    {% if booking.booking_package.outbound_flight|next_day > 0 %}
-                                        <small>(+ {{booking.booking_package.outbound_flight|next_day}} day)</small>
+                                    {% if outbound_flight_duration|next_day %}
+                                        <small>{{ outbound_flight_duration|next_day }}</small>
                                     {% endif %}
                                 </div>
                             </div>
@@ -264,16 +265,16 @@
                         </div>
                         <div class="row g-0">
                             <div class="col-4">
-                                <small>{{booking.booking_package.return_flight.departure_time|time:'H:i'}}</small>
+                                <small>{{booking.booking_package.return_flight.departure_time|timezone:time_zone|time:'H:i'}}</small>
                             </div>
                             <div class="col-4 text-center">
-                                <small>{{booking.booking_package.return_flight.duration|duration}}</small>
+                                <small>{{ return_flight_duration|duration }}</small>
                             </div>
                             <div class="col-4 text-end">
                                 <small>{{booking.booking_package.return_flight.arrival_time|time:'H:i'}}</small>
                                 <br>
-                                {% if booking.booking_package.return_flight|next_day > 0 %}
-                                    <small>(+ {{booking.booking_package.return_flight|next_day}} day)</small>
+                                {% if return_flight_duration|next_day %}
+                                    <small>{{ return_flight_duration|next_day }}</small>
                                 {% endif %}
                             </div>
                         </div>
