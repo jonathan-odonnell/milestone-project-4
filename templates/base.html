@@ -120,7 +120,7 @@
                         </ul>
                     </li>
                     <li class=" nav-item border-bottom">
-                        <a class="nav-link" href="{% url 'categories' 'offers' %}">Offers</a>
+                        <a class="nav-link" href="{% url 'offers' %}">Offers</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'extras' %}">Extras</a>
@@ -181,7 +181,7 @@
                         <div class="col-6 col-md-3 col-lg-4 footer-2 mb-4 mb-md-3">
                             <ul class="list-unstyled mb-0">
                                 {% if not request.user.is_authenticated %}
-                                <li><a href="{% url 'categories' 'offers' %}">Offers</a></li>
+                                <li><a href="{% url 'offers' %}">Offers</a></li>
                                 {% endif %}
                                 <li><a href="{% url 'extras' %}">Extras</a></li>
                                 {% if request.user.is_authenticated %}
