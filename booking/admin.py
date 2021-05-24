@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import Booking, BookingPackage, BookingExtra, BookingPassenger, Coupon
-
-
-class BookingPackageAdminInline(admin.StackedInline):
-    model = BookingPackage
-    readonly_fields = ('total',)
+from .models import Booking, BookingExtra, BookingPassenger, Coupon
 
 
 class BookingExtraAdminInline(admin.TabularInline):
@@ -17,7 +12,7 @@ class BookingPassengerAdminInline(admin.TabularInline):
 
 
 class BookingAdmin(admin.ModelAdmin):
-    inlines = (BookingPackageAdminInline, BookingExtraAdminInline, BookingPassengerAdminInline)
+    inlines = (BookingExtraAdminInline, BookingPassengerAdminInline)
 
     readonly_fields = ('booking_number', 'date', 'coupon', 'subtotal',
                        'extras_total', 'discount', 'grand_total', 'paid',
@@ -26,8 +21,10 @@ class BookingAdmin(admin.ModelAdmin):
     fields = ('booking_number', 'user_profile', 'date', 
               'full_name', 'email', 'phone_number',
               'street_address1', 'street_address2',
-              'town_or_city',  'country', 'postcode', 
-              'county', 'coupon', 'subtotal', 'discount', 
+              'town_or_city',  'county', 'postcode', 
+              'country', 'guests', 'departure_date', 
+              'return_date', 'package', 'outbound_flight', 
+              'return_flight', 'subtotal', 'coupon', 'discount', 
               'extras_total', 'grand_total', 'paid', 'stripe_pid',
               'paypal_pid')
 
