@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-12 col-lg-10 mb-4 mx-auto">
+        <div class="col-12 col-lg-10 mx-auto">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="table-info">
@@ -29,15 +29,15 @@
                                     {{ booking.booking_number|truncatechars:9 }}
                                 </a>
                             </td>
-                            <td>{{ booking.booking_package.departure_date }}</td>
+                            <td>{{ booking.departure_date }}</td>
                             <td>
                                 <ul class="list-unstyled">
                                     <li>
-                                        {{booking.booking_package.package.duration}} Nights in {{ booking.booking_package.package.name }}
+                                        {{booking.package.duration}} Nights in {{ booking.package.name }}
                                     </li>
                                 </ul>
                             </td>
-                            <td>£{{ booking.grand_total|floatformat|"-2" }}</td>
+                            <td>£{{ booking.grand_total|floatformat:"-2" }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
