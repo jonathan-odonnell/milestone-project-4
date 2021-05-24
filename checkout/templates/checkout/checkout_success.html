@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load tz %}
 {% load booking_tools %}
 
 {% block extra_css %}
@@ -82,13 +83,13 @@
                     <h5 class="section-subheading mb-3">Holiday Details</h5>
                     <div class="row g-0">
                         <div class="col-3">
-                            <img class="img-fluid" src="{{ booking.booking_package.package.image.url }}" alt="Image of {{ booking.booking_package.package.name }}">
+                            <img class="img-fluid" src="{{ booking.package.image.url }}" alt="Image of {{ booking.package.name }}">
                         </div>
                         <div class="col-9 ps-3 text-end">
-                            <p class="small text-black font-weight-bold mb-0">{{ booking.booking_package.package.name }}</p>
-                            <p class="small mb-0">{{ booking.booking_package.duration }} Nights</p>
-                            <p class="small mb-0">{{ booking.booking_package.package.catering }}</p>
-                            <p class="small mb-0">{{ booking.booking_package.guests }} x £{{ booking.booking_package.total }}</p>
+                            <p class="small text-black font-weight-bold mb-0">{{ booking.package.name }}</p>
+                            <p class="small mb-0">{{ booking.duration }} Nights</p>
+                            <p class="small mb-0">{{ booking.package.catering }}</p>
+                            <p class="small mb-0">{{ booking.guests }} x £{{ booking.package.price }}</p>
 
                         </div>
                     </div>
@@ -117,19 +118,20 @@
                 <div class="col-12">
                     <h5 class="section-subheading mb-3">Flights</h5>
                 </div>
+                {% with booking.outbound_flight as outbound_flight %}
                 <div class="col-12">
                     <p class="small text-black font-weight-bold">
-                        Outbound {{booking.booking_package.departure_date}}  ({{booking.booking_package.outbound_flight.name}})
+                        Outbound {{ booking.departure_date }} ({{ outbound_flight.flight_number }})
                     </p>
                     <div class="row g-0">
                         <div class="col-4">
-                            <p class="small">{{booking.booking_package.outbound_flight.origin}}</p>
+                            <p class="small">{{ outbound_flight.origin }}</p>
                         </div>
                         <div class="col-4">
-                            <p class="small text-center">{{booking.booking_package.outbound_flight.duration|duration}}</p>
+                            <p class="small text-center">{{ outbound_flight.duration|duration }}</p>
                         </div>
                         <div class="col-4">
-                            <p class="small text-end">{{booking.booking_package.outbound_flight.destination}}</p>
+                            <p class="small text-end">{{ outbound_flight.destination }}</p>
                         </div>
                         <div class="col-12 flight-line">
                             <div class="circle-start"></div>
@@ -139,36 +141,39 @@
                             <div class="circle-end"></div>
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small">{{booking.booking_package.outbound_flight.departure_time|time:'H:i'}}</p>
+                            <p class="small">{{ outbound_flight.departure_time|time:'H:i' }}</p>
                         </div>
                         <div class="col-4 mt-3">
-                            {% if booking.booking_package.outbound_flight.layover %}
-                            <p class="small text-center">Layover in {{booking.booking_package.outbound_flight.layover}}</p>
+                            {% if outbound_flight.layover %}
+                            <p class="small text-center">Layover in {{ outbound_flight.layover }}</p>
                             {% else %}
                             <p class="small text-center">Direct</p>
                             {% endif %}
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small text-end mb-0">{{booking.booking_package.outbound_flight.arrival_time|time:'H:i'}}</p>
-                            {% if booking.booking_package.outbound_flight|next_day > 0 %}
-                                <p class="small text-end">(+ {{booking.booking_package.outbound_flight|next_day}} day)</p>
+                            <p class="small text-end mb-0">{{ outbound_flight.arrival_time|timezone:time_zone|time:'H:i' }}</p>
+                            {% next_day flight=outbound_flight time_zone=time_zone direction='outbound' as next_day %}
+                            {% if next_day %}
+                                <p class="small text-end">{{ next_day }}</p>
                             {% endif %}
                         </div>
                     </div>
                 </div>
+                {% endwith %}
+                {% with booking.return_flight as return_flight %}
                 <div class="col-12">
                     <p class="small text-black font-weight-bold">
-                        Return {{ booking.booking_package.return_date }}  ({{booking.booking_package.return_flight.name}})
+                        Return {{ booking.return_date }} ({{ return_flight.flight_number }})
                     </p>
                     <div class="row g-0">
                         <div class="col-4">
-                            <p class="small">{{booking.booking_package.return_flight.origin}}</p>
+                            <p class="small">{{ return_flight.origin }}</p>
                         </div>
                         <div class="col-4">
-                            <p class="small text-center">{{booking.booking_package.return_flight.duration|duration}}</p>
+                            <p class="small text-center">{{ return_flight.duration|duration }}</p>
                         </div>
                         <div class="col-4">
-                            <p class="small text-end">{{booking.booking_package.return_flight.destination}}</p>
+                            <p class="small text-end">{{ return_flight.destination }}</p>
                         </div>
                         <div class="col-12 flight-line">
                             <div class="circle-start"></div>
@@ -178,23 +183,25 @@
                             <div class="circle-end"></div>
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small mb-0">{{booking.booking_package.return_flight.departure_time|time:'H:i'}}</p>
+                            <p class="small mb-0">{{ return_flight.departure_time|timezone:time_zone|time:'H:i' }}</p>
                         </div>
                         <div class="col-4 mt-3">
-                            {% if booking.booking_package.return_flight.layover %}
-                            <p class="small text-center mb-0">Layover in {{booking.booking_package.return_flight.layover}}</p>
+                            {% if return_flight.layover %}
+                            <p class="small text-center mb-0">Layover in {{ return_flight.layover }}</p>
                             {% else %}
                             <p class="small text-center mb-0">Direct</p>
                             {% endif %}
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small text-end mb-0">{{booking.booking_package.return_flight.arrival_time|time:'H:i'}}</p>
-                            {% if booking.booking_package.return_flight|next_day > 0 %}
-                                <p class="small text-end mb-0">(+ {{booking.booking_package.return_flight|next_day}} day)</p>
+                            <p class="small text-end mb-0">{{ return_flight.arrival_time|time:'H:i' }}</p>
+                            {% next_day flight=return_flight time_zone=time_zone direction='return' as next_day %}
+                            {% if next_day %}
+                                <p class="small text-end mb-0">{{ next_day }}</p>
                             {% endif %}
                         </div>
                     </div>
                 </div>
+                {% endwith %}
             </div>
             <div class="row g-0">
                 <div class="col-12">
@@ -240,8 +247,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-8 mx-auto text-end mt-4">
-            {% if from_profile %}
+        <div class="col-12 col-lg-8 mx-auto text-center text-md-end mt-4">
+            {% if from_booking %}
             <a href="{% url 'bookings' %}" class="btn btn-primary">
                 Back to Bookings<i class="fas fa-chevron-right ms-2"></i>
             </a>
