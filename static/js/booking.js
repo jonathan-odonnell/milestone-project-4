@@ -1,23 +1,3 @@
-$(document).ready(function generateStars() {
-    let fullStar = "<i class='fas fa-star pe-1'></i>"
-    let halfStar = "<i class='fas fa-star-half-alt pe-1'></i>"
-    let emptyStar = "<i class='far fa-star pe-1'></i>"
-    $('.rating').each(function () {
-        rating = parseFloat($(this).html())
-        displayStars = ""
-        for (let i = 1; i <= 5; i++) {
-            if (Math.round(rating) >= i) {
-                displayStars += fullStar
-            } else if (rating >= i - 1) {
-                displayStars += halfStar
-            } else {
-                displayStars += emptyStar
-            }
-        }
-        $(this).html(displayStars)
-    })
-})
-
 let maxValue = 10
 let initialGuests = $('input[name="guests"]').val()
 let initialQuantity = $('input[name="quantity"]').val()
