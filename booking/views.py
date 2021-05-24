@@ -2,16 +2,15 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.core.exceptions import ObjectDoesNotExist
+from pytz import timezone
 from holidays.models import Package
 from flights.models import Flight
 from extras.models import Extra
-from .models import Booking, BookingExtra, BookingPackage, BookingPassenger, Coupon
+from .models import Booking, BookingExtra, Coupon
 from profiles.models import UserProfile
 from .forms import PassengerForm
 from .contexts import booking_details
 import datetime
-from decimal import Decimal
 
 
 def booking(request):
@@ -30,42 +29,40 @@ def add_booking(request, holiday_id):
                 packages__name=holiday.name, origin=request.POST['departure_airport'])
             return_flight = Flight.objects.get(
                 packages__name=holiday.name, destination=request.POST['departure_airport'])
+            time_zone = outbound_flight.destination_time_zone
+            flight_arrival = outbound_flight.departure_time.astimezone(time_zone)
+            flight_days = (flight_arrival - outbound_flight.departure_time).days
+            departure_date = datetime.datetime.strptime(
+                request.POST['departure_date'], "%d/%m/%Y").date()
+            return_date = departure_date + datetime.timedelta(days=int(holiday.duration + flight_days + 1))
 
             if booking_number:
                 booking = Booking.objects.filter(
                     booking_number=booking_number).delete()
 
             if request.user.is_authenticated:
-                try:
-                    profile = UserProfile.objects.get(user=request.user)
-                    booking = Booking(user_profile=profile)
-                    booking.save()
-
-                except UserProfile.DoesNotExist:
-                    booking = Booking()
-                    booking.save()
-
-            else:
-                booking = Booking()
+                profile = UserProfile.objects.get(user=request.user)
+                booking = Booking(
+                    user_profile=profile,
+                    package=holiday,
+                    guests=int(request.POST['guests']),
+                    departure_date=departure_date,
+                    return_date=return_date,
+                    outbound_flight=outbound_flight,
+                    return_flight=return_flight
+                )
                 booking.save()
 
-            flight_departure = outbound_flight.departure_time
-            flight_arrival = outbound_flight.departure_time
-            flight_days = (flight_arrival - flight_departure).days
-            departure_date = datetime.datetime.strptime(
-                request.POST['departure_date'], "%d/%m/%Y").date()
-            return_date = departure_date + datetime.timedelta(days=int(holiday.duration + flight_days + 1))
-
-            booking_package = BookingPackage(
-                booking=booking,
-                package=holiday,
-                guests=int(request.POST['guests']),
-                departure_date=departure_date,
-                return_date=return_date,
-                outbound_flight=outbound_flight,
-                return_flight=return_flight,
-            )
-            booking_package.save()
+            else:
+                booking = Booking(
+                        package=holiday,
+                        guests=int(request.POST['guests']),
+                        departure_date=departure_date,
+                        return_date=return_date,
+                        outbound_flight=outbound_flight,
+                        return_flight=return_flight
+                    )
+                booking.save()
 
             request.session['booking_number'] = booking.booking_number
 
@@ -82,12 +79,12 @@ def update_guests(request):
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.get(booking_number=booking_number)
     guests = int(request.POST.get('guests'))
-    booking.booking_package.guests = guests
-    booking.booking_package.save()
+    booking.guests = guests
+    booking.save()
 
     if booking.booking_extras.all():
         for extra in booking.booking_extras.all():
-            if extra.quantity != guests:
+            if extra.quantity > guests:
                 extra.quantity = guests
                 extra.save()
     
