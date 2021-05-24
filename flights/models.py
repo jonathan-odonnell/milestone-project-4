@@ -24,5 +24,9 @@ class Flight(models.Model):
     layover = models.CharField(max_length=50, null=True, blank=True)
     baggage = models.DecimalField(max_digits=2, decimal_places=0)
 
+    def save(self, *args, **kwargs):
+        self.duration = self.arrival_time - self.departure_time
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.flight_number
