@@ -209,25 +209,25 @@
                 <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                 <span class="badge bg-danger">£{{holiday.price|floatformat:"-2"}}</span>
                 <div class="card-body">
-                    {% if category == 'offers' %}
-                    <a href="{% url 'category_details' 'offers' holiday.slug %}">
-                        {% elif category %}
-                        <a href="{% url 'category_details' category.slug holiday.slug %}">
-                            {% else %}
-                            <a href="{% url 'destination_details' destination.slug holiday.slug %}">
-                                {% endif %}
-                                <h5 class="card-title mb-1">{{holiday.name}}</h5>
-                            </a>
-                            <p class="small mb-1">{{holiday.country}}</p>
-                            <div class="d-flex justify-content-between">
-                                <p class="small mb-0">
-                                    <span class="rating">{{holiday.rating}}</span>
-                                </p>
-                                <p class="small mb-0">
-                                    <i class="far fa-clock"></i>
-                                    <span>{{holiday.duration}} Nights</span>
-                                </p>
-                            </div>
+                    {% if category %}
+                    <a href="{% url 'category_details' category.slug holiday.slug %}">
+                    {% elif destination %}
+                    <a href="{% url 'destination_details' destination.slug holiday.slug %}">
+                    {% else %}
+                    <a href="{% url 'offer_details' holiday.slug %}">
+                    {% endif %}
+                        <h5 class="card-title mb-1">{{holiday.name}}</h5>
+                    </a>
+                    <p class="small mb-1">{{holiday.country}}</p>
+                    <div class="d-flex justify-content-between">
+                        <p class="small mb-0">
+                            <span class="rating">{{holiday.rating}}</span>
+                        </p>
+                        <p class="small mb-0">
+                            <i class="far fa-clock"></i>
+                            <span>{{holiday.duration}} Nights</span>
+                        </p>
+                    </div>
                 </div>
             </div>
             {% endfor %}
