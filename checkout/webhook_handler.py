@@ -2,12 +2,10 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
-from booking.models import Booking, BookingPackage
-from holidays.models import Package
+from booking.models import Booking
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 import time
-import datetime
 import stripe
 
 
@@ -102,7 +100,8 @@ class StripeWH_Handler:
                     stripe_pid=pid,
                 )
 
-                if username:
+                if username != 'AnonymousUser':
+                    profile = UserProfile.objects.get(user__username=username)
                     booking.update(user_profile=profile)
 
                     if save_info:
