@@ -1,20 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <section>
-    {% if category == 'offers' %}
-    <div class="container-fluid hero-image p-0" style="background-image: url('{{ MEDIA_URL }}offers.jpg')">
-        <div class="overlay">&nbsp;</div>
-        <div class="row no-gutters">
-            <div class="col-12">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-2 text-center text-white">Offers</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% elif category %}
+    {% if category %}
     <div class="container-fluid hero-image {% if category.name == 'City Breaks' %}hero-image-bottom {% endif %}{% if category.name == 'Beach' %}hero-image-top{% endif %} p-0"
         style="background-image: url('{{ category.image.url }}')">
         <div class="overlay">&nbsp;</div>
@@ -28,7 +15,7 @@
             </div>
         </div>
     </div>
-    {% else %}
+    {% elif destination %}
     <div class="container-fluid hero-image {% if destination.name == 'Europe' %}hero-image-bottom {% endif %}p-0"
         style="background-image: url('{{ destination.image.url }}')">
         <div class="overlay">&nbsp;</div>
@@ -42,6 +29,19 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="container-fluid hero-image p-0" style="background-image: url('{{ MEDIA_URL }}offers.jpg')">
+        <div class="overlay">&nbsp;</div>
+        <div class="row no-gutters">
+            <div class="col-12">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-2 text-center text-white">Offers</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endif %}
     <div class="container p-4 pb-3">
         <div class="row g-0">
@@ -50,27 +50,23 @@
                     {% if countries %}
                     <div id="country-filters" class="col-12 col-md-8 col-lg-9 mb-3 mb-md-0">
                         {% for country in countries %}
-                        {% if country != None %}
                         <a class="text-decoration-none mx-1" href="javascript:void(0)">
                             {% if country in current_countries %}
                             <span class="badge bg-primary border p-2 my-1">
                                 {% else %}
                                 <span class="badge bg-light text-dark border p-2 my-1">{% endif %}{{ country }}</span>
                         </a>
-                        {% endif %}
                         {% endfor %}
                     </div>
                     {% else %}
                     <div id="category-filters" class="col-12 col-md-8 col-lg-9 mb-3 mb-md-0">
                         {% for category in categories %}
-                        {% if category != 'Offers' and category != None %}
                         <a class="text-decoration-none mx-1" href="javascript:void(0)">
                             {% if category in current_categories %}
                             <span class="badge bg-primary border p-2 my-1">
                             {% else %}
                             <span class="badge bg-light text-dark border p-2 my-1">{% endif %}{{ category }}</span>
                         </a>
-                        {% endif %}
                         {% endfor %}
                     </div>
                     {% endif %}
