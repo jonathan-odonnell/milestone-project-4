@@ -3,15 +3,13 @@ from django.shortcuts import render, HttpResponse, redirect, reverse, get_object
 from django.contrib import messages
 from django.http import JsonResponse
 from .forms import BookingForm
-from booking.models import Booking, BookingPackage
-from holidays.models import Package
+from booking.models import Booking
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 from django.conf import settings
 from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
 from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest
 import stripe
-import datetime
 import json
 
 
