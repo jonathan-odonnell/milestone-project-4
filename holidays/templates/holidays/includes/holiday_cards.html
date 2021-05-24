@@ -6,12 +6,12 @@
                 <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                 <span class="badge bg-danger">£{{holiday.price|floatformat:"-2"}}</span>
                 <div class="card-body">
-                    {% if category == 'offers' %}
-                    <a href="{% url 'category_details' 'offers' holiday.slug %}">
-                    {% elif category %}
+                    {% if category %}
                     <a href="{% url 'category_details' category.slug holiday.slug %}">
-                    {% else %}
+                    {% elif destination %}
                     <a href="{% url 'destination_details' destination.slug holiday.slug %}">
+                    {% else %}
+                    <a href="{% url 'offer_details' holiday.slug %}">
                     {% endif %}
                         <h5 class="card-title mb-1">{{holiday.name}}</h5>
                     </a>
