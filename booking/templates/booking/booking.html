@@ -219,66 +219,72 @@
             <div class="px-lg-3">
                 <h3 class="section-subheading d-flex justify-content-between align-items-center mb-3">Booking Summary</h3>
                 <ul class="list-group mb-3">
+                    {% with booking.booking_package.outbound_flight as outbound_flight %}
                     <li class="list-group-item p-3">
                         <div>
-                            <h6>{{booking.booking_package.departure_date}} ({{booking.booking_package.outbound_flight.flight_number}})</h6>
+                            <h6>{{booking.booking_package.departure_date}} ({{outbound_flight.flight_number}})</h6>
                             <div class="row g-0">
                                 <div class="col">
-                                    <small>{{booking.booking_package.outbound_flight.origin}}</small>
+                                    <small>{{outbound_flight.origin}}</small>
                                 </div>
                                 <div class="col text-center my-auto">
                                     <i class="fas fa-plane"></i>
                                 </div>
                                 <div class="col text-end">
-                                    <small>{{booking.booking_package.outbound_flight.destination}}</small>
+                                    <small>{{outbound_flight.destination}}</small>
                                 </div>
                             </div>
                             <div class="row g-0">
                                 <div class="col-4">
-                                    <small>{{booking.booking_package.outbound_flight.departure_time|time:'H:i'}}</small>
+                                    <small>{{outbound_flight.departure_time|time:'H:i'}}</small>
                                 </div>
                                 <div class="col-4 text-center">
-                                    <small>{{ outbound_flight_duration|duration }}</small>
+                                    <small>{{ outbound_flight.duration|duration }}</small>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <small>{{booking.booking_package.outbound_flight.arrival_time|timezone:time_zone|time:'H:i'}}</small>
+                                    <small>{{outbound_flight.arrival_time|timezone:time_zone|time:'H:i'}}</small>
                                     <br>
-                                    {% if outbound_flight_duration|next_day %}
-                                        <small>{{ outbound_flight_duration|next_day }}</small>
+                                    {% next_day flight=outbound_flight time_zone=time_zone direction=outbound as next_day %}
+                                    {% if next_day %}
+                                        <small>{{ next_day }}</small>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
                     </li>
+                    {% endwith %}
+                    {% with booking.booking_package.outbound_flight as return_flight %}
                     <li class="list-group-item p-3">
-                        <h6>{{ booking.booking_package.return_date }} ({{booking.booking_package.return_flight.flight_number}})</h6>
+                        <h6>{{ booking.booking_package.return_date }} ({{return_flight.flight_number}})</h6>
                         <div class="row g-0">
                             <div class="col">
-                                <small>{{booking.booking_package.return_flight.origin}}</small>
+                                <small>{{return_flight.origin}}</small>
                             </div>
                             <div class="col text-center my-auto">
                                 <i class="fas fa-plane"></i>
                             </div>
                             <div class="col text-end">
-                                <small>{{booking.booking_package.return_flight.destination}}</small>
+                                <small>{{return_flight.destination}}</small>
                             </div>
                         </div>
                         <div class="row g-0">
                             <div class="col-4">
-                                <small>{{booking.booking_package.return_flight.departure_time|timezone:time_zone|time:'H:i'}}</small>
+                                <small>{{return_flight.departure_time|timezone:time_zone|time:'H:i'}}</small>
                             </div>
                             <div class="col-4 text-center">
-                                <small>{{ return_flight_duration|duration }}</small>
+                                <small>{{ return_flight.duration|duration }}</small>
                             </div>
                             <div class="col-4 text-end">
-                                <small>{{booking.booking_package.return_flight.arrival_time|time:'H:i'}}</small>
+                                <small>{{return_flight.arrival_time|time:'H:i'}}</small>
                                 <br>
-                                {% if return_flight_duration|next_day %}
-                                    <small>{{ return_flight_duration|next_day }}</small>
+                                {% next_day flight=booking.booking_package.return_flight time_zone=time_zone direction=return as next_day %}
+                                {% if next_day %}
+                                    <small>{{ next_day }}</small>
                                 {% endif %}
                             </div>
                         </div>
                     </li>
+                    {% endwith %}
                     {% if booking.subtotal != booking.grand_total %}
                     <li id="subtotal" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Base Price</span>
