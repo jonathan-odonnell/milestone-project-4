@@ -244,12 +244,14 @@ strong {
     z-index: 2;
 }
 
-.slick-slider .slick-slide {
-    margin-left: 1.5rem;
+#popular-destinations .slick-slide,
+#related-holidays .slick-slide {
+    margin-right: 1.5rem;
 }
 
-.slick-slider .slick-list {
-    margin-left: -1.5rem;
+#popular-destinations .slick-list,
+#related-holidays .slick-list {
+    margin-right: -1.5rem;
 }
 
 .slick-dots {
