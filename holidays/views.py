@@ -103,7 +103,7 @@ def holiday_details(request, slug, destination=None, category=None):
     
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
-        bookings = Booking.objects.filter(user_profile=profile, booking_package__package=holiday)
+        bookings = Booking.objects.filter(user_profile=profile, package=holiday, paid=True)
         
         if bookings:
             try:
