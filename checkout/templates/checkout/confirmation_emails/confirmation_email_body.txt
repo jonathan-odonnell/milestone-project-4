@@ -6,7 +6,7 @@ Booking Number: {{ booking.booking_number }}
 Booking Date: {{ booking.date|date }}
 Booking Total: £{{ booking.grand_total|floatformat:"-2" }}
 
-Your flight for your holiday to {{ booking.booking_package.package.name }} will depart from {{ booking.booking_package.outbound_flight.origin }} Airport at {{ booking.booking_package.outbound_flight.departure_time|time:"H:i" }} on {{ booking.booking_package.outbound_flight.departure_time|date }}.
+Your flight for your holiday to {{ booking.package.name }} will depart from {{ booking.outbound_flight.origin }} Airport at {{ booking.outbound_flight.departure_time|time:"H:i" }} on {{ booking.outbound_flight.departure_time|date }}.
 
 We've got your phone number on file as {{ booking.phone_number }}.
 
