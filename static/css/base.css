@@ -124,6 +124,10 @@ strong {
     color: #000063;
 }
 
+.error-heading {
+    letter-spacing: 2px;
+}
+
 /* Color codes are from https://www.slowdown.travel/ */
 
 .navbar-light .navbar-nav .nav-link {
