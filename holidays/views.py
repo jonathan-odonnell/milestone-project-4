@@ -23,20 +23,20 @@ def holidays(request, category=None, destination=None):
     sort = None
     direction = None
 
-    if category == 'offers':
-        holidays = Package.objects.filter(offer=True)
-        categories = holidays.values_list(
-            'category__name', flat=True).distinct().order_by('category__name')
-
-    elif category:
+    if category:
         category = get_object_or_404(Category, slug=category)
         holidays = Package.objects.filter(category=category)
         countries = holidays.values_list(
             'country__name', flat=True).distinct().order_by('country__name')
 
-    else:
+    elif destination:
         destination = get_object_or_404(Region, slug=destination)
         holidays = Package.objects.filter(region=destination)
+        categories = holidays.values_list(
+            'category__name', flat=True).distinct().order_by('category__name')
+
+    else:
+        holidays = Package.objects.filter(offer=True)
         categories = holidays.values_list(
             'category__name', flat=True).distinct().order_by('category__name')
 
