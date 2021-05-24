@@ -117,6 +117,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_FORMS = {
     'signup': 'profiles.forms.CustomSignupForm',
+    'login': 'profiles.forms.CustomLoginForm',
+    'change_password': 'profiles.forms.CustomChangePasswordForm',
 }
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'

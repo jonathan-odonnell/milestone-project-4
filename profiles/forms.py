@@ -1,7 +1,7 @@
 from django import forms
 from .models import UserProfile
 from crispy_forms.helper import FormHelper
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm, ChangePasswordForm
 
 
 class UserProfileForm(forms.ModelForm):
@@ -73,3 +73,19 @@ class CustomSignupForm(SignupForm):
         user.last_name = self.last_name
         user.save()
         return user
+
+class CustomLoginForm(LoginForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['login'].label = 'Email Address'
+        self.fields['login'].widget.attrs['placeholder'] = 'Enter your email address'
+        self.fields['password'].widget.attrs['placeholder'] = 'Enter your password'
+
+
+class CustomChangePasswordForm(ChangePasswordForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['oldpassword'].widget.attrs['placeholder'] = 'Enter your current password'
+        self.fields['password1'].widget.attrs['placeholder'] = 'Enter your new password'
+        self.fields['password2'].label = 'Confirm New Password'
+        self.fields['password2'].widget.attrs['placeholder'] = 'Confirm your new password'
