@@ -25,7 +25,7 @@
                                     <h3 class="text-white">{{offer.duration}} nights from £{{ offer.price|floatformat:"-2" }}
                                         per person</h3>
                                     <a href="{% url 'category_details' 'offers' offer.slug %}"
-                                        class="btn btn-hero btn-lg">Explore Now</a>
+                                        class="btn btn-primary btn-lg">Explore Now</a>
                                 </div>
                             </div>
                         </div>
@@ -59,9 +59,9 @@
                                     <p class="d-block card-text small mb-2">
                                         <span class="rating">{{holiday.rating}}</span>
                                     </p>
-                                    <p class="d-block card-text small mb-2"><i
-                                            class="far fa-clock pe-1"></i>{{holiday.duration}}
-                                        nights</p>
+                                    <p class="d-block card-text small mb-2">
+                                        <i class="far fa-clock pe-1"></i>{{holiday.duration}}
+                                        Nights</p>
                                 </div>
                             </div>
                         </div>
