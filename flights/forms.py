@@ -9,7 +9,7 @@ class FlightForm(forms.ModelForm):
 
     class Meta:
         model = Flight
-        fields = '__all__'
+        exclude = ('duration',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
