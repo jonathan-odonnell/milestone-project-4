@@ -55,11 +55,13 @@ def bookings(request):
 @login_required
 def booking_details(request, booking_number):
     booking = get_object_or_404(Booking, booking_number=booking_number)
+    time_zone = booking.outbound_flight.destination_time_zone.zone
 
     template = 'checkout/checkout_success.html'
     context = {
         'booking': booking,
         'from_booking': True,
+        'time_zone': time_zone,
     }
 
     return render(request, template, context)
