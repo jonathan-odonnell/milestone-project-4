@@ -253,7 +253,7 @@
                         </div>
                     </li>
                     {% endwith %}
-                    {% with booking.booking_package.outbound_flight as return_flight %}
+                    {% with booking.booking_package.return_flight as return_flight %}
                     <li class="list-group-item p-3">
                         <h6>{{ booking.booking_package.return_date }} ({{return_flight.flight_number}})</h6>
                         <div class="row g-0">
@@ -277,7 +277,7 @@
                             <div class="col-4 text-end">
                                 <small>{{return_flight.arrival_time|time:'H:i'}}</small>
                                 <br>
-                                {% next_day flight=booking.booking_package.return_flight time_zone=time_zone direction=return as next_day %}
+                                {% next_day flight=return_flight time_zone=time_zone direction=return as next_day %}
                                 {% if next_day %}
                                     <small>{{ next_day }}</small>
                                 {% endif %}
