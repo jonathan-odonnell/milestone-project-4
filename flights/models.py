@@ -19,6 +19,7 @@ class Flight(models.Model):
     destination = models.CharField(max_length=50)
     departure_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
+    duration = models.DurationField()
     destination_time_zone = TimeZoneField()
     layover = models.CharField(max_length=50, null=True, blank=True)
     baggage = models.DecimalField(max_digits=2, decimal_places=0)
