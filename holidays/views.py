@@ -90,16 +90,16 @@ def holiday_details(request, slug, destination=None, category=None):
     holiday = get_object_or_404(Package.objects, slug=slug)
     not_reviewed = False
 
-    if category == 'offers':
-        holidays = Package.objects.filter(offer=True).exclude(name=holiday.name).order_by('?')[:4]
-
-    elif category:
+    if category:
         category = get_object_or_404(Category, slug=category)
         holidays = Package.objects.exclude(name=holiday.name).filter(category=category).order_by('?')[:4]
     
-    else:
+    if destination:
         destination = get_object_or_404(Region, slug=destination)
         holidays = Package.objects.exclude(name=holiday.name).filter(region=destination).order_by('?')[:4]
+
+    else:
+        holidays = Package.objects.filter(offer=True).exclude(name=holiday.name).order_by('?')[:4]
     
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
