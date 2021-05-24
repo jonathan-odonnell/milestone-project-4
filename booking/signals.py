@@ -1,20 +1,20 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from .models import BookingPackage, BookingExtra
+from .models import Booking, BookingExtra
 
-@receiver(post_save, sender=BookingPackage)
-def package_update_on_save(sender, instance, created, **kwargs):
+@receiver(post_save, sender=Booking)
+def booking_update_on_save(sender, instance, created, **kwargs):
     """
-    Update order total on booking package update/create
+    Update order total on booking extras update/create
     """
-    instance.booking.update_totals()
+    instance.update_totals()
 
-@receiver(post_delete, sender=BookingPackage)
-def package_update_on_delete(sender, instance, **kwargs):
+@receiver(post_delete, sender=Booking)
+def booking_update_on_delete(sender, instance, **kwargs):
     """
-    Update order total on booking package delete
+    Update order total on booking extras delete
     """
-    instance.booking.update_totals()
+    instance.update_totals()
 
 @receiver(post_save, sender=BookingExtra)
 def extra_update_on_save(sender, instance, created, **kwargs):
