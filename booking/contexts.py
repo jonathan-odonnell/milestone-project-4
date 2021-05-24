@@ -12,7 +12,7 @@ def booking_details(request):
 
     if booking_number:
         booking = get_object_or_404(Booking, booking_number=booking_number)
-        time_zone = booking.booking_package.outbound_flight.destination_time_zone.zone
+        time_zone = booking.outbound_flight.destination_time_zone.zone
         if booking.booking_extras.all():
             for extra in booking.booking_extras.all():
                 selected_extras.append(extra.extra.id)
