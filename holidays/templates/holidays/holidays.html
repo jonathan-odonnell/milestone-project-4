@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <section>
     {% if category %}
@@ -88,7 +89,7 @@
 </section>
 {% endblock %}
 {% block postloadjs %}
-{% load static %}
+{{ block.super }}
 <script src="{% static 'js/ratings.js' %}"></script>
 <script src="{% static 'js/holidays.js' %}"></script>
 {% endblock %}
