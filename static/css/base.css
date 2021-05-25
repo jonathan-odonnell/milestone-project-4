@@ -760,10 +760,6 @@ footer a {
     color: #fff;
 }
 
-.newsletter-signup {
-    max-width: 300px;
-}
-
 .btn-newsletter {
     position: inherit !important;
     background-color: #70c8df;
