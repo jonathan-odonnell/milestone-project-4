@@ -257,7 +257,7 @@ strong {
 
 #hero-image-carousel .slick-slide {
     display: flex;
-    height: calc(100vh - 105px);
+    height: calc(100vh - 100px);
 }
 
 #hero-image-carousel .slick-prev {
