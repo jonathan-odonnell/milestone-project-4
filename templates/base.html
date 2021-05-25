@@ -153,6 +153,10 @@
     {% block content %}
     {% endblock %}
 
+    <button class="top-btn d-none" type="button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
@@ -264,6 +268,16 @@
         $(".navbar-collapse").on("hide.bs.collapse", function () {
             $(".navbar-toggler i").addClass("fa-bars").removeClass("fa-times");
         });
+        $(window).scroll(function () {
+        if ($(window).scrollTop() > 200) {
+            $(".top-btn").removeClass("d-none");
+        } else {
+            $(".top-btn").addClass("d-none");
+        }
+        });
+        $('.top-btn').click(function() {
+			window.scrollTo(0,0)
+		})
         $(document).ready(function () {
             $('.toast').toast('show');
         })

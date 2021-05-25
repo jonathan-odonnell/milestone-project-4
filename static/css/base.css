@@ -68,6 +68,39 @@ strong {
     width: 160px;
 }
 
+.top-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    background: #fff;
+    border: 2px solid #006994;
+    color: #006994;
+    text-align: center;
+    border-radius: 50%;
+    z-index: 100;
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+}
+
+.top-btn:hover {
+    transform: scale(1.2);
+}
+
+.back-btn i {
+    position: absolute;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    padding: 12px 0;
+    border-radius: 50%;
+    font-size: 13px;
+    line-height: 7px;
+    text-align: center;
+    color: #fafafa;
+    background: #70c8df;
+}
+
 .border-primary {
     border-color: #70c8df !important;
 }
@@ -599,20 +632,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .input-group .invalid-feedback {
     position: inherit;
-}
-
-.back-btn i {
-    position: absolute;
-    z-index: 1;
-    width: 32px;
-    height: 32px;
-    padding: 12px 0;
-    border-radius: 50%;
-    font-size: 13px;
-    line-height: 7px;
-    text-align: center;
-    color: #fafafa;
-    background: #70c8df;
 }
 
 label .asteriskField {
