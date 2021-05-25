@@ -58,82 +58,93 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light p-3 py-lg-0">
             <!-- Toggle button -->
-            <button class="navbar-toggler border-0 ps-3 py-0" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="col-3 d-lg-none">
+                <button class="navbar-toggler border-0 ps-3 py-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
             <!-- Navbar brand -->
-            <a class="navbar-brand mx-auto ps-lg-3 order-lg-0" href="{% url 'home' %}">
-                <h2 class="mb-0"><i class="fas fa-globe-europe me-3"></i>Go Explore</h2>
-            </a>
+            <div class="col-6 col-lg-3 order-lg-0 ps-lg-3 text-center text-lg-start">
+                <a class="navbar-brand d-inline-flex mx-auto" href="{% url 'home' %}">
+                    <h2 class="font-weight-bold mb-0">
+                        <i class="fas fa-globe-europe me-3"></i>
+                        <span>Go Explore</span>
+                    </h2>
+                </a>
+            </div>
             <!-- User Options Dropdown -->
-            <a class="nav-link ps-3 py-0 order-lg-2 text-lg-end" href="#" role="button" id="user-options" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                <i class="fas fa-user fa-lg"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-options">
-                {% if request.user.is_authenticated %}
-                {% if request.user.is_superuser %}
-                <li><a class="dropdown-item" href="{% url 'add_holiday' %}">Add Holiday</a></li>
-                <li><a class="dropdown-item" href="{% url 'flights' %}">Manage Flights</a></li>
-                {% else %}
-                <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
-                {% endif %}
-                <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
-                <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
-                {% else %}
-                <li><a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a></li>
-                <li><a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign In</a></li>
-                {% endif %}
-            </ul>
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbar-content">
-                <!-- Nav links -->
-                <ul class="navbar-nav mx-3 mx-lg-auto">
-                    <li class="nav-item border-bottom">
-                        <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item dropdown border-bottom">
-                        <a class="nav-link dropdown-toggle" href="#" id="holidayTypes" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Holiday Types
-                        </a>
-                        <ul class="dropdown-menu w-100 w-lg-auto" aria-labelledby="holidayTypes">
-                            <li><a class="dropdown-item" href="{% url 'categories' 'activity' %}">Activity</a></li>
-                            <li><a class="dropdown-item" href="{% url 'categories' 'city-breaks' %}">City Breaks</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'categories' 'resort' %}">Resort</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown border-bottom">
-                        <a class="nav-link dropdown-toggle" href="#" id="destinations" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Destinations
-                        </a>
-                        <ul class="dropdown-menu w-100 w-lg-auto" aria-labelledby="destinations">
-                            <li><a class="dropdown-item" href="{% url 'destinations' 'asia-and-oceana' %}">Asia and
-                                    Oceana</a></li>
-                            <li><a class="dropdown-item" href="{% url 'destinations' 'europe' %}"">Europe</a></li>
-                          <li><a class=" dropdown-item" href="{% url 'destinations' 'north-america' %}"">North America</a></li>
-                        </ul>
-                    </li>
-                    <li class=" nav-item border-bottom">
-                        <a class="nav-link" href="{% url 'offers' %}">Offers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'extras' %}">Extras</a>
-                    </li>
+            <div class="col-3 order-lg-2 text-end ps-lg-3 nav-links position-relative">
+                <a class="nav-link d-inline-flex py-0" href="#" role="button" id="user-options" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fas fa-user fa-lg"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end user-options-dropdown" aria-labelledby="user-options">
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                    <li><a class="dropdown-item" href="{% url 'add_holiday' %}">Add Holiday</a></li>
+                    <li><a class="dropdown-item" href="{% url 'flights' %}">Manage Flights</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign In</a></li>
+                    {% endif %}
                 </ul>
             </div>
+            <!-- Collapsible wrapper -->
+            <div class="col col-lg-6">
+                <div class="collapse navbar-collapse mt-lg-0" id="navbar-content">
+                    <!-- Nav links -->
+                    <ul class="navbar-nav mx-3 mx-lg-auto mt-lg-0 nav-links">
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item dropdown border-bottom">
+                            <a class="nav-link dropdown-toggle" href="#" id="holidayTypes" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Holiday Types
+                            </a>
+                            <ul class="dropdown-menu shadow-0 w-100 w-lg-auto" aria-labelledby="holidayTypes">
+                                <li><a class="dropdown-item" href="{% url 'categories' 'activity' %}">Activity</a></li>
+                                <li><a class="dropdown-item" href="{% url 'categories' 'city-breaks' %}">City Breaks</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'categories' 'resort' %}">Resort</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown border-bottom">
+                            <a class="nav-link dropdown-toggle" href="#" id="destinations" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Destinations
+                            </a>
+                            <ul class="dropdown-menu shadow-0 w-100 w-lg-auto" aria-labelledby="destinations">
+                                <li><a class="dropdown-item" href="{% url 'destinations' 'asia-and-oceana' %}">Asia and
+                                        Oceana</a></li>
+                                <li><a class="dropdown-item" href="{% url 'destinations' 'europe' %}"">Europe</a></li>
+                              <li><a class=" dropdown-item" href="{% url 'destinations' 'north-america' %}"">North America</a></li>
+                            </ul>
+                        </li>
+                        <li class=" nav-item border-bottom">
+                            <a class="nav-link" href="{% url 'offers' %}">Offers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'extras' %}">Extras</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
+        <!-- Navbar -->
         <div class="row g-0 text-center">
-            <div class="col bg-secondary text-white">
-                <h5 class="px-1 my-1">Save £{{ offer_amount }} on all bookings with code {{ promo_code }}!</h5>
+            <div class="col bg-secondary text-white p-1">
+                <h5 class="mb-0 banner">Save £{{ offer_amount }} on all bookings with code {{ promo_code }}!</h5>
             </div>
         </div>
-        <!-- Navbar -->
     </header>
 
     {% block page_header %}
@@ -247,6 +258,12 @@
 
     {% block postloadjs %}
     <script>
+        $(".navbar-collapse").on("show.bs.collapse", function () {
+            $(".navbar-toggler i").addClass("fa-times").removeClass("fa-bars");
+        });
+        $(".navbar-collapse").on("hide.bs.collapse", function () {
+            $(".navbar-toggler i").addClass("fa-bars").removeClass("fa-times");
+        });
         $(document).ready(function () {
             $('.toast').toast('show');
         })
