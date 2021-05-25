@@ -27,7 +27,7 @@
                 <div class="col-12">
                     <div class="row g-0">
                         <div class="col-12">
-                            <h5 class="section-subheading mb-3">Booking Information</h5>
+                            <h5 class="section-subheading mb-3">Billing Information</h5>
                         </div>
                     </div>
                     <div class="row g-0">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="row g-0">
                         <div class="col-4">
-                            <p class="small text-black font-weight-bold mb-0">Date</p>
+                            <p class="small text-black font-weight-bold mb-0">Booking Date</p>
                         </div>
                         <div class="col-8 text-end">
                             <p class="small mb-0">{{ booking.date|date }}</p>
@@ -76,6 +76,44 @@
                             <p class="small mb-0">{{ booking.postcode }}</p>
                         </div>
                     </div>
+                    {% if booking.subtotal != booking.grand_total %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Subtotal</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-end mb-0">£{{ booking.subtotal|floatformat:"-2" }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if booking.extras_total %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Extras</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-end mb-0">£{{ booking.extras_total|floatformat:"-2" }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if booking.discount %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Discount</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-danger text-end mb-0">- £{{ booking.discount|floatformat:"-2" }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row g-0">
+                        <div class="col-6">
+                            <p class="small text-black font-weight-bold mb-0">Total</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small text-end mb-0">£{{ booking.grand_total|floatformat:"-2" }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row g-0 mb-3">
@@ -87,10 +125,9 @@
                         </div>
                         <div class="col-9 ps-3 text-end">
                             <p class="small text-black font-weight-bold mb-0">{{ booking.package.name }}</p>
-                            <p class="small mb-0">{{ booking.duration }} Nights</p>
+                            <p class="small mb-0">{{ booking.package.duration }} Nights</p>
                             <p class="small mb-0">{{ booking.package.catering }}</p>
                             <p class="small mb-0">{{ booking.guests }} x £{{ booking.package.price }}</p>
-
                         </div>
                     </div>
                 </div>
@@ -202,49 +239,6 @@
                     </div>
                 </div>
                 {% endwith %}
-            </div>
-            <div class="row g-0">
-                <div class="col-12">
-                    <h5 class="section-subheading">Billing Information</h5>
-                    {% if booking.subtotal != booking.grand_total %}
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <p class="small text-black font-weight-bold mb-0">Subtotal</p>
-                        </div>
-                        <div class="col-6">
-                            <p class="small text-end mb-0">£{{ booking.subtotal|floatformat:"-2" }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if booking.extras_total %}
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <p class="small text-black font-weight-bold mb-0">Extras</p>
-                        </div>
-                        <div class="col-6">
-                            <p class="small text-end mb-0">£{{ booking.extras_total|floatformat:"-2" }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% if booking.discount %}
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <p class="small text-black font-weight-bold mb-0">Discount</p>
-                        </div>
-                        <div class="col-6">
-                            <p class="small text-danger text-end mb-0">- £{{ booking.discount|floatformat:"-2" }}</p>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <div class="row g-0">
-                        <div class="col-6">
-                            <p class="small text-black font-weight-bold mb-0">Total</p>
-                        </div>
-                        <div class="col-6">
-                            <p class="small text-end mb-0">£{{ booking.grand_total|floatformat:"-2" }}</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-12 col-lg-8 mx-auto text-center text-md-end mt-4">
