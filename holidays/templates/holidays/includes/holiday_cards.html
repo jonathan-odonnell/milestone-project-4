@@ -4,7 +4,7 @@
         <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
             <div id="holidays" class="card destination-card">
                 <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                <span class="badge bg-danger">£{{holiday.price|floatformat:"-2"}}</span>
+                <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
                 <div class="card-body">
                     {% if category %}
                     <a href="{% url 'category_details' category.slug holiday.slug %}">

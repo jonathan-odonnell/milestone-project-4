@@ -207,7 +207,7 @@
             {% for holiday in holidays %}
             <div id="holidays" class="card destination-card d-flex">
                 <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                <span class="badge bg-danger">£{{holiday.price|floatformat:"-2"}}</span>
+                <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
                 <div class="card-body">
                     {% if category %}
                     <a href="{% url 'category_details' category.slug holiday.slug %}">
