@@ -42,7 +42,7 @@ class Booking(models.Model):
     guests = models.IntegerField(default=0)
     departure_date = models.DateField()
     return_date = models.DateField()
-    package = models.OneToOneField(Package, null=True, blank=True, on_delete=SET_NULL)
+    package = models.ForeignKey(Package, null=True, blank=True, on_delete=SET_NULL)
     outbound_flight = models.ForeignKey(Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='outbound_flight')
     return_flight = models.ForeignKey(Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='return_flight')
     subtotal = models.DecimalField(
@@ -75,6 +75,7 @@ class Booking(models.Model):
             coupon_qs = Coupon.objects.get(name=self.coupon)
             self.discount = coupon_qs.amount
         self.subtotal = self.package.price * self.guests
+        self.grand_total = self.subtotal + self.extras_total - self.discount
         super().save(*args, **kwargs)
 
     def __str__(self):
