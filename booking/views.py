@@ -219,7 +219,7 @@ def passengers(request):
         return redirect(reverse('booking'))
 
     booking = get_object_or_404(Booking, booking_number=booking_number)
-    passenger_range = range(1, booking.booking_package.guests + 1)
+    passenger_range = range(1, booking.guests + 1)
 
     if request.method == 'POST':
         if booking.booking_passengers:
