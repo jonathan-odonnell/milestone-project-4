@@ -26,5 +26,6 @@ class FlightForm(forms.ModelForm):
         self.fields['flight_number'].widget.attrs['autofocus'] = True
         self.fields['direction'].choices = directions
         self.fields['destination_time_zone'] = TimeZoneFormField()
+        self.fields['destination_time_zone'].widget.attrs['class'] = 'form-select'
         self.fields['departure_time'].widget = DateTimeInput(format='%d/%m/%Y %H:%M')
         self.fields['arrival_time'].widget = DateTimeInput(format='%d/%m/%Y %H:%M')
