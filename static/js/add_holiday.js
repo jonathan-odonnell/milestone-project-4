@@ -4,8 +4,17 @@ $(document).ready(function () {
     $('.form-check input').addClass('form-check-input')
     $('.form-check label').addClass('form-check-label')
     $('fieldset .row').addClass('mb-3')
-    $('.delete-row').remove()
+    if(!$('select').val()) {
+        $('select').css('color', '#a9a9a9');
+    };
 })
+$("select").change(function () {
+    if (!$(this).val()) {
+        $(this).css("color", "#a9a9a9");
+    } else {
+        $(this).css("color", "#4a4a4a");
+    }
+});
 $('#new-image').change(function () {
     var file = $('#new-image')[0].files[0];
     $('#filename').text(`Image will be set to: ${file.name}`);

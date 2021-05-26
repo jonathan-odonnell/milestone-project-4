@@ -8,7 +8,17 @@ $(document).ready(function () {
         $(this).find('.form-check').last().addClass('delete-check')
     })
     $('.delete-check label').addClass('text-danger')
+    if(!$('select').val()) {
+        $('select').css('color', '#a9a9a9');
+    };
 })
+$("select").change(function () {
+    if (!$(this).val()) {
+        $(this).css("color", "#a9a9a9");
+    } else {
+        $(this).css("color", "#4a4a4a");
+    }
+});
 $('#new-image').change(function () {
     var file = $('#new-image')[0].files[0];
     $('#filename').text(`Image will be set to: ${file.name}`);
