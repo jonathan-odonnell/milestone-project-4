@@ -3,19 +3,19 @@
 {% block content %}
 
 <div class="container p-4">
-    <div class="row">
-        <div class="col">
-            <h2 class="mb-4 section-heading text-center">My Profile</h2>
+    <div class="row g-0">
+        <div class="col-12">
+            <h1 class="mb-4 section-heading text-center">My Profile</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-lg-8 mx-auto">
+    <div class="row g-0">
+        <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
-                <legend>Personal Information</legend>
+                <legend class="section-subheading">Personal Information</legend>
                 {{ form.email_address | as_crispy_field }}
                 {{ form.phone_number | as_crispy_field }}
-                <legend>Address</legend>
+                <legend class="section-subheading">Address</legend>
                 {{ form.address | as_crispy_field }}
                 {{ form.street_address1 | as_crispy_field }}
                 {{ form.street_address2 | as_crispy_field }}
@@ -23,16 +23,26 @@
                 {{ form.county | as_crispy_field }}
                 {{ form.country | as_crispy_field }}
                 {{ form.postcode | as_crispy_field }}
-                <button class="btn btn-primary shadow-none mb-3">Update Information</button>
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary shadow-none">Update Information</button>
+                </div>
             </form>
         </div>
     </div>
 </div>
 {% endblock %}
 {% block postloadjs %}
-<script>
-    $('#div_id_postcode .mb-3').addClass('mb-4').removeClass('mb-3')
-</script>
+{{ bokck.super }}
 <script async src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
 <script src="{% static 'js/autocomplete.js' %}"></script>
+<script>
+    $('#id_country').change(function() {
+    countrySelected = $(this).val();
+    if(!countrySelected) {
+        $(this).css('color', '#d3d3d3');
+    } else {
+        $(this).css('color', '#4a4a4a');
+    }
+});
+</script>
 {% endblock %}
