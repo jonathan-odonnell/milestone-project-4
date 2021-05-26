@@ -15,3 +15,7 @@ class PassengerForm(forms.ModelForm):
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
         self.fields['date_of_birth'].widget = forms.SelectDateWidget(years=reversed(range(1900, 2022)), empty_label=['Year', 'Month', 'Day'])
+        self.fields['date_of_birth'].widget.attrs['class'] = 'form-select'
+
+        for field in self.fields:
+            self.fields[field].required = True

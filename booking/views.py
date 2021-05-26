@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from pytz import timezone
+from django.forms import inlineformset_factory
 from holidays.models import Package
 from flights.models import Flight
 from extras.models import Extra
-from .models import Booking, BookingExtra, Coupon
+from .models import Booking, BookingPassenger, BookingExtra, Coupon
 from profiles.models import UserProfile
 from .forms import PassengerForm
 from .contexts import booking_details
+from pytz import timezone
 import datetime
 
 
@@ -30,11 +31,15 @@ def add_booking(request, holiday_id):
             return_flight = Flight.objects.get(
                 packages__name=holiday.name, destination=request.POST['departure_airport'])
             time_zone = outbound_flight.destination_time_zone
-            flight_arrival = outbound_flight.departure_time.astimezone(time_zone)
-            flight_days = (flight_arrival - outbound_flight.departure_time).days
+            flight_arrival = outbound_flight.departure_time.astimezone(
+                time_zone)
+            flight_days = (flight_arrival -
+                           outbound_flight.departure_time).days
             departure_date = datetime.datetime.strptime(
                 request.POST['departure_date'], "%d/%m/%Y").date()
-            return_date = departure_date + datetime.timedelta(days=int(holiday.duration + flight_days + 1))
+            return_date = departure_date + \
+                datetime.timedelta(
+                    days=int(holiday.duration + flight_days + 1))
 
             if booking_number:
                 booking = Booking.objects.filter(
@@ -55,13 +60,13 @@ def add_booking(request, holiday_id):
 
             else:
                 booking = Booking(
-                        package=holiday,
-                        guests=int(request.POST['guests']),
-                        departure_date=departure_date,
-                        return_date=return_date,
-                        outbound_flight=outbound_flight,
-                        return_flight=return_flight
-                    )
+                    package=holiday,
+                    guests=int(request.POST['guests']),
+                    departure_date=departure_date,
+                    return_date=return_date,
+                    outbound_flight=outbound_flight,
+                    return_flight=return_flight
+                )
                 booking.save()
 
             request.session['booking_number'] = booking.booking_number
@@ -87,9 +92,9 @@ def update_guests(request):
             if extra.quantity > guests:
                 extra.quantity = guests
                 extra.save()
-    
+
     # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
-    
+
     extras = f'{float(booking.extras_total):g}'
     subtotal = f'{float(booking.subtotal):g}'
     total = f'{float(booking.grand_total):g}'
@@ -162,9 +167,9 @@ def remove_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.get(booking_number=booking_number)
     booking.booking_extras.get(extra=extra_id).delete()
-    
+
     # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
-    
+
     extras = f'{float(booking.extras_total):g}'
     subtotal = f'{float(booking.subtotal):g}'
     total = f'{float(booking.grand_total):g}'
@@ -192,7 +197,7 @@ def add_coupon(request):
         booking.save()
 
         # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
-        
+
         discount = f'{float(booking.discount):g}'
         subtotal = f'{float(booking.subtotal):g}'
         total = f'{float(booking.grand_total):g}'
@@ -219,50 +224,61 @@ def passengers(request):
         return redirect(reverse('booking'))
 
     booking = get_object_or_404(Booking, booking_number=booking_number)
-    passenger_range = range(1, booking.guests + 1)
 
     if request.method == 'POST':
-        if booking.booking_passengers:
-            booking.booking_passengers.all().delete()
 
-        for passenger in passenger_range:
+        formset = inlineformset_factory(
+            Booking,
+            BookingPassenger,
+            form=PassengerForm,
+            extra=booking.guests
+        )
 
-            dob_day = request.POST[f'{passenger}-date_of_birth_day']
-            dob_month = request.POST[f'{passenger}-date_of_birth_month']
-            dob_year = request.POST[f'{passenger}-date_of_birth_year']
+        formset = formset(
+            request.POST, 
+            instance=booking
+        )
 
-            form_data = {
-                f'{passenger}-booking': booking,
-                f'{passenger}-full_name': request.POST[f'{passenger}-full_name'],
-                f'{passenger}-date_of_birth': f'{dob_year}-{dob_month}-{dob_day}',
-                f'{passenger}-passport_number': request.POST[f'{passenger}-passport_number']
-            }
-
-            form = PassengerForm(form_data, prefix=passenger)
-
-            if form.is_valid:
-                form.save()
-                return redirect(reverse('checkout'))
+        if formset.is_valid():
+            formset.save()
+            return redirect(reverse('checkout'))
 
     else:
-        formset = []
-        if request.user.is_authenticated:
-            profile = UserProfile.objects.get(user=request.user)
 
-        for passenger_number in passenger_range:
-            if passenger_number == 1 and profile and not booking.booking_passengers.all():
-                formset.append(PassengerForm(
-                    initial={'full_name': profile.user.get_full_name()}, prefix=passenger_number))
-            elif not booking.booking_passengers.all():
-                formset.append(PassengerForm(prefix=passenger_number))
-            else:
-                passenger = booking.booking_passengers.all()[
-                    passenger_number - 1]
-                formset.append(PassengerForm(
-                    prefix=passenger_number, instance=passenger))
+        if request.user.is_authenticated and not booking.booking_passengers.all():
+            profile = UserProfile.objects.get(user=request.user)
+            formset = inlineformset_factory(
+                Booking,
+                BookingPassenger,
+                form=PassengerForm,
+                extra=booking.guests,
+            )
+            formset = formset(
+                initial=[
+                    {'full_name': profile.user.get_full_name()}
+                ],
+            )
+
+        elif booking.booking_passengers.all():
+            formset = inlineformset_factory(
+                Booking,
+                BookingPassenger,
+                form=PassengerForm,
+                extra=0,
+            )
+            formset = formset(
+                instance=booking
+            )
+
+        else:
+            formset = inlineformset_factory(
+                Booking,
+                BookingPassenger,
+                form=PassengerForm,
+                extra=booking.guests
+            )
 
     context = {
-        'passenger_range': passenger_range,
         'formset': formset,
     }
 
