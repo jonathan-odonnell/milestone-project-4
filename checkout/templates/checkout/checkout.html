@@ -101,8 +101,10 @@
                         <div class="spinner d-none" id="spinner"></div>
                         <span id="button-text"><i class="fas fa-lock me-2"></i>Pay</span>
                     </button>
-                    <!-- Pass the client secret to the view so we can get the payment intent id -->
+                    <!-- Pass the client secret to the view so we can get the stripe payment intent id -->
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                    <!-- Pass the paypal payment ID to the view -->
+                    <input type="hidden" value="" name="paypal_pid">
                 </fieldset>
             </form>
         </div>
