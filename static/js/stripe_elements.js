@@ -163,12 +163,12 @@ var loading = function (isLoading) {
     if (isLoading) {
         // Disable the button and show a spinner
         document.querySelector("button").disabled = true;
-        document.querySelector("#spinner").classList.remove("hidden");
-        document.querySelector("#button-text").classList.add("hidden");
+        document.querySelector("#spinner").classList.remove("d-none");
+        document.querySelector("#button-text").classList.add("d-none");
     } else {
         document.querySelector("button").disabled = false;
-        document.querySelector("#spinner").classList.add("hidden");
-        document.querySelector("#button-text").classList.remove("hidden");
+        document.querySelector("#spinner").classList.add("d-none");
+        document.querySelector("#button-text").classList.remove("d-none");
     }
 };
 
