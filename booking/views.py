@@ -243,6 +243,10 @@ def passengers(request):
             formset.save()
             return redirect(reverse('checkout'))
 
+        else:
+            messages.error(
+                request, 'Unable to add passenger details. Please ensure the form is valid.')
+
     else:
 
         if request.user.is_authenticated and not booking.booking_passengers.all():
@@ -270,7 +274,7 @@ def passengers(request):
                 instance=booking
             )
 
-        else:
+        else:  
             formset = inlineformset_factory(
                 Booking,
                 BookingPassenger,
