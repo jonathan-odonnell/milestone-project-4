@@ -43,9 +43,9 @@ def checkout(request):
     booking = Booking.objects.get(booking_number=booking_number)
 
     if request.method == 'POST':
-        form_data = None
         save_info = 'save_info' in request.POST
-        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe_pid = request.POST['client_secret'].split('_secret')[0]
+        paypal_pid = request.POST['paypal_pid']
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
         form_data = {
@@ -64,9 +64,14 @@ def checkout(request):
 
         if booking_form.is_valid():
             booking = booking_form.save(commit=False)
-            booking.stripe_pid = pid
-            booking.paid = True
-            booking.save()
+
+            if paypal_pid:
+                booking.paypal_pid = paypal_pid
+                booking.paid = True
+
+            else:
+                booking.stripe_pid = stripe_pid
+                booking.paid = True
 
             if request.user.is_authenticated:
                 profile = UserProfile.objects.get(user=request.user)
@@ -88,6 +93,9 @@ def checkout(request):
 
                     if user_profile_form.is_valid():
                         user_profile_form.save()
+
+            else:
+                booking.save()
 
             return redirect(reverse('checkout_success', args=[booking.booking_number]))
 
@@ -156,8 +164,8 @@ def checkout_success(request, booking_number):
     booking = get_object_or_404(Booking, booking_number=booking_number)
     time_zone = booking.outbound_flight.destination_time_zone.zone
 
-    if request.session.get('booking_number'):
-        del request.session['booking_number']
+    #if request.session.get('booking_number'):
+        #del request.session['booking_number']
 
     template = 'checkout/checkout_success.html'
     context = {
@@ -175,35 +183,6 @@ def paypal(request):
     booking = Booking.objects.get(booking_number=booking_number)
     total = booking.grand_total
     currency = settings.PAYPAL_CURRENCY
-
-    booking = Booking.objects.get(booking_number=booking_number)
-    # From https://stackoverflow.com/questions/59630300/getting-bytes-when-using-axios
-    form_data = json.loads(request.body)
-    save_info = 'save_info' in form_data
-    booking_form = BookingForm(form_data, instance=booking)
-
-    if booking_form.is_valid:
-        booking = booking_form.save()
-
-        if request.user.is_authenticated:
-            profile = UserProfile.objects.get(user=request.user)
-
-            if save_info:
-                profile_data = {
-                    'phone_number': booking.phone_number,
-                    'street_address1': booking.street_address1,
-                    'street_address2': booking.street_address2,
-                    'town_or_city': booking.town_or_city,
-                    'county': booking.county,
-                    'country': booking.country,
-                    'postcode': booking.postcode,
-                }
-                user_profile_form = UserProfileForm(
-                    profile_data, instance=profile)
-
-                if user_profile_form.is_valid():
-                    profile.save()
-
     environment = SandboxEnvironment(
         client_id=client_id, client_secret=client_secret)
     client = PayPalHttpClient(environment)
@@ -229,16 +208,12 @@ def paypal(request):
 def paypal_approve(request):
     client_id = settings.PAYPAL_CLIENT_ID
     client_secret = settings.PAYPAL_CLIENT_SECRET
+    # From https://stackoverflow.com/questions/59630300/getting-bytes-when-using-axios
     order_id = json.loads(request.body)['order_id']
-    booking_number = request.session.get('booking_number', '')
     environment = SandboxEnvironment(
         client_id=client_id, client_secret=client_secret)
     client = PayPalHttpClient(environment)
     request = OrdersCaptureRequest(order_id)
     response = client.execute(request)
     response = response.result.__dict__['_dict']
-    booking = Booking.objects.get(booking_number=booking_number)
-    booking.paid = True
-    booking.paypal_pid = response['id']
-    booking.save()
     return JsonResponse(response)
