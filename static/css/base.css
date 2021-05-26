@@ -391,39 +391,37 @@ strong {
     text-transform: capitalize;
 }
 
+.form-label .asteriskField {
+    display: none;
+}
+
+.form-control,
+.input-group .form-control {
+    border-color: #d3d3d3;
+    color: #4a4a4a;
+}
+
 .form-control::placeholder {
     color: #a9a9a9;
 }
 
-.form-control:read-only {
-    background-color: inherit;
-}
-
-.form-control {
-    border-color: #d3d3d3;
-    color: #4a4a4a;
-}
-
-.form-control:focus {
+.form-control:focus,
+.input-group .form-control:focus {
     box-shadow: none;
     border-color: #d3d3d3;
+}
+
+select,
+select option {
     color: #4a4a4a;
 }
 
-select:first-child {
-  color: #a9a9a9;
+select option[value=""] {
+    color: #a9a9a9;
 }
 
-select:not(:first-child) {
-  color: #4a4a4a;
-}
-
-/* Chrome, Safari, Edge, Opera hide number input arrow butttons. Code is from https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  margin: 0;
+.input-group .invalid-feedback {
+    position: inherit;
 }
 
 .newsletter-signup .form-control:focus {
@@ -431,12 +429,22 @@ input[type="number"]::-webkit-inner-spin-button {
     border: none !important;
 }
 
-#sort-selector, 
-#sort-selector:focus, 
-#flight-sort-selector, 
-#flight-sort-selector:focus {
+#sort-selector option, 
+#flight-sort-selector option {
     color: #4a4a4a;
-    border-color: #d3d3d3;
+}
+
+#sort-selector:focus,
+#flight-sort-selector:focus {
+    border-color: #bdbdbd;
+}
+
+/* Hides number input arrow butttons in guest and quantity fields. Code is from https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
+input[name="guests"]::-webkit-inner-spin-button,
+input[name="quantity"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
 }
 
 .form-switch .form-check-input[type=checkbox]:checked {
@@ -445,6 +453,30 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .form-switch .form-check-input:checked[type=checkbox]:after {
     background-color: #fff;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+  
+.btn-file input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+  
+.delete-check .form-check-input {
+    border-color: #dc3545;
+}
+  
+.delete-check .form-check-input:checked {
+    background-color: #dc3545;
+    border-color: #dc3545;
 }
 
 /* Form End */
@@ -630,38 +662,6 @@ input[type="number"]::-webkit-inner-spin-button {
     min-height: 35px;
 }
 
-.input-group .invalid-feedback {
-    position: inherit;
-}
-
-label .asteriskField {
-    display: none;
-}
-
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-  
-.btn-file input[type="file"] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    opacity: 0;
-    cursor: pointer;
-}
-  
-.delete-check .form-check-input {
-    border-color: #dc3545;
-}
-  
-.delete-check .form-check-input:checked {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
 #flights-table tr td:last-of-type {
     min-width: 185px;
 }
@@ -674,10 +674,6 @@ label .asteriskField {
 
 #airports-list li:hover {
     background-color: #e9ecef;
-}
-
-.input-group-text {
-   background-color: #e9ecef;
 }
 
 .flight-line {
