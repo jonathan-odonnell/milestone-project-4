@@ -23,10 +23,13 @@ class PackageForm(forms.ModelForm):
 
         self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['image'].widget = CustomClearableFileInput()
-        self.fields['description'].widget.attrs['rows'] = 5
+        self.fields['description'].widget.attrs['rows'] = 8
         self.fields['category'].empty_label = 'Category'
+        self.fields['category'].widget.attrs['class'] = 'form-select'
         self.fields['country'].empty_label = 'Country'
+        self.fields['country'].widget.attrs['class'] = 'form-select'
         self.fields['region'].empty_label = 'Region'
+        self.fields['region'].widget.attrs['class'] = 'form-select'
 
 
 class FeatureForm(forms.ModelForm):
