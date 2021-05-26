@@ -3,11 +3,11 @@
 .stripe-style-input {
     border-radius: .25rem;
     padding: 12px;
-    border: 1px solid #bdbdbd;
+    border: 1px solid #d3d3d3;
     height: 44px;
     width: 100%;
     color: #4f4f4f;
-    background: #fff;
+    background: #fff; 
 }
 
 .StripeElement--webkit-autofill {
@@ -15,7 +15,7 @@
   }
   
 .stripe-style-input::placeholder {
-    color: #4f4f4f;
+    color: #a9a9a9;
 }
 
 #payment-request-button {
@@ -23,14 +23,6 @@
   border: 0;
 }
 
-
-#card-error {
-  color: rgb(105, 115, 134);
-  text-align: left;
-  font-size: 13px;
-  line-height: 17px;
-  margin-top: 12px;
-}
 
 .payment-btn {
     background: #70c8df;

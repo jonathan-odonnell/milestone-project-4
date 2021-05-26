@@ -15,11 +15,11 @@ var stripe = Stripe(stripePublicKey);
 var elements = stripe.elements();
 var style = {
     base: {
-        color: '#000',
+        color: '#4f4f4f',
         fontFamily: '"PT Sans", sans-serif',
         fontSize: '16px',
         '::placeholder': {
-            color: '#4f4f4f'
+            color: '#a9a9a9'
         }
     },
     invalid: {
