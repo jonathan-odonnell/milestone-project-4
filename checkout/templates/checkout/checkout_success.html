@@ -23,50 +23,50 @@
         </div>
         {% endif %}
         <div class="col-12 col-lg-8 mx-auto border p-3">
-            <div class="row g-0 mb-3">
+            <div class="row g-0 mb-2 mb-sm-3">
                 <div class="col-12">
                     <div class="row g-0">
                         <div class="col-12">
                             <h5 class="section-subheading mb-3">Billing Information</h5>
                         </div>
                     </div>
-                    <div class="row g-0">
-                        <div class="col-4">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-4">
                             <p class="small text-black font-weight-bold mb-0">Booking Number</p>
                         </div>
-                        <div class="col-8 text-end">
-                            <p class="small text-break mb-0">{{ booking.booking_number }}</p>
+                        <div class="col-12 col-sm-8 text-sm-end">
+                            <p class="small mb-0">{{ booking.booking_number }}</p>
                         </div>
                     </div>
-                    <div class="row g-0">
-                        <div class="col-4">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-4">
                             <p class="small text-black font-weight-bold mb-0">Booking Date</p>
                         </div>
-                        <div class="col-8 text-end">
+                        <div class="col-12 col-sm-8 text-sm-end">
                             <p class="small mb-0">{{ booking.date|date }}</p>
                         </div>
                     </div>
-                    <div class="row g-0">
-                        <div class="col-4">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-4">
                             <p class="small text-black font-weight-bold mb-0">Full Name</p>
                         </div>
-                        <div class="col-8 text-end">
+                        <div class="col-12 col-sm-8 text-sm-end">
                             <p class="small mb-0">{{ booking.full_name }}</p>
                         </div>
                     </div>
-                    <div class="row g-0">
-                        <div class="col-4">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-4">
                             <p class="small text-black font-weight-bold mb-0">Phone Number</p>
                         </div>
-                        <div class="col-8 text-end">
+                        <div class="col-12 col-sm-8 text-sm-end">
                             <p class="small mb-0">{{ booking.phone_number }}</p>
                         </div>
                     </div>
-                    <div class="row g-0">
-                        <div class="col-4">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-4">
                             <p class="small text-black font-weight-bold mb-0">Address</p>
                         </div>
-                        <div class="col-8 text-end">
+                        <div class="col-12 col-sm-8 text-sm-end">
                             <p class="small mb-0">{{ booking.street_address1 }}</p>
                             {% if booking.street_address2 %}
                             <p class="small mb-0">{{ booking.street_address2 }}</p>
@@ -77,41 +77,41 @@
                         </div>
                     </div>
                     {% if booking.subtotal != booking.grand_total %}
-                    <div class="row g-0">
-                        <div class="col-6">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-8">
                             <p class="small text-black font-weight-bold mb-0">Subtotal</p>
                         </div>
-                        <div class="col-6">
-                            <p class="small text-end mb-0">£{{ booking.subtotal|floatformat:"-2" }}</p>
+                        <div class="col-12 col-sm-4 text-sm-end">
+                            <p class="small mb-0">£{{ booking.subtotal|floatformat:"-2" }}</p>
                         </div>
                     </div>
                     {% endif %}
                     {% if booking.extras_total %}
-                    <div class="row g-0">
-                        <div class="col-6">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-8">
                             <p class="small text-black font-weight-bold mb-0">Extras</p>
                         </div>
-                        <div class="col-6">
-                            <p class="small text-end mb-0">£{{ booking.extras_total|floatformat:"-2" }}</p>
+                        <div class="col-12 col-sm-4 text-sm-end">
+                            <p class="small mb-0">£{{ booking.extras_total|floatformat:"-2" }}</p>
                         </div>
                     </div>
                     {% endif %}
                     {% if booking.discount %}
-                    <div class="row g-0">
-                        <div class="col-6">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-8">
                             <p class="small text-black font-weight-bold mb-0">Discount</p>
                         </div>
-                        <div class="col-6">
-                            <p class="small text-danger text-end mb-0">- £{{ booking.discount|floatformat:"-2" }}</p>
+                        <div class="col-12 col-sm-4 text-sm-end">
+                            <p class="small text-danger mb-0">- £{{ booking.discount|floatformat:"-2" }}</p>
                         </div>
                     </div>
                     {% endif %}
-                    <div class="row g-0">
-                        <div class="col-6">
+                    <div class="row g-0 mb-2 mb-sm-0">
+                        <div class="col-12 col-sm-8">
                             <p class="small text-black font-weight-bold mb-0">Total</p>
                         </div>
-                        <div class="col-6">
-                            <p class="small text-end mb-0">£{{ booking.grand_total|floatformat:"-2" }}</p>
+                        <div class="col-12 col-sm-4 text-sm-end">
+                            <p class="small mb-0">£{{ booking.grand_total|floatformat:"-2" }}</p>
                         </div>
                     </div>
                 </div>
@@ -241,17 +241,21 @@
                 {% endwith %}
             </div>
         </div>
-        <div class="col-12 col-lg-8 mx-auto text-center text-md-end mt-4">
-            {% if from_booking %}
+        {% if from_booking %}
+        <div class="col-12 col-lg-8 mx-auto text-center text-md-start mt-4">
             <a href="{% url 'bookings' %}" class="btn btn-primary">
-                Back to Bookings<i class="fas fa-chevron-right ms-2"></i>
+                <i class="fas fa-chevron-left ms-2"></i>
+                <span>Back to Bookings</span>
             </a>
-            {% else %}
-            <a href="{% url 'offers' %}" class="btn btn-primary">
-                Now check out the latest offers!<i class="fas fa-chevron-right ms-2"></i>
-            </a>
-            {% endif %}
         </div>
+        {% else %}
+        <div class="col-12 col-lg-8 mx-auto text-center text-md-end mt-4">
+            <a href="{% url 'offers' %}" class="btn btn-primary">
+                <i class="fas fa-chevron-right ms-2"></i>
+                <span>Now check out the latest offers!</span>
+            </a>
+        </div>
+        {% endif %}
     </div>
 </div>
 
