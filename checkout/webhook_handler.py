@@ -9,7 +9,7 @@ import time
 import stripe
 
 
-class StripeWH_Handler:
+class WH_Handler:
     "Handles stripe webhooks"
 
     def __init__(self, request):
@@ -138,24 +138,3 @@ class StripeWH_Handler:
             content=f'Webhook received: {event["type"]}',
             status=200)
 
-
-class PaypalWH_Handler:
-
-    def __init__(self, request):
-        self.request = request
-
-    def handle_event(self, event):
-        """
-        Handles a generic/unexpected/unknown webhook event
-        """
-        return HttpResponse(
-            content=f'Webhook received: {event["event_type"]}',
-            status=200)
-
-    def handle_payment_capture_completed(self, event):
-        """
-        Handles the PAYMENT.CAPTURE.COMPLETED webhook event from Paypal
-        """
-        return HttpResponse(
-            content=f'Webhook received: {event["event_type"]}',
-            status=200)

@@ -189,7 +189,6 @@ def paypal(request):
             profile = UserProfile.objects.get(user=request.user)
 
             if save_info:
-                profile = UserProfile(instance=request.user)
                 profile_data = {
                     'phone_number': booking.phone_number,
                     'street_address1': booking.street_address1,

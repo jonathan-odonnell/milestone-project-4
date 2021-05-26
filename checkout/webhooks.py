@@ -2,14 +2,13 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-from .webhook_handler import StripeWH_Handler, PaypalWH_Handler
+from .webhook_handler import WH_Handler
 import stripe
-import json
 
 
 @require_POST
 @csrf_exempt
-def stripe_webhook(request):
+def webhook(request):
     # setup
     wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -48,33 +47,5 @@ def stripe_webhook(request):
 
     # Call the event handler with the event
     response = event_handler(event)
-
-    return response
-
-
-@require_POST
-@csrf_exempt
-def paypal_webhook(request):
-
-    # Set up a webhook handler
-    handler = PaypalWH_Handler(request)
-
-    # Map webhook events to handler functions
-    event_map = {
-        'PAYMENT.CAPTURE.COMPLETED': handler.handle_payment_capture_completed,
-    }
-
-    # https://stackoverflow.com/questions/29780060/trying-to-parse-request-body-from-post-in-django
-    event_unicode = request.body.decode('utf-8')
-    event = json.loads(event_unicode)
-    event_type = event['event_type']
-
-    # If there's a handler type for it, get it from the event map. Use the generic one by default.
-    event_handler = event_map.get(event_type, handler.handle_event)
-
-    # Call the event handler with the event
-    response = event_handler(event)
-
-    print(event_type)
 
     return response
