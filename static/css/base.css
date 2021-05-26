@@ -43,6 +43,10 @@ strong {
     color: #000;
 }
 
+.text-secondary {
+    color: #d13574 !important;
+}
+
 /* Text End */
 
 /* Backgrounds Start */
