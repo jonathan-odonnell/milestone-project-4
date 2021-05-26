@@ -56,13 +56,6 @@
     $(document).ready(function () {
         $('select').wrap('<div class="col-12 col-md-4 mb-3">')
         $('.col-md-4').parent().addClass('row').removeClass('mb-3')
-    })
-    $("select").change(function () {
-        if (!$(this).val()) {
-            $(this).css("color", "#a9a9a9");
-        } else {
-            $(this).css("color", "#4a4a4a");
-        }
     });
 </script>
 {% endblock %}

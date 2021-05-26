@@ -398,6 +398,7 @@ select option {
     color: #4a4a4a;
 }
 
+select:invalid,
 select option[value=""] {
     color: #a9a9a9;
 }

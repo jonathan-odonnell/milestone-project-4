@@ -19,3 +19,4 @@ class PassengerForm(forms.ModelForm):
 
         for field in self.fields:
             self.fields[field].required = True
+            self.fields[field].widget.attrs['required'] = True
