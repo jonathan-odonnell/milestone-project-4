@@ -15,17 +15,37 @@ section {
 
 /* Body and Section End */
 
-a {
-    color: #006994;
-}
-
-a:hover {
-    color: #70c8df;
-}
+/* Text Start */
 
 strong {
     font-weight: bold;
 }
+
+.section-heading {
+    font-weight: bold;
+    color: #006994;
+}
+
+.section-subheading {
+    font-weight: bold;
+    color: #70c8df;
+}
+
+.error-heading {
+    letter-spacing: 2px;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.text-black {
+    color: #000;
+}
+
+/* Text End */
+
+/* Backgrounds Start */
 
 .bg-primary {
     background-color: #006994 !important;
@@ -35,9 +55,21 @@ strong {
     background-color: #d13574 !important;
 }
 
-.bg-grey {
-    background-color: #f7fcfc;
+/* Backgrounds End */
+
+/* Links Start */
+
+a {
+    color: #006994;
 }
+
+a:hover {
+    color: #70c8df;
+}
+
+/* Links End */
+
+/* Buttons Start */
 
 .btn-primary {
     background-color: #70c8df !important;
@@ -45,15 +77,6 @@ strong {
 
 .btn-secondary {
     background-color: #d13574 !important;
-}
-
-.btn-info, .btn-info:hover {
-    background-color: #49c5b6;
-}
-
-.btn-outline-primary {
-    color: #006994 !important;
-    border-color: #006994 !important;
 }
 
 .btn-grey {
@@ -97,39 +120,25 @@ strong {
     background: #70c8df;
 }
 
+/* Buttons End */
+
+/* Border Start */
+
 .border-primary {
     border-color: #70c8df !important;
 }
 
-.section-heading {
-    font-weight: bold;
-    color: #006994;
+/* Border End */
+
+/* Pagination Start */
+
+.pagination .active .page-link {
+    background-color: #d13574;
 }
 
-.text-primary {
-    color: #70c8df !important;
-}
+/* Pagination End */
 
-.text-secondary {
-    color: #d13574 !important;
-}
-
-.text-black {
-    color: #000;
-}
-
-.section-subheading {
-    font-weight: bold;
-    color: #70c8df;
-}
-
-.booking-form h2 {
-    font-size: 1.5rem;
-}
-
-.booking-heading {
-    font-weight: bold;
-}
+/* Navbar Start */
 
 .navbar i {
     color: #006994;
@@ -158,10 +167,6 @@ strong {
     font-size: 1rem;
 }
 
-.error-heading {
-    letter-spacing: 2px;
-}
-
 /* Color codes are from https://www.slowdown.travel/ */
 
 .nav-links a {
@@ -186,11 +191,17 @@ strong {
     margin-top: 1.625rem;
 }
 
+/* Navbar End */
+
+/* Toasts Start */
+
 .message-container .position-fixed {
     z-index: 5;
 }
 
-/* Hero Image Start */
+/* Toasts End */
+
+/* Hero Images Start */
 
 .hero-image {
     display: flex;
@@ -241,19 +252,21 @@ strong {
     margin: 30px 0 50px 0;
 }
 
-.btn-hero {
-    background-color: #49c5b6;
-    color: #fff;
+.toronto {
+    background-position: 50% 60%;
 }
 
-.btn-hero:hover {
-    background-color: #70c8df;
-    color: #fff;
+.singapore {
+    background-position: 50% 70%;
 }
 
-/* Hero Image End */
+.new-york {
+    background-position: center bottom;
+}
 
-/* Hero Image Carousel Start */
+/* Hero Images End */
+
+/* Carousel and Slider Start */
 
 #hero-image-carousel .slick-slide {
     display: flex;
@@ -352,38 +365,7 @@ strong {
     background: transparent;
 }
 
-/* Hero Image Carousel End */ 
-
-/* Block Divider Start */
-
-.block-divider {
-    width: 75px;
-    height: 5px;
-    border: 0;
-    background-color: #fff;
-}
-
-.block-divider-blue {
-    background-color: #006994;
-}
-
-/* Block Divider End */
-
-/* Features Start */
-
-.features p {
-    line-height: 30px;
-}
-
-.features h3 {
-    margin-bottom: 10px;
-}
-
-.features i {
-    margin-bottom: 40px;
-}
-
-/* Features End */
+/* Carousel and Slider Start End */ 
 
 /* Form Start */
 
@@ -481,10 +463,35 @@ input[name="quantity"]::-webkit-inner-spin-button {
 
 /* Form End */
 
+/* Rating Stars Start */
+
+.fa-star, .fa-star-half-alt {
+    color: gold;
+}
+
 .rating-stars .btn {
     font-size: 1.33rem;
 }
-/* Destination Card Start. Code for image hover effects is from .destination-card img:hover */
+
+/* Rating Stars End */
+
+/* Features Start */
+
+.features p {
+    line-height: 30px;
+}
+
+.features h3 {
+    margin-bottom: 10px;
+}
+
+.features i {
+    margin-bottom: 40px;
+}
+
+/* Features End */
+
+/* Destination Cards Start. Code for image hover effects is from ***** */
 
 .destination-card {
     border-radius: 10px;
@@ -534,43 +541,10 @@ input[name="quantity"]::-webkit-inner-spin-button {
     color: #7A838B;
 }
 
-.rating i {
-    margin-right: 2px;
-}
+/* Destination Cards End */
 
-.fa-star, .fa-star-half-alt {
-    color: gold;
-}
 
-/* Destination Card End */
-
-.pagination .active .page-link {
-    background-color: #d13574;
-}
-
-.sydney {
-    background-position: 50% 30%;
-}
-
-.algarve {
-    background-position: 50% 40%;
-} 
-
-.toronto {
-    background-position: 50% 60%;
-}
-
-.auckland, .singapore {
-    background-position: 50% 70%;
-}
-
-.whitsundays {
-    background-position: 50% 80%;
-}
-
-.new-york {
-    background-position: center bottom;
-}
+/* Holiday Details Page Start */
 
 .nav-tabs .nav-link {
     font-weight: bold;
@@ -593,7 +567,23 @@ input[name="quantity"]::-webkit-inner-spin-button {
     color: #4f4f4f;
 }
 
-/* Itinerery Start */
+.booking-form h2 {
+    font-size: 1.5rem;
+}
+
+.booking-heading {
+    font-weight: bold;
+}
+
+#airports-list {
+    max-height: 150px;
+    overflow-y: scroll;
+    z-index: 3;
+}
+
+#airports-list li:hover {
+    background-color: #e9ecef;
+}
 
 .itinerary-item:after {
     content: '';
@@ -629,8 +619,9 @@ input[name="quantity"]::-webkit-inner-spin-button {
     z-index: 1;
 }
 
+/* Holiday Details Page End */
 
-/* Itinerery End */
+/* Guests and Quantity Inputs Start */
 
 .guests button {
     width: 30%;
@@ -638,10 +629,6 @@ input[name="quantity"]::-webkit-inner-spin-button {
 
 .plus, .minus {
     background-color: #c8c8c8 !important;
-}
-
-.table th {
-    font-weight: bold;
 }
 
 .input-group .form-control {
@@ -662,19 +649,9 @@ input[name="quantity"]::-webkit-inner-spin-button {
     min-height: 35px;
 }
 
-#flights-table tr td:last-of-type {
-    min-width: 185px;
-}
+/* Guests and Quantity Inputs End */
 
-#airports-list {
-    max-height: 150px;
-    overflow-y: scroll;
-    z-index: 3;
-}
-
-#airports-list li:hover {
-    background-color: #e9ecef;
-}
+/* Checkout Success End */
 
 .flight-line {
     border-top: 2px solid #4f4f4f;
@@ -711,9 +688,17 @@ input[name="quantity"]::-webkit-inner-spin-button {
     padding: 0 5px;
 }
 
+/* Checkout Success Start */
+
+/* Extras Start */
+
 .extra-card img {
     object-fit: cover;
 }
+
+/* Extras End */
+
+/* Contact Start */
 
 .contact-info-item .key {
     padding-right: 21px;
@@ -740,6 +725,16 @@ input[name="quantity"]::-webkit-inner-spin-button {
     text-align: center;
     line-height: 40px;
 }
+
+/* Contact End */
+
+/* Flights Table Start */
+
+#flights-table tr td:last-of-type {
+    min-width: 185px;
+}
+
+/* Flights Table End */
 
 /* Footer Start */
 
@@ -773,6 +768,8 @@ footer .small {
 }
 
 /* Footer End */
+
+/* Media Queries Start */
 
 @media (min-width: 450px) {
     .destination-card img {
@@ -822,3 +819,5 @@ footer .small {
     }
     
 }
+
+/* Media Queries End */
