@@ -90,18 +90,6 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
-    let subjectSelected = $("#id_subject").val();
-    if (!subjectSelected) {
-        $("#id_subject").css("color", "#a9a9a9");
-    }
-    $("#id_subject").change(function () {
-        subjectSelected = $(this).val();
-        if (!subjectSelected) {
-            $(this).css("color", "#a9a9a9");
-        } else {
-            $(this).css("color", "#4a4a4a");
-        }
-    });
     $('form .btn').click(function (e) {
         e.preventDefault()
         if ($('form')[0].reportValidity()) {
