@@ -3,19 +3,19 @@
 
 {% block content %}
 <div class="container-fluid p-4">
-    <div class="row no-gutters">
+    <div class="row g-0">
         <div class="col-12 text-center">
             <h2 class="section-heading mb-3">Edit Extra</h2>
         </div>
-        <div class="col-12 col-lg-8 mx-auto">
+        <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'edit_extra' extra.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.name | as_crispy_field }}
                 {{ form.image }}
                 {{ form.price | as_crispy_field }}
                 {{ form.description | as_crispy_field }}
-                <div class="my-3 text-center">
-                    <button class="btn btn-primary mt-3" type="submit">Update Extra</button>
+                <div class="mt-4 text-center">
+                    <button class="btn btn-primary" type="submit">Update Extra</button>
                 </div>
             </form>
         </div>

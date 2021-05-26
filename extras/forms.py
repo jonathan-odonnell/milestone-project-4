@@ -14,4 +14,6 @@ class ExtraForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
+        self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['image'].widget = CustomClearableFileInput()
+        self.fields['description'].widget.attrs['rows'] = 8
