@@ -3,7 +3,7 @@
 {% block content %}
 <section>
     {% if category %}
-    <div class="container-fluid hero-image {% if category.name == 'City Breaks' %}hero-image-bottom {% endif %}{% if category.name == 'Beach' %}hero-image-top{% endif %} p-0"
+    <div class="container-fluid hero-image {% if category.name == 'City Breaks' %}hero-image-80 {% endif %}{% if category.name == 'Beach' %}hero-image-top{% endif %} p-0"
         style="background-image: url('{{ category.image.url }}')">
         <div class="overlay">&nbsp;</div>
         <div class="row no-gutters">
@@ -17,7 +17,7 @@
         </div>
     </div>
     {% elif destination %}
-    <div class="container-fluid hero-image {% if destination.name == 'Europe' %}hero-image-bottom {% endif %}p-0"
+    <div class="container-fluid hero-image {% if destination.name == 'Europe' %}hero-image-80 {% endif %}p-0"
         style="background-image: url('{{ destination.image.url }}')">
         <div class="overlay">&nbsp;</div>
         <div class="row no-gutters">

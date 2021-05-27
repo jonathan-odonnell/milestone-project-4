@@ -212,17 +212,9 @@ a:hover {
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 60vh;
+    height: 66vh;
     background-size: cover;
     background-position: center center;
-}
-
-.hero-image-top {
-    background-position: center top;
-}
-
-.hero-image-bottom {
-    background-position: 50% 90%;
 }
 
 .overlay {
@@ -256,17 +248,52 @@ a:hover {
     margin: 30px 0 50px 0;
 }
 
-.toronto {
+.hero-image-top {
+    background-position: center top;
+}
+
+.queensland {
+    background-position: 50% 25%;
+}
+
+.south-australia,
+.paria-da-luz {
+    background-position: 50% 40%;
+}
+
+.toronto,
+.western-australia,
+.paris {
     background-position: 50% 60%;
 }
 
-.singapore {
+.singapore,
+.victoria,
+.northern-territory,
+.new-south-wales,
+.feithiye,
+.madrid {
     background-position: 50% 70%;
 }
 
-.new-york {
+.hero-image-80 {
+    background-position: 50% 90%;
+}
+
+.lefkas {
+    background-position: 50% 90%;
+}
+
+.new-york,
+.tasmania,
+.lanzarote,
+.santorini,
+.albufeira {
     background-position: center bottom;
 }
+
+
+
 
 /* Hero Images End */
 
