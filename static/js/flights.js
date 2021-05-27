@@ -6,10 +6,10 @@ let endDate = new Date(new Date().getFullYear() + 1, new Date().getMonth(), new 
 /* Adds the blank option to the destination time zone input and removes the default datepicker input
  styling from the departure time and arrival time inputs */
 $(document).ready(function () {
-	$('#div_id_departure_time input').removeClass('gj-textbox-md')
-	$('#div_id_arrival_time input').removeClass('gj-textbox-md')
-	$('#id_destination_time_zone').prepend('<option value="" selected></option>')
-})
+	$('#div_id_departure_time input').removeClass('gj-textbox-md');
+	$('#div_id_arrival_time input').removeClass('gj-textbox-md');
+	$('#id_destination_time_zone').prepend('<option value="" selected></option>');
+});
 
 /* Configures the departure time datetime picker. Code is from https://gijgo.com/datetimepicker/, 
 https://gijgo.com/datepicker/configuration and https://gijgo.com/datetimepicker/configuration */
