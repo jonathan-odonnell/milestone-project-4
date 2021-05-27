@@ -847,6 +847,9 @@ footer .small {
     .destination-card img {
         height: 10rem;
     }
+    #popular-destinations img {
+        height: 15rem;
+    }
 }
 
 /* Media Queries End */
