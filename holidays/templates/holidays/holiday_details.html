@@ -205,7 +205,7 @@
         </div>
         <div id="related-holidays" class="my-3">
             {% for holiday in holidays %}
-            <div id="holidays" class="card destination-card d-flex">
+            <div class="card destination-card shadow-0 border d-flex">
                 <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                 <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
                 <div class="card-body">
