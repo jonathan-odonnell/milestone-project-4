@@ -43,6 +43,10 @@ strong {
     color: #000;
 }
 
+.text-primary {
+    color: #70c8df !important;
+}
+
 .text-secondary {
     color: #d13574 !important;
 }
