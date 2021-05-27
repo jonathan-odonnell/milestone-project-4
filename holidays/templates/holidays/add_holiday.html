@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
+
+{% block extra_js %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"
+    integrity="sha512-ltwjKsDTo3hW/wV66ZaEkf2wOAFxmg7rWM76J8kOcYKLSKy44WBYO/BFaNNH3NGDS8BSz3meB9wtSnm41oL+pA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{% endblock %}
 
 {% block content %}
 <section class="container-fluid p-4">
-    <div class="row no-gutters">
+    <div class="row g-0">
         <div class="col-12 text-center">
             <h1 class="section-heading mb-4">Add Holiday</h1>
         </div>
@@ -13,11 +20,11 @@
                 {% csrf_token %}
                 <fieldset id="package">
                     {% for field in form %}
-                        {% if field.name == 'image' %}
-                            {{ field }}
-                        {% else %}
-                            {{ field | as_crispy_field}}
-                        {% endif %}
+                    {% if field.name == 'image' %}
+                    {{ field }}
+                    {% else %}
+                    {{ field | as_crispy_field}}
+                    {% endif %}
                     {% endfor %}
                 </fieldset>
                 <fieldset id="features" class="d-none">
@@ -69,9 +76,18 @@
                 <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}
                 <div class="text-center mt-3 mb-2">
-                    <button id="back" class="btn btn-primary btn-holidays mx-2 d-none" type="button"><i class="fas fa-chevron-left me-2"></i> Back</button>
-                    <button id="next" class="btn btn-primary btn-holidays mx-2" type="button">Next <i class="fas fa-chevron-right ms-2"></i></button>
-                    <button class="btn btn-primary btn-holidays mx-2 d-none" type="submit">Update Holiday <i class="fas fa-chevron-right ms-2"></i></button>
+                    <button id="back" class="btn btn-primary btn-holidays mx-2 d-none" type="button">
+                        <i class="fas fa-chevron-left me-2"></i>
+                        <span>Back</span>
+                    </button>
+                    <button id="next" class="btn btn-primary btn-holidays mx-2" type="button">
+                        <span>Next</span>
+                        <i class="fas fa-chevron-right ms-2"></i>
+                    </button>
+                    <button class="btn btn-primary btn-holidays mx-2 d-none" type="submit">
+                        <span>Add Holiday</span>
+                        <i class="fas fa-chevron-right ms-2"></i>
+                    </button>
                 </div>
             </form>
         </div>
@@ -80,7 +96,6 @@
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
-<script src="{% static 'js/jquery.formset.js' %}"></script>
 <script src="{% static 'js/add_holiday.js' %}"></script>
 <script type="text/javascript">
     $('.activity').formset({
