@@ -296,9 +296,6 @@ a:hover {
     background-position: center bottom;
 }
 
-
-
-
 /* Hero Images End */
 
 /* Carousel and Slider Start */
@@ -766,8 +763,16 @@ input[name="quantity"]::-webkit-inner-spin-button {
 
 /* Flights Table Start */
 
+#flights-table tr td:first-of-type {
+    min-width: 135px;
+}
+
 #flights-table tr td:last-of-type {
-    min-width: 185px;
+    min-width: 145px;
+}
+
+#flights-table a {
+    width: 48%
 }
 
 /* Flights Table End */
