@@ -58,7 +58,7 @@ class CustomSignupForm(SignupForm):
             'last_name': 'Enter your last name',
             'email': 'Enter your email address',
             'password1': 'Enter your password',
-            'password2': 'Confirm  your password',
+            'password2': 'Confirm your password',
         }
 
         for field in self.fields:

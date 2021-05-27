@@ -405,7 +405,7 @@ a:hover {
     text-transform: capitalize;
 }
 
-.form-label .asteriskField {
+label .asteriskField {
     display: none;
 }
 
