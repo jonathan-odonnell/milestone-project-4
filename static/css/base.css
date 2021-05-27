@@ -805,18 +805,17 @@ footer .small {
 
 @media (min-width: 450px) {
     .destination-card img {
-        height: 15rem;
+        height: 18rem;
     }
 }
 
 @media (min-width: 576px) {
-    #holidays img {
+    .destination-card img {
         height: 10rem;
     }
 }
 
 @media (min-width: 768px) {
-    #holidays img, 
     .destination-card img {
         height: 12rem;
     }
@@ -839,17 +838,15 @@ footer .small {
         border-bottom: 0 !important;
     }
 
-    #holidays img,
     .destination-card img {
-        height: 10rem;
+        height: 12rem;
     }
 }
 
 @media (min-width: 1200px) {
-    #popular-destinations img {
-        height: 12rem;
+    .destination-card img {
+        height: 10rem;
     }
-    
 }
 
 /* Media Queries End */
