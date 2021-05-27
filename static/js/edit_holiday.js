@@ -44,6 +44,7 @@ function addedActivity() {
 	$(`#div_id_activities-${activityCounter}-DELETE label`).addClass('form-check-label, text-danger').show();
 	activityCounter += 1;
 	$('.activity').last().find('legend').text(`Activity ${activityCounter}`);
+	$('.delete-row').remove();
 }
 
 /* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
@@ -58,6 +59,7 @@ function addedItinerary() {
 	$(`#div_id_itineraries-${itineraryCounter}-DELETE label`).addClass('form-check-label, text-danger').show();
 	itineraryCounter += 1;
 	$('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`);
+	$('.delete-row').remove();
 }
 
 /* Checks the shown fieldset is valid and shows and hides the relevant fieldsets and buttons when the 
