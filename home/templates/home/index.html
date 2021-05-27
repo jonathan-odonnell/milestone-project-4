@@ -47,7 +47,7 @@
                 </div>
                 <div id="popular-destinations" class="my-3">
                     {% for holiday in holidays %}
-                        <div class="card destination-card border shadow-0 d-flex">
+                        <div class="card destination-card shadow-0 border d-flex">
                             <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                             <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
                             <div class="card-body">
