@@ -1,6 +1,5 @@
 // Amends the form styling when the DOM has finished loading
 $(document).ready(function () {
-	$('.btn-file').addClass('mt-2');
 	$('.custom-checkbox').addClass('form-check ms-1');
 	$('.form-check input').addClass('form-check-input');
 	$('.form-check label').addClass('form-check-label');
