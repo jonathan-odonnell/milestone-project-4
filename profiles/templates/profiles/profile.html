@@ -32,10 +32,12 @@
 </div>
 {% endblock %}
 {% block postloadjs %}
-{{ bokck.super }}
+{{ block.super }}
 <script async src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
 <script src="{% static 'js/autocomplete.js' %}"></script>
 <script>
+    /* Changes the colour of the country select menu when it is changed depending 
+    on whether a valid option or the blank label has been selected */
     $('#id_country').change(function() {
     countrySelected = $(this).val();
     if(!countrySelected) {
