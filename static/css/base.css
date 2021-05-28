@@ -140,6 +140,10 @@ a:hover {
 
 /* Pagination Start */
 
+.pagination .page-link {
+    width: 100% !important;
+}
+
 .pagination .active .page-link {
     background-color: #d13574;
 }
