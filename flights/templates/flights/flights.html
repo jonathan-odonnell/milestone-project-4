@@ -34,15 +34,18 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
-    var currentUrl = new URL(window.location);
-    $('#flight-sort-selector').change(function () {
-        var selector = $(this);
-        var currentUrl = new URL(window.location);
+    // Stores the page's URL.
+    let currentUrl = new URL(window.location);
 
-        var selectedVal = selector.val();
-        if (selectedVal != "flight_number_asc") {
-            var sort = selectedVal.split("_")[0];
-            var direction = selectedVal.split("_")[1];
+    /* Updates the sort, direction and page search perameters in the currentUrl variable when the value
+    of the flight-sort-selector ID changes. An AJAX get request for the URL is then submitted and the 
+    HTML inside the flights-table ID is replaced with the html returned. */
+    $('#flight-sort-selector').change(function () {
+        let sortSelector = $(this).val();
+        currentUrl.searchParams.set("page", 1);
+        if (sortSelector !== "flight_number_asc") {
+            var sort = sortSelector.split("_")[0];
+            var direction = sortSelector.split("_")[1];
 
             currentUrl.searchParams.set("sort", sort);
             currentUrl.searchParams.set("direction", direction);
@@ -52,15 +55,20 @@
             currentUrl.searchParams.delete("direction");
         }
         $.get(currentUrl).done(function (data) {
-            $('#flights-table').html(data.flights)
-        })
-    })
+            $('#flights-table').html(data.flights);
+        });
+    });
+
+    /* Updates the page search perameter in the currentUrl variable when a page link is clicked. 
+    An AJAX get request for the URL is then submitted and the HTML inside the flights-table ID is
+    replaced with the html returned. Code for the delegate target jQuery is from 
+    https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
     $('#flights-table').on('click', '.page-link', function () {
-        var page = $(this).data('page');
+        let page = $(this).data('page');
         currentUrl.searchParams.set("page", page);
         $.get(currentUrl).done(function (data) {
-            $('#flights-table').html(data.flights)
-        })
-    })
+            $('#flights-table').html(data.flights);
+        });
+    });
 </script>
 {% endblock %}
