@@ -1,63 +1,95 @@
-$('#id_address').on('focus', function () {
-    $(this).val("")
-    geolocate()
-})
-
-$('#id_address').parent().attr('id', 'locationField')
-
-let placeSearch;
+// Declares the autocomplete global variable
 let autocomplete;
-const componentForm = {
-    route: "street_address1",
-    locality: "street_address2",
-    postal_town: "town_or_city",
-    administrative_area_level_2: "county",
-    country: "country",
-    postal_code: "postcode",
-};
+
+/* Sets the address input's parent element's ID to locationField. Code is from 
+https://stackoverflow.com/questions/10219396/jquery-update-element-id */
+$('#id_address').parent().attr('id', 'locationField');
+
+// Clears the address input and calls the geolocate function when the user focuses in the address field
+$('#id_address').on('focus', function () {
+    $(this).val("");
+    geolocate();
+});
+
+/* Creates the autocomplete object, restricting the search predictions to addresses in the UK.
+Calls the fillInAddress function when the user selects an address from the drop-down. Code is from 
+https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform */
 
 function initAutocomplete() {
-    autocomplete = new google.maps.places.Autocomplete(
-        document.getElementById("id_address"),
-        { types: ["address"] }
-    );
-    autocomplete.setFields(["address_component"]);
+    let addressField = document.getElementById('id_address');
+    autocomplete = new google.maps.places.Autocomplete(addressField, {
+        componentRestrictions: {
+            country: 'gb'
+        },
+        fields: ['address_components', 'geometry'],
+        types: ['address'],
+    });
     autocomplete.addListener("place_changed", fillInAddress);
-    
 }
 
-function fillInAddress() {
-    const place = autocomplete.getPlace();
+/* Gets the place details from the autocomplete object and populates the address fields in the form. Code is from 
+https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform */
 
-    for (const component in componentForm) {
-        $(`#id_${componentForm[component]}`).val("");
-      }
-    
-    for (const component of place.address_components) {
-        const addressType = component.types[0];
-        if (componentForm[addressType] === 'street_address1') {
-            if (place.address_components[0].types[0] === 'street_number') {
-                $(`#id_${componentForm[addressType]}`).val(`${place.address_components[0]['long_name']} ${component['long_name']}`)
-            } else {
-                $(`#id_${componentForm[addressType]}`).val(`${place.address_components[0]['long_name']}`)
+function fillInAddress() {
+    let place = autocomplete.getPlace();
+    let streetAddress1 = '';
+    $(`#id_street_address2`).val("");
+
+    for (let component of place.address_components) {
+        let componentType = component.types[0];
+
+        switch (componentType) {
+            case "street_number": {
+                streetAddress1 = `${component.long_name} `;
+                break;
             }
-        } else if (componentForm[addressType] === 'country') {
-            $(`#id_${componentForm[addressType]} option[value=${component['short_name']}]`).prop('selected', true)
-            continue
-        } else if (componentForm[addressType]) {
-            $(`#id_${componentForm[addressType]}`).val(component['long_name'])
+            case "route": {
+                streetAddress1 += `${component.long_name}`;
+                $('#id_street_address1').val(`${streetAddress1}`);
+                break;
+            }
+            case "sublocality_level_1": {
+                $('#id_street_address2').val(component.long_name);
+                break;
+            }
+            case "locality": {
+                if (!$('#id_street_address2').val()) {
+                    $('#id_street_address2').val(component.long_name);
+                }
+                break;
+            }
+            case "postal_town": {
+                $('#id_town_or_city').val(component.long_name);
+                break;
+            }
+            case "administrative_area_level_2": {
+                $('#id_county').val(component.long_name);
+                break;
+            }
+            case "country": {
+                $(`#id_country option[value=${component.short_name}]`).prop('selected', true);
+                break;
+            }
+            case "postal_code": {
+                $('#id_postcode').val(component.long_name);
+                break;
+            }
         }
     }
 }
 
+/* Bias the autocomplete object to the user's geographical location as supplied by the browser's 
+'navigator.geolocation' object. Code is from 
+https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform */
+
 function geolocate() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const geolocation = {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            geolocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
             };
-            const circle = new google.maps.Circle({
+            let circle = new google.maps.Circle({
                 center: geolocation,
                 radius: position.coords.accuracy,
             });
