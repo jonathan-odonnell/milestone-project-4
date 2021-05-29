@@ -1,10 +1,12 @@
-// Stores the page's URL.
+// Declares the currentUrl global variable and stores the page's URL in it.
+
 let currentUrl = new URL(window.location);
 
 /* Updates the page search perameter in the currentUrl variable when a page link is clicked. 
 An AJAX get request for the URL is then submitted and the HTML inside the holidays ID is replaced
 with the HTML returned and the generateStars function is called to generate new star ratings. Code for
 the delegate target jQuery is from https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
+
 $('#holidays').on('click', '.page-link', function () {
     let page = $(this).data('page');
     currentUrl.searchParams.set('page', page);
@@ -19,6 +21,7 @@ $('#holidays').on('click', '.page-link', function () {
 the sort-selector ID changes. An AJAX get request for the URL is then submitted and the HTML inside the
 holidays ID is replaced with the html returned and the generateStars function is called to generate new
 star ratings. */
+
 $('#sort-selector').change(function () {
     let sortSelector = $(this).val();
     currentUrl.searchParams.set('page', 1);
