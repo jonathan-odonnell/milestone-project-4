@@ -80,7 +80,7 @@
                         </thead>
                         <tbody>
                             {% for extra in booking.package.extras.all %}
-                            <tr>
+                            <tr id="extra-{{extra.id}}">
                                 <td class="w-25 p-2">
                                     <img class="img-fluid" src="{{ extra.image.url }}" alt="Image of {{extra.name}}">
                                 </td>
@@ -147,7 +147,7 @@
                                             <div class="input-group justify-content-start">
                                                 <input
                                                     class="form-control form-control-sm form-control-guests text-center rounded-0"
-                                                    type="number" name="guests" value="{{ booking.booking_package.guests }}" />
+                                                    type="number" name="guests" value="{{ booking.guests }}" />
                                                 <div class="btn-group-vertical rounded-0 shadow-none">
                                                     <button class="btn plus rounded-0 p-2 py-0" type="button">
                                                         <span>
@@ -185,7 +185,7 @@
                                 </ul>
                             </td>
                         </tr>
-                        <tr>
+                        <tr id="mobile-extra-{{extra.id}}">
                             <td class="pt-0 pb-4">
                                 <form class="d-inline-block quantity-form">
                                     {% csrf_token %}
