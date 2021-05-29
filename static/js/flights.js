@@ -1,6 +1,7 @@
 /* Sets the start date and end date and stores them in the startDate and endDate global variables.
 Code is from https://gijgo.com/datepicker/configuration/minDate and 
 https://gijgo.com/datepicker/configuration/maxDate */
+
 let startDate = new Date(
 	new Date().getFullYear(),
 	new Date().getMonth(),
@@ -13,7 +14,8 @@ let endDate = new Date(
 );
 
 /* Adds the blank option to the destination time zone input and removes the default datepicker input
- styling from the departure time and arrival time inputs */
+styling from the departure time and arrival time inputs */
+
 $(document).ready(function () {
 	$("#div_id_departure_time input").removeClass(
 		"gj-textbox-md"
@@ -29,6 +31,7 @@ $(document).ready(function () {
 /* Configures the departure time and arrival time datetime picker. Code is from 
 https://gijgo.com/datetimepicker/, https://gijgo.com/datepicker/configuration and
 https://gijgo.com/datetimepicker/configuration */
+
 $('#id_departure_time, #id_arrival_time').datetimepicker({
 	footer: true,
 	modal: true,
@@ -41,6 +44,7 @@ $('#id_departure_time, #id_arrival_time').datetimepicker({
 });
 
 // Prevents the user from being able to enter text in the departure time or arrival time fields.
+
 $('#id_dearture_time, #id_arrival_time').keydown(function (e) {
 	e.preventDefault();
 });
