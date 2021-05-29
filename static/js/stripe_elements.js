@@ -80,22 +80,22 @@ $('#saved-cards input').change(function () {
         card element is from https://stripe.com/docs/js/element/other_methods/ and
         code for creating the cvc element is from 
         https://stripe.com/docs/payments/save-during-payment */
-        $('#id_save_card').parent().hide()
-        $('#card-element').addClass('w-50')
-        card.destroy()
+        $('#id_save_card').parent().hide();
+        $('#card-element').addClass('w-50');
+        card.destroy();
         card = elements.create('cardCvc', { style: style });
         card.mount('#card-element');
     } else {
         /* Shows the save card checkbox, destroys the cvc element and creates and 
         mounts a card element. Code for mounting the card element and unmounting the 
         cvv element is from https://stripe.com/docs/js/element/other_methods/ */
-        $('#id_save_card').parent().show()
-        $('#card-element').removeClass('w-50')
-        card.destroy()
+        $('#id_save_card').parent().show();
+        $('#card-element').removeClass('w-50');
+        card.destroy();
         card = elements.create('card', { style: style });
         card.mount('#card-element');
     }
-})
+});
 
 // Handles card payments and form submission. 
 
@@ -104,16 +104,16 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
     // Disables the card element and calls the loading function
     card.update({ 'disabled': true });
-    loading(true)
+    loading(true);
     /* Sets the checked attribute of the save card checkbox and the ID of the checked saved card 
     checkbox as variables. Code for the is checked jQuery method is from 
     https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked */ 
     let saveCard = $('#id_save_card').is(':checked');
     let savedCard = $('#saved-cards input').is(':checked').attr('id');
     // Declares the payment details variable
-    let paymentDetails
+    let paymentDetails;
     // Deletes any error messages from the payment request button errors div
-    $('#card-errors, #payment-request-button-errors').html('')
+    $('#card-errors, #payment-request-button-errors').html('');
     /* Updates the paymentDetails variable with the payment details. Code for saving the card is from 
     https://github.com/stripe-samples/saving-card-after-payment/blob/master/using-webhooks/client/script.js#L86-L91
     and code for charging a saved card is from https://stripe.com/docs/payments/save-during-payment */
@@ -137,7 +137,7 @@ form.addEventListener('submit', function (e) {
                     postal_code: $.trim(form.postcode.value),
                 }
             },
-        }
+        };
     } else {
         paymentDetails = {
             payment_method: {
@@ -169,7 +169,7 @@ form.addEventListener('submit', function (e) {
                 }
             },
             setup_future_usage: saveCard ? "on_session" : ""
-        }
+        };
     }
     // Submits an AJAX post request to the cache checkout URL with postData 
     $.post(url, postData).done(function () {
@@ -179,7 +179,7 @@ form.addEventListener('submit', function (e) {
             if (result.error) {
                 /* The payment failed so the loading circle is hidden in the submit button and 
                 the error is displayed in the card errors div */
-                loading(false)
+                loading(false);
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
                     <span class="icon" role="alert">
@@ -191,16 +191,16 @@ form.addEventListener('submit', function (e) {
             } else {
                 // Payment has succeeded and the form is submited
                 if (result.paymentIntent.status === 'succeeded') {
-                    loading(false)
+                    loading(false);
                     form.submit();
                 }
             }
-        })
+        });
     }).fail(function() {
         /* Reloads the page if the AJAX post to cache checkout returns an error status code as
         the error will be in django messages */
         location.reload();
-    })
+    });
 });
 
 
@@ -271,7 +271,7 @@ Code is from https://stripe.com/docs/stripe-js/elements/payment-request-button *
 
 paymentRequest.on('paymentmethod', function (e) {
     // Deletes any error messages from the payment request button errors div
-    $('#card-errors, #payment-request-button-errors').html('')
+    $('#card-errors, #payment-request-button-errors').html('');
     // Submits an AJAX post request to the cache checkout URL with postData 
     $.post(url, postData).done(function () {
         // Confirm the PaymentIntent and add shipping details to the PaymentIntent
@@ -292,7 +292,7 @@ paymentRequest.on('paymentmethod', function (e) {
                     }
                 },
             },
-            { handleActions: false },
+            { handleActions: false }
         ).then(function (confirmResult) {
             /* Reports to the browser that the payment failed, prompting it to
             re-show the payment interface, or show an error message and close
@@ -318,15 +318,15 @@ paymentRequest.on('paymentmethod', function (e) {
                             $(errorDiv).html(html);
                         } else {
                             // Payment has succeeded and the form is submited
-                            form.submit()
+                            form.submit();
                         }
                     });
                 } else {
                     // Payment has succeeded and the form is submited
-                    form.submit()
+                    form.submit();
                 }
             }
-        })
+        });
     }).fail(function() {
         /* Reloads the page if the AJAX post request to cache checkout fails as the error will be
         in django messages */
