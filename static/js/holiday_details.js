@@ -212,7 +212,7 @@ $('.minus').click(function () {
 
 $('#guests').change(function () {
     let guests = parseInt($(this).val());
-    if (!(guests <= 10 && guests >= 1)) {
+    if (!( guests >= 1 && guests <= 10)) {
         $(this).val(1);
     };
 });
