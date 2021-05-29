@@ -1,13 +1,16 @@
 // Declares the autocomplete global variable
+
 let autocomplete;
 
 /* Sets the address input's parent element's ID to locationField. Code is from 
 https://stackoverflow.com/questions/10219396/jquery-update-element-id */
+
 $('#id_address').parent().attr('id', 'locationField');
 
 // Clears the address input and calls the geolocate function when the user focuses in the address field
+
 $('#id_address').on('focus', function () {
-    $(this).val("");
+    $(this).val('');
     geolocate();
 });
 
