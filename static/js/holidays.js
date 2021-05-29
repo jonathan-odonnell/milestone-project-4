@@ -1,11 +1,12 @@
-// Declares the currentUrl global variable and stores the page's URL in it.
+// Sets the page's URL as the currentUrl variable.
 
 let currentUrl = new URL(window.location);
 
 /* Updates the page search perameter in the currentUrl variable when a page link is clicked. 
 An AJAX get request for the URL is then submitted and the HTML inside the holidays ID is replaced
-with the HTML returned and the generateStars function is called to generate new star ratings. Code for
-the delegate target jQuery is from https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
+with the HTML returned in the response and the generateStars function is called to generate new star
+ratings. Code for the delegate target jQuery is from
+https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
 
 $('#holidays').on('click', '.page-link', function () {
     let page = $(this).data('page');
@@ -19,8 +20,8 @@ $('#holidays').on('click', '.page-link', function () {
 
 /* Updates the sort, direction and page search perameters in the currentUrl variable when the value of 
 the sort-selector ID changes. An AJAX get request for the URL is then submitted and the HTML inside the
-holidays ID is replaced with the html returned and the generateStars function is called to generate new
-star ratings. */
+holidays ID is replaced with the HTML returned in the response and the generateStars function is called
+to generate new star ratings. */
 
 $('#sort-selector').change(function () {
     let sortSelector = $(this).val();
@@ -42,8 +43,9 @@ $('#sort-selector').change(function () {
 
 /* Updates the categories and page search perameters in the currentUrl variable when one of the category
 filters is toggled on or off. An AJAX get request for the URL is then submitted and the HTML inside the
-holidays ID is replaced with the html returned and the generateStars function is called to generate new
-star ratings. Code for the toggleClass jQuery method is from https://api.jquery.com/toggleClass/#toggleClass1 */
+holidays ID is replaced with the HTML returned in the response and the generateStars function is called
+to generate new star ratings. Code for the toggleClass jQuery method is from 
+https://api.jquery.com/toggleClass/#toggleClass1 */
 
 $('#category-filters a').on('click', function () {
     $(this).find('span').toggleClass('bg-primary text-dark');
@@ -66,8 +68,9 @@ $('#category-filters a').on('click', function () {
 
 /* Updates the countries and page search perameters in the currentUrl variable when one of the coountry
 filters is toggled on or off. An AJAX get request for the URL is then submitted and the HTML inside the
-holidays ID is replaced with the html returned and the generateStars function is called to generate new
-star ratings. Code for the toggleClass jQuery method is from https://api.jquery.com/toggleClass/#toggleClass1 */
+holidays ID is replaced with the HTML returned in the response and the generateStars function is called
+to generate new star ratings. Code for the toggleClass jQuery method is from 
+https://api.jquery.com/toggleClass/#toggleClass1 */
 
 $('#country-filters a').on('click', function () {
     $(this).find('span').toggleClass('bg-primary text-dark');
