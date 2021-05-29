@@ -1,4 +1,5 @@
-/* Stores start date and end date. Code is from https://gijgo.com/datepicker/configuration/minDate and 
+/* Sets the start date and end date and stores them in the startDate and endDate global variables.
+Code is from https://gijgo.com/datepicker/configuration/minDate and 
 https://gijgo.com/datepicker/configuration/maxDate */
 let startDate = new Date(
 	new Date().getFullYear(),
@@ -25,9 +26,10 @@ $(document).ready(function () {
 	);
 });
 
-/* Configures the departure time datetime picker. Code is from https://gijgo.com/datetimepicker/, 
-https://gijgo.com/datepicker/configuration and https://gijgo.com/datetimepicker/configuration */
-$("#id_departure_time").datetimepicker({
+/* Configures the departure time and arrival time datetime picker. Code is from 
+https://gijgo.com/datetimepicker/, https://gijgo.com/datepicker/configuration and
+https://gijgo.com/datetimepicker/configuration */
+$('#id_departure_time, #id_arrival_time').datetimepicker({
 	footer: true,
 	modal: true,
 	datepicker: {
@@ -35,25 +37,10 @@ $("#id_departure_time").datetimepicker({
 		maxDate: endDate,
 		showRightIcon: false,
 	},
-	format: "dd/mm/yyyy HH:MM",
-});
-
-/* Configures the arrival time datetime picker. Code is from https://gijgo.com/datetimepicker/, 
-https://gijgo.com/datepicker/configuration and https://gijgo.com/datetimepicker/configuration */
-$("#id_arrival_time").datetimepicker({
-	footer: true,
-	modal: true,
-	datepicker: {
-		minDate: startDate,
-		maxDate: endDate,
-		showRightIcon: false,
-	},
-	format: "dd/mm/yyyy HH:MM",
+	format: 'dd/mm/yyyy HH:MM',
 });
 
 // Prevents the user from being able to enter text in the departure time or arrival time fields.
-$(
-	"#id_dearture_time, #id_arrival_time"
-).keydown(function (e) {
+$('#id_dearture_time, #id_arrival_time').keydown(function (e) {
 	e.preventDefault();
 });
