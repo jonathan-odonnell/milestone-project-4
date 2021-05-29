@@ -16,10 +16,10 @@ let endDate = new Date(
 holidays slider when the DOM has finished loading. Code for the related holidays slider is from 
 https://kenwheeler.github.io/slick/ */
 $(document).ready(function () {
-    $("#departure_date").removeClass(
-        "gj-textbox-md"
+    $('#departure_date').removeClass(
+        'gj-textbox-md'
     );
-    $("#related-holidays").slick({
+    $('#related-holidays').slick({
         infinite: true,
         slidesToShow: 4,
         slidesToScroll: 1,
@@ -55,32 +55,32 @@ $(document).ready(function () {
 
 /* Changes the tabs dropdown button text and shows the relevant tab when a button in the tabs dropdown
 menu is clicked */
-$("#tabs-dropdown")
+$('#tabs-dropdown')
     .next()
-    .find("button")
+    .find('button')
     .click(function () {
         let tab = $(this).html();
-        $(".tab-content .tab-pane").removeClass(
-            "show active"
+        $('.tab-content .tab-pane').removeClass(
+            'show active'
         );
         $(`#${tab}`).addClass("show active");
-        $("#tabs-dropdown").html(`${tab}`);
+        $('#tabs-dropdown').html(`${tab}`);
     });
 
 // Prevents the user from being able to manually change the value of the departure date input
-$("#departure_date").keydown(function (e) {
+$('#departure_date').keydown(function (e) {
     e.preventDefault();
 });
 
-/* When the user clicks on an item in the airports list,hides the airports list and sets the selected item
+/* When the user clicks on an item in the airports list, hides the airports list and sets the selected item
 as the value of the departure airport field. Code for the delegate target jQuery is from 
 https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
-$("#airports-list").on(
-    "click",
-    "li",
+$('#airports-list').on(
+    'mousedown',
+    'li',
     function () {
-        $("#departure_airport").val($(this).text());
-        $(this).addClass("d-none");
+        $('#departure_airport').val($(this).text());
+        $(this).addClass('d-none');
     }
 );
 
@@ -88,26 +88,26 @@ $("#airports-list").on(
 current value of the input is not in the airports list. Code for the includes method is from 
 https://www.w3schools.com/jsref/jsref_includes_array.asp */
 function validateAirport() {
-    if ($("#departure_airport").val()) {
-        $("#airports-list").addClass("d-none");
+    if ($('#departure_airport').val()) {
+        $('#airports-list').addClass('d-none');
     }
     if (
         !airports.includes(
-            $("#departure_airport").val()
+            $('#departure_airport').val()
         )
     ) {
-        $("#departure_airport").val("");
+        $('#departure_airport').val('');
     }
 }
 
 // Calls the validateAirport function when the departure airport input blurs
-$("#departure_airport").on("blur", function () {
+$('#departure_airport').on("blur", function () {
     validateAirport();
 });
 
 // Calls the validateAirport function when the mouse leaves the departure airport container ID.
-$("#departure-airport-container").on(
-    "mouseleave",
+$('#departure-airport-container').on(
+    'mouseleave',
     function () {
         validateAirport();
     }
@@ -116,8 +116,8 @@ $("#departure-airport-container").on(
 /* Filters the airports list for matches, shows the airports list ID and adds the relevant HTML 
 inside it. Code is from https://www.youtube.com/watch?v=1iysNUrI3lw and 
 https://www.w3schools.com/jsref/jsref_substr.asp */
-$("#departure_airport").on(
-    "input",
+$('#departure_airport').on(
+    'input',
     function () {
         let search = $(this).val();
         let matches = airports.filter(function (
@@ -125,53 +125,54 @@ $("#departure_airport").on(
         ) {
             let regex = new RegExp(
                 `^${search}`,
-                "gi"
+                'gi'
             );
             return airport.match(regex);
         });
         if (matches.length === 0) {
-            $("#airports-list")
+            $('#airports-list')
                 .html(
                     `<ul class="list-group">
-                <li class="list-group-item border-0 small">No search results</li>
-            </ul>`
+                        <li class="list-group-item border-0 small">No search results</li>
+                    </ul>`
                 )
                 .removeClass("d-none");
         } else if (search.length === 0) {
             matches = [];
-            $("#airports-list")
-                .html("")
-                .addClass("d-none");
+            $('#airports-list')
+                .html('')
+                .addClass('d-none');
         } else {
             let html = matches
                 .map(function (match) {
-                    let innerHtml = `<li class="list-group-item border-0 small">
-                    <strong>${match.substr(0, search.length)}</strong>${match.substr(search.length, match.length)}</li>`;
+                    let innerHtml = `<li class="list-group-item border-0 small"><strong>${match
+                        .substr(0, search.length)}</strong>${match
+                        .substr(search.length, match.length)}</li>`;
                     return innerHtml;
                 })
-                .join("");
+                .join('');
             html = `<ul class="list-group shadow rounded-0">${html}</ul>`;
-            $("#airports-list")
+            $('#airports-list')
                 .html(html)
-                .removeClass("d-none");
+                .removeClass('d-none');
         }
     }
 );
 
 /* Configures the departure date datepicker. Code is from https://gijgo.com/datepicker/ 
 and https://gijgo.com/datepicker/configuration */
-$("#departure_date").datepicker({
+$('#departure_date').datepicker({
     footer: true,
     modal: true,
     minDate: startDate,
     maxDate: endDate,
     showRightIcon: false,
-    format: "dd/mm/yyyy",
+    format: 'dd/mm/yyyy',
 });
 
 /* Increases the guests field value by 1 when the user clicks the plus button if the guest 
 field already has a value less than 10. */
-$(".plus").click(function () {
+$('.plus').click(function () {
     let currentValue = parseInt(
         $(this).prev().val()
     );
@@ -184,7 +185,7 @@ $(".plus").click(function () {
 
 /* Reduces the guests field value by 1 when the user clicks the minus button if the guest field already
 has a value greater than 1. */
-$(".minus").click(function () {
+$('.minus').click(function () {
     let currentValue = parseInt(
         $(this).next().val()
     );
@@ -196,8 +197,9 @@ $(".minus").click(function () {
 });
 
 // Resets the guests field value to 1 if the user enters a value other than a number between 1 and 10
-$("#guests").change(function () {
+$('#guests').change(function () {
     let guests = parseInt($(this).val());
-    if (!(guests <= 10 || guests >= 1));
-    $(this).val("1");
+    if (!(guests <= 10 && guests >= 1)) {
+        $(this).val(1);
+    };
 });
