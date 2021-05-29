@@ -27,8 +27,8 @@ paypal.Buttons({
         $('#payment-form')[0].reportValidity();
     },
     createOrder: function () {
-        /* Submits a post request to the server to set up the PayPal transaction and
-        returns the id sent in the server's response. Code is from 
+        /* Submits a post request to the PayPal URL to set up the PayPal transaction and
+        returns the id sent in the response. Code is from 
         https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/
         and https://stackoverflow.com/questions/43606056/proper-django-csrf-validation-using-fetch-post-request */
         return fetch('/checkout/paypal/', {
@@ -43,9 +43,9 @@ paypal.Buttons({
         });
     },
     onApprove: function (data) {
-        /* Gets the orderID from the data and submits a post request to the server to capture the
-        PayPal transaction funds. The paypal_pid input field is then updated with the orderID sent
-        in the server's response and the form is submitted. Code is from 
+        /* Gets the orderID from the data and submits a post request to the PayPal approve URL to 
+        capture the PayPal transaction funds. The paypal_pid input field is then updated with the
+        orderID sent in the response and the form is submitted. Code is from 
         https://developer.paypal.com/docs/checkout/reference/server-integration/capture-transaction/
         and https://stackoverflow.com/questions/43606056/proper-django-csrf-validation-using-fetch-post-request
         */
