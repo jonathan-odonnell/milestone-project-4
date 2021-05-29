@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.http import JsonResponse
@@ -203,7 +204,6 @@ def add_coupon(request):
         total = f'{float(booking.grand_total):g}'
 
         response = {
-            'success': True,
             'subtotal': subtotal,
             'total': total,
             'coupon': coupon_name,
@@ -213,7 +213,7 @@ def add_coupon(request):
         return JsonResponse(response)
 
     except Coupon.DoesNotExist:
-        return JsonResponse({'success': False, 'coupon': coupon_name})
+        return HttpResponse(status=500)
 
 
 def passengers(request):
