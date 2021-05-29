@@ -1,4 +1,5 @@
-/* Sets the start date and end date. Code is from https://gijgo.com/datepicker/configuration/minDate and 
+/* Sets the start date and end date and stores them in the startDate and endDate global variables.
+Code is from https://gijgo.com/datepicker/configuration/minDate and 
 https://gijgo.com/datepicker/configuration/maxDate */
 
 let startDate = new Date(
@@ -15,6 +16,7 @@ let endDate = new Date(
 /* Removes the default datepicker input styling from the departure date input and configures the related
 holidays slider when the DOM has finished loading. Code for the related holidays slider is from 
 https://kenwheeler.github.io/slick/ */
+
 $(document).ready(function () {
     $('#departure_date').removeClass(
         'gj-textbox-md'
@@ -55,6 +57,7 @@ $(document).ready(function () {
 
 /* Changes the tabs dropdown button text and shows the relevant tab when a button in the tabs dropdown
 menu is clicked */
+
 $('#tabs-dropdown')
     .next()
     .find('button')
@@ -68,6 +71,7 @@ $('#tabs-dropdown')
     });
 
 // Prevents the user from being able to manually change the value of the departure date input
+
 $('#departure_date').keydown(function (e) {
     e.preventDefault();
 });
@@ -75,6 +79,7 @@ $('#departure_date').keydown(function (e) {
 /* When the user clicks on an item in the airports list, hides the airports list and sets the selected item
 as the value of the departure airport field. Code for the delegate target jQuery is from 
 https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
+
 $('#airports-list').on(
     'mousedown',
     'li',
@@ -87,6 +92,7 @@ $('#airports-list').on(
 /* Hides the airports list and sets the value of the departure airport input to an empty string if the 
 current value of the input is not in the airports list. Code for the includes method is from 
 https://www.w3schools.com/jsref/jsref_includes_array.asp */
+
 function validateAirport() {
     if ($('#departure_airport').val()) {
         $('#airports-list').addClass('d-none');
@@ -101,11 +107,13 @@ function validateAirport() {
 }
 
 // Calls the validateAirport function when the departure airport input blurs
+
 $('#departure_airport').on("blur", function () {
     validateAirport();
 });
 
 // Calls the validateAirport function when the mouse leaves the departure airport container ID.
+
 $('#departure-airport-container').on(
     'mouseleave',
     function () {
@@ -116,6 +124,7 @@ $('#departure-airport-container').on(
 /* Filters the airports list for matches, shows the airports list ID and adds the relevant HTML 
 inside it. Code is from https://www.youtube.com/watch?v=1iysNUrI3lw and 
 https://www.w3schools.com/jsref/jsref_substr.asp */
+
 $('#departure_airport').on(
     'input',
     function () {
@@ -161,6 +170,7 @@ $('#departure_airport').on(
 
 /* Configures the departure date datepicker. Code is from https://gijgo.com/datepicker/ 
 and https://gijgo.com/datepicker/configuration */
+
 $('#departure_date').datepicker({
     footer: true,
     modal: true,
@@ -172,6 +182,7 @@ $('#departure_date').datepicker({
 
 /* Increases the guests field value by 1 when the user clicks the plus button if the guest 
 field already has a value less than 10. */
+
 $('.plus').click(function () {
     let currentValue = parseInt(
         $(this).prev().val()
@@ -185,6 +196,7 @@ $('.plus').click(function () {
 
 /* Reduces the guests field value by 1 when the user clicks the minus button if the guest field already
 has a value greater than 1. */
+
 $('.minus').click(function () {
     let currentValue = parseInt(
         $(this).next().val()
@@ -197,6 +209,7 @@ $('.minus').click(function () {
 });
 
 // Resets the guests field value to 1 if the user enters a value other than a number between 1 and 10
+
 $('#guests').change(function () {
     let guests = parseInt($(this).val());
     if (!(guests <= 10 && guests >= 1)) {
