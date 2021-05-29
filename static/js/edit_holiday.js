@@ -1,4 +1,5 @@
 // Amends the form styling when the DOM has finished loading
+
 $(document).ready(function () {
 	$('.custom-checkbox').addClass('form-check ms-1');
 	$('.form-check input').addClass('form-check-input').attr('type', 'checkbox');
@@ -15,6 +16,7 @@ $(document).ready(function () {
 
 /* Changes the colour of the select menu when it is changed depending 
 on whether a valid option or the blank label has been selected */
+
 $('select').change(function () {
 	if (!$(this).val()) {
 		$(this).css('color', '#a9a9a9');
@@ -24,6 +26,7 @@ $('select').change(function () {
 });
 
 // Adds the name of the file selected and styling to the filename ID when an image is selected
+
 $('#new-image').change(function () {
 	var file = $('#new-image')[0].files[0];
 	$('#filename').text(`Image will be set to: ${file.name}`);
@@ -32,6 +35,7 @@ $('#new-image').change(function () {
 
 /* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
 activity button is clicked */
+
 let activityCounter = $('.activity').length;
 
 function addedActivity() {
@@ -48,6 +52,7 @@ function addedActivity() {
 
 /* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
 itinerary button is clicked */
+
 let itineraryCounter = $('.itinerary').length;
 
 function addedItinerary() {
@@ -63,6 +68,7 @@ function addedItinerary() {
 
 /* Checks the shown fieldset is valid and shows and hides the relevant fieldsets and buttons when the 
 back button is clicked */
+
 $('#next').click(function () {
 	if ($('form')[0].reportValidity()) {
 		$('fieldset').not('.d-none').next().removeClass('d-none');
@@ -83,6 +89,7 @@ $('#next').click(function () {
 })
 
 // Shows and hides the relevant fieldsets and buttons when the back button is clicked
+
 $('#back').click(function () {
 	$('fieldset').not('.d-none').prev().removeClass('d-none');
 	$('fieldset').not('.d-none').last().addClass('d-none');
