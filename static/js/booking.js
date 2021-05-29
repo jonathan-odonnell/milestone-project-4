@@ -30,9 +30,9 @@ $('.minus').click(function () {
 });
 
 /* Submits an AJAX post request when the value of the guests field changes if the value of the field
-is between 1 and 10. The total, subtotal and extras values are then updated in the HTML and the extras
-quantities are updated if they are greater than the new guests value. Code for the each jQuery method 
-is from https://api.jquery.com/jquery.each/ */
+is between 1 and 10. The total, subtotal and extras values are then updated in the HTML from the data
+returned in the response and the extras quantities are updated if they are greater than the new guests
+value. Code for the each jQuery method is from https://api.jquery.com/jquery.each/ */
 
 $('input[name="guests"]').on('change', function () {
     let guests = parseInt($(this).val());
@@ -63,7 +63,8 @@ $('input[name="guests"]').on('change', function () {
 
 /* Submits an AJAX post request when the value of the quantity field changes if the closest switch is
 in the on position and the value of the quantity field is between 1 and the guests input value. 
-The total and extras values are then updated in the HTML. Code for the is checked jQuery method is from 
+The total and extras values are then updated in the HTML from the data returned in the response.
+Code for the is checked jQuery method is from 
 https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked  */
 
 $('input[name="quantity"]').on('change', function () {
@@ -93,9 +94,9 @@ $('input[name="quantity"]').on('change', function () {
 
 /* When the coupon form is submitted, prevents the default behaviour and submits an AJAX post request.
 If the request returns a success status code the total, subtotal, discount and extras values are then
-updated in the HTML. If the request returns a failure status code, invalud feedback will be added below
-the promo code input field. Code for the input before jQuery method is from 
-https://api.jquery.com/insertBefore/#insertBefore-target  */
+updated in the HTML from the data returned in the response. If the request returns a failure status code,
+invalud feedback will be added below the promo code input field. Code for the input before jQuery method
+is from https://api.jquery.com/insertBefore/#insertBefore-target  */
 
 $('.coupon-form').submit(function (e) {
     e.preventDefault();
@@ -140,7 +141,8 @@ $('.coupon-form').submit(function (e) {
 
 /* When the checkbox is changed, submits an AJAX post request to the add extra URL if the closest switch 
 is in the on position or to the delete extra URL if the checkbox is in the off position. The total, 
-subtotal, and extras values are then updated in the HTML. Code for the is checked jQuery method is from 
+subtotal, and extras values are then updated in the HTML from the data returned in the response. Code for
+the is checked jQuery method is from 
 https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked and code for checking or
 unchecking the switches is from 
 https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery */
