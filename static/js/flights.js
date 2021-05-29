@@ -1,4 +1,4 @@
-/* Sets the start date and end date and stores them in the startDate and endDate global variables.
+/* /* Sets the start date and end date as the startDate and endDate variables.
 Code is from https://gijgo.com/datepicker/configuration/minDate and 
 https://gijgo.com/datepicker/configuration/maxDate */
 
