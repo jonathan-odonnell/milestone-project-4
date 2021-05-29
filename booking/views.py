@@ -199,9 +199,10 @@ def add_coupon(request):
 
         # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
 
-        discount = f'{float(booking.discount):g}'
         subtotal = f'{float(booking.subtotal):g}'
         total = f'{float(booking.grand_total):g}'
+        discount = f'{float(booking.discount):g}'
+        coupon_name = coupon.name
 
         response = {
             'subtotal': subtotal,
