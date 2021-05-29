@@ -33,44 +33,44 @@ https://developers.google.com/maps/documentation/javascript/examples/places-auto
 function fillInAddress() {
     let place = autocomplete.getPlace();
     let streetAddress1 = '';
-    $(`#id_street_address2`).val("");
+    $(`#id_street_address2`).val('');
 
     for (let component of place.address_components) {
         let componentType = component.types[0];
 
         switch (componentType) {
-            case "street_number": {
+            case 'street_number': {
                 streetAddress1 = `${component.long_name} `;
                 break;
             }
-            case "route": {
+            case 'route': {
                 streetAddress1 += `${component.long_name}`;
                 $('#id_street_address1').val(`${streetAddress1}`);
                 break;
             }
-            case "sublocality_level_1": {
+            case 'sublocality_level_1': {
                 $('#id_street_address2').val(component.long_name);
                 break;
             }
-            case "locality": {
+            case 'locality': {
                 if (!$('#id_street_address2').val()) {
                     $('#id_street_address2').val(component.long_name);
                 }
                 break;
             }
-            case "postal_town": {
+            case 'postal_town': {
                 $('#id_town_or_city').val(component.long_name);
                 break;
             }
-            case "administrative_area_level_2": {
+            case 'administrative_area_level_2': {
                 $('#id_county').val(component.long_name);
                 break;
             }
-            case "country": {
+            case 'country': {
                 $(`#id_country option[value=${component.short_name}]`).prop('selected', true);
                 break;
             }
-            case "postal_code": {
+            case 'postal_code': {
                 $('#id_postcode').val(component.long_name);
                 break;
             }
