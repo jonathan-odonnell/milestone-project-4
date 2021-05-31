@@ -28,11 +28,22 @@ $(document).ready(function () {
 	);
 });
 
-/* Configures the departure time and arrival time datetime picker. Code is from 
+/* Configures the departure time and arrival time datetime pickers. Code is from 
 https://gijgo.com/datetimepicker/, https://gijgo.com/datepicker/configuration and
 https://gijgo.com/datetimepicker/configuration */
 
-$('#id_departure_time, #id_arrival_time').datetimepicker({
+$('#id_departure_time').datetimepicker({
+	footer: true,
+	modal: true,
+	datepicker: {
+		minDate: startDate,
+		maxDate: endDate,
+		showRightIcon: false,
+	},
+	format: 'dd/mm/yyyy HH:MM',
+});
+
+$('#id_arrival_time').datetimepicker({
 	footer: true,
 	modal: true,
 	datepicker: {
