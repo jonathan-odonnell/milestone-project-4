@@ -73,9 +73,9 @@ def add_flight(request):
 @login_required
 @superuser_required
 def edit_flight(request, flight_number):
-    redirect_url = request.POST.get('redirect_url')
     flight = get_object_or_404(Flight, flight_number=flight_number)
     if request.method == 'POST':
+        redirect_url = request.POST.get('redirect_url')
         form = FlightForm(request.POST, instance=flight)
         if form.is_valid():
             form.save()
