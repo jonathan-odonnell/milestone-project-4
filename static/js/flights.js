@@ -13,8 +13,7 @@ let endDate = new Date(
 	new Date().getDate()
 );
 
-/* Adds the blank option to the destination time zone input and removes the default datepicker input
-styling from the departure time and arrival time inputs */
+// Removes the default datepicker input styling from the departure time and arrival time inputs
 
 $(document).ready(function () {
 	$("#div_id_departure_time input").removeClass(
@@ -22,9 +21,6 @@ $(document).ready(function () {
 	);
 	$("#div_id_arrival_time input").removeClass(
 		"gj-textbox-md"
-	);
-	$("#id_destination_time_zone").prepend(
-		'<option value="" selected></option>'
 	);
 });
 
@@ -56,6 +52,6 @@ $('#id_arrival_time').datetimepicker({
 
 // Prevents the user from being able to enter text in the departure time or arrival time fields.
 
-$('#id_dearture_time, #id_arrival_time').keydown(function (e) {
+$('#id_departure_time, #id_arrival_time').keydown(function (e) {
 	e.preventDefault();
 });
