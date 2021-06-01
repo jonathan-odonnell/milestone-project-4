@@ -75,9 +75,6 @@
                     </div>
                     {% endfor %}
                 </fieldset>
-                {% if request.META.HTTP_REFERER %}
-                <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
-                {% endif %}
                 <div class="text-center mt-3 mb-2">
                     <button id="back" class="btn btn-primary btn-holidays mx-2 d-none" type="button">
                         <i class="fas fa-chevron-left me-2"></i>
@@ -92,6 +89,9 @@
                         <i class="fas fa-chevron-right ms-2"></i>
                     </button>
                 </div>
+                {% if request.META.HTTP_REFERER %}
+                    <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
+                {% endif %}
             </form>
         </div>
     </div>
