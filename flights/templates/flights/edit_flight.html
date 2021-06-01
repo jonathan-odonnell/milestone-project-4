@@ -19,7 +19,7 @@
             <h2 class="section-heading mb-3">Edit Flight</h2>
         </div>
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
-            <form action="{% url 'edit_flight' flight.flight_number %}" method="POST">
+            <form action="{% url 'edit_flight' form.instance.flight_number %}" method="POST">
                 {% csrf_token %}
                 {% for field in form %}
                     {% if field.name == 'arrival_time' and form.instance.direction == 'Outbound' %}
