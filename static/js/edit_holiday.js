@@ -1,4 +1,4 @@
-// Amends the form styling when the DOM has finished loading
+// Amends the form styling and removes the delete link when the DOM has finished loading
 
 $(document).ready(function () {
 	$('.custom-checkbox').addClass('form-check ms-1');
@@ -9,6 +9,7 @@ $(document).ready(function () {
 		$(this).find('.form-check').last().addClass('delete-check');
 	});
 	$('.delete-check label').addClass('text-danger');
+	$('.delete-row').remove();
 	if (!$('select').val()) {
 		$('select').css('color', '#a9a9a9');
 	}
