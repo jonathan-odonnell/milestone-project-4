@@ -26,6 +26,9 @@
                 <div class="text-center mt-4">
                     <button class="btn btn-primary" type="submit">Add Flight</button>
                 </div>
+                {% if request.META.HTTP_REFERER %}
+                    <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
+                {% endif %}
             </form>
         </div>
     </div>
