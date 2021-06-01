@@ -245,7 +245,6 @@ def edit_holiday(request, package):
         'feature_formset': feature_formset,
         'activity_formset': activity_formset,
         'itinerary_formset': itinerary_formset,
-        'holiday': holiday,
     }
 
     return render(request, template, context)
