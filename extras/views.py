@@ -60,7 +60,6 @@ def edit_extra(request, extra_id):
     template = 'extras/edit_extra.html'
     context = {
         'form': form,
-        'extra': extra,
     }
 
     return render(request, template, context)
