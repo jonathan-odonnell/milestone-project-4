@@ -15,12 +15,12 @@
                 </div>
                 <div class="col-6 col-sm-4 col-lg-3 ms-auto ps-1">
                     <select id="flight-sort-selector" class="form-select shadow-none">
-                        <option value="number_asc">Sort by: Flight Number (Low - High)</option>
-                        <option value="number_desc">Flight Number (High - Low)</option>
-                        <option value="origin_asc">Origin (A - Z)</option>
-                        <option value="origin_desc">Origin (Z - A)</option>
-                        <option value="destination_asc">Destination (A - Z)</option>
-                        <option value="destination_desc">Destination (Z - A)</option>
+                        <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}{% if current_sorting == 'None_None' %}selected{% endif %}>Sort by:</option>
+                        <option value="number_desc" {% if current_sorting == 'number_desc' %}selected{% endif %}>Flight Number (High - Low)</option>
+                        <option value="origin_asc" {% if current_sorting == 'origin_asc' %}selected{% endif %}>Origin (A - Z)</option>
+                        <option value="origin_desc" {% if current_sorting == 'origin_desc' %}selected{% endif %}>Origin (Z - A)</option>
+                        <option value="destination_asc" {% if current_sorting == 'destination_asc' %}selected{% endif %}>Destination (A - Z)</option>
+                        <option value="destination_desc" {% if current_sorting == 'destination_desc' %}selected{% endif %}>Destination (Z - A)</option>
                     </select>
                 </div>
             </div>
@@ -34,28 +34,41 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
-    // Stores the page's URL.
-    let currentUrl = new URL(window.location);
+    /* Sets the page's URL as the filterUrl variable and replaces the pathname with the flights filter URL
+    pathname. Code for replacing the pathname is from 
+    https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
+    let filterUrl = new URL(window.location);
+    filterUrl.pathname = '/flights/filter/';
 
     /* Updates the sort, direction and page search perameters in the currentUrl variable when the value
     of the flight-sort-selector ID changes. An AJAX get request for the URL is then submitted and the 
-    HTML inside the flights-table ID is replaced with the html returned. */
+    HTML inside the flights-table ID is replaced with the html returned. Code for replacing the
+    pathname is from 
+    https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
     $('#flight-sort-selector').change(function () {
         let sortSelector = $(this).val();
-        currentUrl.searchParams.set("page", 1);
-        if (sortSelector !== "flight_number_asc") {
+        filterUrl.searchParams.delete("page");
+        if (sortSelector !== "reset") {
             var sort = sortSelector.split("_")[0];
             var direction = sortSelector.split("_")[1];
 
-            currentUrl.searchParams.set("sort", sort);
-            currentUrl.searchParams.set("direction", direction);
-            currentUrl.searchParams.delete("page");
+            filterUrl.searchParams.set("sort", sort);
+            filterUrl.searchParams.set("direction", direction);
+            filterUrl.searchParams.delete("page");
         } else {
-            currentUrl.searchParams.delete("sort");
-            currentUrl.searchParams.delete("direction");
+            filterUrl.searchParams.delete("sort");
+            filterUrl.searchParams.delete("direction");
         }
-        $.get(currentUrl).done(function (data) {
+        $.get(filterUrl).done(function (data) {
             $('#flights-table').html(data.flights);
+            /* Sets filterUrl as the currentUrl variable and replaces the pathname in the URL.
+            Code for replacing the pathname is from 
+            https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
+            let currentUrl = filterUrl;
+            filterUrl.pathname = '/flights/';
+            /* Updates the query perameters in the page's URL. Code is from 
+            https://developer.mozilla.org/en-US/docs/Web/API/History/pushState */
+            window.history.pushState({}, '', currentUrl);
         });
     });
 
@@ -65,9 +78,17 @@
     https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
     $('#flights-table').on('click', '.page-link', function () {
         let page = $(this).data('page');
-        currentUrl.searchParams.set("page", page);
-        $.get(currentUrl).done(function (data) {
+        filterUrl.searchParams.set("page", page);
+        $.get(filterUrl).done(function (data) {
             $('#flights-table').html(data.flights);
+            /* Sets filterUrl as the currentUrl variable and replaces the pathname in the URL.
+            Code for replacing the pathname is from 
+            https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
+            let currentUrl = filterUrl;
+            filterUrl.pathname = '/flights/';
+            /* Updates the query perameters in the page's URL. Code is from 
+            https://developer.mozilla.org/en-US/docs/Web/API/History/pushState */
+            window.history.pushState({}, '', currentUrl);
         });
     });
 </script>
