@@ -173,20 +173,27 @@ def add_holiday(request):
         form = PackageForm(request.POST, request.FILES)
 
         if form.is_valid():
-            holiday = form.save(commit=False)
-            feature_formset = FeatureFormset(request.POST, instance=holiday)
-            activity_formset = ActivityFormset(request.POST, instance=holiday)
+            holiday = form.save()
+            feature_formset = FeatureFormset(
+                request.POST, instance=holiday
+            )
+            activity_formset = ActivityFormset(
+                request.POST, instance=holiday
+            )
             itinerary_formset = ItineraryFormset(
-                request.POST, instance=holiday)
+                request.POST, instance=holiday
+            )
 
-            if feature_formset.is_valid() and activity_formset.is_valid() and itinerary_formset.is_valid():
-                holiday.save()
-                form.save_m2m()
+            if feature_formset.is_valid():
                 feature_formset.save()
-                activity_formset.save()
-                itinerary_formset.save()
-                messages.success(request, 'Successfully added holiday!')
-                return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
+            
+                if activity_formset.is_valid():
+                    activity_formset.save()
+
+                    if itinerary_formset.is_valid():
+                        itinerary_formset.save()
+                        messages.success(request, 'Successfully added holiday!')
+                        return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
 
         messages.error(
             request, 'Failed to add holiday. Please ensure the form is valid.')
@@ -214,21 +221,23 @@ def edit_holiday(request, package):
     if request.method == 'POST':
         redirect_url = request.POST.get('redirect_url')
         form = PackageForm(request.POST, request.FILES, instance=holiday)
+        feature_formset = FeatureFormset(request.POST, instance=holiday)
+        activity_formset = ActivityFormset(request.POST, instance=holiday)
+        itinerary_formset = ItineraryFormset(request.POST, instance=holiday)
+        
         if form.is_valid():
-            holiday = form.save(commit=False)
-            feature_formset = FeatureFormset(request.POST, instance=holiday)
-            activity_formset = ActivityFormset(request.POST, instance=holiday)
-            itinerary_formset = ItineraryFormset(
-                request.POST, instance=holiday)
-
-            if feature_formset.is_valid() and activity_formset.is_valid() and itinerary_formset.is_valid():
-                holiday.save()
-                form.save_m2m()
+            form.save()
+            
+            if feature_formset.is_valid():
                 feature_formset.save()
-                activity_formset.save()
-                itinerary_formset.save()
-                messages.success(request, 'Successfully updated holiday!')
-                return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
+
+                if activity_formset.is_valid():
+                    activity_formset.save()
+
+                    if itinerary_formset.is_valid():
+                        itinerary_formset.save()
+                        messages.success(request, 'Successfully updated holiday!')
+                        return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
 
         else:
             messages.error(
