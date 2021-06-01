@@ -1,9 +1,11 @@
+from datetime import time
 from django import forms
+from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms.fields import DateTimeField
 from django.forms.widgets import DateTimeInput
+from pytz import timezone
 from holidays.models import Flight
 from crispy_forms.helper import FormHelper
-from timezone_field import TimeZoneFormField
 
 class FlightForm(forms.ModelForm):
 
@@ -23,9 +25,16 @@ class FlightForm(forms.ModelForm):
             ('Return', 'Return'),
         ]
 
+        timezones = [
+            ('', '')
+        ]
+
         self.fields['flight_number'].widget.attrs['autofocus'] = True
         self.fields['direction'].choices = directions
-        self.fields['destination_time_zone'] = TimeZoneFormField()
+        self.fields['origin_time_zone'].widget.attrs['class'] = 'form-select'
+        timezones.extend( self.fields['origin_time_zone'].choices[1:])
+        self.fields['origin_time_zone'].choices = timezones
         self.fields['destination_time_zone'].widget.attrs['class'] = 'form-select'
+        self.fields['destination_time_zone'].choices = timezones
         self.fields['departure_time'].widget = DateTimeInput(format='%d/%m/%Y %H:%M')
         self.fields['arrival_time'].widget = DateTimeInput(format='%d/%m/%Y %H:%M')
