@@ -25,9 +25,9 @@ class Coupon(models.Model):
 
 class Booking(models.Model):
     booking_number = models.CharField(max_length=32)
-    full_name = models.CharField(max_length=50)
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
-                                     null=True, blank=True, related_name='bookings')
+    full_name = models.CharField(max_length=50, default='')
+    user_profile = models.ForeignKey(
+        UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='bookings')
     email = models.EmailField(
         max_length=254, null=False, blank=False, default='')
     phone_number = models.CharField(max_length=20, default='')
@@ -42,9 +42,12 @@ class Booking(models.Model):
     guests = models.IntegerField(default=0)
     departure_date = models.DateField()
     return_date = models.DateField()
-    package = models.ForeignKey(Package, null=True, blank=True, on_delete=SET_NULL)
-    outbound_flight = models.ForeignKey(Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='outbound_flight')
-    return_flight = models.ForeignKey(Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='return_flight')
+    package = models.ForeignKey(
+        Package, null=True, blank=True, on_delete=SET_NULL)
+    outbound_flight = models.ForeignKey(
+        Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='outbound_flight')
+    return_flight = models.ForeignKey(
+        Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='return_flight')
     subtotal = models.DecimalField(
         max_digits=10, decimal_places=2, editable=False, default=0)
     extras_total = models.DecimalField(
