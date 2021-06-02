@@ -34,59 +34,57 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
-    /* Sets the page's URL as the filterUrl variable and replaces the pathname with the flights filter URL
-    pathname. Code for replacing the pathname is from 
-    https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
-    let filterUrl = new URL(window.location);
-    filterUrl.pathname = '/flights/filter/';
-
-    /* Updates the sort, direction and page search perameters in the currentUrl variable when the value
-    of the flight-sort-selector ID changes. An AJAX get request for the URL is then submitted and the 
-    HTML inside the flights-table ID is replaced with the html returned. Code for replacing the
-    pathname is from 
-    https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
+    /* Sets the Page URL as the currentUrl variable and updates the sort, direction and page search perameters 
+    when the value of the flight-sort-selector ID changes. An AJAX get request for the currentUrl is then submitted
+    and the HTML inside the flights-table ID is replaced with the HTML returned. A new entry is added to the
+    browser's session history to update the page URL. */
     $('#flight-sort-selector').change(function () {
         let sortSelector = $(this).val();
-        filterUrl.searchParams.delete("page");
+        let currentUrl = new URL(window.location);
+        /* Code for replacing the URL pathname is from 
+        https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
+        currentUrl.pathname = '/flights/filter/';
+        currentUrl.searchParams.delete("page");
         if (sortSelector !== "reset") {
-            var sort = sortSelector.split("_")[0];
-            var direction = sortSelector.split("_")[1];
+            let sort = sortSelector.split("_")[0];
+            let direction = sortSelector.split("_")[1];
 
-            filterUrl.searchParams.set("sort", sort);
-            filterUrl.searchParams.set("direction", direction);
-            filterUrl.searchParams.delete("page");
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+            currentUrl.searchParams.delete("page");
         } else {
-            filterUrl.searchParams.delete("sort");
-            filterUrl.searchParams.delete("direction");
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
         }
-        $.get(filterUrl).done(function (data) {
+        $.get(currentUrl).done(function (data) {
             $('#flights-table').html(data.flights);
-            /* Sets filterUrl as the currentUrl variable and replaces the pathname in the URL.
-            Code for replacing the pathname is from 
+            /* Code for replacing the URL pathname is from 
             https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
-            let currentUrl = filterUrl;
-            filterUrl.pathname = '/flights/';
-            /* Updates the query perameters in the page's URL. Code is from 
+            currentUrl.pathname = '/flights/';
+            /*  Code for adding a new entry to the browser's session history is from
             https://developer.mozilla.org/en-US/docs/Web/API/History/pushState */
             window.history.pushState({}, '', currentUrl);
         });
     });
 
-    /* Updates the page search perameter in the currentUrl variable when a page link is clicked. 
-    An AJAX get request for the URL is then submitted and the HTML inside the flights-table ID is
-    replaced with the html returned. Code for the delegate target jQuery is from 
+    /* Sets the Page URL as the currentUrl variable and updates page search perameters when a page link is
+    clicked. An AJAX get request for the currentUrl is then submitted and the HTML inside the flights-table
+    ID is replaced with the HTML returned. A new entry is added to the browser's session history to update
+    the page URL. Code for the delegate target jQuery is from 
     https://api.jquery.com/event.delegateTarget/#event-delegateTarget1 */
     $('#flights-table').on('click', '.page-link', function () {
         let page = $(this).data('page');
-        filterUrl.searchParams.set("page", page);
-        $.get(filterUrl).done(function (data) {
+        let currentUrl = new URL(window.location);
+        /* Code for replacing the URL pathname is from 
+        https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
+        currentUrl.pathname = '/flights/filter/';
+        currentUrl.searchParams.set("page", page);
+        $.get(currentUrl).done(function (data) {
             $('#flights-table').html(data.flights);
-            /* Sets filterUrl as the currentUrl variable and replaces the pathname in the URL.
-            Code for replacing the pathname is from 
+            /* Code for replacing the URL pathname is from 
             https://stackoverflow.com/questions/61896535/how-to-change-js-url-object-pathname-and-protocol-properties */
-            let currentUrl = filterUrl;
-            filterUrl.pathname = '/flights/';
-            /* Updates the query perameters in the page's URL. Code is from 
+            currentUrl.pathname = '/flights/';
+            /*  Code for adding a new entry to the browser's session history is from
             https://developer.mozilla.org/en-US/docs/Web/API/History/pushState */
             window.history.pushState({}, '', currentUrl);
         });
