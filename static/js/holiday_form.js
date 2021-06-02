@@ -13,17 +13,27 @@ $('.delete-row').remove();
 // Adds the name of the file selected and styling to the filename ID when an image is selected
 
 $('#new-image').change(function () {
-	var file = $('#new-image')[0].files[0];
+	let file = $('#new-image')[0].files[0];
 	$('#filename').text(`Image will be set to: ${file.name}`);
 	$('#filename').addClass('mt-3');
 });
 
-/* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
-activity button is clicked */
+/* Adds the relevant legend text and form styling to the added row when the add another activity 
+button is clicked in the add holiday form */
 
 let activityCounter = $('.activity').length;
 
-function addedActivity() {
+function addActivity() {
+	$('fieldset .row').addClass('mb-3');
+	activityCounter += 1;
+	$('.activity').last().find('legend').text(`Activity ${activityCounter}`);
+	$('.delete-row').remove();
+}
+
+/* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
+activity button is clicked in the edit holiday form */
+
+function editActivity() {
 	$('fieldset .row').addClass('mb-3');
 	$(`#div_id_activities-${activityCounter}-DELETE`).addClass('form-check ms-1');
 	$(`#div_id_activities-${activityCounter}-DELETE`).addClass('delete-check');
@@ -35,12 +45,22 @@ function addedActivity() {
 	$('.delete-row').remove();
 }
 
-/* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
-itinerary button is clicked */
+/* Adds the relevant legend text and form styling to the added row when the add another itinerary 
+button is clicked in the add holiday form */
 
 let itineraryCounter = $('.itinerary').length;
 
-function addedItinerary() {
+function addItinerary() {
+	$('fieldset .row').addClass('mb-3');
+	itineraryCounter += 1;
+	$('.itinerary').last().find('legend').text(`Itinerary ${itineraryCounter}`);
+	$('.delete-row').remove();
+}
+
+/* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
+itinerary button is clicked in the edit holiday form */
+
+function editItinerary() {
 	$('fieldset .row').addClass('mb-3');
 	$(`#div_id_itineraries-${itineraryCounter}-DELETE`).addClass('form-check delete-check ms-1');
 	$(`<input type="checkbox" name="itineraries-${itineraryCounter}-DELETE" id="id_itineraries-${itineraryCounter}

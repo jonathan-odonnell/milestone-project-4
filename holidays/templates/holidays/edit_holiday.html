@@ -99,19 +99,19 @@
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
-<script src="{% static 'js/edit_holiday.js' %}"></script>
+<script src="{% static 'js/holiday_form.js' %}"></script>
 <script type="text/javascript">
     $('.activity').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ activity_formset.prefix }}',
         formCssClass: 'activity',
-        added: addedActivity,
+        added: editActivity,
     });
     $('.itinerary').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ itinerary_formset.prefix }}',
         formCssClass: 'itinerary',
-        added: addedItinerary,
+        added: editItinerary,
     })
 </script>
 {% endblock %}
