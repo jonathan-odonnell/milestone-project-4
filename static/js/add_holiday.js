@@ -10,17 +10,6 @@ $(document).ready(function () {
 	}
 });
 
-/* Changes the colour of the select menu when it is changed depending 
-on whether a valid option or the blank label has been selected */
-
-$('select').change(function () {
-	if (!$(this).val()) {
-		$(this).css('color', '#a9a9a9');
-	} else {
-		$(this).css('color', '#4a4a4a');
-	}
-});
-
 // Adds the name of the file selected and styling to the filename ID when an image is selected
 
 $('#new-image').change(function () {

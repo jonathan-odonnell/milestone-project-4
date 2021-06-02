@@ -2,17 +2,14 @@ from django import forms
 from django.forms import inlineformset_factory
 from .widgets import CustomClearableFileInput
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column, Field, Div
-from crispy_forms.bootstrap import InlineField
-from .models import Activity, Category, Country, Feature, Flight, Itinerary, Package, Review
-from extras.models import Extra
+from .models import Activity, Feature, Itinerary, Package, Review
 
 
 class PackageForm(forms.ModelForm):
 
     class Meta:
         model = Package
-        fields = '__all__'
+        exclude = ('rating',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -24,11 +21,11 @@ class PackageForm(forms.ModelForm):
         self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['image'].widget = CustomClearableFileInput()
         self.fields['description'].widget.attrs['rows'] = 8
-        self.fields['category'].empty_label = 'Category'
+        self.fields['category'].empty_label = ''
         self.fields['category'].widget.attrs['class'] = 'form-select'
-        self.fields['country'].empty_label = 'Country'
+        self.fields['country'].empty_label = ''
         self.fields['country'].widget.attrs['class'] = 'form-select'
-        self.fields['region'].empty_label = 'Region'
+        self.fields['region'].empty_label = ''
         self.fields['region'].widget.attrs['class'] = 'form-select'
 
 
