@@ -33,18 +33,26 @@
 {% endblock %}
 {% block postloadjs %}
 {{ block.super }}
-<script async src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initAutocomplete&libraries=places&v=weekly">
+</script>
 <script src="{% static 'js/autocomplete.js' %}"></script>
 <script>
-    /* Changes the colour of the country select menu when it is changed depending 
-    on whether a valid option or the blank label has been selected */
-    $('#id_country').change(function() {
-    countrySelected = $(this).val();
-    if(!countrySelected) {
-        $(this).css('color', '#d3d3d3');
-    } else {
-        $(this).css('color', '#4a4a4a');
+    /* Sets the colour of the country field and changes it when the country field is changed
+    depending on whether a valid option or the blank label has been selected */
+
+    let countrySelected = $("#id_country").val();
+
+    if (!countrySelected) {
+        $("#id_country").css("color", "#a9a9a9");
     }
-});
+
+    $('#id_country').change(function () {
+        if (!countrySelected) {
+            $(this).css('color', '#a9a9a9');
+        } else {
+            $(this).css('color', '#4a4a4a');
+        }
+    });
 </script>
 {% endblock %}
