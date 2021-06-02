@@ -14,45 +14,40 @@ let endDate = new Date(
 );
 
 /* Removes the default datepicker input styling from the departure date input and configures the related
-holidays slider when the DOM has finished loading. Code for the related holidays slider is from 
-https://kenwheeler.github.io/slick/ */
+holidays slider. Code for the related holidays slider is from https://kenwheeler.github.io/slick/ */
 
-$(document).ready(function () {
-    $('#departure_date').removeClass(
-        'gj-textbox-md'
-    );
-    $('#related-holidays').slick({
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        responsive: [{
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                },
+$('#departure_date').removeClass('gj-textbox-md');
+$('#related-holidays').slick({
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [{
+            breakpoint: 1200,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
             },
-            {
-                breakpoint: 998,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                },
+        },
+        {
+            breakpoint: 998,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
             },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
             },
-        ],
-        appendArrows: "#arrows",
-        prevArrow: `<button type="button" class="btn shadow-0 ps-0">
-                <i class="fas fa-arrow-left fa-2x"></i></button>`,
-        nextArrow: `<button type="button" class="btn shadow-0 pe-md-0">
-                <i class="fas fa-arrow-right fa-2x"></i></button>`,
-    });
+        },
+    ],
+    appendArrows: "#arrows",
+    prevArrow: `<button type="button" class="btn shadow-0 ps-0">
+            <i class="fas fa-arrow-left fa-2x"></i></button>`,
+    nextArrow: `<button type="button" class="btn shadow-0 pe-md-0">
+            <i class="fas fa-arrow-right fa-2x"></i></button>`,
 });
 
 /* Changes the tabs dropdown button text and shows the relevant tab when a button in the tabs dropdown
