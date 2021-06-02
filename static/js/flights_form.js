@@ -15,14 +15,12 @@ let endDate = new Date(
 
 // Removes the default datepicker input styling from the departure time and arrival time inputs
 
-$(document).ready(function () {
-	$("#div_id_departure_time input").removeClass(
-		"gj-textbox-md"
-	);
-	$("#div_id_arrival_time input").removeClass(
-		"gj-textbox-md"
-	);
-});
+$("#div_id_departure_time input").removeClass(
+	"gj-textbox-md"
+);
+$("#div_id_arrival_time input").removeClass(
+	"gj-textbox-md"
+);
 
 /* Configures the departure time and arrival time datetime pickers. Code is from 
 https://gijgo.com/datetimepicker/, https://gijgo.com/datepicker/configuration and
