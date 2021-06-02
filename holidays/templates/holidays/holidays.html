@@ -52,7 +52,7 @@
                     <div id="country-filters" class="col-12 col-md-8 col-lg-9 mb-3 mb-md-0">
                         {% for country in countries %}
                         <a class="text-decoration-none mx-1" href="javascript:void(0)">
-                            {% if country in current_countries %}
+                            {% if country|lower in current_countries %}
                             <span class="badge bg-primary border p-2 my-1">
                                 {% else %}
                                 <span class="badge bg-light text-dark border p-2 my-1">{% endif %}{{ country }}</span>
@@ -63,7 +63,7 @@
                     <div id="category-filters" class="col-12 col-md-8 col-lg-9 mb-3 mb-md-0">
                         {% for category in categories %}
                         <a class="text-decoration-none mx-1" href="javascript:void(0)">
-                            {% if category in current_categories %}
+                            {% if category|lower in current_categories %}
                             <span class="badge bg-primary border p-2 my-1">
                             {% else %}
                             <span class="badge bg-light text-dark border p-2 my-1">{% endif %}{{ category }}</span>
@@ -73,12 +73,12 @@
                     {% endif %}
                     <div class="col-12 col-md-4 col-lg-3">
                         <select id="sort-selector" class="form-select shadow-none">
-                            <option value="featured" selected>Sort by: Featured</option>
-                            <option value="price_asc">Price (Low - High)</option>
-                            <option value="price_desc">Price (High - Low)</option>
-                            <option value="duration_asc">Duration (Low - High)</option>
-                            <option value="duration_desc">Duartion (High - Low)</option>
-                            <option value="rating_desc">Rating</option>
+                            <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by:</option>
+                            <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (Low - High)</option>
+                            <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (High - Low)</option>
+                            <option value="duration_asc" {% if current_sorting == 'duration_asc' %}selected{% endif %}>Duration (Low - High)</option>
+                            <option value="duration_desc" {% if current_sorting == 'duration_desc' %}selected{% endif %}>Duration (High - Low)</option>
+                            <option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Rating</option>
                         </select>
                     </div>
                 </div>
