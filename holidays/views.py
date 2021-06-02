@@ -1,88 +1,53 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.contrib import messages
-from .models import Package, Category, Country, Region, Review
+from .models import Package, Category, Region, Review
 from booking.models import Booking
 from profiles.models import UserProfile
-from flights.models import Flight
-from django.db.models import Min, Count
 from django.db.models.functions import Lower
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .forms import PackageForm, FeatureFormset, ActivityFormset, ItineraryFormset, ReviewForm
-from .utlis import superuser_required
+from .utlis import superuser_required, get_holidays
 
 
 def holidays(request, category=None, destination=None):
     """ A view to show all holidays for the category or destination, including sorting and search queries """
-    countries = None
-    categories = None
-    current_categories = None
-    current_countries = None
-    sort = None
-    direction = None
+    
+    holidays_data = get_holidays(request, category, destination)
+    holidays = holidays_data['holidays']
+    category = holidays_data['category']
+    destination = holidays_data['destination']
+    current_sorting = holidays_data['current_sorting']
+    categories = holidays_data['categories']
+    current_categories = holidays_data['current_categories']
+    countries = holidays_data['countries']
+    current_countries = holidays_data['current_countries']
 
-    if category:
-        category = get_object_or_404(Category, slug=category)
-        holidays = Package.objects.filter(category=category)
-        countries = holidays.values_list(
-            'country__name', flat=True).distinct().order_by('country__name')
+    context = {
+        'category': category,
+        'destination': destination,
+        'current_sorting': current_sorting,
+        'categories': categories,
+        'current_categories': current_categories,
+        'countries': countries,
+        'current_countries': current_countries,
+        'holidays': holidays,
+    }
 
-    elif destination:
-        destination = get_object_or_404(Region, slug=destination)
-        holidays = Package.objects.filter(region=destination)
-        categories = holidays.values_list(
-            'category__name', flat=True).distinct().order_by('category__name')
+    return render(request, 'holidays/holidays.html', context)
 
-    else:
-        holidays = Package.objects.filter(offer=True)
-        categories = holidays.values_list(
-            'category__name', flat=True).distinct().order_by('category__name')
 
-    if request.GET:
-        if 'sort' in request.GET:
-            sort = request.GET['sort']
-            if 'direction' in request.GET:
-                direction = request.GET['direction']
-                if direction == 'desc':
-                    sort = f'-{sort}'
-
-                holidays = holidays.order_by(sort)
-
-        if 'categories' in request.GET:
-            current_categories = request.GET['categories'].replace(
-                '_', ' ').split(',')
-            holidays = holidays.annotate(lower_category=Lower('category__name')).filter(
-                lower_category__in=current_categories)
-
-        if 'countries' in request.GET:
-            current_countries = request.GET['countries'].replace(
-                '_', ' ').split(',')
-            holidays = holidays.annotate(lower_country=Lower('country__name')).filter(
-                lower_country__in=current_countries)
-
-        # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
-        holidays = Paginator(holidays, 12)
-        page_number = request.GET['page']
-        holidays = holidays.get_page(page_number)
-        html = render_to_string(
-            'holidays/includes/holiday_cards.html', {'holidays': holidays, 'category': category, 'destination': destination})
-        return JsonResponse({'holidays': html})
-
-    else:
-        holidays = Paginator(holidays, 12)
-        page_number = None
-        holidays = holidays.get_page(page_number)
-        context = {
-            'category': category,
-            'destination': destination,
-            'categories': categories,
-            'countries': countries,
-            'holidays': holidays,
-        }
-
-        return render(request, 'holidays/holidays.html', context)
+def filter_holidays(request, destination=None, category=None):
+    holidays_data = get_holidays(request, category, destination)
+    holidays = holidays_data['holidays']
+    category = holidays_data['category']
+    destination = holidays_data['destination']
+    # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
+    html = render_to_string(
+        'holidays/includes/holiday_cards.html', {'holidays': holidays, 'category': category, 'destination': destination})
+    return JsonResponse({'holidays': html})
 
 
 def holiday_details(request, slug, destination=None, category=None):
