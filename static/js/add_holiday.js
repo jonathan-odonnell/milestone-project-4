@@ -1,14 +1,9 @@
-// Amends the form styling when the DOM has finished loading
+// Amends the form styling
 
-$(document).ready(function () {
-	$('.custom-checkbox').addClass('form-check ms-1');
-	$('.form-check input').addClass('form-check-input');
-	$('.form-check label').addClass('form-check-label');
-	$('fieldset .row').addClass('mb-3');
-	if (!$('select').val()) {
-		$('select').css('color', '#a9a9a9');
-	}
-});
+$('.custom-checkbox').addClass('form-check ms-1');
+$('.form-check input').addClass('form-check-input');
+$('.form-check label').addClass('form-check-label');
+$('fieldset .row').addClass('mb-3');
 
 // Adds the name of the file selected and styling to the filename ID when an image is selected
 
