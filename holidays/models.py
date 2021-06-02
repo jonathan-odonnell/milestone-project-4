@@ -112,7 +112,7 @@ class Package(models.Model):
     offer = models.BooleanField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     duration = models.DecimalField(max_digits=2, decimal_places=0)
-    rating = models.DecimalField(max_digits=2, decimal_places=1)
+    rating = models.DecimalField(max_digits=2, decimal_places=1, default=0)
     catering = models.CharField(max_length=254)
     extras = models.ManyToManyField(Extra, blank=True, related_name='packages')
     flights = models.ManyToManyField(
