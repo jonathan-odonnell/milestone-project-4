@@ -18,6 +18,7 @@ def get_holidays(request, category=None, destination=None):
     categories = None
     sort = None
     direction = None
+    current_sorting = None
     current_categories = None
     current_countries = None
 
@@ -46,11 +47,8 @@ def get_holidays(request, category=None, destination=None):
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
-                print(sort)
-                print(sortkey)
-        
-        holidays = holidays.order_by(sortkey)
-        current_sorting = f'{sort}_{direction}'
+            holidays = holidays.order_by(sortkey)
+            current_sorting = f'{sort}_{direction}'
 
         if 'categories' in request.GET:
             current_categories = request.GET['categories'].replace(
@@ -63,7 +61,6 @@ def get_holidays(request, category=None, destination=None):
                 '_', ' ').split(',')
             holidays = holidays.annotate(lower_country=Lower('country__name')).filter(
                 lower_country__in=current_countries)
-
 
     paginated_holidays = Paginator(holidays, 12)
     page_number = request.GET.get('page')
@@ -81,4 +78,3 @@ def get_holidays(request, category=None, destination=None):
     }
 
     return response
-
