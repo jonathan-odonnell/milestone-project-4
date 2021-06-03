@@ -82,7 +82,7 @@ class ReviewForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
-        self.fields['review'].widget.attrs['rows'] = 6
+        self.fields['review'].widget.attrs['rows'] = 8
 
 
 FeatureFormset = inlineformset_factory(

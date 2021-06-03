@@ -6,7 +6,7 @@
         <div class="col-12 text-center">
             <h1 class="section-heading mb-3">Write Review</h1>
         </div>
-        <div class="col-12 col-lg-8 mx-auto">
+        <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="#" method="POST">
                 {% csrf_token %}
                 <p class="form-label mb-2">Rating</p>
@@ -28,7 +28,7 @@
                     </button>
                 </div>
                 {% for field in form %}
-                            {{ field | as_crispy_field}}
+                    {{ field | as_crispy_field}}
                 {% endfor %}
                 {% if request.META.HTTP_REFERER %}
                 <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
