@@ -1,14 +1,16 @@
+from re import I
+from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.http import JsonResponse
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from .forms import BookingForm
+from django.conf import settings
 from booking.models import Booking
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
-from django.conf import settings
+from .forms import BookingForm
+from .webhook_handler import WH_Handler
 from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
 from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest
 import stripe
@@ -100,20 +102,7 @@ def checkout(request):
                 booking.save()
 
             if paypal_pid:
-                cust_email = booking.email
-                subject = render_to_string(
-                    'checkout/confirmation_emails/confirmation_email_subject.txt',
-                    {'booking': booking})
-                body = render_to_string(
-                    'checkout/confirmation_emails/confirmation_email_body.txt',
-                    {'booking': booking, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-                
-                send_mail(
-                    subject,
-                    body,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [cust_email]
-                )       
+                WH_Handler.send_confirmation_email(booking)    
 
             return redirect(reverse('checkout_success', args=[booking.booking_number]))
 
