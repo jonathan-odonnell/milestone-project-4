@@ -12,7 +12,7 @@ from profiles.models import UserProfile
 from .forms import PassengerForm
 from .contexts import booking_details
 from pytz import timezone
-import datetime
+from datetime import datetime, timedelta
 
 
 def booking(request):
@@ -31,16 +31,15 @@ def add_booking(request, holiday_id):
                 packages__name=holiday.name, origin=request.POST['departure_airport'])
             return_flight = Flight.objects.get(
                 packages__name=holiday.name, destination=request.POST['departure_airport'])
-            time_zone = outbound_flight.destination_time_zone
-            flight_arrival = outbound_flight.departure_time.astimezone(
-                time_zone)
-            flight_days = (flight_arrival -
-                           outbound_flight.departure_time).days
-            departure_date = datetime.datetime.strptime(
+            departure_date = datetime.strptime(
                 request.POST['departure_date'], "%d/%m/%Y").date()
-            return_date = departure_date + \
-                datetime.timedelta(
-                    days=int(holiday.duration + flight_days + 1))
+            outbound_flight_departure = outbound_flight.departure_time.astimezone(
+                outbound_flight.origin_time_zone)
+            outbound_flight_arrival = outbound_flight.arrival_time.astimezone(
+                outbound_flight.destination_time_zone)
+            flight_days = (outbound_flight_arrival - outbound_flight_departure).days
+            return_date = departure_date + timedelta(
+                days=int(holiday.duration + flight_days))
 
             if booking_number:
                 booking = Booking.objects.filter(
