@@ -89,41 +89,41 @@ def holidays(request, category=None, destination=None):
 def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
     holiday = get_object_or_404(Package.objects, slug=slug)
-    not_reviewed = False
+    can_review = False
 
     if category:
         category = get_object_or_404(Category, slug=category)
-        holidays = Package.objects.filter(category=category).exclude(
+        related_holidays = Package.objects.filter(category=category).exclude(
             name=holiday.name).order_by('?')[:4]
 
     elif destination:
         destination = get_object_or_404(Region, slug=destination)
-        holidays = Package.objects.filter(region=destination).exclude(
+        related_holidays = Package.objects.filter(region=destination).exclude(
             name=holiday.name).order_by('?')[:4]
 
     else:
-        holidays = Package.objects.filter(offer=True).exclude(
+        related_holidays = Package.objects.filter(offer=True).exclude(
             name=holiday.name).order_by('?')[:4]
 
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         bookings = Booking.objects.filter(
             user_profile=profile, package=holiday, paid=True)
+        review = None
 
         if bookings:
-            try:
-                Review.objects.get(
-                    package=holiday, full_name=profile.user.get_full_name())
+            review = Review.objects.filter(
+                    package=holiday, full_name=profile.user.get_full_name()).first()
 
-            except Review.DoesNotExist:
-                not_reviewed = True
+        if review:
+            can_review = True
 
     context = {
         'holiday': holiday,
-        'holidays': holidays,
+        'related_holidays': related_holidays,
         'category': category,
         'destination': destination,
-        'not_reviewed': not_reviewed,
+        'can_review': can_review,
     }
     return render(request, 'holidays/holiday_details.html', context)
 
@@ -133,19 +133,15 @@ def review(request, package):
     holiday = get_object_or_404(Package, slug=package)
     profile = UserProfile.objects.get(user=request.user)
     bookings = Booking.objects.filter(
-        user_profile=profile, booking_package__package=holiday)
-
-    if not bookings:
-        return HttpResponse(status=403)
+        user_profile=profile, booking_package__package=holiday, paid=True)
+    review = None
 
     if bookings:
-        try:
-            Review.objects.get(
-                package=holiday, name=profile.user.get_full_name())
-            return HttpResponse(status=403)
-
-        except Review.DoesNotExist:
-            pass
+        review = Review.objects.filter(
+                package=holiday, name=profile.user.get_full_name()).first()
+    
+    if review or not bookings:
+        return HttpResponse(status=403)
 
     if request.POST:
         review_data = {
