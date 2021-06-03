@@ -25,6 +25,8 @@ class ReviewInline(admin.StackedInline):
 
 
 class PackageAdmin(admin.ModelAdmin):
+    readonly_fields = ('rating',)
+
     fields = ('name', 'image', 'image_url',
               'description', 'category', 'country',
               'region', 'offer', 'price', 'duration',

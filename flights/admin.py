@@ -7,8 +7,9 @@ class FlightAdmin(admin.ModelAdmin):
 
     fields = (
         'flight_number', 'direction', 'origin', 
-        'destination', 'departure_time', 'arrival_time', 
-        'duration', 'destination_time_zone', 'layover', 'baggage')
+        'destination', 'departure_time', 'origin_time_zone',
+        'arrival_time', 'destination_time_zone', 'duration',
+        'layover', 'baggage')
     
     list_display = ('flight_number', 'origin', 'destination',)
     
