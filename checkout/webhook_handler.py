@@ -15,7 +15,7 @@ class WH_Handler:
     def __init__(self, request):
         self.request = request
 
-    def _send_confirmation_email(self, booking):
+    def send_confirmation_email(self, booking):
         """Send the user a confirmation email"""
         cust_email = booking.email
         subject = render_to_string(
@@ -77,7 +77,7 @@ class WH_Handler:
                 time.sleep(1)
 
         if booking_exists:
-            self._send_confirmation_email(booking)
+            self.send_confirmation_email(booking)
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Verified booking already in database',
                 status=200)
@@ -125,7 +125,7 @@ class WH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: Booking does not exist',
                     status=500)
 
-        self._send_confirmation_email(booking)
+        self.send_confirmation_email(booking)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created booking in webhook',
             status=200)
