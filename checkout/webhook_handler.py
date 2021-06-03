@@ -85,20 +85,19 @@ class WH_Handler:
         else:
             booking = None
             try:
-                booking = Booking.objects.filter(booking_number=booking_number)
-                booking.update(
-                    full_name=shipping_details.name,
-                    email=billing_details.email,
-                    phone_number=shipping_details.phone,
-                    street_address1=shipping_details.address.line1,
-                    street_address2=shipping_details.address.line2,
-                    town_or_city=shipping_details.address.city,
-                    county=shipping_details.address.state,
-                    country=shipping_details.address.country,
-                    postcode=shipping_details.address.postal_code,
-                    paid=True,
-                    stripe_pid=pid,
-                )
+                booking = Booking.objects.get(booking_number=booking_number)
+                booking.full_name = shipping_details.name
+                booking.email = billing_details.email
+                booking.phone_number = shipping_details.phone
+                booking.street_address1 = shipping_details.address.line1
+                booking.street_address2 = shipping_details.address.line2
+                booking.town_or_city = shipping_details.address.city
+                booking.county = shipping_details.address.state
+                booking.country = shipping_details.address.country
+                booking.postcode = shipping_details.address.postal_code
+                booking.paid = True
+                booking.stripe_pid = pid
+                booking.save()
 
                 if username != 'AnonymousUser':
                     profile = UserProfile.objects.get(user__username=username)
@@ -106,13 +105,13 @@ class WH_Handler:
 
                     if save_info:
                         profile_data = {
-                            'phone_number': booking[0].phone_number,
-                            'street_address1': booking[0].street_address1,
-                            'street_address2': booking[0].street_address2,
-                            'town_or_city': booking[0].town_or_city,
-                            'county': booking[0].county,
-                            'country': booking[0].country,
-                            'postcode': booking[0].postcode,
+                            'phone_number': booking.phone_number,
+                            'street_address1': booking.street_address1,
+                            'street_address2': booking.street_address2,
+                            'town_or_city': booking.town_or_city,
+                            'county': booking.county,
+                            'country': booking.country,
+                            'postcode': booking.postcode,
                         }
                         user_profile_form = UserProfileForm(
                             profile_data, instance=profile)
