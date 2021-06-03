@@ -1,29 +1,76 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.contrib import messages
+from django.db.models.functions import Lower
+from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from .models import Package, Category, Region, Review
 from booking.models import Booking
 from profiles.models import UserProfile
-from django.db.models.functions import Lower
-from django.template.loader import render_to_string
-from django.http import JsonResponse
-from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
 from .forms import PackageForm, FeatureFormset, ActivityFormset, ItineraryFormset, ReviewForm
-from .utlis import superuser_required, get_holidays
+from .utlis import superuser_required
 
 
 def holidays(request, category=None, destination=None):
     """ A view to show all holidays for the category or destination, including sorting and search queries """
-    
-    holidays_data = get_holidays(request, category, destination)
-    holidays = holidays_data['holidays']
-    category = holidays_data['category']
-    destination = holidays_data['destination']
-    current_sorting = holidays_data['current_sorting']
-    categories = holidays_data['categories']
-    current_categories = holidays_data['current_categories']
-    countries = holidays_data['countries']
-    current_countries = holidays_data['current_countries']
+    countries = None
+    categories = None
+    sort = None
+    direction = None
+    current_sorting = None
+    current_categories = None
+    current_countries = None
+
+    if category:
+        category = get_object_or_404(Category, slug=category)
+        holidays = Package.objects.filter(category=category)
+        countries = holidays.values_list(
+            'country__name', flat=True).distinct().order_by('country__name')
+
+    elif destination:
+        destination = get_object_or_404(Region, slug=destination)
+        holidays = Package.objects.filter(region=destination)
+        categories = holidays.values_list(
+            'category__name', flat=True).distinct().order_by('category__name')
+
+    else:
+        holidays = Package.objects.filter(offer=True)
+        categories = holidays.values_list(
+            'category__name', flat=True).distinct().order_by('category__name')
+
+    if request.GET:
+        if 'sort' in request.GET:
+            sort = request.GET['sort']
+            sortkey = sort
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            holidays = holidays.order_by(sortkey)
+            current_sorting = f'{sort}_{direction}'
+
+        if 'categories' in request.GET:
+            current_categories = request.GET['categories'].replace(
+                '_', ' ').split(',')
+            holidays = holidays.annotate(lower_category=Lower('category__name')).filter(
+                lower_category__in=current_categories)
+
+        if 'countries' in request.GET:
+            current_countries = request.GET['countries'].replace(
+                '_', ' ').split(',')
+            holidays = holidays.annotate(lower_country=Lower('country__name')).filter(
+                lower_country__in=current_countries)
+
+    paginated_holidays = Paginator(holidays, 12)
+    page_number = request.GET.get('page')
+    holidays = paginated_holidays.get_page(page_number)
+
+    if request.is_ajax():
+        # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
+        holidays_html = render_to_string(
+            'holidays/includes/holiday_cards.html', {'holidays': holidays, 'category': category, 'destination': destination})
+        return JsonResponse({'holidays': holidays_html})
 
     context = {
         'category': category,
@@ -39,17 +86,6 @@ def holidays(request, category=None, destination=None):
     return render(request, 'holidays/holidays.html', context)
 
 
-def filter_holidays(request, destination=None, category=None):
-    holidays_data = get_holidays(request, category, destination)
-    holidays = holidays_data['holidays']
-    category = holidays_data['category']
-    destination = holidays_data['destination']
-    # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
-    html = render_to_string(
-        'holidays/includes/holiday_cards.html', {'holidays': holidays, 'category': category, 'destination': destination})
-    return JsonResponse({'holidays': html})
-
-
 def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details """
     holiday = get_object_or_404(Package.objects, slug=slug)
@@ -57,22 +93,27 @@ def holiday_details(request, slug, destination=None, category=None):
 
     if category:
         category = get_object_or_404(Category, slug=category)
-        holidays = Package.objects.filter(category=category).exclude(name=holiday.name).order_by('?')[:4]
-    
+        holidays = Package.objects.filter(category=category).exclude(
+            name=holiday.name).order_by('?')[:4]
+
     elif destination:
         destination = get_object_or_404(Region, slug=destination)
-        holidays = Package.objects.filter(region=destination).exclude(name=holiday.name).order_by('?')[:4]
+        holidays = Package.objects.filter(region=destination).exclude(
+            name=holiday.name).order_by('?')[:4]
 
     else:
-        holidays = Package.objects.filter(offer=True).exclude(name=holiday.name).order_by('?')[:4]
-    
+        holidays = Package.objects.filter(offer=True).exclude(
+            name=holiday.name).order_by('?')[:4]
+
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
-        bookings = Booking.objects.filter(user_profile=profile, package=holiday, paid=True)
-        
+        bookings = Booking.objects.filter(
+            user_profile=profile, package=holiday, paid=True)
+
         if bookings:
             try:
-                Review.objects.get(package=holiday, full_name=profile.user.get_full_name())
+                Review.objects.get(
+                    package=holiday, full_name=profile.user.get_full_name())
 
             except Review.DoesNotExist:
                 not_reviewed = True
@@ -86,18 +127,21 @@ def holiday_details(request, slug, destination=None, category=None):
     }
     return render(request, 'holidays/holiday_details.html', context)
 
+
 @login_required
 def review(request, package):
     holiday = get_object_or_404(Package, slug=package)
     profile = UserProfile.objects.get(user=request.user)
-    bookings = Booking.objects.filter(user_profile=profile, booking_package__package=holiday)
-    
+    bookings = Booking.objects.filter(
+        user_profile=profile, booking_package__package=holiday)
+
     if not bookings:
         return HttpResponse(status=403)
 
     if bookings:
         try:
-            Review.objects.get(package=holiday, name=profile.user.get_full_name())
+            Review.objects.get(
+                package=holiday, name=profile.user.get_full_name())
             return HttpResponse(status=403)
 
         except Review.DoesNotExist:
@@ -118,8 +162,8 @@ def review(request, package):
             return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
 
         messages.error(
-            request, 'Failed to add review. Please ensure the form is valid.')    
-    
+            request, 'Failed to add review. Please ensure the form is valid.')
+
     else:
         form = ReviewForm()
 
@@ -151,13 +195,14 @@ def add_holiday(request):
 
             if feature_formset.is_valid():
                 feature_formset.save()
-            
+
                 if activity_formset.is_valid():
                     activity_formset.save()
 
                     if itinerary_formset.is_valid():
                         itinerary_formset.save()
-                        messages.success(request, 'Successfully added holiday!')
+                        messages.success(
+                            request, 'Successfully added holiday!')
                         return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
 
         messages.error(
@@ -189,10 +234,10 @@ def edit_holiday(request, package):
         feature_formset = FeatureFormset(request.POST, instance=holiday)
         activity_formset = ActivityFormset(request.POST, instance=holiday)
         itinerary_formset = ItineraryFormset(request.POST, instance=holiday)
-        
+
         if form.is_valid():
             form.save()
-            
+
             if feature_formset.is_valid():
                 feature_formset.save()
 
@@ -201,7 +246,8 @@ def edit_holiday(request, package):
 
                     if itinerary_formset.is_valid():
                         itinerary_formset.save()
-                        messages.success(request, 'Successfully updated holiday!')
+                        messages.success(
+                            request, 'Successfully updated holiday!')
                         return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
 
         else:
