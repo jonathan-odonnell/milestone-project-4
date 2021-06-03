@@ -133,7 +133,7 @@ def review(request, package):
     holiday = get_object_or_404(Package, slug=package)
     profile = UserProfile.objects.get(user=request.user)
     bookings = Booking.objects.filter(
-        user_profile=profile, booking_package__package=holiday, paid=True)
+        user_profile=profile, package=holiday, paid=True)
     review = None
 
     if bookings:
