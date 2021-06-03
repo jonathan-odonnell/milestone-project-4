@@ -151,7 +151,7 @@
                         <small>Reviewed by {{ review.full_name }} on {{ review.date|date }}</small>
                     </div>
                     {% endfor %}
-                    {% if not_reviewed %}
+                    {% if can_review %}
                     <a href="{% url 'review' holiday.slug %}" class="btn btn-primary mt-4">
                         Write Review
                     </a>
@@ -204,7 +204,7 @@
             </div>
         </div>
         <div id="related-holidays" class="my-3">
-            {% for holiday in holidays %}
+            {% for holiday in related_holidays %}
             <div class="card destination-card shadow-0 border d-flex">
                 <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
                 <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
