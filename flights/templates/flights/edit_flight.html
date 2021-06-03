@@ -22,12 +22,12 @@
             <form action="{% url 'edit_flight' form.instance.flight_number %}" method="POST">
                 {% csrf_token %}
                 {% for field in form %}
-                    {% if field.name == 'arrival_time' and form.instance.direction == 'Outbound' %}
-                        {% timezone form.instance.destination_time_zone %}
+                    {% if field.name == 'departure_time' %}
+                        {% timezone form.instance.origin_time_zone %}
                             {{ field | as_crispy_field }}
                         {% endtimezone %}
-                    {% elif field.name == 'departure_time' and form.instance.direction == 'Return' %}
-                        {% timezone form.instance.origin_time_zone %}
+                    {% elif field.name == 'arrival_time' %}
+                        {% timezone form.instance.destination_time_zone %}
                             {{ field | as_crispy_field }}
                         {% endtimezone %}
                     {% else %}
