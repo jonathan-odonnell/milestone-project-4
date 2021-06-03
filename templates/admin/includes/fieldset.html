@@ -17,7 +17,7 @@
                         {% if field.is_readonly %}
                             <div class="readonly">{{ field.contents }}</div>
                         {% else %}
-                            {% elif field.field.name == 'departure_time' %}
+                            {% if field.field.name == 'departure_time' %}
                                 {% timezone fieldset.form.instance.origin_time_zone %}   
                                     {{ field.field }}
                                 {% endtimezone %}
