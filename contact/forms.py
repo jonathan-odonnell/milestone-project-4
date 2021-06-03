@@ -33,7 +33,7 @@ class ContactForm(forms.ModelForm):
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
         self.fields['subject'].choices = subjects
-        self.fields['message'].widget.attrs['rows'] = 6
+        self.fields['message'].widget.attrs['rows'] = 8
         self.fields['subject'].widget.attrs['class'] = 'form-select'
 
         for field in self.fields:
