@@ -19,4 +19,4 @@ class CustomerContact(models.Model):
     message = models.TextField()
 
     def __str__(self):
-        return f'{self.name} - {self.subject}'
+        return f'{self.full_name} - {self.subject}'
