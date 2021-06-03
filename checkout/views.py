@@ -180,7 +180,6 @@ def checkout_success(request, booking_number):
     Handle successful checkouts
     """
     booking = get_object_or_404(Booking, booking_number=booking_number)
-    time_zone = booking.outbound_flight.destination_time_zone.zone
 
     if request.session.get('booking_number'):
         del request.session['booking_number']
@@ -188,7 +187,6 @@ def checkout_success(request, booking_number):
     template = 'checkout/checkout_success.html'
     context = {
         'booking': booking,
-        'time_zone': time_zone,
     }
 
     return render(request, template, context)
