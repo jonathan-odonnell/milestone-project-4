@@ -84,10 +84,11 @@
                     {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
                     <li><a class="dropdown-item" href="{% url 'add_holiday' %}">Add Holiday</a></li>
+                    <li><a class="dropdown-item" href="{% url 'add_extra' %}">Add Extra</a></li>
                     <li><a class="dropdown-item" href="{% url 'flights' %}">Manage Flights</a></li>
                     {% else %}
                     <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                    <li><a class="dropdown-item" href="{% url 'bookings' %}">Manage Bookings</a></li>
+                    <li><a class="dropdown-item" href="{% url 'bookings' %}">Bookings</a></li>
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
                     <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
@@ -189,7 +190,7 @@
                                 <li><a href="{% url 'categories' 'activity' %}">Activity</a></li>
                                 <li><a href="{% url 'categories' 'city-breaks' %}">City Breaks</a></li>
                                 <li><a href="{% url 'categories' 'resort' %}">Resort</a></li>
-                                {% if request.user.is_authenticated %}
+                                {% if request.user.is_authenticated and not request.user.is_superuser %}
                                 <li><a href="{% url 'categories' 'offers' %}">Offers</a></li>
                                 {% endif %}
                             </ul>
@@ -197,13 +198,13 @@
                         <!-- Links col 2 -->
                         <div class="col-6 col-md-3 col-lg-4 footer-2 mb-4 mb-md-3">
                             <ul class="list-unstyled mb-0">
-                                {% if not request.user.is_authenticated %}
+                                {% if not request.user.is_authenticated or request.user.is_superuser %}
                                 <li><a href="{% url 'offers' %}">Offers</a></li>
                                 {% endif %}
                                 <li><a href="{% url 'extras' %}">Extras</a></li>
-                                {% if request.user.is_authenticated %}
+                                {% if request.user.is_authenticated and not request.user.is_superuser %}
                                 <li><a href="{% url 'profile' %}">Profile</a></li>
-                                <li><a href="{% url 'bookings' %}">Manage Bookings</a></li>
+                                <li><a href="{% url 'bookings' %}">Bookings</a></li>
                                 {% endif %}
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
                             </ul>
