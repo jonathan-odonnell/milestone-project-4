@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.http import JsonResponse
-from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 from holidays.utlis import superuser_required
 from holidays.models import Flight
 from .forms import FlightForm
-from .utils import get_flights
 
 
 def airports(request, holiday_id):
@@ -18,17 +18,31 @@ def airports(request, holiday_id):
 @login_required
 @superuser_required
 def flights(request):
-    flights = get_flights(request)
+    flights = Flight.objects.all()
     sort = None
     direction = None
 
     if request.GET:
         if 'sort' in request.GET:
             sort = request.GET['sort']
-        if 'direction' in request.GET:
-            direction = request.GET['direction']
-    
+            if sort == 'number':
+                sort = 'flight_number'
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sort = f'-{sort}'
+                flights = flights.order_by(sort)
+
     current_sorting = f'{sort}_{direction}'
+    paginated_flights = Paginator(flights, 10)
+    page_number = request.GET.get('page')
+    flights = paginated_flights.get_page(page_number)
+
+    if request.is_ajax():
+        flights_html = render_to_string(
+        'flights/includes/flights_table.html', {'flights': flights})
+        return JsonResponse({'flights': flights_html})
+
     template = 'flights/flights.html'
     context = {
         'flights': flights,
@@ -37,14 +51,6 @@ def flights(request):
 
     return render(request, template, context)
 
-
-@login_required
-@superuser_required
-def filter_flights(request):
-    flights = get_flights(request)
-    html = render_to_string(
-        'flights/includes/flights_table.html', {'flights': flights})
-    return JsonResponse({'flights': html})
 
 @login_required
 @superuser_required
