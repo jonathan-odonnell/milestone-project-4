@@ -122,7 +122,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="d-md-none col px-3">
+        <div class="d-md-none col col-lg-8 px-3">
             <div class="row g-0">
                 <div class="col-12 table-responsive mb-3">
                     <h3 class="section-subheading">Holiday</h3>
@@ -248,9 +248,9 @@
                                     <small>{{ outbound_flight.duration|duration }}</small>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <small>{{outbound_flight.arrival_time|timezone:time_zone|time:'H:i'}}</small>
+                                    <small>{{outbound_flight.arrival_time|timezone:outbound_flight.destination_time_zone|time:'H:i'}}</small>
                                     <br>
-                                    {% next_day flight=outbound_flight time_zone=time_zone direction='outbound' as next_day %}
+                                    {% next_day flight=outbound_flight time_zone=outbound_flight.destination_time_zone direction='outbound' as next_day %}
                                     {% if next_day %}
                                         <small>{{ next_day }}</small>
                                     {% endif %}
@@ -275,7 +275,7 @@
                         </div>
                         <div class="row g-0">
                             <div class="col-4">
-                                <small>{{return_flight.departure_time|timezone:time_zone|time:'H:i'}}</small>
+                                <small>{{return_flight.departure_time|timezone:return_flight.origin_time_zone|time:'H:i'}}</small>
                             </div>
                             <div class="col-4 text-center">
                                 <small>{{ return_flight.duration|duration }}</small>
@@ -283,7 +283,7 @@
                             <div class="col-4 text-end">
                                 <small>{{return_flight.arrival_time|time:'H:i'}}</small>
                                 <br>
-                                {% next_day flight=return_flight time_zone=time_zone direction='return' as next_day %}
+                                {% next_day flight=return_flight time_zone=return_flight.origin_time_zone direction='return' as next_day %}
                                 {% if next_day %}
                                     <small>{{ next_day }}</small>
                                 {% endif %}
