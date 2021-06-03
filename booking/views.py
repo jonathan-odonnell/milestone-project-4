@@ -144,8 +144,8 @@ def update_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
     quantity = int(request.POST['quantity'])
     booking = Booking.objects.prefetch_related('booking_extras').get(booking_number=booking_number, booking_extras__extra=extra_id)
-    booking.booking_extras.all()[0].quantity = quantity
-    booking.booking_extras.all()[0].save()
+    booking.booking_extras.first().quantity = quantity
+    booking.booking_extras.first().save()
 
     # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
 
@@ -166,7 +166,7 @@ def update_extra(request, extra_id):
 def remove_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.prefetch_related('booking_extras').get(booking_number=booking_number, booking_extras__extra=extra_id)
-    booking.booking_extras.all()[0].delete()
+    booking.booking_extras.first().delete()
 
     # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
 
