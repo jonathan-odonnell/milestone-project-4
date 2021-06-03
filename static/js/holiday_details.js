@@ -13,57 +13,31 @@ let endDate = new Date(
     new Date().getDate()
 );
 
-/* Removes the default datepicker input styling from the departure date input and configures the related
-holidays slider. Code for the related holidays slider is from https://kenwheeler.github.io/slick/ */
-
-$('#departure_date').removeClass('gj-textbox-md');
-$('#related-holidays').slick({
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    responsive: [{
-            breakpoint: 1200,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-            },
-        },
-        {
-            breakpoint: 998,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-            },
-        },
-        {
-            breakpoint: 768,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-            },
-        },
-    ],
-    appendArrows: "#arrows",
-    prevArrow: `<button type="button" class="btn shadow-0 ps-0">
-            <i class="fas fa-arrow-left fa-2x"></i></button>`,
-    nextArrow: `<button type="button" class="btn shadow-0 pe-md-0">
-            <i class="fas fa-arrow-right fa-2x"></i></button>`,
-});
-
 /* Changes the tabs dropdown button text and shows the relevant tab when a button in the tabs dropdown
 menu is clicked */
 
-$('#tabs-dropdown')
-    .next()
-    .find('button')
-    .click(function () {
-        let tab = $(this).html();
-        $('.tab-content .tab-pane').removeClass(
-            'show active'
-        );
-        $(`#${tab}`).addClass("show active");
-        $('#tabs-dropdown').html(`${tab}`);
-    });
+$('#tabs-dropdown').next().find('button').click(function () {
+    let tab = $(this).html();
+    $('.tab-content .tab-pane').removeClass('show active');
+    $(`#${tab}`).addClass("show active");
+    $('#tabs-dropdown').html(`${tab}`);
+});
+
+/* Configures the departure date datepicker. Code is from https://gijgo.com/datepicker/ 
+and https://gijgo.com/datepicker/configuration */
+
+$('#departure_date').datepicker({
+    footer: true,
+    modal: true,
+    minDate: startDate,
+    maxDate: endDate,
+    showRightIcon: false,
+    format: 'dd/mm/yyyy',
+});
+
+//Removes the default datepicker input styling from the departure date input
+
+$('#departure_date').removeClass('gj-textbox-md');
 
 // Prevents the user from being able to manually change the value of the departure date input
 
@@ -163,18 +137,6 @@ $('#departure_airport').on(
     }
 );
 
-/* Configures the departure date datepicker. Code is from https://gijgo.com/datepicker/ 
-and https://gijgo.com/datepicker/configuration */
-
-$('#departure_date').datepicker({
-    footer: true,
-    modal: true,
-    minDate: startDate,
-    maxDate: endDate,
-    showRightIcon: false,
-    format: 'dd/mm/yyyy',
-});
-
 /* Increases the guests field value by 1 when the user clicks the plus button if the guest 
 field already has a value less than 10. */
 
@@ -207,7 +169,43 @@ $('.minus').click(function () {
 
 $('#guests').change(function () {
     let guests = parseInt($(this).val());
-    if (!( guests >= 1 && guests <= 10)) {
+    if (!(guests >= 1 && guests <= 10)) {
         $(this).val(1);
     };
+});
+
+/* Configures the related holidays slider. Code for the related holidays slider is
+from https://kenwheeler.github.io/slick/ */
+
+$('#related-holidays').slick({
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [{
+            breakpoint: 1200,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+            },
+        },
+        {
+            breakpoint: 998,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+            },
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+            },
+        },
+    ],
+    appendArrows: "#arrows",
+    prevArrow: `<button type="button" class="btn shadow-0 ps-0">
+            <i class="fas fa-arrow-left fa-2x"></i></button>`,
+    nextArrow: `<button type="button" class="btn shadow-0 pe-md-0">
+            <i class="fas fa-arrow-right fa-2x"></i></button>`,
 });
