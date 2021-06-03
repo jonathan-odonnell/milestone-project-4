@@ -188,7 +188,7 @@
                             {% endif %}
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small text-end mb-0">{{ outbound_flight.arrival_time|timezone:time_zone|time:'H:i' }}</p>
+                            <p class="small text-end mb-0">{{ outbound_flight.arrival_time|timezone:outbound_flight.destination_time_zone|time:'H:i' }}</p>
                             {% next_day flight=outbound_flight time_zone=time_zone direction='outbound' as next_day %}
                             {% if next_day %}
                                 <p class="small text-end">{{ next_day }}</p>
@@ -220,7 +220,7 @@
                             <div class="circle-end"></div>
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small mb-0">{{ return_flight.departure_time|timezone:time_zone|time:'H:i' }}</p>
+                            <p class="small mb-0">{{ return_flight.departure_time|timezone:return_flight.origin_time_zone|time:'H:i' }}</p>
                         </div>
                         <div class="col-4 mt-3">
                             {% if return_flight.layover %}
