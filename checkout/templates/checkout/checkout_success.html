@@ -178,7 +178,7 @@
                             <div class="circle-end"></div>
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small">{{ outbound_flight.departure_time|time:'H:i' }}</p>
+                            <p class="small">{{ outbound_flight.departure_time|timezone:outbound_flight.origin_time_zone|time:'H:i' }}</p>
                         </div>
                         <div class="col-4 mt-3">
                             {% if outbound_flight.layover %}
@@ -189,10 +189,11 @@
                         </div>
                         <div class="col-4 mt-3">
                             <p class="small text-end mb-0">{{ outbound_flight.arrival_time|timezone:outbound_flight.destination_time_zone|time:'H:i' }}</p>
-                            {% next_day flight=outbound_flight time_zone=time_zone direction='outbound' as next_day %}
+                            {% with outbound_flight|next_day as next_day %}
                             {% if next_day %}
                                 <p class="small text-end">{{ next_day }}</p>
                             {% endif %}
+                            {% endwith %}
                         </div>
                     </div>
                 </div>
@@ -230,11 +231,12 @@
                             {% endif %}
                         </div>
                         <div class="col-4 mt-3">
-                            <p class="small text-end mb-0">{{ return_flight.arrival_time|time:'H:i' }}</p>
-                            {% next_day flight=return_flight time_zone=time_zone direction='return' as next_day %}
+                            <p class="small text-end mb-0">{{ return_flight.arrival_time|timezone:return_flight.destination_time_zone|time:'H:i' }}</p>
+                            {% with return_flight|next_day as next_day %}
                             {% if next_day %}
                                 <p class="small text-end mb-0">{{ next_day }}</p>
                             {% endif %}
+                            {% endwith %}
                         </div>
                     </div>
                 </div>
