@@ -16,20 +16,21 @@ def profile(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
-            profile = form.save(commit=False)
+            profile = form.save()
             profile.user.email = request.POST['email_address']
             profile.user.save()
 
-    form = UserProfileForm(
-        initial={'email_address': profile.user.email,
-                 'phone_number': profile.phone_number,
-                 'street_address1': profile.street_address1,
-                 'street_address2': profile.street_address2,
-                 'town_or_city': profile.town_or_city,
-                 'county': profile.county,
-                 'country': profile.country,
-                 'postcode': profile.postcode,
-                 })
+    else:
+        form = UserProfileForm(
+            initial={'email_address': profile.user.email,
+                    'phone_number': profile.phone_number,
+                    'street_address1': profile.street_address1,
+                    'street_address2': profile.street_address2,
+                    'town_or_city': profile.town_or_city,
+                    'county': profile.county,
+                    'country': profile.country,
+                    'postcode': profile.postcode,
+                    })
 
     template = 'profiles/profile.html'
     context = {
