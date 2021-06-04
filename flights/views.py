@@ -104,8 +104,8 @@ def edit_flight(request, flight_number):
 @login_required
 @superuser_required
 def delete_flight(request, flight_number):
-    redirect_url = request.META.HTTP_REFERER 
-    flight = get_object_or_404(Flight, name=flight_number)
+    redirect_url = request.META.get('HTTP_REFERRER')
+    flight = get_object_or_404(Flight, flight_number=flight_number)
     flight.delete()
     messages.success(request, 'Flight deleted!')
-    return redirect(redirect_url or reverse('Flights'))
+    return redirect(redirect_url or reverse('flights'))
