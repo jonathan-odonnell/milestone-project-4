@@ -11,8 +11,7 @@ from .models import Booking, BookingPassenger, BookingExtra, Coupon
 from profiles.models import UserProfile
 from .forms import PassengerForm
 from .contexts import booking_details
-from pytz import timezone
-from datetime import datetime, timedelta
+from datetime import datetime, date, timedelta
 
 
 def booking(request):
@@ -189,7 +188,7 @@ def add_coupon(request):
     booking_number = request.session.get('booking_number')
     booking = get_object_or_404(Booking, booking_number=booking_number)
     try:
-        current_date = datetime.datetime.now()
+        current_date = date.today()
         coupon = Coupon.objects.get(
             name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
         booking.coupon = coupon.name
