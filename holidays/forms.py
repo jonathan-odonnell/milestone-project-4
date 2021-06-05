@@ -74,7 +74,7 @@ class ItineraryForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        exclude = ('package', 'full_name', 'date',)
+        exclude = ('date',)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
