@@ -185,7 +185,7 @@ class TestFlightsForm(TestCase):
                          'Select a valid choice. Canada/Calgary is not one of the available choices.')
         self.assertEqual(form.errors['baggage'][0], 'Enter a number.')
 
-    def test_duration_field_excluded_in_form_metaclass(self):
+    def test_excluded_in_form_metaclass(self):
         form = FlightForm()
         self.assertEqual(form.Meta.exclude, ('duration',))
 
