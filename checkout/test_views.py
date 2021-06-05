@@ -97,6 +97,10 @@ class TestCheckoutViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_submit_checkout_form_stripe(self):
+        self.booking.paypal_pid = ''
+        self.booking.paid = False
+        self.booking.user_profile = None
+        self.booking.save()
         request = self.factory.post('/checkout/', {
             'full_name': 'Test User',
             'email': 'test@example.com',
