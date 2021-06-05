@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from allauth.account.models import EmailAddress
 from .models import Flight
 from .forms import FlightForm
-from decimal import Decimal
 from datetime import datetime
 from pytz import timezone
 import pytz
@@ -64,7 +63,7 @@ class TestFlightsViews(TestCase):
             origin_time_zone=timezone('Europe/London'),
             arrival_time=datetime(2021, 6, 1, 16, tzinfo=pytz.utc),
             destination_time_zone=timezone('America/Toronto'),
-            baggage=Decimal(20)
+            baggage=20
         )
         response = self.client.get(f'/flights/edit/{flight.flight_number}/')
         self.assertEqual(response.status_code, 200)
@@ -80,7 +79,7 @@ class TestFlightsViews(TestCase):
             origin_time_zone=timezone('Europe/London'),
             arrival_time=datetime(2021, 6, 1, 16, tzinfo=pytz.utc),
             destination_time_zone=timezone('America/Toronto'),
-            baggage=Decimal(20)
+            baggage=20
         )
         response = self.client.post(f'/flights/edit/{flight.flight_number}/', {
             'flight_number': 'ZZ001',
@@ -97,7 +96,7 @@ class TestFlightsViews(TestCase):
         flight = Flight.objects.get(flight_number='ZZ001')
         self.assertEqual(flight.destination, 'Test Airport 2')
 
-    def test_delete_flight_link(self):
+    def test_can_delete_flight(self):
         flight = Flight.objects.create(
             flight_number='ZZ001',
             direction='Outbound',
@@ -107,7 +106,7 @@ class TestFlightsViews(TestCase):
             origin_time_zone=timezone('Europe/London'),
             arrival_time=datetime(2021, 6, 1, 16, tzinfo=pytz.utc),
             destination_time_zone=timezone('America/Toronto'),
-            baggage=Decimal(20)
+            baggage=20
         )
         response = self.client.get(f'/flights/delete/{flight.flight_number}/')
         self.assertRedirects(response, '/flights/')
@@ -202,6 +201,6 @@ class TestFlightsModel(TestCase):
             origin_time_zone=timezone('Europe/London'),
             arrival_time=datetime(2021, 6, 1, 16, tzinfo=pytz.utc),
             destination_time_zone=timezone('America/Toronto'),
-            baggage=Decimal(20)
+            baggage=20
         )
         self.assertEqual(str(flight), 'ZZ001')
