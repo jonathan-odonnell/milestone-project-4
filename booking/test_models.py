@@ -3,16 +3,14 @@ from .models import Coupon, Booking
 from holidays.models import Package
 from extras.models import Extra
 from decimal import Decimal
-from datetime import date, datetime
-from pytz import timezone
-import pytz
+from datetime import date
 
 class TestBookingModels(TestCase):
     def setUp(self):
         self.coupon = Coupon.objects.create(
             name='HOLIDAY100',
-            start_date=datetime(2021, 6, 1),
-            end_date=datetime(2021, 8, 1),
+            start_date=date(2021, 6, 1),
+            end_date=date(2021, 8, 1),
             amount=100
         )
 
@@ -25,22 +23,6 @@ class TestBookingModels(TestCase):
             duration=14,
             catering='Full Board',
             transfers_included=True
-        )
-
-
-        """
-        Code for adding the flights related object is from 
-        https://docs.djangoproject.com/en/3.2/ref/models/relations/
-        """
-        self.holiday.flights.create(
-            flight_number='ZZ001',
-            origin='Test Airport',
-            destination='Test Airport',
-            departure_time=datetime(2021, 6, 1, 12, tzinfo=pytz.utc),
-            origin_time_zone=timezone('Europe/London'),
-            arrival_time=datetime(2021, 6, 2, 18, 12, tzinfo=pytz.utc),
-            destination_time_zone=timezone('America/Toronto'),
-            baggage=20
         )
 
         self.extra = Extra.objects.create(
