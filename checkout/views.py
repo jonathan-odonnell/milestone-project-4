@@ -84,6 +84,7 @@ def checkout(request):
 
                 if save_info:
                     profile_data = {
+                        'email_address': profile.user.email,
                         'phone_number': booking.phone_number,
                         'street_address1': booking.street_address1,
                         'street_address2': booking.street_address2,
@@ -102,7 +103,8 @@ def checkout(request):
                 booking.save()
 
             if paypal_pid:
-                WH_Handler.send_confirmation_email(booking)    
+                handler = WH_Handler(request)
+                handler.send_confirmation_email(booking)    
 
             return redirect(reverse('checkout_success', args=[booking.booking_number]))
 
