@@ -7,8 +7,7 @@ from .models import UserProfile
 from holidays.models import Package
 from .forms import UserProfileForm
 from .views import profile
-from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, date
 from pytz import timezone
 import pytz
 
@@ -37,8 +36,8 @@ class TestProfilesViews(TestCase):
             image='testimage.jpg',
             description='Test description',
             offer=True,
-            price=Decimal(499),
-            duration=Decimal(14),
+            price=499,
+            duration=14,
             catering='Full Board',
             transfers_included=True
         )
@@ -55,15 +54,15 @@ class TestProfilesViews(TestCase):
             origin_time_zone=timezone('Europe/London'),
             arrival_time=datetime(2021, 6, 2, 18, 12, tzinfo=pytz.utc),
             destination_time_zone=timezone('Europe/London'),
-            baggage=Decimal(20)
+            baggage=20
         )
 
         self.user_profile = UserProfile.objects.get(user=self.user)
         self.user_profile.bookings.create(
             package=self.holiday,
             guests=2,
-            departure_date=datetime(2021, 6, 1, tzinfo=pytz.utc),
-            return_date=datetime(2021, 6, 10, tzinfo=pytz.utc),
+            departure_date=date(2021, 6, 1),
+            return_date=date(2021, 6, 10),
             outbound_flight=self.holiday.flights.first(),
             return_flight=self.holiday.flights.first(),
             paid=True,
@@ -102,24 +101,6 @@ class TestProfilesViews(TestCase):
 
 
 class TestProfilesForm(TestCase):
-    def setUp(self):
-
-        user = User.objects.create_user(
-            username='admin',
-            email='admin@example.com',
-            password='Password',
-        )
-
-        EmailAddress.objects.create(
-            user=user,
-            email='admin@example.com',
-        )
-
-        self.client.login(
-            email='admin@example.com',
-            password='Password',
-        )
-
     def test_only_email_address_field_required(self):
         form = UserProfileForm({
             'email_address': '',
@@ -128,7 +109,7 @@ class TestProfilesForm(TestCase):
             'town_or_city': '',
             'county': '',
             'country': '',
-            'post_code': '',
+            'postcode': '',
         })
         self.assertEqual(form.errors['email_address']
                          [0], 'This field is required.')
@@ -141,12 +122,12 @@ class TestProfilesForm(TestCase):
             'town_or_city': '',
             'county': '',
             'country': '',
-            'post_code': '',
+            'postcode': '',
         })
         self.assertEqual(form.errors['email_address']
                          [0], 'Enter a valid email address.')
 
-    def test_excluded_fields_in_form_metaclass(self):
+    def test_excluded_in_form_metaclass(self):
         form = UserProfileForm()
         self.assertEqual(form.Meta.exclude, ('user', 'stripe_customer_id'))
 
