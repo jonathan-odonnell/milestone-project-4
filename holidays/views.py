@@ -113,7 +113,7 @@ def holiday_details(request, slug, destination=None, category=None):
 
         if bookings:
             review = Review.objects.filter(
-                    package=holiday, full_name=profile.user.get_full_name()).first()
+                package=holiday, full_name=profile.user.get_full_name()).first()
 
         if review:
             can_review = True
@@ -138,19 +138,20 @@ def review(request, package):
 
     if bookings:
         review = Review.objects.filter(
-                package=holiday, name=profile.user.get_full_name()).first()
-    
+            package=holiday, full_name=profile.user.get_full_name()).first()
+
     if review or not bookings:
         return HttpResponse(status=403)
 
     if request.POST:
         review_data = {
+            'package': holiday,
             'full_name': profile.user.get_full_name(),
             'rating': request.POST['rating'],
             'title': request.POST['title'],
             'review': request.POST['review'],
         }
-        form = ReviewForm(review_data, instance=holiday)
+        form = ReviewForm(review_data)
         redirect_url = request.POST.get('redirect_url')
 
         if form.is_valid():
