@@ -85,11 +85,11 @@ class ReviewForm(forms.ModelForm):
         self.fields['review'].widget.attrs['rows'] = 8
 
 
-FeatureFormset = inlineformset_factory(
+FeatureFormSet = inlineformset_factory(
     Package, Feature, form=FeatureForm, extra=5, max_num=5)
 
-ActivityFormset = inlineformset_factory(
+ActivityFormSet = inlineformset_factory(
     Package, Activity, form=ActivityForm, extra=1)
 
-ItineraryFormset = inlineformset_factory(
+ItineraryFormSet = inlineformset_factory(
     Package, Itinerary, form=ItineraryForm, extra=1)
