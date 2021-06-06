@@ -3,7 +3,7 @@ from .forms import PassengerForm
 
 
 class TestBookingForm(TestCase):
-    def test_all_fields_required(self):
+    def test_all_form_fields_required(self):
         form = PassengerForm({
             'full_name': '',
             'date_of_birth': '',
@@ -16,7 +16,7 @@ class TestBookingForm(TestCase):
         self.assertEqual(form.errors['passport_number']
                          [0], 'This field is required.')
 
-    def test_invalid_passport_number(self):
+    def test_invalid_passport_number_input(self):
         form = PassengerForm({
             'full_name': 'Test User',
             'date_of_birth': '01/01/1990',
@@ -25,7 +25,7 @@ class TestBookingForm(TestCase):
         self.assertEqual(form.errors['passport_number']
                          [0], 'Enter a number.')
 
-    def test_passport_number_too_long(self):
+    def test_passport_number_input_too_long(self):
         form = PassengerForm({
             'full_name': 'Test User',
             'date_of_birth': '01/01/1990',

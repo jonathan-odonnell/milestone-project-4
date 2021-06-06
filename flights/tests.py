@@ -264,7 +264,7 @@ class TestFlightsForm(TestCase):
 
 
 class TestFlightsModel(TestCase):
-    def test_flight_string_method_returns_flight_number(self):
+    def test_flight_string_method(self):
         flight = Flight.objects.create(
             flight_number='ZZ001',
             direction='Outbound',

@@ -52,7 +52,7 @@ class TestBookingForm(TestCase):
             return_flight=self.holiday.flights.first(),
         )
 
-    def test_all_fields_required(self):
+    def test_all_form_fields_required(self):
         form = BookingForm({
             'full_name': '',
             'email': '',
@@ -78,7 +78,7 @@ class TestBookingForm(TestCase):
         self.assertEqual(form.errors['postcode']
                          [0], 'This field is required.')
 
-    def test_invalid_email_address(self):
+    def test_invalid_email_address_field(self):
         form = BookingForm({
             'full_name': 'Test User',
             'email': 'Not an email address',

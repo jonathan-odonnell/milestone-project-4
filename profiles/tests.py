@@ -156,7 +156,7 @@ class TestProfilesForms(TestCase):
         self.assertEqual(form.errors['email_address']
                          [0], 'This field is required.')
 
-    def test_user_profile_form_invalid_email_address(self):
+    def test_user_profile_form_invalid_email_address_field(self):
         form = UserProfileForm({
             'email_address': 'Not an email address',
             'phone_number': '',

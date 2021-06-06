@@ -141,7 +141,7 @@ class TestExtrasForm(TestCase):
         self.assertEqual(form.errors['image'][0], 'This field is required.')
 
 
-    def test_invalid_form_field_input(self):
+    def test_invalid_form_field_inputs(self):
         form = ExtraForm({
             'name': 'Test Extra',
             'description': 'Test Description',
@@ -157,7 +157,7 @@ class TestExtrasForm(TestCase):
 
 
 class TestExtrasModels(TestCase):
-    def test_extra_string_method_returns_extra_name(self):
+    def test_extra_string_method(self):
         extra = Extra.objects.create(
             name='Test Extra',
             description='Test Description',
