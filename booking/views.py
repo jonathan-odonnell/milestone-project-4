@@ -3,13 +3,12 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.forms import inlineformset_factory
 from holidays.models import Package
 from flights.models import Flight
 from extras.models import Extra
 from .models import Booking, BookingPassenger, BookingExtra, Coupon
 from profiles.models import UserProfile
-from .forms import PassengerForm
+from .forms import PassengersFormSet
 from .contexts import booking_details
 from datetime import datetime, date, timedelta
 
@@ -36,7 +35,8 @@ def add_booking(request, holiday_id):
                 outbound_flight.origin_time_zone)
             outbound_flight_arrival = outbound_flight.arrival_time.astimezone(
                 outbound_flight.destination_time_zone)
-            flight_days = (outbound_flight_arrival - outbound_flight_departure).days
+            flight_days = (outbound_flight_arrival -
+                           outbound_flight_departure).days
             return_date = departure_date + timedelta(
                 days=int(holiday.duration + flight_days))
 
@@ -141,7 +141,8 @@ def add_extra(request, extra_id):
 def update_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
     quantity = int(request.POST['quantity'])
-    booking = Booking.objects.prefetch_related('booking_extras').get(booking_number=booking_number, booking_extras__extra=extra_id)
+    booking = Booking.objects.prefetch_related('booking_extras').get(
+        booking_number=booking_number, booking_extras__extra=extra_id)
     booking.booking_extras.all()[0].quantity = quantity
     booking.booking_extras.all()[0].save()
 
@@ -163,7 +164,8 @@ def update_extra(request, extra_id):
 @require_POST
 def remove_extra(request, extra_id):
     booking_number = request.session.get('booking_number')
-    booking = Booking.objects.prefetch_related('booking_extras').get(booking_number=booking_number, booking_extras__extra=extra_id)
+    booking = Booking.objects.prefetch_related('booking_extras').get(
+        booking_number=booking_number, booking_extras__extra=extra_id)
     booking.booking_extras.first().delete()
 
     # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
@@ -225,16 +227,10 @@ def passengers(request):
 
     if request.method == 'POST':
 
-        formset = inlineformset_factory(
-            Booking,
-            BookingPassenger,
-            form=PassengerForm,
-            extra=booking.guests
-        )
-
-        formset = formset(
-            request.POST, 
-            instance=booking
+        formset = PassengersFormSet(
+            request.POST,
+            instance=booking,
+            extra=0
         )
 
         if formset.is_valid():
@@ -246,37 +242,23 @@ def passengers(request):
                 request, 'Unable to add passenger details. Please ensure the form is valid.')
 
     else:
-
         if request.user.is_authenticated and not booking.booking_passengers.all():
             profile = UserProfile.objects.get(user=request.user)
-            formset = inlineformset_factory(
-                Booking,
-                BookingPassenger,
-                form=PassengerForm,
-                extra=booking.guests,
-            )
-            formset = formset(
+            formset = PassengersFormSet(
                 initial=[
                     {'full_name': profile.user.get_full_name()}
-                ],
+                ], 
+                extra=booking.guests
             )
 
         elif booking.booking_passengers.all():
-            formset = inlineformset_factory(
-                Booking,
-                BookingPassenger,
-                form=PassengerForm,
+            formset = PassengersFormSet(
+                instance=booking,
                 extra=0,
             )
-            formset = formset(
-                instance=booking
-            )
 
-        else:  
-            formset = inlineformset_factory(
-                Booking,
-                BookingPassenger,
-                form=PassengerForm,
+        else:
+            formset = PassengersFormSet(
                 extra=booking.guests
             )
 
