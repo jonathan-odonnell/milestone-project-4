@@ -11,20 +11,26 @@ import pytz
 class TestFlightsViews(TestCase):
     def setUp(self):
 
-        user = User.objects.create_superuser(
+        self.superuser = User.objects.create_superuser(
             username='admin',
             email='admin@example.com',
             password='Password',
         )
 
-        EmailAddress.objects.create(
-            user=user,
-            email='admin@example.com',
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='testuser@example.com',
+            password='Password',
         )
 
-        self.client.login(
-            email='admin@example.com',
-            password='Password',
+        EmailAddress.objects.create(
+            user=self.superuser,
+            email=self.superuser.email
+        )
+
+        EmailAddress.objects.create(
+            user=self.user,
+            email=self.user.email,
         )
 
         self.flight = Flight.objects.create(
@@ -50,27 +56,62 @@ class TestFlightsViews(TestCase):
             catering='Full Board',
             transfers_included=True
         )
-        response = self.client.get(f'/flights/airports/{self.flight.packages.first().id}/')
+        response = self.client.get(
+            f'/flights/airports/{self.flight.packages.first().id}/')
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {'airports': ['Test Airport']})
 
-    def test_get_flights_page(self):
+    def test_standard_user_get_flights_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
+        response = self.client.get('/flights/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_superuser_get_flights_page(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.get('/flights/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'flights/flights.html')
 
     def test_get_sorted_flights_page(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         # https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
-        response = self.client.get('/flights/?sort=number&direction=desc',  HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.get(
+            '/flights/?sort=number&direction=desc',  HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'flights/includes/flights_table.html')
+        self.assertTemplateUsed(
+            response, 'flights/includes/flights_table.html')
 
-    def test_get_add_flight_page(self):
+    def test_standard_user_get_add_flight_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
+        response = self.client.get('/flights/add/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_superuser_get_add_flight_page(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.get('/flights/add/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'flights/add_flight.html')
 
     def test_can_add_flight(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.post(f'/flights/add/', {
             'flight_number': 'ZZ002',
             'direction': 'Outbound',
@@ -86,12 +127,30 @@ class TestFlightsViews(TestCase):
         flight = Flight.objects.filter(flight_number='ZZ002')
         self.assertEqual(len(flight), 1)
 
-    def test_get_edit_flight_page(self):
-        response = self.client.get(f'/flights/edit/{self.flight.flight_number}/')
+    def test_standard_user_get_edit_flight_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
+        response = self.client.get(
+            f'/flights/edit/{self.flight.flight_number}/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_superuser_get_edit_flight_page(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
+        response = self.client.get(
+            f'/flights/edit/{self.flight.flight_number}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'flights/edit_flight.html')
 
     def test_can_edit_flight(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.post(f'/flights/edit/{self.flight.flight_number}/', {
             'flight_number': 'ZZ001',
             'direction': 'Outbound',
@@ -107,8 +166,22 @@ class TestFlightsViews(TestCase):
         flight = Flight.objects.get(flight_number='ZZ001')
         self.assertEqual(flight.destination, 'Test Airport 2')
 
-    def test_can_delete_flight(self):
-        response = self.client.get(f'/flights/delete/{self.flight.flight_number}/')
+    def test_standard_user_can_delete_flight(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
+        response = self.client.get(
+            f'/flights/delete/{self.flight.flight_number}/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_superuser_can_delete_flight(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
+        response = self.client.get(
+            f'/flights/delete/{self.flight.flight_number}/')
         self.assertRedirects(response, '/flights/')
         flight = Flight.objects.filter(flight_number='ZZ001')
         self.assertEqual(len(flight), 0)
@@ -161,7 +234,7 @@ class TestFlightsForm(TestCase):
             form.errors['destination_time_zone'][0], 'This field is required.')
         self.assertEqual(form.errors['baggage'][0], 'This field is required.')
 
-    def test_invalid_form_field_input(self):
+    def test_invalid_form_field_inputs(self):
         form = FlightForm({
             'flight_number': 'ZZ001',
             'direction': 'outward',
@@ -191,7 +264,7 @@ class TestFlightsForm(TestCase):
 
 
 class TestFlightsModel(TestCase):
-    def test_filght_string_method_returns_flight_number(self):
+    def test_flight_string_method_returns_flight_number(self):
         flight = Flight.objects.create(
             flight_number='ZZ001',
             direction='Outbound',
