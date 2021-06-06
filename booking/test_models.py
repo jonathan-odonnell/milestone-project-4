@@ -65,6 +65,9 @@ class TestBookingModels(TestCase):
         self.assertEqual(self.booking.stripe_pid, '')
         self.assertEqual(self.booking.paypal_pid, '')
 
+    def test_coupon_string_method(self):
+        self.assertEqual(str(self.coupon), f'{self.coupon.name} {self.coupon.start_date} - {self.coupon.end_date}')
+
     def test_booking_totals(self):
         self.assertEqual(self.booking.subtotal, 499)
         self.assertEqual(self.booking.grand_total, round(Decimal(499 + 4.99), 2))

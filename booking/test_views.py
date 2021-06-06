@@ -1,9 +1,11 @@
+from django.http import response
 from django.test import RequestFactory, TestCase
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AnonymousUser, User
 from allauth.account.models import EmailAddress
+from requests.api import request
 from .models import Booking, Coupon
-from .views import(update_guests, add_extra, 
-update_extra, remove_extra, add_coupon, passengers)
+from .views import(booking, update_guests, add_extra,
+                   update_extra, remove_extra, add_coupon, passengers)
 from holidays.models import Package
 from extras.models import Extra
 from decimal import Decimal
@@ -25,11 +27,6 @@ class TestBookingViews(TestCase):
         EmailAddress.objects.create(
             user=self.user,
             email=self.user.email,
-        )
-
-        self.client.login(
-            email=self.user.email,
-            password='Password',
         )
 
         self.holiday = Package.objects.create(
@@ -74,7 +71,30 @@ class TestBookingViews(TestCase):
             return_flight=self.holiday.flights.first(),
         )
 
-    def test_can_add_booking(self):
+    def test_get_booking_page_with_no_booking(self):
+        response = self.client.get('/booking/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'booking/booking.html')
+
+    def test_get_booking_page_with_booking_added(self):
+        request = self.factory.get('/booking/')
+        request.session = {'booking_number': self.booking.booking_number}
+        response = booking(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_anonymous_user_can_add_booking(self):
+        response = self.client.post(f'/booking/{self.holiday.id}/', {
+            'departure_date': '01/06/2021',
+            'departure_airport': 'Test Airport',
+            'guests': '2'
+        })
+        self.assertRedirects(response, '/booking/')
+
+    def test_logged_in_user_can_add_booking(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
         response = self.client.post(f'/booking/{self.holiday.id}/', {
             'departure_date': '01/06/2021',
             'departure_airport': 'Test Airport',
@@ -83,21 +103,13 @@ class TestBookingViews(TestCase):
         self.assertRedirects(response, '/booking/')
 
     def test_can_update_guests(self):
-        booking = Booking.objects.create(
-            package=self.holiday,
-            guests=2,
-            departure_date=datetime(2021, 6, 1, tzinfo=pytz.utc),
-            return_date=datetime(2021, 6, 10, tzinfo=pytz.utc),
-            outbound_flight=self.holiday.flights.first(),
-            return_flight=self.holiday.flights.first(),
-        )
         request = self.factory.post('/booking/update_guests/', {
             'guests': '3'
         })
-        request.session = {'booking_number': booking.booking_number}
+        request.session = {'booking_number': self.booking.booking_number}
         response = update_guests(request)
         self.assertEqual(response.status_code, 200)
-        booking = Booking.objects.get(booking_number=booking.booking_number)
+        booking = Booking.objects.get(booking_number=self.booking.booking_number)
         self.assertEqual(booking.guests, 3)
 
     def test_can_add_booking_extra(self):
@@ -107,7 +119,8 @@ class TestBookingViews(TestCase):
         request.session = {'booking_number': self.booking.booking_number}
         response = add_extra(request, self.extra.id)
         self.assertEqual(response.status_code, 200)
-        booking = Booking.objects.get(booking_number=self.booking.booking_number)
+        booking = Booking.objects.get(
+            booking_number=self.booking.booking_number)
         self.assertEqual(booking.booking_extras.first().quantity, 1)
 
     def test_can_update_booking_extra(self):
@@ -121,38 +134,25 @@ class TestBookingViews(TestCase):
         request.session = {'booking_number': self.booking.booking_number}
         response = update_extra(request, self.extra.id)
         self.assertEqual(response.status_code, 200)
-        booking = Booking.objects.get(booking_number=self.booking.booking_number)
+        booking = Booking.objects.get(
+            booking_number=self.booking.booking_number)
         self.assertEqual(booking.booking_extras.first().quantity, 2)
         self.assertEqual(booking.extras_total, round(Decimal(9.98), 2))
         self.assertEqual(booking.grand_total, round(Decimal(499 + 9.98), 2))
 
     def test_can_remove_booking_extra(self):
-        extra = Extra.objects.create(
-            name='Test Extra',
-            description='Test Description',
-            price=round(Decimal(4.99), 2),
-            image='testimage.jpg',
-        )
-        booking = Booking.objects.create(
-            package=self.holiday,
-            guests=2,
-            departure_date=datetime(2021, 6, 1, tzinfo=pytz.utc),
-            return_date=datetime(2021, 6, 10, tzinfo=pytz.utc),
-            outbound_flight=self.holiday.flights.first(),
-            return_flight=self.holiday.flights.first(),
-        )
-        booking.booking_extras.create(
-            extra=extra,
+        self.booking.booking_extras.create(
+            extra=self.extra,
             quantity=1,
         )
-        request = self.factory.post(f'/booking/remove_extra/{extra.id}/')
-        request.session = {'booking_number': booking.booking_number}
-        response = remove_extra(request, extra.id)
+        request = self.factory.post(f'/booking/remove_extra/{self.extra.id}/')
+        request.session = {'booking_number': self.booking.booking_number}
+        response = remove_extra(request, self.extra.id)
         self.assertEqual(response.status_code, 200)
-        booking = Booking.objects.get(booking_number=booking.booking_number)
-        self.assertEqual(len(booking.booking_extras.all()), 0)
-        self.assertEqual(booking.extras_total, 0)
-        self.assertEqual(booking.grand_total, 998)
+        booking = Booking.objects.filter(booking_number=self.booking.booking_number)
+        self.assertEqual(len(booking.first().booking_extras.all()), 0)
+        self.assertEqual(booking.first().extras_total, 0)
+        self.assertEqual(booking.first().grand_total, 499)
 
     def test_can_add_coupon_to_booking(self):
         Coupon.objects.create(
@@ -166,7 +166,8 @@ class TestBookingViews(TestCase):
         request.session = {'booking_number': self.booking.booking_number}
         response = add_coupon(request)
         self.assertEqual(response.status_code, 200)
-        booking = Booking.objects.get(booking_number=self.booking.booking_number)
+        booking = Booking.objects.get(
+            booking_number=self.booking.booking_number)
         self.assertEqual(booking.coupon, 'HOLIDAY100')
         self.assertEqual(booking.discount, 100)
         self.assertEqual(booking.grand_total, 399)
@@ -178,7 +179,22 @@ class TestBookingViews(TestCase):
         response = passengers(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_can_add_passenger(self):
+    def test_anonymous_user_can_add_passenger_details(self):
+        request = self.factory.post('/booking/passengers/', {
+            'booking_passengers-TOTAL_FORMS': '1',
+            'booking_passengers-INITIAL_FORMS': '0',
+            'booking_passengers-MIN_NUM_FORMS': '0',
+            'booking_passengers-MAX_NUM_FORMS': '1000',
+            'booking_passengers-0-full_name': 'Test User',
+            'booking_passengers-0-date_of_birth': '01/01/1990',
+            'booking_passengers-0-passport_number': '123456789',
+        })
+        request.user = AnonymousUser()
+        request.session = {'booking_number': self.booking.booking_number}
+        response = passengers(request)
+        self.assertEqual(response.status_code, 302)
+
+    def test_logged_in_user_can_add_passenger_details(self):
         request = self.factory.post('/booking/passengers/', {
             'booking_passengers-TOTAL_FORMS': '1',
             'booking_passengers-INITIAL_FORMS': '0',
