@@ -10,7 +10,6 @@ from pytz import timezone
 import pytz
 
 
-
 class TestProfilesViews(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
@@ -41,11 +40,6 @@ class TestProfilesViews(TestCase):
             secret="0987654321",
         )
 
-        self.client.login(
-            email=self.user.email,
-            password='Password',
-        )
-
         self.holiday = Package.objects.create(
             name='Test Holiday',
             image='testimage.jpg',
@@ -56,7 +50,6 @@ class TestProfilesViews(TestCase):
             catering='Full Board',
             transfers_included=True
         )
-
 
         """
         Code for adding the flights related object is from 
@@ -84,16 +77,23 @@ class TestProfilesViews(TestCase):
         )
 
     def test_get_anonymous_user_profile_page(self):
-        self.client.logout()
         response = self.client.get('/profile/')
         self.assertRedirects(response, '/accounts/login/?next=/profile/')
 
     def test_get_logged_in_profile_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
         response = self.client.get('/profile/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profiles/profile.html')
 
     def test_can_update_profile(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
         response = self.client.post('/profile/', {
             'email_address': 'testuser@test.com',
             'street_address1': 'Test',
@@ -111,12 +111,31 @@ class TestProfilesViews(TestCase):
         self.assertEqual(profile_qs.country, 'GB')
         self.assertEqual(profile_qs.postcode, 'Test')
 
-    def test_get_bookings_page(self):
+    def test_anonymous_user_get_bookings_page(self):
+        response = self.client.get('/profile/bookings/')
+        self.assertRedirects(
+            response, '/accounts/login/?next=/profile/bookings/')
+
+    def test_logged_in_user_get_bookings_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
         response = self.client.get('/profile/bookings/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profiles/bookings.html')
 
-    def test_get_booking_details_page(self):
+    def test_anonymous_user_get_booking_details_page(self):
+        response = self.client.get(
+            f'/profile/bookings/{self.user.userprofile.bookings.first().booking_number}/')
+        self.assertRedirects(
+            response, f'/accounts/login/?next=/profile/bookings/{self.user.userprofile.bookings.first().booking_number}/')
+
+    def test_logged_in_user_get_booking_details_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
         response = self.client.get(
             f'/profile/bookings/{self.user.userprofile.bookings.first().booking_number}/')
         self.assertEqual(response.status_code, 200)
@@ -124,7 +143,7 @@ class TestProfilesViews(TestCase):
 
 
 class TestProfilesForms(TestCase):
-    def test_user_profile_form_only_email_address_field_required(self):
+    def test_user_profile_form_email_address_field_required(self):
         form = UserProfileForm({
             'email_address': '',
             'phone_number': '',
