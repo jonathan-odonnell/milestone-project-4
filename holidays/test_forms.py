@@ -1,7 +1,7 @@
 from django.test import TestCase
 from .models import Package
-from .forms import (PackageForm, FeatureForm, FeatureFormset, ActivityForm,
-                    ActivityFormset, ItineraryForm, ItineraryFormset, ReviewForm)
+from .forms import (PackageForm, FeatureForm, FeatureFormSet, ActivityForm,
+                    ActivityFormSet, ItineraryForm, ItineraryFormSet, ReviewForm)
 
 
 class TestHolidayForms(TestCase):
@@ -51,7 +51,7 @@ class TestHolidayForms(TestCase):
         self.assertEqual(form.Meta.exclude, ('rating',))
 
     def test_feature_formset_all_fields_not_required(self):
-        form = FeatureFormset({
+        form = FeatureFormSet({
             'features-TOTAL_FORMS': '1',
             'features-INITIAL_FORMS': '0',
             'features-MIN_NUM_FORMS': '0',
@@ -66,7 +66,7 @@ class TestHolidayForms(TestCase):
         self.assertEqual(form.Meta.fields, '__all__')
 
     def test_activity_formset_all_fields_not_required(self):
-        form = ActivityFormset({
+        form = ActivityFormSet({
             'activities-TOTAL_FORMS': '1',
             'activities-INITIAL_FORMS': '0',
             'activities-MIN_NUM_FORMS': '0',
@@ -81,7 +81,7 @@ class TestHolidayForms(TestCase):
         self.assertEqual(form.Meta.fields, '__all__')
 
     def test_itinerary_formset_all_fields_not_required(self):
-        form = ItineraryFormset({
+        form = ItineraryFormSet({
             'itineraries-TOTAL_FORMS': '1',
             'itineraries-INITIAL_FORMS': '0',
             'itineraries-MIN_NUM_FORMS': '0',
