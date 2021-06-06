@@ -1,7 +1,7 @@
 from django import forms
-from .models import BookingPassenger
+from .models import Booking, BookingPassenger
 from crispy_forms.helper import FormHelper
-from django.forms import SelectDateWidget
+from django.forms import SelectDateWidget, inlineformset_factory, BaseInlineFormSet
 
 
 class PassengerForm(forms.ModelForm):
@@ -20,3 +20,13 @@ class PassengerForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].required = True
             self.fields[field].widget.attrs['required'] = True
+
+# https://stackoverflow.com/questions/23084595/basemodelformset-init-got-an-unexpected-keyword-argument
+# https://docs.djangoproject.com/en/3.2/topics/forms/formsets/#passing-custom-parameters-to-formset-forms
+
+class BaseInlineFormSet(BaseInlineFormSet):
+    def __init__(self, *args, extra, **kwargs):
+        self.extra = extra
+        super(BaseInlineFormSet, self).__init__(*args, **kwargs)
+
+PassengersFormSet = inlineformset_factory(Booking, BookingPassenger, form=PassengerForm, formset=BaseInlineFormSet)
