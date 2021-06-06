@@ -78,7 +78,7 @@ class TestBookingForm(TestCase):
         self.assertEqual(form.errors['postcode']
                          [0], 'This field is required.')
 
-    def test_invalid_email_address_and_phone_number(self):
+    def test_invalid_email_address(self):
         form = BookingForm({
             'full_name': 'Test User',
             'email': 'Not an email address',
@@ -91,8 +91,6 @@ class TestBookingForm(TestCase):
         })
         self.assertEqual(form.errors['email']
                          [0], 'Enter a valid email address.')
-        self.assertEqual(form.errors['phone_number']
-                         [0], 'Enter a number.')
 
     def test_fields_in_form_metaclass(self):
         form = BookingForm()

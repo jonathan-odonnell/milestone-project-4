@@ -1,6 +1,6 @@
 from django.test import RequestFactory, TestCase
 from django.contrib.auth.models import User
-from .views import checkout, cache_checkout_data, checkout_success
+from .views import checkout, cache_checkout_data, paypal, checkout_success
 from holidays.models import Package
 from booking.models import Booking
 from profiles.models import UserProfile
@@ -8,8 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from datetime import date, datetime
 from pytz import timezone
-import pytz
-import stripe
+import pytz, stripe
 
 
 class TestCheckoutViews(TestCase):
@@ -72,15 +71,23 @@ class TestCheckoutViews(TestCase):
             currency=settings.STRIPE_CURRENCY,
         )
 
-    def test_get_checkout_page(self):
+    def test_anonymous_user_get_checkout_page(self):
         request = self.factory.get('/checkout/')
         request.user = AnonymousUser()
         request.session = {'booking_number': self.booking.booking_number}
         response = checkout(request)
         self.assertEqual(response.status_code, 200)
 
+    def test_logged_in_user_get_checkout_page(self):
+        request = self.factory.get('/checkout/')
+        request.user = self.user
+        request.session = {'booking_number': self.booking.booking_number}
+        response = checkout(request)
+        self.assertEqual(response.status_code, 200)
+
     def test_get_checkout_success_page(self):
-        request = self.factory.get(f'/checkout/success/{self.booking.booking_number}/')
+        request = self.factory.get(
+            f'/checkout/success/{self.booking.booking_number}/')
         request.user = AnonymousUser()
         request.session = {'booking_number': self.booking.booking_number}
         response = checkout_success(request, self.booking.booking_number)
@@ -95,6 +102,13 @@ class TestCheckoutViews(TestCase):
         request.session = {'booking_number': self.booking.booking_number}
         response = cache_checkout_data(request)
         self.assertEqual(response.status_code, 200)
+
+    def test_create_paypal_order(self):
+        request = self.factory.post('/checkout/paypal/', {})
+        request.session = {'booking_number': self.booking.booking_number}
+        response = paypal(request)
+        self.assertEqual(response.status_code, 200)
+
 
     def test_submit_checkout_form_stripe(self):
         self.booking.paypal_pid = ''
@@ -118,10 +132,12 @@ class TestCheckoutViews(TestCase):
         request.user = AnonymousUser()
         request.session = {'booking_number': self.booking.booking_number}
         response = checkout(request)
-        booking = Booking.objects.get(booking_number=self.booking.booking_number)
+        booking = Booking.objects.get(
+            booking_number=self.booking.booking_number)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(booking.paid)
-        self.assertEqual(booking.stripe_pid, self.intent.client_secret.split('_secret')[0])
+        self.assertEqual(booking.stripe_pid,
+                         self.intent.client_secret.split('_secret')[0])
 
     def test_submit_checkout_form_paypal(self):
         self.booking.stripe_pid = ''
@@ -145,7 +161,8 @@ class TestCheckoutViews(TestCase):
         request.user = self.user
         request.session = {'booking_number': self.booking.booking_number}
         response = checkout(request)
-        booking = Booking.objects.get(booking_number=self.booking.booking_number)
+        booking = Booking.objects.get(
+            booking_number=self.booking.booking_number)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(booking.paid)
         self.assertEqual(booking.paypal_pid, '1A5H6J8L9N6H5D')
