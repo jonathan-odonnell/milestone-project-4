@@ -18,16 +18,16 @@
                             <div class="readonly">{{ field.contents }}</div>
                         {% else %}
                             {% if field.field.name == 'departure_time' %}
-                                {% timezone fieldset.form.instance.origin_time_zone %}   
+                                {% timezone fieldset.form.instance.origin_time_zone %}  
                                     {{ field.field }}
                                 {% endtimezone %}
                             {% elif field.field.name == 'arrival_time' %}
                                 {% timezone fieldset.form.instance.destination_time_zone %}
                                     {{ field.field }}
-                                    {{adminform.form.instance.origin}}
                                 {% endtimezone %}
                             {% else %}
                                 {{ field.field }}
+                                
                             {% endif %}
                         {% endif %}
                     {% endif %}
