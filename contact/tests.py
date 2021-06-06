@@ -1,9 +1,32 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
+from allauth.account.models import EmailAddress
 from .models import CustomerContact
 from .forms import ContactForm
 
 class TestContactViews(TestCase):
-    def test_get_contact_page(self):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='test',
+            email='test@example.com',
+            password='Password',
+        )
+
+        EmailAddress.objects.create(
+            user=self.user,
+            email=self.user.email,
+        )
+
+    def test_get_anonymous_user_contact_page(self):
+        response = self.client.get('/contact/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'contact/contact.html')
+
+    def test_get_logged_in_user_contact_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
         response = self.client.get('/contact/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'contact/contact.html')
