@@ -10,20 +10,26 @@ from decimal import Decimal
 class TestExtrasViews(TestCase):
     def setUp(self):
 
-        user = User.objects.create_superuser(
+        self.superuser = User.objects.create_superuser(
             username='admin',
             email='admin@example.com',
             password='Password',
         )
 
-        EmailAddress.objects.create(
-            user=user,
-            email='admin@example.com',
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='testuser@example.com',
+            password='Password',
         )
 
-        self.client.login(
-            email='admin@example.com',
-            password='Password',
+        EmailAddress.objects.create(
+            user=self.superuser,
+            email=self.superuser.email
+        )
+
+        EmailAddress.objects.create(
+            user=self.user,
+            email=self.user.email,
         )
 
         # https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield
@@ -40,12 +46,28 @@ class TestExtrasViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'extras/extras.html')
 
-    def test_get_add_extra_page(self):
+    def test_standard_user_get_add_extra_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
+        response = self.client.get('/extras/add/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_superuser_get_add_extra_page(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.get('/extras/add/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'extras/add_extra.html')
 
     def test_can_add_extra(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.post('/extras/add/', {
             'name': 'Test Extra 2',
             'description': 'Test Description',
@@ -55,13 +77,28 @@ class TestExtrasViews(TestCase):
         extra = Extra.objects.filter(name='Test Extra 2')
         self.assertEqual(len(extra), 1)
 
-    def test_get_edit_extra_page(self):
+    def test_standard_user_get_edit_extra_page(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
+        response = self.client.get(f'/extras/edit/{self.extra.id}/')
+        self.assertEqual(response.status_code, 403)
+
+    def test_superuser_get_edit_extra_page(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.get(f'/extras/edit/{self.extra.id}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'extras/edit_extra.html')
 
-
     def test_can_edit_extra(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.post(f'/extras/edit/{self.extra.id}/', {
             'name': 'Test Extra',
             'description': 'Test Description',
@@ -71,8 +108,19 @@ class TestExtrasViews(TestCase):
         extra = Extra.objects.get(name='Test Extra')
         self.assertEqual(extra.price, round(Decimal(9.99), 2))
 
+    def test_standard_user_can_delete_extra(self):
+        self.client.login(
+            email=self.user.email,
+            password='Password',
+        )
+        response = self.client.get(f'/extras/delete/{self.extra.id}/')
+        self.assertEqual(response.status_code, 403)
 
-    def test_delete_extra_link(self):
+    def test_superuser_can_delete_extra(self):
+        self.client.login(
+            email=self.superuser.email,
+            password='Password',
+        )
         response = self.client.get(f'/extras/delete/{self.extra.id}/')
         self.assertRedirects(response, '/extras/')
         extra = Extra.objects.filter(name='Test Extra')
