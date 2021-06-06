@@ -1,3 +1,4 @@
+from django.db.models.query import InstanceCheckMeta
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.contrib import messages
 from django.db.models.functions import Lower
@@ -177,18 +178,15 @@ def add_holiday(request):
     if request.method == 'POST':
         redirect_url = request.POST.get('redirect_url')
         form = PackageForm(request.POST, request.FILES)
+        feature_formset = FeatureFormset(request.POST)
+        activity_formset = ActivityFormset(request.POST)
+        itinerary_formset = ItineraryFormset(request.POST)
 
         if form.is_valid():
             holiday = form.save()
-            feature_formset = FeatureFormset(
-                request.POST, instance=holiday
-            )
-            activity_formset = ActivityFormset(
-                request.POST, instance=holiday
-            )
-            itinerary_formset = ItineraryFormset(
-                request.POST, instance=holiday
-            )
+            feature_formset = FeatureFormset(request.POST, instance=holiday)
+            activity_formset = ActivityFormset(request.POST, instance=holiday)
+            itinerary_formset = ItineraryFormset(request.POST, instance=holiday)
 
             if feature_formset.is_valid():
                 feature_formset.save()
@@ -198,6 +196,7 @@ def add_holiday(request):
 
                     if itinerary_formset.is_valid():
                         itinerary_formset.save()
+
                         messages.success(
                             request, 'Successfully added holiday!')
                         return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
