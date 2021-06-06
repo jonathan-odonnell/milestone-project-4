@@ -59,7 +59,7 @@ class TestContactForm(TestCase):
         self.assertEqual(form.errors['subject'][0], 'This field is required.')
         self.assertEqual(form.errors['message'][0], 'This field is required.')
 
-    def test_form_invalid_email(self):
+    def test_form_invalid_email_input(self):
         form = ContactForm({
             'full_name': 'Test User',
             'email': 'This is not an email address',
@@ -69,6 +69,6 @@ class TestContactForm(TestCase):
         self.assertEqual(form.errors['email'][0], 'Enter a valid email address.')
 
 
-    def test_date_field_excluded_in_form_metaclass(self):
+    def test_excluded_in_form_metaclass(self):
         form = ContactForm()
         self.assertEqual(form.Meta.exclude, ('date',))
