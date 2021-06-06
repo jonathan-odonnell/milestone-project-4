@@ -6,7 +6,7 @@ from django.views.decorators.http import require_POST
 from holidays.models import Package
 from flights.models import Flight
 from extras.models import Extra
-from .models import Booking, BookingPassenger, BookingExtra, Coupon
+from .models import Booking, BookingExtra, Coupon
 from profiles.models import UserProfile
 from .forms import PassengersFormSet
 from .contexts import booking_details
@@ -230,7 +230,8 @@ def passengers(request):
         formset = PassengersFormSet(
             request.POST,
             instance=booking,
-            extra=0
+            extra=0,
+            min_num=booking.guests,
         )
 
         if formset.is_valid():
@@ -248,18 +249,21 @@ def passengers(request):
                 initial=[
                     {'full_name': profile.user.get_full_name()}
                 ], 
-                extra=booking.guests
+                extra=booking.guests,
+                min_num=booking.guests,
             )
 
         elif booking.booking_passengers.all():
             formset = PassengersFormSet(
                 instance=booking,
                 extra=0,
+                min_num=booking.guests,
             )
 
         else:
             formset = PassengersFormSet(
-                extra=booking.guests
+                extra=booking.guests,
+                min_num=booking.guests,
             )
 
     context = {

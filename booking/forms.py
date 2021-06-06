@@ -18,15 +18,15 @@ class PassengerForm(forms.ModelForm):
         self.fields['date_of_birth'].widget.attrs['class'] = 'form-select'
 
         for field in self.fields:
-            self.fields[field].required = True
             self.fields[field].widget.attrs['required'] = True
 
 # https://stackoverflow.com/questions/23084595/basemodelformset-init-got-an-unexpected-keyword-argument
 # https://docs.djangoproject.com/en/3.2/topics/forms/formsets/#passing-custom-parameters-to-formset-forms
 
 class BaseInlineFormSet(BaseInlineFormSet):
-    def __init__(self, *args, extra, **kwargs):
+    def __init__(self, *args, extra, min_num, **kwargs):
         self.extra = extra
+        self.min_num = min_num
         super(BaseInlineFormSet, self).__init__(*args, **kwargs)
 
 PassengersFormSet = inlineformset_factory(Booking, BookingPassenger, form=PassengerForm, formset=BaseInlineFormSet)
