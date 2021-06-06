@@ -111,10 +111,6 @@ class TestCheckoutViews(TestCase):
 
 
     def test_submit_checkout_form_stripe(self):
-        self.booking.paypal_pid = ''
-        self.booking.paid = False
-        self.booking.user_profile = None
-        self.booking.save()
         request = self.factory.post('/checkout/', {
             'full_name': 'Test User',
             'email': 'test@example.com',
@@ -140,9 +136,6 @@ class TestCheckoutViews(TestCase):
                          self.intent.client_secret.split('_secret')[0])
 
     def test_submit_checkout_form_paypal(self):
-        self.booking.stripe_pid = ''
-        self.booking.paid = False
-        self.booking.save()
         request = self.factory.post('/checkout/', {
             'full_name': 'Test User',
             'email': 'test@example.com',
