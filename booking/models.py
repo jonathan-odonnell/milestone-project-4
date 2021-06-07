@@ -20,7 +20,7 @@ class Coupon(models.Model):
     amount = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return "{} {} - {}".format(self.name, self.start_date, self.end_date)
+        return f'{self.name} {self.start_date} - {self.end_date}'
 
 
 class Booking(models.Model):
