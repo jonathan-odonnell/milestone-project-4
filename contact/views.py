@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from .forms import ContactForm
 
+
 def contact(request):
     """A view to retun the contact page"""
 
@@ -9,7 +10,7 @@ def contact(request):
 
         if form.is_valid:
             form.save()
-            return HttpResponse(200)
+            return HttpResponse(status=200)
 
     else:
         if request.user.is_authenticated:
@@ -22,5 +23,5 @@ def contact(request):
     context = {
         'form': form,
     }
-    
+
     return render(request, template, context)
