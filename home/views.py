@@ -4,15 +4,16 @@ from .models import NewsletterSignUp
 from holidays.models import Package
 from django.conf import settings
 
-# Create your views here.
-
 
 def index(request):
-    """A view to retun the index page"""
+    """
+    A view to retun the index page. Code for filtering queries using a list 
+    is from https://docs.djangoproject.com/en/3.2/ref/models/querysets/#in
+    """
     holidays = [
         settings.POPULAR_DESTINATION_1,
         settings.POPULAR_DESTINATION_2,
-        settings.POPULAR_DESTINATION_3, 
+        settings.POPULAR_DESTINATION_3,
         settings.POPULAR_DESTINATION_4,
         settings.POPULAR_DESTINATION_5,
         settings.POPULAR_DESTINATION_6,
@@ -40,5 +41,4 @@ def newsletter(request):
     """A view to add the customer's email to the newsletter sign ups database"""
     sign_up = NewsletterSignUp(email=request.POST['newsletter'])
     sign_up.save()
-
-    return HttpResponse(200)
+    return HttpResponse(status=200)
