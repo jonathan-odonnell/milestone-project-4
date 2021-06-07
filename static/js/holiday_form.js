@@ -1,14 +1,16 @@
 // Amends the form styling and removes the delete link
 
-$('.custom-checkbox').addClass('form-check ms-1');
-$('.form-check input').addClass('form-check-input').attr('type', 'checkbox');
-$('.form-check label').addClass('form-check-label').show();
-$('fieldset .row').addClass('mb-3');
-$('.feature, .activity, .itinerary').each(function () {
-	$(this).find('.form-check').last().addClass('delete-check');
-});
-$('.delete-check label').addClass('text-danger');
-$('.delete-row').remove();
+$(document).ready(function() {
+	$('.custom-checkbox').addClass('form-check ms-1');
+	$('.form-check input').addClass('form-check-input').attr('type', 'checkbox');
+	$('.form-check label').addClass('form-check-label').show();
+	$('fieldset .row').addClass('mb-3');
+	$('.feature, .activity, .itinerary').each(function () {
+		$(this).find('.form-check').last().addClass('delete-check');
+	});
+	$('.delete-check label').addClass('text-danger');
+	$('.delete-row').remove();
+})
 
 // Adds the name of the file selected and styling to the filename ID when an image is selected
 
