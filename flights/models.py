@@ -1,7 +1,7 @@
 from django.db import models
-from django.db.models.fields import BLANK_CHOICE_DASH
 from timezone_field import TimeZoneField
-import pytz
+from django.utils import timezone
+
 
 class Flight(models.Model):
 
@@ -9,10 +9,10 @@ class Flight(models.Model):
         ordering = ('flight_number',)
 
     CHOICES = [
-            ('', 'Direction'),
-            ('Outbound', 'Outbound'),
-            ('Return', 'Return'),
-        ]
+        ('', 'Direction'),
+        ('Outbound', 'Outbound'),
+        ('Return', 'Return'),
+    ]
 
     flight_number = models.CharField(max_length=5)
     direction = models.CharField(max_length=50, choices=CHOICES)
@@ -27,16 +27,22 @@ class Flight(models.Model):
     baggage = models.DecimalField(max_digits=2, decimal_places=0)
 
     def save(self, *args, **kwargs):
-        if self.direction == 'Outbound':
-            tz = self.destination_time_zone
-            self.arrival_time = self.arrival_time.replace(tzinfo=None)
-            self.arrival_time = tz.localize(self.arrival_time)
-            self.arrival_time = self.arrival_time.astimezone(pytz.utc)
-        else:
-            tz = self.origin_time_zone
-            self.departure_time = self.departure_time.replace(tzinfo=None)
-            self.departure_time = tz.localize(self.departure_time)
-            self.departure_time = self.departure_time.astimezone(pytz.utc)
+        """
+        Converts departure time and arrival time to the user's local timezone
+        and calculates he flight duration when the model is saved. Code for converting 
+        the timezones is from 
+        https://stackoverflow.com/questions/36122619/manually-setting-time-zone-in-django-form
+        and https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
+        """
+        current_time_zone = timezone.get_current_timezone()
+        arrival_time = self.arrival_time.replace(tzinfo=None)
+        arrival_time = self.destination_time_zone.localize(arrival_time)
+        self.arrival_time = current_time_zone.normalize(
+            arrival_time.astimezone(current_time_zone))
+        departure_time = self.departure_time.replace(tzinfo=None)
+        departure_time = self.origin_time_zone.localize(departure_time)
+        self.departure_time = current_time_zone.normalize(
+            departure_time.astimezone(current_time_zone))
         self.duration = self.arrival_time - self.departure_time
         super().save(*args, **kwargs)
 
