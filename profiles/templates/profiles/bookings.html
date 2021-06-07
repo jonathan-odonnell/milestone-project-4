@@ -21,7 +21,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for booking in bookings %}
+                        {% for booking in bookings|slice:":10" %}
                         <tr>
                             <td>
                                 <a href="{% url 'booking_details' booking.booking_number %}"
