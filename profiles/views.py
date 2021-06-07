@@ -8,7 +8,7 @@ import stripe
 
 @login_required
 def profile(request):
-    """ Display the user's profile. """
+    """A view to display and update the user's profile."""
     profile = get_object_or_404(UserProfile, user=request.user)
     api_key = settings.GOOGLE_PLACES_KEY
 
@@ -42,7 +42,7 @@ def profile(request):
 
 @login_required
 def bookings(request):
-    """ Display the user's bookings. """
+    """ A view to show the user's bookings."""
     profile = get_object_or_404(UserProfile, user=request.user)
     bookings = profile.bookings.filter(paid=True)
 
@@ -55,6 +55,7 @@ def bookings(request):
 
 @login_required
 def booking_details(request, booking_number):
+    """A view to show a booking's details."""
     booking = get_object_or_404(Booking, booking_number=booking_number)
 
     template = 'checkout/checkout_success.html'
