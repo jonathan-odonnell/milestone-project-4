@@ -7,12 +7,12 @@ from allauth.account.forms import SignupForm, LoginForm, ChangePasswordForm
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        exclude = ('user','stripe_customer_id')
+        exclude = ('user', 'stripe_customer_id')
 
     def __init__(self, *args, **kwargs):
         """
-        Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
+        Adds address field, placeholders and classes, removes auto-generated
+        labels and sets the autofocus on first field
         """
         super().__init__(*args, **kwargs)
 
@@ -40,19 +40,23 @@ class UserProfileForm(forms.ModelForm):
             else:
                 self.fields[field].widget.attrs['class'] = 'form-select'
             self.fields[field].label = False
-            
+
 
 class CustomSignupForm(SignupForm):
-
-    # https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/
-
     def __init__(self, *args, **kwargs):
+        """
+        Adds the first name and last name fields and amends the placeholders
+        and labels in the register form. Code is from 
+        https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/
+        """
         super().__init__(*args, **kwargs)
-        self.fields['first_name'] = forms.CharField(max_length=30, label='First Name')
-        self.fields['last_name'] = forms.CharField(max_length=30, label='Last Name')
+        self.fields['first_name'] = forms.CharField(
+            max_length=30, label='First Name')
+        self.fields['last_name'] = forms.CharField(
+            max_length=30, label='Last Name')
         self.fields['email'].label = 'Email Address'
         self.fields['password2'].label = 'Confirm Password'
-        
+
         placeholders = {
             'first_name': 'Enter your first name',
             'last_name': 'Enter your last name',
@@ -63,15 +67,17 @@ class CustomSignupForm(SignupForm):
 
         for field in self.fields:
             self.fields[field].widget.attrs['placeholder'] = placeholders[field]
-    
-    def signup(self, request, user):
+
+    def signup(self, user):
         user.first_name = self.first_name
         user.last_name = self.last_name
         user.save()
         return user
 
+
 class CustomLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
+        """Amends the placeholders and labels in the login form."""
         super().__init__(*args, **kwargs)
         self.fields['login'].label = 'Email Address'
         self.fields['login'].widget.attrs['placeholder'] = 'Enter your email address'
@@ -80,6 +86,7 @@ class CustomLoginForm(LoginForm):
 
 class CustomChangePasswordForm(ChangePasswordForm):
     def __init__(self, *args, **kwargs):
+        """Amends the placeholders and labels in the change password form."""
         super().__init__(*args, **kwargs)
         self.fields['oldpassword'].widget.attrs['placeholder'] = 'Enter your current password'
         self.fields['password1'].widget.attrs['placeholder'] = 'Enter your new password'
