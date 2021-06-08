@@ -7,6 +7,7 @@ from holidays.utlis import superuser_required
 
 
 def extras(request):
+    """A view to display all extras."""
     extras = Extra.objects.all()
 
     template = 'extras/extras.html'
@@ -20,6 +21,9 @@ def extras(request):
 @login_required
 @superuser_required
 def add_extra(request):
+    """
+    A view to display the add extra page and add the extra to the database.
+    """
     if request.method == 'POST':
         form = ExtraForm(request.POST, request.FILES)
         if form.is_valid():
@@ -44,6 +48,9 @@ def add_extra(request):
 @login_required
 @superuser_required
 def edit_extra(request, extra):
+    """
+    A view to display the edit extra page and edit the extra in the database.
+    """
     extra = get_object_or_404(Extra, slug=extra)
     if request.method == 'POST':
         form = ExtraForm(request.POST, request.FILES, instance=extra)
@@ -69,6 +76,7 @@ def edit_extra(request, extra):
 @login_required
 @superuser_required
 def delete_extra(request, extra):
+    """A view to delete the extra from the database."""
     extra = get_object_or_404(Extra, slug=extra)
     extra.delete()
     messages.success(request, 'Extra deleted!')

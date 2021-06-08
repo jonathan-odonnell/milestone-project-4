@@ -10,6 +10,12 @@ class ExtraForm(forms.ModelForm):
         exclude = ('image_url',)
 
     def __init__(self, *args, **kwargs):
+        """
+        Sets the image field widget as the custom clearable file input, adds
+        classes and amends the description textarea number of rows.
+        Code for setting the field_class and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+        """
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
