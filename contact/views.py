@@ -3,7 +3,10 @@ from .forms import ContactForm
 
 
 def contact(request):
-    """A view to retun the contact page"""
+    """
+    A view to display the contact page and
+    add customer contacts to the database
+    """
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
