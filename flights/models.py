@@ -6,16 +6,24 @@ from django.utils import timezone
 class Flight(models.Model):
 
     class Meta:
+        """
+        Code for default ordering is from
+        https://docs.djangoproject.com/en/3.2/ref/models/options/#ordering
+        """
         ordering = ('flight_number',)
 
-    CHOICES = [
+    """
+    Code for direction choices is from
+    https://docs.djangoproject.com/en/3.2/ref/models/fields/#choices
+    """
+    DIRECTION_CHOICES = [
         ('', ''),
         ('Outbound', 'Outbound'),
         ('Return', 'Return'),
     ]
 
-    flight_number = models.CharField(max_length=5)
-    direction = models.CharField(max_length=50, choices=CHOICES)
+    flight_number = models.CharField(max_length=5, unique=True)
+    direction = models.CharField(max_length=50, choices=DIRECTION_CHOICES)
     origin = models.CharField(max_length=50)
     destination = models.CharField(max_length=50)
     departure_time = models.DateTimeField()
@@ -29,8 +37,8 @@ class Flight(models.Model):
     def save(self, *args, **kwargs):
         """
         Converts departure time and arrival time to the user's local timezone
-        and calculates he flight duration when the model is saved. Code for converting 
-        the timezones is from 
+        and calculates he flight duration when the model is saved. Code for
+        converting the timezones is from
         https://stackoverflow.com/questions/36122619/manually-setting-time-zone-in-django-form
         and https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/
         """
