@@ -9,7 +9,7 @@ class Flight(models.Model):
         ordering = ('flight_number',)
 
     CHOICES = [
-        ('', 'Direction'),
+        ('', ''),
         ('Outbound', 'Outbound'),
         ('Return', 'Return'),
     ]
