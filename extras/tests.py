@@ -33,7 +33,8 @@ class TestExtrasViews(TestCase):
         )
 
         # https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield
-        self.image = SimpleUploadedFile(name='test_image.jpg', content=open('media/toronto.jpg', 'rb').read(), content_type='image/jpeg')
+        self.image = SimpleUploadedFile(name='test_image.jpg', content=open(
+            'media/toronto.jpg', 'rb').read(), content_type='image/jpeg')
         self.extra = Extra.objects.create(
             name='Test Extra',
             description='Test Description',
@@ -82,7 +83,7 @@ class TestExtrasViews(TestCase):
             email=self.user.email,
             password='Password',
         )
-        response = self.client.get(f'/extras/edit/{self.extra.id}/')
+        response = self.client.get(f'/extras/edit/{self.extra.slug}/')
         self.assertEqual(response.status_code, 403)
 
     def test_superuser_get_edit_extra_page(self):
@@ -90,7 +91,7 @@ class TestExtrasViews(TestCase):
             email=self.superuser.email,
             password='Password',
         )
-        response = self.client.get(f'/extras/edit/{self.extra.id}/')
+        response = self.client.get(f'/extras/edit/{self.extra.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'extras/edit_extra.html')
 
@@ -99,7 +100,7 @@ class TestExtrasViews(TestCase):
             email=self.superuser.email,
             password='Password',
         )
-        response = self.client.post(f'/extras/edit/{self.extra.id}/', {
+        response = self.client.post(f'/extras/edit/{self.extra.slug}/', {
             'name': 'Test Extra',
             'description': 'Test Description',
             'price': '9.99',
@@ -113,7 +114,7 @@ class TestExtrasViews(TestCase):
             email=self.user.email,
             password='Password',
         )
-        response = self.client.get(f'/extras/delete/{self.extra.id}/')
+        response = self.client.get(f'/extras/delete/{self.extra.slug}/')
         self.assertEqual(response.status_code, 403)
 
     def test_superuser_can_delete_extra(self):
@@ -121,7 +122,7 @@ class TestExtrasViews(TestCase):
             email=self.superuser.email,
             password='Password',
         )
-        response = self.client.get(f'/extras/delete/{self.extra.id}/')
+        response = self.client.get(f'/extras/delete/{self.extra.slug}/')
         self.assertRedirects(response, '/extras/')
         extra = Extra.objects.filter(name='Test Extra')
         self.assertEqual(len(extra), 0)
@@ -136,10 +137,10 @@ class TestExtrasForm(TestCase):
             'image': '',
         })
         self.assertEqual(form.errors['name'][0], 'This field is required.')
-        self.assertEqual(form.errors['description'][0], 'This field is required.')
+        self.assertEqual(form.errors['description']
+                         [0], 'This field is required.')
         self.assertEqual(form.errors['price'][0], 'This field is required.')
         self.assertEqual(form.errors['image'][0], 'This field is required.')
-
 
     def test_invalid_form_field_inputs(self):
         form = ExtraForm({
@@ -149,7 +150,6 @@ class TestExtrasForm(TestCase):
             'image': 'test_image.jpg'
         })
         self.assertEqual(form.errors['price'][0], 'Enter a number.')
-        
 
     def test_excluded_in_form_metaclass(self):
         form = ExtraForm()
@@ -164,5 +164,4 @@ class TestExtrasModels(TestCase):
             price=round(Decimal(4.99), 2),
             image='testimage.jpg',
         )
-        self.assertEqual(str(extra), f'Test Extra - £4.99')        
-      
+        self.assertEqual(str(extra), 'Test Extra - £4.99')
