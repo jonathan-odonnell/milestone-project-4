@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from .models import Extra
 from .forms import ExtraForm
-from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from holidays.utlis import superuser_required
 
@@ -29,7 +28,8 @@ def add_extra(request):
             return redirect(reverse('extras'))
         else:
             messages.error(
-                request, 'Failed to add extra. Please ensure the form is valid.')
+                request,
+                'Failed to add extra. Please ensure the form is valid.')
     else:
         form = ExtraForm()
 
@@ -43,8 +43,8 @@ def add_extra(request):
 
 @login_required
 @superuser_required
-def edit_extra(request, extra_id):
-    extra = get_object_or_404(Extra, id=extra_id)
+def edit_extra(request, extra):
+    extra = get_object_or_404(Extra, slug=extra)
     if request.method == 'POST':
         form = ExtraForm(request.POST, request.FILES, instance=extra)
         if form.is_valid():
@@ -53,7 +53,8 @@ def edit_extra(request, extra_id):
             return redirect(reverse('extras'))
         else:
             messages.error(
-                request, 'Failed to update extra. Please ensure the form is valid.')
+                request,
+                'Failed to update extra. Please ensure the form is valid.')
     else:
         form = ExtraForm(instance=extra)
 
@@ -67,8 +68,8 @@ def edit_extra(request, extra_id):
 
 @login_required
 @superuser_required
-def delete_extra(request, extra_id):
-    extra = get_object_or_404(Extra, id=extra_id)
+def delete_extra(request, extra):
+    extra = get_object_or_404(Extra, slug=extra)
     extra.delete()
     messages.success(request, 'Extra deleted!')
     return redirect(reverse('extras'))
