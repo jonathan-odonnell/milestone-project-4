@@ -26,8 +26,8 @@
                 <p class="lead font-weight-bold mb-0">£{{ extra.price|floatformat:"-2" }}</p>
                 {% if request.user.is_superuser %}
                 <p class="small mt-2 mb-0">
-                  <a class="text-primary small pe-2" href="{% url 'edit_extra' extra.id %}"><i class="fas fa-edit"></i></a> | 
-                  <a class="text-secondary small ps-2" href="{% url 'delete_extra' extra.id %}"><i class="fas fa-trash"></i></a>
+                  <a class="text-primary small pe-2" href="{% url 'edit_extra' extra.slug %}"><i class="fas fa-edit"></i></a> | 
+                  <a class="text-secondary small ps-2" href="{% url 'delete_extra' extra.slug %}"><i class="fas fa-trash"></i></a>
                 </p>
                 {% endif %}
               </div>
