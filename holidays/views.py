@@ -1,5 +1,5 @@
-from django.db.models.query import InstanceCheckMeta
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import (
+    render, redirect, reverse, get_object_or_404, HttpResponse)
 from django.contrib import messages
 from django.db.models.functions import Lower
 from django.core.paginator import Paginator
@@ -9,12 +9,16 @@ from django.contrib.auth.decorators import login_required
 from .models import Package, Category, Region, Review
 from booking.models import Booking
 from profiles.models import UserProfile
-from .forms import PackageForm, FeatureFormSet, ActivityFormSet, ItineraryFormSet, ReviewForm
+from .forms import (PackageForm, FeatureFormSet,
+                    ActivityFormSet, ItineraryFormSet, ReviewForm)
 from .utlis import superuser_required
 
 
 def holidays(request, category=None, destination=None):
-    """ A view to show all holidays for the category or destination, including sorting and search queries """
+    """
+    A view to display all holidays for the relevant category or destination,
+    including sorting and search queries.
+    """
     countries = None
     categories = None
     sort = None
@@ -22,6 +26,11 @@ def holidays(request, category=None, destination=None):
     current_sorting = None
     current_categories = None
     current_countries = None
+
+    """
+    Code for returning distinct countries or categories in a list is from
+    https://stackoverflow.com/questions/10848809/django-model-get-distinct-value-list,
+    """
 
     if category:
         category = get_object_or_404(Category, slug=category)
@@ -54,23 +63,39 @@ def holidays(request, category=None, destination=None):
         if 'categories' in request.GET:
             current_categories = request.GET['categories'].replace(
                 '_', ' ').split(',')
-            holidays = holidays.annotate(lower_category=Lower('category__name')).filter(
+            holidays = holidays.annotate(
+                lower_category=Lower('category__name')).filter(
                 lower_category__in=current_categories)
 
         if 'countries' in request.GET:
             current_countries = request.GET['countries'].replace(
                 '_', ' ').split(',')
-            holidays = holidays.annotate(lower_country=Lower('country__name')).filter(
+            holidays = holidays.annotate(
+                lower_country=Lower('country__name')).filter(
                 lower_country__in=current_countries)
+
+    # Code for pagination is from https://docs.djangoproject.com/en/3.2/topics/pagination/
 
     paginated_holidays = Paginator(holidays, 12)
     page_number = request.GET.get('page')
     holidays = paginated_holidays.get_page(page_number)
 
+    """
+    Code for processing JSON requests is from
+    https://stackoverflow.com/questions/8587693/django-request-is-ajax-returning-false
+    and the code for rendering the holiday_cards template to a string is from
+    https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
+    """
+
     if request.is_ajax():
-        # https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax
         holidays_html = render_to_string(
-            'holidays/includes/holiday_cards.html', {'holidays': holidays, 'category': category, 'destination': destination})
+            'holidays/includes/holiday_cards.html',
+            {
+                'holidays': holidays,
+                'category': category,
+                'destination': destination
+            }
+        )
         return JsonResponse({'holidays': holidays_html})
 
     context = {
@@ -88,10 +113,16 @@ def holidays(request, category=None, destination=None):
 
 
 def holiday_details(request, slug, destination=None, category=None):
-    """ A view to show individual holiday details """
+    """ A view to show individual holiday details and 4 related holidays"""
     holiday = get_object_or_404(Package.objects, slug=slug)
     can_review = False
 
+    """
+    Code for randomly ordering the related holidays is from
+    https://docs.djangoproject.com/en/3.2/ref/models/querysets/#order-by
+    and code for excluding the current package is from
+    https://docs.djangoproject.com/en/3.2/ref/models/querysets/#exclude
+    """
     if category:
         category = get_object_or_404(Category, slug=category)
         related_holidays = Package.objects.filter(category=category).exclude(
@@ -106,6 +137,12 @@ def holiday_details(request, slug, destination=None, category=None):
         related_holidays = Package.objects.filter(offer=True).exclude(
             name=holiday.name).order_by('?')[:4]
 
+    """
+    Sets the can review variable to true if the user is signed in, has booked
+    the package and has not already reviewed it. Code for the first method
+    is from
+    https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first
+    """
     if request.user.is_authenticated:
         profile = UserProfile.objects.get(user=request.user)
         bookings = Booking.objects.filter(
@@ -114,7 +151,8 @@ def holiday_details(request, slug, destination=None, category=None):
 
         if bookings:
             review = Review.objects.filter(
-                package=holiday, full_name=profile.user.get_full_name()).first()
+                package=holiday,
+                full_name=profile.user.get_full_name()).first()
 
         if review:
             can_review = True
@@ -131,6 +169,12 @@ def holiday_details(request, slug, destination=None, category=None):
 
 @login_required
 def review(request, package):
+    """
+    A view to display the write review page and add it to the database
+    if the user is signed in, has booked the package and has not already
+    reviewed it. Code for the first method is from
+    https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first
+    """
     holiday = get_object_or_404(Package, slug=package)
     profile = UserProfile.objects.get(user=request.user)
     bookings = Booking.objects.filter(
@@ -157,7 +201,9 @@ def review(request, package):
 
         if form.is_valid():
             form.save()
-            return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
+            return redirect(redirect_url or reverse(
+                'destination_details',
+                args=[holiday.region.slug, holiday.slug]))
 
         messages.error(
             request, 'Failed to add review. Please ensure the form is valid.')
@@ -175,6 +221,10 @@ def review(request, package):
 @login_required
 @superuser_required
 def add_holiday(request):
+    """
+    A view to display the add holiday page and update the holiday and
+    it's features, activities and itineraries in the database.
+    """
     if request.method == 'POST':
         redirect_url = request.POST.get('redirect_url')
         form = PackageForm(request.POST, request.FILES)
@@ -186,7 +236,8 @@ def add_holiday(request):
             holiday = form.save()
             feature_formset = FeatureFormSet(request.POST, instance=holiday)
             activity_formset = ActivityFormSet(request.POST, instance=holiday)
-            itinerary_formset = ItineraryFormSet(request.POST, instance=holiday)
+            itinerary_formset = ItineraryFormSet(
+                request.POST, instance=holiday)
 
             if feature_formset.is_valid():
                 feature_formset.save()
@@ -199,7 +250,9 @@ def add_holiday(request):
 
                         messages.success(
                             request, 'Successfully added holiday!')
-                        return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
+                        return redirect(redirect_url or reverse(
+                            'destination_details',
+                            args=[holiday.region.slug, holiday.slug]))
 
         messages.error(
             request, 'Failed to add holiday. Please ensure the form is valid.')
@@ -223,6 +276,10 @@ def add_holiday(request):
 @login_required
 @superuser_required
 def edit_holiday(request, package):
+    """
+    A view to display the edit holiday page and update the holiday and
+    it's features, activities and itineraries in the database.
+    """
     holiday = get_object_or_404(Package, slug=package)
     if request.method == 'POST':
         redirect_url = request.POST.get('redirect_url')
@@ -244,11 +301,15 @@ def edit_holiday(request, package):
                         itinerary_formset.save()
                         messages.success(
                             request, 'Successfully updated holiday!')
-                        return redirect(redirect_url or reverse('destination_details', args=[holiday.region.slug, holiday.slug]))
+                        return redirect(redirect_url or reverse(
+                            'destination_details',
+                            args=[holiday.region.slug, holiday.slug]))
 
         else:
             messages.error(
-                request, 'Failed to update holiday. Please ensure the form is valid.')
+                request,
+                'Failed to update holiday. Please ensure the form is valid.'
+            )
     else:
         form = PackageForm(instance=holiday)
         feature_formset = FeatureFormSet(instance=holiday)
@@ -269,6 +330,11 @@ def edit_holiday(request, package):
 @login_required
 @superuser_required
 def delete_holiday(request, package):
+    """
+    A view to delete the holiday from the database. Code for the redirect_url
+    is from
+    https://stackoverflow.com/questions/27325505/django-getting-previous-url
+    """
     holiday = get_object_or_404(Package, slug=package)
     holiday.delete()
     messages.success(request, 'Holiday deleted!')
