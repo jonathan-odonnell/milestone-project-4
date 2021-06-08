@@ -127,7 +127,7 @@ def edit_flight(request, flight_number):
 @superuser_required
 def delete_flight(request, flight_number):
     """
-    A view to delete the flight to the database. Code for the redirect_url
+    A view to delete the flight from the database. Code for the redirect_url
     is from
     https://stackoverflow.com/questions/27325505/django-getting-previous-url
     """
