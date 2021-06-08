@@ -49,7 +49,7 @@ def add_extra(request):
 @superuser_required
 def edit_extra(request, extra):
     """
-    A view to display the edit extra page and edit the extra in the database.
+    A view to display the edit extra page and update the extra in the database.
     """
     extra = get_object_or_404(Extra, slug=extra)
     if request.method == 'POST':
