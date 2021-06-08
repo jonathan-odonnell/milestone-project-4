@@ -1,10 +1,7 @@
 from django.db import models
 import uuid
-from django.db import models
 from django.db.models import Sum
-from django.conf import settings
 from django.db.models.deletion import SET_NULL
-from django.db.models.expressions import F
 from django_countries.fields import CountryField
 from profiles.models import UserProfile
 from holidays.models import Package
@@ -27,14 +24,14 @@ class Booking(models.Model):
     booking_number = models.CharField(max_length=32)
     full_name = models.CharField(max_length=50, default='')
     user_profile = models.ForeignKey(
-        UserProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='bookings')
-    email = models.EmailField(
-        max_length=254, null=False, blank=False, default='')
+        UserProfile, on_delete=models.SET_NULL, null=True,
+        blank=True, related_name='bookings')
+    email = models.EmailField(max_length=254, default='')
     phone_number = models.CharField(max_length=20, default='')
-    town_or_city = models.CharField(max_length=40, default='')
     street_address1 = models.CharField(max_length=80, default='')
     street_address2 = models.CharField(
         max_length=80, null=True, blank=True, default='')
+    town_or_city = models.CharField(max_length=40, default='')
     county = models.CharField(max_length=80, default='')
     country = CountryField(blank_label='Country *', default='')
     postcode = models.CharField(max_length=20, default='')
@@ -45,9 +42,11 @@ class Booking(models.Model):
     package = models.ForeignKey(
         Package, null=True, blank=True, on_delete=SET_NULL)
     outbound_flight = models.ForeignKey(
-        Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='outbound_flight')
+        Flight, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name='outbound_flight')
     return_flight = models.ForeignKey(
-        Flight, null=True, blank=True, on_delete=models.SET_NULL, related_name='return_flight')
+        Flight, null=True, blank=True, on_delete=models.SET_NULL,
+        related_name='return_flight')
     subtotal = models.DecimalField(
         max_digits=10, decimal_places=2, editable=False, default=0)
     extras_total = models.DecimalField(
