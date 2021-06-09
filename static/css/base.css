@@ -201,6 +201,7 @@ a:hover {
 
 .user-options-dropdown {
     margin-top: 1.625rem;
+    right: calc(-1rem + 2px);
 }
 
 /* Navbar End */
