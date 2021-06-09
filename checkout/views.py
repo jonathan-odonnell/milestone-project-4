@@ -78,10 +78,10 @@ def checkout(request):
             'postcode': request.POST['postcode'],
         }
 
-        booking_form = CheckoutForm(form_data, instance=booking)
+        checkout_form = CheckoutForm(form_data, instance=booking)
 
-        if booking_form.is_valid():
-            booking = booking_form.save(commit=False)
+        if checkout_form.is_valid():
+            booking = checkout_form.save(commit=False)
 
             # Adds the relevant payment id to the booking and sets paid to true
             if paypal_pid:
@@ -145,7 +145,7 @@ def checkout(request):
             is from https://stripe.com/docs/payments/save-during-payment
             """
             profile = UserProfile.objects.get(user=request.user)
-            booking_form = CheckoutForm(initial={
+            checkout_form = CheckoutForm(initial={
                 'full_name': profile.user.get_full_name(),
                 'email': profile.user.email,
                 'phone_number': profile.phone_number,
@@ -168,7 +168,7 @@ def checkout(request):
             Creates an empty booking form and a new payment intent
             with no customer id attached
             """
-            booking_form = CheckoutForm()
+            checkout_form = CheckoutForm()
             intent = stripe.PaymentIntent.create(
                 amount=stripe_total,
                 currency=settings.STRIPE_CURRENCY
@@ -186,7 +186,7 @@ def checkout(request):
         )
 
     context = {
-        'booking_form': booking_form,
+        'checkout_form': checkout_form,
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
         'stripe_country': settings.STRIPE_COUNTRY,
