@@ -24,7 +24,7 @@ https://stackoverflow.com/questions/3179385/val-doesnt-trigger-change-in-jquery 
 $('.minus').click(function () {
     let currentValue = parseInt($(this).parent().prev().val());
     if (currentValue > 1) {
-        $("input[name='guests']").val(currentValue - 1);
+        $(this).closest('.input-group').find('input[type="number"]').val(currentValue - 1);
         $(this).closest('.input-group').find('input[type="number"]').trigger('change');
     }
 });
@@ -37,7 +37,7 @@ https://api.jquery.com/jquery.each/ */
 
 $('input[name="guests"]').on('change', function () {
     let guests = parseInt($(this).val());
-    let csrfToken = $('.guests-form').find('input[name="csrfmiddlewaretoken"]').val();
+    let csrfToken = $(this).closest('tr').find('input[name="csrfmiddlewaretoken"]').val();
     let postData = {
         'guests': guests,
         'csrfmiddlewaretoken': csrfToken,
@@ -71,16 +71,15 @@ $('input[name="quantity"]').on('change', function () {
     let quantity = parseInt($(this).val());
     let guests = parseInt($('.guests-form').find("input[name='guests']").val());
     let id = $(this).data('extra');
-    let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
+    let csrfToken = $(this).closest('tr').find('input[name="csrfmiddlewaretoken"]').val();
     let postData = {
         'csrfmiddlewaretoken': csrfToken,
         'quantity': quantity
     };
     if ($(this).closest('tr').find('input[type="checkbox"]').is(':checked')) {
-        console.log(quantity)
-        console.log(guests)
         if (quantity >= 1 && quantity <= guests) {
             $.post(`/booking/update_extra/${id}/`, postData).done(function (data) {
+                console.log(data.extras)
                 $('#total strong').text(`£${data.total}`);
                 $('#extras span').last().text(`£${data.extras}`);
                 $('.quantity-form').find(`input[data-extra="${id}"]`).val(quantity);
@@ -89,6 +88,64 @@ $('input[name="quantity"]').on('change', function () {
             $(`#extra-${id}`).find('input[name="quantity"]').val(1);
             $(`#mobile-extra-${id}`).find('input[name="quantity"]').val(1);
         }
+    }
+});
+
+/* When the checkbox is changed, submits an AJAX post request to the add extra URL if the closest switch 
+is in the on position or to the delete extra URL if the checkbox is in the off position. The total, 
+subtotal, and extras values are then updated in the HTML from the data returned in the response. Code for
+the is checked jQuery method is from 
+https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked and code for checking or
+unchecking the switches is from 
+https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery */
+
+$('input[type="checkbox"]').change(function () {
+    let id = $(this).attr('id');
+    let csrfToken = $(this).closest('tr').find('input[name="csrfmiddlewaretoken"]').val();
+    let quantity = parseInt($(this).closest('tr').find('input[name="quantity"]').val());
+    let postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'quantity': quantity,
+    };
+    if ($(this).is(':checked')) {
+        $.post(`/booking/add_extra/${id}/`, postData).done(function (data) {
+            $('#total strong').text(`£${data.total}`);
+            if ($('#extras').length) {
+                $('#extras span').last().text(`£${data.extras}`);
+
+            } else if ($('#subtotal').length) {
+                $(`<li id="extras" class="list-group-item d-flex justify-content-between">
+                <span class="my-0">Options and Extras</span>
+                <span>£${data.extras}</span>
+            </li>`).insertAfter('#subtotal');
+            } else {
+                $(`<li id="subtotal" class="list-group-item d-flex justify-content-between">
+                <span class="my-0">Base Price</span><span>£${data.subtotal}</span></li>
+                <li id="extras" class="list-group-item d-flex justify-content-between">
+                <span class="my-0">Options and Extras</span>
+                <span>£${data.extras}</span>
+            </li>`).insertBefore('#transfers');
+            }
+            $(`#extra-${id}`).find(`input[name="quantity"]`).val(quantity);
+            $(`#extra-${id}`).find(`input[type="checkbox"]`).prop('checked', true);
+            $(`#mobile-extra-${id}`).find(`input[name="quantity"]`).val(quantity);
+            $(`#mobile-extra-${id}`).find(`input[type="checkbox"]`).prop('checked', true);
+        });
+    } else {
+        $.post(`/booking/remove_extra/${id}/`, postData).done(function (data) {
+            $('#total strong').text(`£${data.total}`);
+            if (data.extras > 0) {
+                $('#extras span').last().text(`£${data.extras}`);
+                $('#subtotal strong').text(`£${data.subtotal}`);
+            } else {
+                $('#extras').remove();
+                $('#subtotal').remove();
+            }
+            $(`#extra-${id}`).find(`input[name="quantity"]`).val(1);
+            $(`#extra-${id}`).find(`input[type="checkbox"]`).prop('checked', false);
+            $(`#mobile-extra-${id}`).find(`input[name="quantity"]`).val(1);
+            $(`#mobile-extra-${id}`).find(`input[type="checkbox"]`).prop('checked', false);
+        });
     }
 });
 
@@ -137,62 +194,4 @@ $('.coupon-form').submit(function (e) {
         }
         $('.coupon-form').find("input[name='coupon']").addClass('is-invalid');
     });
-});
-
-/* When the checkbox is changed, submits an AJAX post request to the add extra URL if the closest switch 
-is in the on position or to the delete extra URL if the checkbox is in the off position. The total, 
-subtotal, and extras values are then updated in the HTML from the data returned in the response. Code for
-the is checked jQuery method is from 
-https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked and code for checking or
-unchecking the switches is from 
-https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery */
-
-$('input[type="checkbox"]').change(function () {
-    let id = $(this).attr('id');
-    let csrfToken = $('.quantity-form').find('input[name="csrfmiddlewaretoken"]').val();
-    let quantity = parseInt($(this).closest('tr').find('input[name="quantity"]').val());
-    let postData = {
-        'csrfmiddlewaretoken': csrfToken,
-        'quantity': quantity,
-    };
-    if ($(this).is(':checked')) {
-        $.post(`/booking/add_extra/${id}/`, postData).done(function (data) {
-            $('#total strong').text(`£${data.total}`);
-            if ($('#extras').length) {
-                $('#extras span').last().text(`£${data.extras}`);
-
-            } else if ($('#subtotal').length) {
-                $(`<li id="extras" class="list-group-item d-flex justify-content-between">
-                <span class="my-0">Options and Extras</span>
-                <span>£${data.extras}</span>
-            </li>`).insertAfter('#subtotal');
-            } else {
-                $(`<li id="subtotal" class="list-group-item d-flex justify-content-between">
-                <span class="my-0">Base Price</span><span>£${data.subtotal}</span></li>
-                <li id="extras" class="list-group-item d-flex justify-content-between">
-                <span class="my-0">Options and Extras</span>
-                <span>£${data.extras}</span>
-            </li>`).insertBefore('#transfers');
-            }
-            $(`#extra-${id}`).find(`input[name="quantity"]`).val(quantity);
-            $(`#extra-${id}`).find(`input[type="checkbox"]`).prop('checked', true);
-            $(`#mobile-extra-${id}`).find(`input[name="quantity"]`).val(quantity);
-            $(`#mobile-extra-${id}`).find(`input[type="checkbox"]`).prop('checked', true);
-        });
-    } else {
-        $.post(`/booking/remove_extra/${id}/`, postData).done(function (data) {
-            $('#total strong').text(`£${data.total}`);
-            if (data.extras > 0) {
-                $('#extras span').last().text(`£${data.extras}`);
-                $('#subtotal strong').text(`£${data.subtotal}`);
-            } else {
-                $('#extras').remove();
-                $('#subtotal').remove();
-            }
-            $(`#extra-${id}`).find(`input[name="quantity"]`).val(1);
-            $(`#extra-${id}`).find(`input[type="checkbox"]`).prop('checked', false);
-            $(`#mobile-extra-${id}`).find(`input[name="quantity"]`).val(1);
-            $(`#mobile-extra-${id}`).find(`input[type="checkbox"]`).prop('checked', false);
-        });
-    }
 });
