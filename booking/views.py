@@ -9,7 +9,6 @@ from extras.models import Extra
 from .models import Booking, BookingExtra, Coupon
 from profiles.models import UserProfile
 from .forms import PassengersFormSet
-from .contexts import booking_details
 from datetime import datetime, date, timedelta
 
 
@@ -26,15 +25,17 @@ def add_booking(request, holiday_id):
 
         try:
             outbound_flight = Flight.objects.get(
-                packages__name=holiday.name, origin=request.POST['departure_airport'])
+                packages__name=holiday.name,
+                origin=request.POST['departure_airport'])
             return_flight = Flight.objects.get(
-                packages__name=holiday.name, destination=request.POST['departure_airport'])
+                packages__name=holiday.name,
+                destination=request.POST['departure_airport'])
             departure_date = datetime.strptime(
                 request.POST['departure_date'], "%d/%m/%Y").date()
-            outbound_flight_departure = outbound_flight.departure_time.astimezone(
-                outbound_flight.origin_time_zone)
-            outbound_flight_arrival = outbound_flight.arrival_time.astimezone(
-                outbound_flight.destination_time_zone)
+            outbound_flight_departure = outbound_flight.departure_time \
+                .astimezone(outbound_flight.origin_time_zone)
+            outbound_flight_arrival = outbound_flight.arrival_time \
+                .astimezone(outbound_flight.destination_time_zone)
             flight_days = (outbound_flight_arrival -
                            outbound_flight_departure).days
             return_date = departure_date + timedelta(
@@ -72,7 +73,9 @@ def add_booking(request, holiday_id):
 
         except Flight.DoesNotExist:
             messages.error(
-                request, 'Unable to find flights. Please select another date and try again.')
+                request,
+                'Unable to find flights. '
+                'Please select another date and try again.')
             return(redirect(request.META.get('HTTP_REFERER') or reverse('home')))
 
     return redirect(reverse('booking'))
@@ -192,7 +195,9 @@ def add_coupon(request):
     try:
         current_date = date.today()
         coupon = Coupon.objects.get(
-            name__iexact=coupon_name, start_date__lte=current_date, end_date__gte=current_date)
+            name__iexact=coupon_name,
+            start_date__lte=current_date,
+            end_date__gte=current_date)
         booking.coupon = coupon.name
         booking.save()
 
@@ -230,7 +235,6 @@ def passengers(request):
         formset = PassengersFormSet(
             request.POST,
             instance=booking,
-            extra=0,
             min_num=booking.guests,
         )
 
@@ -240,32 +244,31 @@ def passengers(request):
 
         else:
             messages.error(
-                request, 'Unable to add passenger details. Please ensure the form is valid.')
+                request,
+                'Unable to add passenger details. '
+                'Please ensure the form is valid.')
 
     else:
-        if request.user.is_authenticated and not booking.booking_passengers.all():
+        if (request.user.is_authenticated
+                and not booking.booking_passengers.all()):
             profile = UserProfile.objects.get(user=request.user)
             formset = PassengersFormSet(
                 initial=[
                     {'full_name': profile.user.get_full_name()}
-                ], 
-                extra=booking.guests,
+                ],
                 min_num=booking.guests,
             )
 
         elif booking.booking_passengers.all():
             formset = PassengersFormSet(
                 instance=booking,
-                extra=0,
                 min_num=booking.guests,
             )
 
         else:
             formset = PassengersFormSet(
-                extra=booking.guests,
                 min_num=booking.guests,
             )
-
     context = {
         'formset': formset,
     }
