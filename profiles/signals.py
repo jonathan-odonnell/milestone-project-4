@@ -10,7 +10,9 @@ import stripe
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     """
-    Create or update the user profile and create stripe customer
+    Creates or updates the user profile and creates a stripe customer
+    when a user profile is created. Code is from
+    https://stripe.com/docs/api/accounts/create
     """
     if created:
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -26,7 +28,9 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def update_user_email(sender, instance, created, **kwargs):
     """
-    Updates the email address
+    Updates the email address in the allauth email address database
+    and sends the verification email. Code is from
+    https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py
     """
     if not created:
         existing_email = EmailAddress.objects.get(user=instance)
@@ -40,7 +44,8 @@ def update_user_email(sender, instance, created, **kwargs):
 @receiver(post_save, sender=UserProfile)
 def stripe_update_on_save(sender, instance, created, **kwargs):
     """
-    Update stripe customer details on update
+    Update stripe customer details on when the user profile is updated.
+    Code is from https://stripe.com/docs/api/accounts/update
     """
     if not created:
         stripe.api_key = settings.STRIPE_SECRET_KEY
