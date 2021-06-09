@@ -3,7 +3,7 @@ from booking.models import Booking
 from crispy_forms.helper import FormHelper
 
 
-class BookingForm(forms.ModelForm):
+class CheckoutForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ('full_name', 'email', 'phone_number',

@@ -6,7 +6,7 @@ from django.conf import settings
 from booking.models import Booking
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
-from .forms import BookingForm
+from .forms import CheckoutForm
 from .webhook_handler import WH_Handler
 from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
 from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest
@@ -65,7 +65,7 @@ def checkout(request):
         paypal_pid = request.POST['paypal_pid']
         stripe.api_key = settings.STRIPE_SECRET_KEY
 
-        # Saves the booking form if it is valid
+        # Saves the checkout form if it is valid
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -78,7 +78,7 @@ def checkout(request):
             'postcode': request.POST['postcode'],
         }
 
-        booking_form = BookingForm(form_data, instance=booking)
+        booking_form = CheckoutForm(form_data, instance=booking)
 
         if booking_form.is_valid():
             booking = booking_form.save(commit=False)
@@ -145,7 +145,7 @@ def checkout(request):
             is from https://stripe.com/docs/payments/save-during-payment
             """
             profile = UserProfile.objects.get(user=request.user)
-            booking_form = BookingForm(initial={
+            booking_form = CheckoutForm(initial={
                 'full_name': profile.user.get_full_name(),
                 'email': profile.user.email,
                 'phone_number': profile.phone_number,
@@ -168,7 +168,7 @@ def checkout(request):
             Creates an empty booking form and a new payment intent
             with no customer id attached
             """
-            booking_form = BookingForm()
+            booking_form = CheckoutForm()
             intent = stripe.PaymentIntent.create(
                 amount=stripe_total,
                 currency=settings.STRIPE_CURRENCY
