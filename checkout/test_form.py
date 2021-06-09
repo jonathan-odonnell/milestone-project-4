@@ -2,13 +2,13 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from booking.models import Booking
 from holidays.models import Package
-from .forms import BookingForm
+from .forms import CheckoutForm
 from datetime import date, datetime
 from pytz import timezone
 import pytz
 
 
-class TestBookingForm(TestCase):
+class TestCheckoutForm(TestCase):
     def setUp(self):
 
         self.user = User.objects.create_user(
@@ -29,7 +29,7 @@ class TestBookingForm(TestCase):
         )
 
         """
-        Code for adding the flights related object is from 
+        Code for adding the flights related object is from
         https://docs.djangoproject.com/en/3.2/ref/models/relations/
         """
         self.holiday.flights.create(
@@ -53,7 +53,7 @@ class TestBookingForm(TestCase):
         )
 
     def test_all_form_fields_required(self):
-        form = BookingForm({
+        form = CheckoutForm({
             'full_name': '',
             'email': '',
             'phone_number': '',
@@ -79,7 +79,7 @@ class TestBookingForm(TestCase):
                          [0], 'This field is required.')
 
     def test_invalid_email_address_field(self):
-        form = BookingForm({
+        form = CheckoutForm({
             'full_name': 'Test User',
             'email': 'Not an email address',
             'phone_number': 'Not a phone number',
@@ -93,7 +93,7 @@ class TestBookingForm(TestCase):
                          [0], 'Enter a valid email address.')
 
     def test_fields_in_form_metaclass(self):
-        form = BookingForm()
+        form = CheckoutForm()
         self.assertEqual(form.Meta.fields, ('full_name', 'email', 'phone_number',
                                             'street_address1', 'street_address2',
                                             'town_or_city', 'county', 'postcode',
