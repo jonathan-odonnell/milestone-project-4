@@ -12,14 +12,13 @@ class ExtraForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         """
         Sets the image field widget as the CustomClearableFileInput, adds
-        classes, sets the autofocus and amends the description textarea number
-        of rows. Code for setting the field_class and label_class is from
+        classe and amends the description textarea number of rows. Code for
+        setting the field_class and label_class is from
         https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
         """
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
-        self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['image'].widget = CustomClearableFileInput()
         self.fields['description'].widget.attrs['rows'] = 8
