@@ -13,16 +13,29 @@ from datetime import datetime, date, timedelta
 
 
 def booking(request):
+    """A view to display the booking page."""
     return render(request, 'booking/booking.html')
 
 
 @require_POST
 def add_booking(request, holiday_id):
+    """ A view to add a new booking to the database and store the booking number
+    in the session variable if the holiday exists in the database and there are
+    flights associated with it that satisfy the user's requirements.
+    """
     if request.method == 'POST':
         booking = None
         booking_number = request.session.get('booking_number', '')
         holiday = Package.objects.get(pk=holiday_id)
 
+        """
+        Code for adding time onto a datetime object is from
+        https://www.kite.com/python/answers/how-to-add-hours-to-the-current-time-in-python,
+        code for converting a string to a date object is from
+        https://stackabuse.com/converting-strings-to-datetime-in-python
+        and code for converting time zones is from
+        https://pypi.org/project/pytz/
+        """
         try:
             outbound_flight = Flight.objects.get(
                 packages__name=holiday.name,
@@ -83,6 +96,7 @@ def add_booking(request, holiday_id):
 
 @require_POST
 def update_guests(request):
+    """ A view to adjust the number of guests to the specified number """
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.get(booking_number=booking_number)
     guests = int(request.POST.get('guests'))
@@ -95,7 +109,10 @@ def update_guests(request):
                 extra.quantity = guests
                 extra.save()
 
-    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
+    Code for removing trailing zeros from totals is from
+    https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
 
     extras = f'{float(booking.extras_total):g}'
     subtotal = f'{float(booking.subtotal):g}'
@@ -113,6 +130,10 @@ def update_guests(request):
 
 @require_POST
 def add_extra(request, extra_id):
+    """
+    A view to add the specified quantity of the extra to the booking
+    if it exists in the database
+    """
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.get(booking_number=booking_number)
     extra = Extra.objects.get(id=extra_id)
@@ -124,7 +145,10 @@ def add_extra(request, extra_id):
     )
     booking_extra.save()
 
-    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
+    Code for removing trailing zeros from totals is from
+    https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
 
     extras = f'{float(booking.extras_total):g}'
     subtotal = f'{float(booking.subtotal):g}'
@@ -142,6 +166,10 @@ def add_extra(request, extra_id):
 
 @require_POST
 def update_extra(request, extra_id):
+    """ A view to update the quantity of the extra to the specified amount.
+    Code for the prefetch related method is from
+    https://docs.djangoproject.com/en/3.2/ref/models/querysets/#prefetch-related
+    """
     booking_number = request.session.get('booking_number')
     quantity = int(request.POST['quantity'])
     booking = Booking.objects.prefetch_related('booking_extras').get(
@@ -149,7 +177,10 @@ def update_extra(request, extra_id):
     booking.booking_extras.all()[0].quantity = quantity
     booking.booking_extras.all()[0].save()
 
-    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
+    Code for removing trailing zeros from totals is from
+    https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
 
     extras = f'{float(booking.extras_total):g}'
     subtotal = f'{float(booking.subtotal):g}'
@@ -166,12 +197,19 @@ def update_extra(request, extra_id):
 
 @require_POST
 def remove_extra(request, extra_id):
+    """ A view to remove the extra from the booking. Code for the prefetch related
+    method is from
+    https://docs.djangoproject.com/en/3.2/ref/models/querysets/#prefetch-related
+    """
     booking_number = request.session.get('booking_number')
     booking = Booking.objects.prefetch_related('booking_extras').get(
         booking_number=booking_number, booking_extras__extra=extra_id)
     booking.booking_extras.first().delete()
 
-    # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
+    Code for removing trailing zeros from totals is from
+    https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+    """
 
     extras = f'{float(booking.extras_total):g}'
     subtotal = f'{float(booking.subtotal):g}'
@@ -189,6 +227,10 @@ def remove_extra(request, extra_id):
 
 @require_POST
 def add_coupon(request):
+    """
+    A view to add the specified coupon to the booking if it
+    exists in the database
+    """
     coupon_name = request.POST.get('coupon')
     booking_number = request.session.get('booking_number')
     booking = get_object_or_404(Booking, booking_number=booking_number)
@@ -201,7 +243,10 @@ def add_coupon(request):
         booking.coupon = coupon.name
         booking.save()
 
-        # https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+        """
+        Code for removing trailing zeros from totals is from
+        https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros
+        """
 
         subtotal = f'{float(booking.subtotal):g}'
         total = f'{float(booking.grand_total):g}'
@@ -222,6 +267,10 @@ def add_coupon(request):
 
 
 def passengers(request):
+    """
+    A view to display the passengers page and adds or updates the
+    passenger details in the booking
+    """
     booking_number = request.session.get('booking_number', '')
     profile = None
 
