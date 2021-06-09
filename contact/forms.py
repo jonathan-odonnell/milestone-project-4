@@ -1,5 +1,4 @@
 from django import forms
-from holidays.widgets import CustomClearableFileInput
 from .models import CustomerContact
 from crispy_forms.helper import FormHelper
 
@@ -10,6 +9,10 @@ class ContactForm(forms.ModelForm):
         exclude = ('date',)
 
     def __init__(self, *args, **kwargs):
+        """
+        Adds classes to the form. Code is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+        """
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-4'
