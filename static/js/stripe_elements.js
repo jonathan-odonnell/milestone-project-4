@@ -109,7 +109,7 @@ form.addEventListener('submit', function (e) {
     checkbox as variables. Code for the is checked jQuery method is from 
     https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked */ 
     let saveCard = $('#id_save_card').is(':checked');
-    let savedCard = $('#saved-cards input').is(':checked').attr('id');
+    let savedCard = $('#saved-cards input:checked').attr('id');
     // Declares the payment details variable
     let paymentDetails;
     // Deletes any error messages from the payment request button errors div
@@ -208,12 +208,12 @@ form.addEventListener('submit', function (e) {
 var loading = function (isLoading) {
     if (isLoading) {
         // Disables the button and shows the spinner
-        document.querySelector("#payment-btn").disabled = true;
+        document.querySelector(".payment-btn").disabled = true;
         document.querySelector("#spinner").classList.remove("d-none");
         document.querySelector("#button-text").classList.add("d-none");
     } else {
         // Enables the button and hides the spinner
-        document.querySelector("#payment-btn").disabled = false;
+        document.querySelector(".payment-btn").disabled = false;
         document.querySelector("#spinner").classList.add("d-none");
         document.querySelector("#button-text").classList.remove("d-none");
     }
