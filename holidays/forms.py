@@ -12,13 +12,17 @@ class PackageForm(forms.ModelForm):
         exclude = ('rating',)
 
     def __init__(self, *args, **kwargs):
+        """
+        Sets the image field widget as the CustomClearableFileInput, adds
+        classes, sets the autofocus and amends the description textarea number
+        of rows. Code for setting the field_class and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+        """
         super().__init__(*args, **kwargs)
-
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
 
-        self.fields['name'].widget.attrs['autofocus'] = True
         self.fields['image'].widget = CustomClearableFileInput()
         self.fields['description'].widget.attrs['rows'] = 8
         self.fields['category'].empty_label = ''
@@ -36,6 +40,11 @@ class FeatureForm(forms.ModelForm):
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
+        """
+        Adds classes to the form. Code for setting the form_class, field_class
+        and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+        """
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -50,6 +59,11 @@ class ActivityForm(forms.ModelForm):
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
+        """
+        Adds classes to the form. Code for setting the form_class, field_class
+        and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+        """
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -64,6 +78,11 @@ class ItineraryForm(forms.ModelForm):
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
+        """
+        Adds classes to the form. Code for setting the form_class, field_class
+        and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+        """
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -77,13 +96,23 @@ class ReviewForm(forms.ModelForm):
         exclude = ('date',)
 
     def __init__(self, *args, **kwargs):
+        """
+        Adds classes to the form and amends the description textarea number
+        of rows. Code for setting the field_class and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
+        """
         super().__init__(*args, **kwargs)
-
         self.helper = FormHelper(self)
         self.helper.field_class = 'mb-3'
         self.helper.label_class = 'form-label'
         self.fields['review'].widget.attrs['rows'] = 8
 
+
+"""
+Code for the inline formsets is from
+https://dev.to/zxenia/django-inline-formsets-with-class-based-views-and-crispy-forms-14o6
+and https://docs.djangoproject.com/en/3.2/topics/forms/formsets/
+"""
 
 FeatureFormSet = inlineformset_factory(
     Package, Feature, form=FeatureForm, extra=5, max_num=5)
