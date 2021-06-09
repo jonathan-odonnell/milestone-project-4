@@ -36,19 +36,19 @@
                 {% csrf_token %}
                 <fieldset class="rounded px-3">
                     <legend class="section-subheading">Booking Contact</legend>
-                    {{ booking_form.full_name | as_crispy_field }}
-                    {{ booking_form.email | as_crispy_field }}
-                    {{ booking_form.phone_number | as_crispy_field }}
+                    {{ checkout_form.full_name | as_crispy_field }}
+                    {{ checkout_form.email | as_crispy_field }}
+                    {{ checkout_form.phone_number | as_crispy_field }}
                 </fieldset>
                 <fieldset id="address" class="rounded px-3 mt-2">
                     <legend class="section-subheading">Address</legend>
-                    {{ booking_form.address | as_crispy_field }}
-                    {{ booking_form.street_address1 | as_crispy_field }}
-                    {{ booking_form.street_address2 | as_crispy_field }}
-                    {{ booking_form.town_or_city | as_crispy_field }}
-                    {{ booking_form.county | as_crispy_field }}
-                    {{ booking_form.country | as_crispy_field }}
-                    {{ booking_form.postcode | as_crispy_field }}
+                    {{ checkout_form.address | as_crispy_field }}
+                    {{ checkout_form.street_address1 | as_crispy_field }}
+                    {{ checkout_form.street_address2 | as_crispy_field }}
+                    {{ checkout_form.town_or_city | as_crispy_field }}
+                    {{ checkout_form.county | as_crispy_field }}
+                    {{ checkout_form.country | as_crispy_field }}
+                    {{ checkout_form.postcode | as_crispy_field }}
                     {% if user.is_authenticated %}
                     <div class="form-check ms-2">
                         <label class="form-check-label" for="id_save_info">Save contact information to my
