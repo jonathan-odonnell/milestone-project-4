@@ -23,73 +23,73 @@ def add_booking(request, holiday_id):
     in the session variable if the holiday exists in the database and there are
     flights associated with it that satisfy the user's requirements.
     """
-    if request.method == 'POST':
-        booking = None
-        booking_number = request.session.get('booking_number', '')
-        holiday = Package.objects.get(pk=holiday_id)
+    booking = None
+    booking_number = request.session.get('booking_number', '')
+    holiday = Package.objects.get(pk=holiday_id)
+    redirect_url = request.POST['redirect_url']
 
-        """
-        Code for adding time onto a datetime object is from
-        https://www.kite.com/python/answers/how-to-add-hours-to-the-current-time-in-python,
-        code for converting a string to a date object is from
-        https://stackabuse.com/converting-strings-to-datetime-in-python
-        and code for converting time zones is from
-        https://pypi.org/project/pytz/
-        """
-        try:
-            outbound_flight = Flight.objects.get(
-                packages__name=holiday.name,
-                origin=request.POST['departure_airport'])
-            return_flight = Flight.objects.get(
-                packages__name=holiday.name,
-                destination=request.POST['departure_airport'])
-            departure_date = datetime.strptime(
-                request.POST['departure_date'], "%d/%m/%Y").date()
-            outbound_flight_departure = outbound_flight.departure_time \
-                .astimezone(outbound_flight.origin_time_zone)
-            outbound_flight_arrival = outbound_flight.arrival_time \
-                .astimezone(outbound_flight.destination_time_zone)
-            flight_days = (outbound_flight_arrival -
-                           outbound_flight_departure).days
-            return_date = departure_date + timedelta(
-                days=int(holiday.duration + flight_days))
+    """
+    Code for adding time onto a datetime object is from
+    https://www.kite.com/python/answers/how-to-add-hours-to-the-current-time-in-python,
+    code for converting a string to a date object is from
+    https://stackabuse.com/converting-strings-to-datetime-in-python
+    and code for converting time zones is from
+    https://pypi.org/project/pytz/
+    """
+    try:
+        outbound_flight = Flight.objects.get(
+            packages__name=holiday.name,
+            origin=request.POST['departure_airport'])
+        return_flight = Flight.objects.get(
+            packages__name=holiday.name,
+            destination=request.POST['departure_airport'])
+        departure_date = datetime.strptime(
+            request.POST['departure_date'], "%d/%m/%Y").date()
+        outbound_flight_departure = outbound_flight.departure_time \
+            .astimezone(outbound_flight.origin_time_zone)
+        outbound_flight_arrival = outbound_flight.arrival_time \
+            .astimezone(outbound_flight.destination_time_zone)
+        flight_days = (outbound_flight_arrival -
+                        outbound_flight_departure).days
+        return_date = departure_date + timedelta(
+            days=int(holiday.duration + flight_days))
 
-            if booking_number:
-                booking = Booking.objects.filter(
-                    booking_number=booking_number).delete()
+        if booking_number:
+            booking = Booking.objects.filter(
+                booking_number=booking_number).delete()
 
-            if request.user.is_authenticated:
-                profile = UserProfile.objects.get(user=request.user)
-                booking = Booking(
-                    user_profile=profile,
-                    package=holiday,
-                    guests=int(request.POST['guests']),
-                    departure_date=departure_date,
-                    return_date=return_date,
-                    outbound_flight=outbound_flight,
-                    return_flight=return_flight
-                )
-                booking.save()
+        if request.user.is_authenticated:
+            profile = UserProfile.objects.get(user=request.user)
+            booking = Booking(
+                user_profile=profile,
+                package=holiday,
+                guests=int(request.POST['guests']),
+                departure_date=departure_date,
+                return_date=return_date,
+                outbound_flight=outbound_flight,
+                return_flight=return_flight
+            )
+            booking.save()
 
-            else:
-                booking = Booking(
-                    package=holiday,
-                    guests=int(request.POST['guests']),
-                    departure_date=departure_date,
-                    return_date=return_date,
-                    outbound_flight=outbound_flight,
-                    return_flight=return_flight
-                )
-                booking.save()
+        else:
+            booking = Booking(
+                package=holiday,
+                guests=int(request.POST['guests']),
+                departure_date=departure_date,
+                return_date=return_date,
+                outbound_flight=outbound_flight,
+                return_flight=return_flight
+            )
+            booking.save()
 
-            request.session['booking_number'] = booking.booking_number
+        request.session['booking_number'] = booking.booking_number
 
-        except Flight.DoesNotExist:
-            messages.error(
-                request,
-                'Unable to find flights. '
-                'Please select another date and try again.')
-            return(redirect(request.META.get('HTTP_REFERER') or reverse('home')))
+    except Flight.DoesNotExist:
+        messages.error(
+            request,
+            'Unable to find flights. '
+            'Please select another date and try again.')
+        return(redirect(redirect_url))
 
     return redirect(reverse('booking'))
 
@@ -229,7 +229,8 @@ def remove_extra(request, extra_id):
 def add_coupon(request):
     """
     A view to add the specified coupon to the booking if it
-    exists in the database
+    exists in the database. Code for the coupon query is from
+    https://docs.djangoproject.com/en/3.2/ref/models/querysets/
     """
     coupon_name = request.POST.get('coupon')
     booking_number = request.session.get('booking_number')
