@@ -7,8 +7,6 @@ class FlightAdmin(admin.ModelAdmin):
     Code for list_per_page is from
     https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#modeladmin-options
     """
-    list_select_related = ('packages',)
-
     readonly_fields = ('duration',)
 
     fields = (
