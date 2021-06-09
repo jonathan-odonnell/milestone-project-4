@@ -1,7 +1,9 @@
+from re import I
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
+from .forms import CheckoutForm
 from booking.models import Booking
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
@@ -106,22 +108,30 @@ class WH_Handler:
             try:
                 """
                 If booking_exists remains false after 5 attempts, try and
-                retreive the booking and update the booking contact details
-                and payment details from the payment intent
+                retreive the booking, save the checkout form and update
+                the payment details in the booking
                 """
                 booking = Booking.objects.get(booking_number=booking_number)
-                booking.full_name = shipping_details.name
-                booking.email = billing_details.email
-                booking.phone_number = shipping_details.phone
-                booking.street_address1 = shipping_details.address.line1
-                booking.street_address2 = shipping_details.address.line2
-                booking.town_or_city = shipping_details.address.city
-                booking.county = shipping_details.address.state
-                booking.country = shipping_details.address.country
-                booking.postcode = shipping_details.address.postal_code
-                booking.paid = True
-                booking.stripe_pid = pid
-                booking.save()
+
+                form_data = {
+                    'full_name': shipping_details.name,
+                    'email': billing_details.email,
+                    'phone_number': shipping_details.phone,
+                    'street_address1': shipping_details.address.line1,
+                    'street_address2': shipping_details.address.line2,
+                    'town_or_city': shipping_details.address.city,
+                    'county': shipping_details.address.state,
+                    'country': shipping_details.address.country,
+                    'postcode': shipping_details.address.postal_code,
+                }
+
+                booking_form = CheckoutForm(form_data, instance=booking)
+
+                if booking_form.is_valid():
+                    booking = booking_form.save(commit=False)
+                    booking.paid = True
+                    booking.stripe_pid = pid
+                    booking.save()
 
                 """
                 Saves the user's details to their profile if they were signed
