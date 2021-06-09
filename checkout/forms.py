@@ -8,13 +8,16 @@ class BookingForm(forms.ModelForm):
         model = Booking
         fields = ('full_name', 'email', 'phone_number',
                   'street_address1', 'street_address2',
-                  'town_or_city', 'county', 'postcode', 
+                  'town_or_city', 'county', 'postcode',
                   'country',)
 
     def __init__(self, *args, **kwargs):
         """
-        Add placeholders and classes, remove auto-generated
-        labels and set autofocus on first field
+        Adds address field, placeholders and classes, removes the labels,
+        changes the phone number field widget to a number input and sets
+        autofocus on the full name field. Code for setting the field_class
+        and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
         """
         super().__init__(*args, **kwargs)
 
@@ -35,6 +38,7 @@ class BookingForm(forms.ModelForm):
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
         self.fields['address'] = forms.CharField(required=False)
+        self.fields['phone_number'].widget = forms.NumberInput()
         for field in self.fields:
             if field != 'country':
                 if self.fields[field].required:
