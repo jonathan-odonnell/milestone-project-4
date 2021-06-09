@@ -11,7 +11,7 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Adds address field, placeholders and classes, removes auto-generated
+        Adds address field, placeholders and classes, removes the
         labels and changes the phone number field widget to a number input.
         Code for setting the field_class and label_class is from
         https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
