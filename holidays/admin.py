@@ -33,17 +33,6 @@ class ItineraryInline(admin.StackedInline):
     classes = ['collapse']
 
 
-class ReviewInline(admin.StackedInline):
-    """
-    Code for the stacked inline, extra and classes is from
-    https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#inlinemodeladmin-objects
-    """
-    model = Review
-    extra = 1
-    fields = ('full_name', 'rating', 'title', 'review',)
-    classes = ['collapse']
-
-
 class PackageAdmin(admin.ModelAdmin):
     """
     Code for filter_horizontal, list_filter and list_per_page is from
@@ -61,13 +50,11 @@ class PackageAdmin(admin.ModelAdmin):
         FeatureInline,
         ActivityInline,
         ItineraryInline,
-        ReviewInline,
     ]
 
     filter_horizontal = ('extras', 'flights')
 
-    list_display = ('name', 'country', 'category',
-                    'price',)
+    list_display = ('name', 'country', 'category', 'price',)
 
     list_filter = ('category', 'country')
 
@@ -76,7 +63,24 @@ class PackageAdmin(admin.ModelAdmin):
     list_per_page = 20
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    """
+    Code for list_per_page is from
+    https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#modeladmin-options
+    """
+    readonly_fields = ('date',)
+
+    fields = ('package', 'full_name', 'date', 'rating', 'title', 'review',)
+
+    list_display = ('title', 'full_name', 'rating', 'date',)
+
+    ordering = ('-date',)
+
+    list_per_page = 20
+
+
 admin.site.register(Category)
 admin.site.register(Country)
 admin.site.register(Package, PackageAdmin)
 admin.site.register(Region)
+admin.site.register(Review, ReviewAdmin)
