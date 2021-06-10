@@ -113,16 +113,17 @@ def holidays(request, category=None, destination=None):
     return render(request, 'holidays/holidays.html', context)
 
 
-def holiday_details(request, slug, destination=None, category=None):
+def holiday_details(request, package, destination=None, category=None):
     """ A view to show individual holiday details and 4 related holidays"""
-    holiday = get_object_or_404(Package.objects, slug=slug)
+    holiday = get_object_or_404(Package.objects, slug=package)
 
     """
     A view to return a list of all outbound airports. Code for returning
     distinct airport names in a list is from
     https://stackoverflow.com/questions/10848809/django-model-get-distinct-value-list
     """
-    airports = Flight.objects.filter(packages__slug=slug, direction='Outbound')
+    airports = Flight.objects.filter(
+        packages__slug=package, direction='Outbound')
     airports = list(airports.values_list('origin', flat=True).distinct())
     can_review = False
 
