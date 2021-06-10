@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import Package, Category, Region, Review
+from flights.models import Flight
 from booking.models import Booking
 from profiles.models import UserProfile
 from .forms import (PackageForm, FeatureFormSet,
@@ -115,6 +116,14 @@ def holidays(request, category=None, destination=None):
 def holiday_details(request, slug, destination=None, category=None):
     """ A view to show individual holiday details and 4 related holidays"""
     holiday = get_object_or_404(Package.objects, slug=slug)
+
+    """
+    A view to return a list of all outbound airports. Code for returning
+    distinct airport names in a list is from
+    https://stackoverflow.com/questions/10848809/django-model-get-distinct-value-list
+    """
+    airports = Flight.objects.filter(packages__slug=slug, direction='Outbound')
+    airports = list(airports.values_list('origin', flat=True).distinct())
     can_review = False
 
     """
@@ -159,6 +168,7 @@ def holiday_details(request, slug, destination=None, category=None):
 
     context = {
         'holiday': holiday,
+        'airports': airports,
         'related_holidays': related_holidays,
         'category': category,
         'destination': destination,

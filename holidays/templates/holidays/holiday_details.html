@@ -169,11 +169,14 @@
                         <label for="departure_date" class="form-label">Departure Date</label>
                         <input type="text" class="form-control" id="departure_date" name="departure_date" required>
                     </div>
-                    <div id="departure-airport-container" class="position-relative mb-3">
+                    <div class="mb-3">
                         <label for="departure_airport" class="form-label">Departure Airport</label>
-                        <input type="text" class="form-control" id="departure_airport" name="departure_airport" required
-                            autocomplete="off">
-                        <div id="airports-list" class="position-absolute shadow w-100 d-none"></div>
+                        <select class="form-select" id="departure_airport">
+                            <option selected></option>
+                            {% for airport in airports %}
+                            <option value="{{ airport }}">{{ airport }}</option>
+                            {% endfor %}
+                          </select>
                     </div>
                     <label for="guests" class="form-label">Guests</label>
                     <div class="input-group guests me-auto">
@@ -239,13 +242,5 @@
 {% block postloadjs %}
 {{ block.super }}
 <script src="{% static 'js/ratings.js' %}"></script>
-<script>
-    let airports
-    $(document).ready(function () {
-        $.get('{% url "airports" holiday.id %}').done(function (data) {
-            airports = data.airports
-        })
-    })
-</script>
 <script src="{% static 'js/holiday_details.js' %}"></script>
 {% endblock %}
