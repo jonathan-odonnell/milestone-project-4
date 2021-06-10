@@ -9,17 +9,6 @@ from holidays.models import Flight
 from .forms import FlightForm
 
 
-def airports(request, holiday_id):
-    """
-    A view to return a list of all outbound airports. Code for returning
-    distinct airport names in a list is from
-    https://stackoverflow.com/questions/10848809/django-model-get-distinct-value-list
-    """
-    airports = Flight.objects.filter(packages=holiday_id, direction='Outbound')
-    airports = list(airports.values_list('origin', flat=True).distinct())
-    return JsonResponse({'airports': airports})
-
-
 @login_required
 @superuser_required
 def flights(request):
