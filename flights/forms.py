@@ -7,8 +7,8 @@ from crispy_forms.helper import FormHelper
 class FlightForm(forms.ModelForm):
     """
     Adds timezone field blank option values, formats datetime field values,
-    adds classes, removes auto-generated labels and sets the autofocus on
-    first field. Code for formatting the datetime field values is from
+    adds classes and removes labels. Code for formatting the datetime field
+    values is from
     https://docs.djangoproject.com/en/3.2/ref/forms/widgets/#django.forms.DateTimeInput
     and code for setting the field_class and label_class is from
     https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
