@@ -45,12 +45,14 @@ def add_booking(request, holiday_id):
             destination=request.POST['departure_airport'])
         departure_date = datetime.strptime(
             request.POST['departure_date'], "%d/%m/%Y").date()
-        outbound_flight_departure = outbound_flight.departure_time \
-            .astimezone(outbound_flight.origin_time_zone)
-        outbound_flight_arrival = outbound_flight.arrival_time \
-            .astimezone(outbound_flight.destination_time_zone)
+        outbound_flight_departure = outbound_flight.origin_time_zone \
+            .normalize(outbound_flight.departure_time.astimezone(
+                outbound_flight.origin_time_zone))
+        outbound_flight_arrival = outbound_flight.destination_time_zone \
+            .normalize(outbound_flight.arrival_time.astimezone(
+                outbound_flight.destination_time_zone))
         flight_days = (outbound_flight_arrival -
-                        outbound_flight_departure).days
+                       outbound_flight_departure).days
         return_date = departure_date + timedelta(
             days=int(holiday.duration + flight_days))
 
