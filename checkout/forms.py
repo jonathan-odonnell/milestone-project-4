@@ -13,10 +13,10 @@ class CheckoutForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Adds address field, placeholders and classes, removes the labels,
-        changes the phone number field widget to a number input and sets
-        autofocus on the full name field. Code for setting the field_class
-        and label_class is from
+        Adds address field, placeholders, classes, and country field blank
+        option, removes the labels, changes the phone number field widget to
+        a number input and sets autofocus on the full name field. Code for
+        setting the field_class and label_class is from
         https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
         """
         super().__init__(*args, **kwargs)
@@ -46,5 +46,8 @@ class CheckoutForm(forms.ModelForm):
                 else:
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
+            else:
+                self.fields[field].choices = [
+                    ('', 'Country *')] + self.fields[field].choices
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False
