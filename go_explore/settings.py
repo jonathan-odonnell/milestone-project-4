@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     # Other
     'crispy_forms',
     'storages',
-    'timezone_field'
+    'timezone_field',
+    'phonenumber_field'
 ]
 
 MIDDLEWARE = [
@@ -175,6 +176,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+PHONENUMBER_DEFAULT_REGION = 'GB'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

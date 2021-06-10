@@ -3,6 +3,7 @@ import uuid
 from django.db.models import Sum
 from django.db.models.deletion import SET_NULL
 from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
 from profiles.models import UserProfile
 from holidays.models import Package
 from flights.models import Flight
@@ -27,7 +28,7 @@ class Booking(models.Model):
         UserProfile, on_delete=models.SET_NULL, null=True,
         blank=True, related_name='bookings')
     email = models.EmailField(max_length=254, default='')
-    phone_number = models.CharField(max_length=20, default='')
+    phone_number = PhoneNumberField(max_length=20, default='')
     street_address1 = models.CharField(max_length=80, default='')
     street_address2 = models.CharField(
         max_length=80, null=True, blank=True, default='')
