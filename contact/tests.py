@@ -4,6 +4,7 @@ from allauth.account.models import EmailAddress
 from .models import CustomerContact
 from .forms import ContactForm
 
+
 class TestContactViews(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
@@ -39,11 +40,12 @@ class TestContactViews(TestCase):
             'message': 'This is a test message',
         })
         self.assertEqual(response.status_code, 200)
-        customer_contact = CustomerContact.objects.get(email='test@example.com')
+        customer_contact = CustomerContact.objects.get(
+            email='test@example.com')
         self.assertEqual(customer_contact.full_name, 'Test User')
         self.assertEqual(customer_contact.subject, 'Offers')
         self.assertEqual(customer_contact.message, 'This is a test message')
-        self.assertEqual(str(customer_contact), 'Test User - Offers')  
+        self.assertEqual(str(customer_contact), 'Test User - Offers')
 
 
 class TestContactForm(TestCase):
@@ -54,7 +56,8 @@ class TestContactForm(TestCase):
             'subject': '',
             'message': '',
         })
-        self.assertEqual(form.errors['full_name'][0], 'This field is required.')
+        self.assertEqual(form.errors['full_name']
+                         [0], 'This field is required.')
         self.assertEqual(form.errors['email'][0], 'This field is required.')
         self.assertEqual(form.errors['subject'][0], 'This field is required.')
         self.assertEqual(form.errors['message'][0], 'This field is required.')
@@ -66,8 +69,8 @@ class TestContactForm(TestCase):
             'subject': 'Offers',
             'message': 'This is a test message',
         })
-        self.assertEqual(form.errors['email'][0], 'Enter a valid email address.')
-
+        self.assertEqual(form.errors['email'][0],
+                         'Enter a valid email address.')
 
     def test_excluded_in_form_metaclass(self):
         form = ContactForm()
