@@ -22,7 +22,7 @@ class TestBookingViews(TestCase):
         https://docs.djangoproject.com/en/3.2/topics/testing/advanced/,
         code for creating the email address is from
         https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py,
-        code for creating the flight and adding it to the package is from
+        code for creating the flight is from
         https://docs.djangoproject.com/en/3.2/ref/models/relations/
         and code for the first method is from
         https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first
@@ -285,10 +285,10 @@ class TestBookingViews(TestCase):
 
     def test_logged_in_user_can_get_passengers_page(self):
         """
-        Verifies that a status of 200 is returned when the user tries to
-        access the passengers page and a booking number is stored in the
-        browser's session variable. Code for the get request, setting the
-        logging in the user and setting the booking number in the session
+        Logs in the user and verifies that a status of 200 is returned when
+        the user tries to access the passengers page and a booking number is
+        stored in the browser's session variable. Code for the get request,
+        setting the user and setting the booking number in the session
         variable is from
         https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory
         """
@@ -298,7 +298,7 @@ class TestBookingViews(TestCase):
         response = passengers(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_anonymous_user_can_add_passenger_details(self):
+    def test_can_add_passenger_details(self):
         """
         Logs in the user and verifies that a status of 302 is returned and a
         new booking passenger is added to the booking in the database when a
@@ -317,29 +317,6 @@ class TestBookingViews(TestCase):
             'booking_passengers-0-passport_number': '123456789',
         })
         request.user = AnonymousUser()
-        request.session = {'booking_number': self.booking.booking_number}
-        response = passengers(request)
-        self.assertEqual(response.status_code, 302)
-
-    def test_logged_in_user_can_add_passenger_details(self):
-        """
-        Logs in the user and verifies that a status of 302 is returned and a
-        new booking passenger is added to the booking in the database when a
-        post request with valid passenger details is submitted to the
-        passengers page. Code for the post request, logging in the user and
-        setting the booking number in the session variable is from
-        https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory
-        """
-        request = self.factory.post('/booking/passengers/', {
-            'booking_passengers-TOTAL_FORMS': '1',
-            'booking_passengers-INITIAL_FORMS': '0',
-            'booking_passengers-MIN_NUM_FORMS': '0',
-            'booking_passengers-MAX_NUM_FORMS': '1000',
-            'booking_passengers-0-full_name': 'Test User',
-            'booking_passengers-0-date_of_birth': '01/01/1990',
-            'booking_passengers-0-passport_number': '123456789',
-        })
-        request.user = self.user
         request.session = {'booking_number': self.booking.booking_number}
         response = passengers(request)
         self.assertEqual(response.status_code, 302)
