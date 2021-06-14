@@ -77,10 +77,20 @@ class TestProfilesViews(TestCase):
         )
 
     def test_get_anonymous_user_profile_page(self):
+        """
+        Verifies that an anonymous user is redirected to the login page
+        when they try and access the profile page.
+        """
         response = self.client.get('/profile/')
         self.assertRedirects(response, '/accounts/login/?next=/profile/')
 
     def test_get_logged_in_profile_page(self):
+        """
+        Logs in the user and verifies that a status of 200 is returned and
+        the profile template was used when they try and access the profile
+        page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -90,6 +100,13 @@ class TestProfilesViews(TestCase):
         self.assertTemplateUsed(response, 'profiles/profile.html')
 
     def test_can_update_profile(self):
+        """
+        Logs in the user and verifies that a status of 200 is returned,
+        the bookings template was used and the user's profile is updated
+        in the database when a post request with valid profile details is
+        submitted to the profile page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -112,11 +129,21 @@ class TestProfilesViews(TestCase):
         self.assertEqual(profile_qs.postcode, 'Test')
 
     def test_anonymous_user_get_bookings_page(self):
+        """
+        Verifies that an anonymous user is redirected to the login page
+        when they try and access the bookings page.
+        """
         response = self.client.get('/profile/bookings/')
         self.assertRedirects(
             response, '/accounts/login/?next=/profile/bookings/')
 
     def test_logged_in_user_get_bookings_page(self):
+        """
+        Logs in the user and verifies that a status of 200 is returned and
+        the bookings template was used when they try and access the bookings
+        page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -126,23 +153,41 @@ class TestProfilesViews(TestCase):
         self.assertTemplateUsed(response, 'profiles/bookings.html')
 
     def test_anonymous_user_get_booking_details_page(self):
+        """
+        Verifies that an anonymous user is redirected to the login page
+        when they try and access the booking details page. Code for the
+        first method is from
+        https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first
+        """
         response = self.client.get(
-            f'/profile/bookings/{self.user.userprofile.bookings.first().booking_number}/')
+            f'/profile/bookings/\
+                {self.user.userprofile.bookings.first().booking_number}/')
         self.assertRedirects(
-            response, f'/accounts/login/?next=/profile/bookings/{self.user.userprofile.bookings.first().booking_number}/')
+            response, f'/accounts/login/?next=/profile/bookings/\
+                {self.user.userprofile.bookings.first().booking_number}/')
 
     def test_logged_in_user_get_booking_details_page(self):
+        """
+        Logs in the user and verifies that a status of 200 is returned and
+        the checkout success template was used when they try and access the
+        booking details page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        and code for the first method is from
+        https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
         )
         response = self.client.get(
-            f'/profile/bookings/{self.user.userprofile.bookings.first().booking_number}/')
+            f'/profile/bookings/\
+            {self.user.userprofile.bookings.first().booking_number}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'checkout/checkout_success.html')
 
 
 class TestProfilesForms(TestCase):
+    """Tests the email address field is required in the extra form"""
     def test_user_profile_form_email_address_field_required(self):
         form = UserProfileForm({
             'email_address': '',
@@ -157,6 +202,7 @@ class TestProfilesForms(TestCase):
                          [0], 'This field is required.')
 
     def test_user_profile_form_invalid_email_address_field(self):
+        """Tests the email address invalid inpit in the extra form"""
         form = UserProfileForm({
             'email_address': 'Not an email address',
             'phone_number': '',
@@ -170,10 +216,12 @@ class TestProfilesForms(TestCase):
                          [0], 'Enter a valid email address.')
 
     def test_user_profile_form_excluded_in_metaclass(self):
+        """Tests the excluded attribute of the profile form meta class"""
         form = UserProfileForm()
         self.assertEqual(form.Meta.exclude, ('user', 'stripe_customer_id'))
 
     def test_custom_signup_form_all_fields_required(self):
+        """Tests the required fields in the custom sign up form"""
         form = CustomSignupForm({
             'first_name'
             'last_name': '',
@@ -195,6 +243,11 @@ class TestProfilesForms(TestCase):
 
 class TestProfilesModels(TestCase):
     def test_user_profile_string_method_returns_flight_number(self):
+        """
+        Creates a user and verifies that the string
+        method is correct. Code for creating the user is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/advanced/
+        """
         user = User.objects.create_user(
             username='admin',
             email='admin@example.com',
