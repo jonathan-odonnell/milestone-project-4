@@ -4,7 +4,10 @@ from .models import Booking
 
 
 def booking_details(request):
-
+    """
+    A context processor to return the offer amount, promo code,
+    booking and selected extras.
+    """
     booking_number = request.session.get('booking_number', '')
     booking = None
     selected_extras = []
@@ -14,8 +17,6 @@ def booking_details(request):
         if booking.booking_extras.all():
             for extra in booking.booking_extras.all():
                 selected_extras.append(extra.extra.id)
-
-        
 
     context = {
         'offer_amount': settings.OFFER_AMOUNT,
