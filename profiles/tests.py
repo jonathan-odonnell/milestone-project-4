@@ -12,6 +12,19 @@ import pytz
 
 class TestProfilesViews(TestCase):
     def setUp(self):
+        """
+        Sets up the user, email address, site, social apps, holiday, flight
+        and user profile. Code for creating the user is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/advanced/,
+        code for creating the email address is from
+        https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py,
+        code for creating the site and social apps is from
+        https://stackoverflow.com/questions/29721360/django-test-with-allauth,
+        code for creating the flight and adding it to the package is from
+        https://docs.djangoproject.com/en/3.2/ref/models/relations/
+        and code for creating the user profile is from
+        https://stackoverflow.com/questions/11088901/django-onetoone-reverse-access
+        """
         self.user = User.objects.create_user(
             username='test',
             email='test@example.com',
@@ -23,7 +36,6 @@ class TestProfilesViews(TestCase):
             email=self.user.email,
         )
 
-        # https://stackoverflow.com/questions/29721360/django-test-with-allauth
         current_site = Site.objects.get_current()
 
         current_site.socialapp_set.create(
@@ -202,7 +214,7 @@ class TestProfilesForms(TestCase):
                          [0], 'This field is required.')
 
     def test_user_profile_form_invalid_email_address_field(self):
-        """Tests the email address invalid inpit in the extra form"""
+        """Tests the email address invalid input in the extra form"""
         form = UserProfileForm({
             'email_address': 'Not an email address',
             'phone_number': '',
