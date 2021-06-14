@@ -6,7 +6,10 @@ register = template.Library()
 
 @register.filter(name='duration')
 def duration(td):
-    #https://stackoverflow.com/questions/33105457/display-and-format-django-durationfield-in-template
+    """
+    A template tag to return the flight duration. Code is from
+    https://stackoverflow.com/questions/33105457/display-and-format-django-durationfield-in-template
+    """
     total_seconds = int(td.total_seconds())
     hours = total_seconds // 3600
     minutes = (total_seconds % 3600) // 60
@@ -14,10 +17,19 @@ def duration(td):
     return f'{hours}h {minutes}m'
 
 
-@register.filter(name='next_day')
-def next_day(flight):
-    departure = flight.departure_time.astimezone(flight.origin_time_zone)
-    arrival = flight.arrival_time.astimezone(flight.destination_time_zone)
+@register.filter(name='extra_days')
+def extra_days(flight):
+    """
+    A template tag to return the number of extra days. Code is from
+    https://pypi.org/project/pytz/ and
+    https://stackoverflow.com/questions/151199/how-to-calculate-number-of-days-between-two-given-dates
+    """
+    departure = flight.origin.time_zone.normalize(
+        flight.departure_time.astimezone(flight.origin_time_zone)
+    )
+    arrival = flight.destination_time_zone.normalize(
+        flight.arrival_time.astimezone(flight.destination_time_zone)
+    )
     difference = arrival.date() - departure.date()
 
     if difference.days == 1:
@@ -28,8 +40,11 @@ def next_day(flight):
 
 
 @register.filter(name='extra_quantity')
-def extra_quantity(extras, item_id):
+def extra_quantity(extras, extra_id):
+    """
+    A template tag to return the extra quantity
+    """
     for item in extras:
-        if item.extra.id == item_id:
+        if item.extra.id == extra_id:
             return item.quantity
     return 1
