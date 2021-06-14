@@ -250,9 +250,9 @@
                                 <div class="col-4 text-end">
                                     <small>{{outbound_flight.arrival_time|timezone:outbound_flight.destination_time_zone|time:'H:i'}}</small>
                                     <br>
-                                    {% with outbound_flight|next_day as next_day %}
-                                    {% if next_day %}
-                                        <small>{{ next_day }}</small>
+                                    {% with outbound_flight|extra_days as extra_days %}
+                                    {% if extra_days %}
+                                        <small>{{ extra_days }}</small>
                                     {% endif %}
                                     {% endwith %}
                                 </div>
@@ -284,9 +284,9 @@
                             <div class="col-4 text-end">
                                 <small>{{return_flight.arrival_time|timezone:return_flight.destination_time_zone|time:'H:i'}}</small>
                                 <br>
-                                {% with return_flight|next_day as next_day %}
-                                {% if next_day %}
-                                    <small>{{ next_day }}</small>
+                                {% with return_flight|extra_days as extra_days %}
+                                {% if extra_days %}
+                                    <small>{{ extra_days }}</small>
                                 {% endif %}
                                 {% endwith %}
                             </div>
