@@ -20,7 +20,7 @@ class TestProfilesViews(TestCase):
         https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py,
         code for creating the site and social apps is from
         https://stackoverflow.com/questions/29721360/django-test-with-allauth,
-        code for creating the flight and adding it to the package is from
+        code for creating the flight is from
         https://docs.djangoproject.com/en/3.2/ref/models/relations/
         and code for creating the user profile is from
         https://stackoverflow.com/questions/11088901/django-onetoone-reverse-access
@@ -63,10 +63,6 @@ class TestProfilesViews(TestCase):
             transfers_included=True
         )
 
-        """
-        Code for adding the flights related object is from 
-        https://docs.djangoproject.com/en/3.2/ref/models/relations/
-        """
         self.holiday.flights.create(
             flight_number='ZZ001',
             origin='Test Airport',
