@@ -27,6 +27,32 @@ This font was chosen because it makes the content easy to read.
 
 ### Existing Features
 
+### Features Left To Implement
+
+1. More Destinations
+   - Add more destinations including from more countries and more holiday categories.
+
+2. Flight and Holiday Package Capacity Limits
+    - Add a capacity limits to the flights and packages model and add a date selection page where the user can only select dates with available capacity.
+
+3. Different Prices on Different Dates
+    - Add a prices model and functionality to search holidays by departure date.
+
+4. Buy Now Pay Later Payment Option
+    - Add a payment option where the customer can split the payment over a series of monthly payments. 
+
+5. Add Paypal Payments Webhooks
+    - Add webhooks for paypal payments to ensure that the booking is updated if the user closes the checkout page after payment has been approved but before the form has been submitted. 
+
+6. Include Visa Information in Confirmation Email
+    - Amend the confirmation email to include visa information for the relevant destination.
+
+7. Manage Payment Methods from Profile
+    - Add an additional page to the profile app where the user can add, update and delete their payment methods.
+
+8. Amend Booking
+    - Add functionality to the bookings page to be able to submit a request to amend a booking.
+
 ## Technologies Used
 
 ### Languages Used
