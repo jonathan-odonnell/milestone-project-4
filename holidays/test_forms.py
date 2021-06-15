@@ -1,7 +1,7 @@
 from django.test import TestCase
 from .models import Package
-from .forms import (PackageForm, FeatureForm, FeatureFormSet, ActivityForm,
-                    ActivityFormSet, ItineraryForm, ItineraryFormSet,
+from .forms import (PackageForm, FeatureForm, FeaturesFormSet, ActivityForm,
+                    ActivitiesFormSet, ItineraryForm, ItinerariesFormSet,
                     ReviewForm)
 
 
@@ -57,7 +57,7 @@ class TestHolidayForms(TestCase):
 
     def test_features_formset_all_fields_not_required(self):
         """Tests the required fields in the features formset"""
-        form = FeatureFormSet({
+        form = FeaturesFormSet({
             'features-TOTAL_FORMS': '1',
             'features-INITIAL_FORMS': '0',
             'features-MIN_NUM_FORMS': '0',
@@ -74,7 +74,7 @@ class TestHolidayForms(TestCase):
 
     def test_activities_formset_all_fields_not_required(self):
         """Tests the required fields in the activities formset"""
-        form = ActivityFormSet({
+        form = ActivitiesFormSet({
             'activities-TOTAL_FORMS': '1',
             'activities-INITIAL_FORMS': '0',
             'activities-MIN_NUM_FORMS': '0',
@@ -91,7 +91,7 @@ class TestHolidayForms(TestCase):
 
     def test_itineraries_formset_all_fields_not_required(self):
         """ Tests the required fields in the itineraries formset """
-        form = ItineraryFormSet({
+        form = ItinerariesFormSet({
             'itineraries-TOTAL_FORMS': '1',
             'itineraries-INITIAL_FORMS': '0',
             'itineraries-MIN_NUM_FORMS': '0',
