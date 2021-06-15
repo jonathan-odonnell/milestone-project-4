@@ -24,7 +24,57 @@
 
 ### Languages Used
 
+1. [HTML5:](https://en.wikipedia.org/wiki/HTML5/)
+   - HTML5 was used for the sturcture of the webpages.
+2. [CSS3:](https://en.wikipedia.org/wiki/Cascading_Style_Sheets/)
+   - CSS3 was used for the styling of the webpages.
+3. [JavaScript:](https://en.wikipedia.org/wiki/JavaScript/)
+   - JavaScript was used for the interactive features on the webpages.
+4. [Python:](https://www.python.org/)
+    - Python was used to communicate the database information to the browser.
+
 ### Frameworks, Libraries & Programs Used
+
+1. [Bootstrap 5](https://getbootstrap.com/)
+   - Bootstrap was used for the navbar, forms, butons, dropdowns, tabs, cards, tables and toasts. Bootstrap was also used for the grid which assists with the responsiveness of the website and for the styling.
+2. [Material Design Bootstrap](https://mdbootstrap.com/)
+    - The Material Design Bootstrap theme was used for the styling of the website.
+3. [Hover.css](https://ianlunn.github.io/Hover/)
+   - Hover.css was used for the hover effects on the social media icons.
+4. [Font Awesome](https://fontawesome.com/)
+   - Font Awesome was used throughout the website to enhance the user experience by adding icons.
+5. [jQuery](https://jquery.com/)
+   - JQuery was used throughout the website for the interactive features.
+6. [Slick Slider](https://kenwheeler.github.io/slick/)
+    - Slick Slider was used for the offers carousel, popular holidays slider and related holidays sliders. License is [here](slick_license.md).
+7. [Gijgo](https://gijgo.com/)
+    - Gijgo was used for the datepicker and datetime picker.
+8. [JQuery.formset](https://github.com/nortigo/jquery-formset)
+    - JQuery.formset was used to dynamically add rows to the formsets in the add holiday and edit holiday forms.
+9. [Pytz](https://pypi.org/project/pytz/)
+    - Pytz was used for the coverting of time zones.
+8. [Stripe](https://stripe.com/docs/payments)
+    - The Stripe API was used for the processing of card, Apple Pay and Google Pay payments.
+9. [Paypal](https://developer.paypal.com/docs/checkout/)
+    - The Paypal Smart Payment Button API was used for the processing of Paypal Payments.
+10. [Django](https://www.djangoproject.com/)
+    - Django was used for the accessing of the data models, the routing of the appliction, the messages and the templating.
+11. [Postgresql](https://www.postgresql.org/)
+    - A postgresql database was used to store the data used in the project.
+12. [Visual Studio Code](https://code.visualstudio.com/)
+    - Visual Studio Code was used to write the code for this project and gitpod terminal was used to commit changes to Git and push them to GitHub.
+13. [Git](https://git-scm.com/)
+    - Git was the version control system used for this project.
+14. [GitHub](https://github.com/)
+    - GitHub is used to store the project's code and any other required files.
+15. [Heroku](https://www.heroku.com/)
+    - Heroku is used to host the deployed website.
+16. [Amazon Web Services]
+    - Amazon Web Services was used to host the images and static files used in the website
+17. [Balsamiq](https://balsamiq.com/)
+    - Balsamiq was used to create the wireframes during the design phase of the project.
+18. [DB Diagram](https://dbdiagram.io/home)
+    - DB Diagram was used to create the Entity Relationship Diagrams of the database.
 
 ## Testing
 
