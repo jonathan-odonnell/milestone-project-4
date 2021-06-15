@@ -53,7 +53,7 @@ class TestExtrasViews(TestCase):
     def test_get_extras_page(self):
         """
         Verifies that a status of 200 is returned and the extras template was
-        used when the user tries and access the extras page
+        used when the user tries to access the extras page
         """
         response = self.client.get('/extras/')
         self.assertEqual(response.status_code, 200)
