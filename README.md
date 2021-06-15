@@ -212,6 +212,7 @@ The GitHub Repository can be forked using the following steps:
 
 1.  Log in to GitHub and locate the project's [GitHub Repository](https://github.com/jonathan-odonnell/milestone-project-4).
 2.  At the top-right of the repository, click the "Fork" Button.
+![Image of the fork button](media/deployment/fork.png)
 
 More information about forking a GitHub repository is available [here](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo).
 
@@ -219,10 +220,14 @@ More information about forking a GitHub repository is available [here](https://d
 
 A local clone of the project can be created using the following steps:
 
-1.  Log in to GitHub and locate the project's [GitHub Repository](https://github.com/jonathan-odonnell/milestone-project-4).
-2.  Under the repository name, click the "Code" button.
-3.  To clone the repository using HTTPS, under "Clone with HTTPS", click the clipboard button to copy the repository URL.
-    To clone using SSH click "Use SSH" and then click the clipboard button.
+1. Log in to GitHub and locate the project's [GitHub Repository](https://github.com/jonathan-odonnell/milestone-project-4).
+2. Under the repository name, click the "Code" button.
+![Image of the code button](media/deployment/clone_1.png)
+3. To clone the repository using HTTPS, under "Clone with HTTPS", click the clipboard button to copy the repository URL.
+![Image of the clipboard button](media/deployment/clone_2.png)
+To clone using GitHub CLI, click "Use GitHub" CLI and then click the clipboard button.
+![Image of the use GitHub CLI button](media/deployment/clone_3.png)
+![Image of the clipboard button](media/deployment/clone_4.png)
 4.  Open the terminal.
 5.  Change the current working directory to the location where you want to store the cloned repository.
 6.  Type `git clone` and then paste the URL you copied in Step 3.
