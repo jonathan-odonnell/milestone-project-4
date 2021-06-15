@@ -7,10 +7,17 @@
 ### Design
 
 #### Colour Scheme
+- The three main colours used in the website are pink, light blue and dark blue.
+- These colours were chosen because they complement each other well.
 
 #### Typography
+- The main font used throughout the website is PT Sans.
+This font was chosen because it makes the content easy to read.
+- Nothing You Could Do was used for the hero image headings to make them stand out.
+- Sans Serif is the fallback font which is used in the event that the specified font fails to import into the website correctly.
 
 #### Imagery
+- The hero images were chosen because they give the user an idea of what they can expect to experience in each destination if they book a holiday there.
 
 ### Wireframes
 
