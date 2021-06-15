@@ -1,11 +1,13 @@
 from django.test import TestCase
 from .models import Package
 from .forms import (PackageForm, FeatureForm, FeatureFormSet, ActivityForm,
-                    ActivityFormSet, ItineraryForm, ItineraryFormSet, ReviewForm)
+                    ActivityFormSet, ItineraryForm, ItineraryFormSet,
+                    ReviewForm)
 
 
 class TestHolidayForms(TestCase):
     def setUp(self):
+        """Sets up the package"""
         self.holiday = Package.objects.create(
             name='Test Holiday',
             image='test_image.jpg',
@@ -18,6 +20,7 @@ class TestHolidayForms(TestCase):
         )
 
     def test_package_form_required_fields(self):
+        """Tests the required fields in the package form"""
         form = PackageForm({
             'name': '',
             'image': '',
@@ -36,6 +39,7 @@ class TestHolidayForms(TestCase):
                          [0], 'This field is required.')
 
     def test_package_form_invalid_price_input(self):
+        """Tests invalid price input in the package form"""
         form = PackageForm({
             'name': 'Test',
             'image': 'test.jpg',
@@ -47,10 +51,12 @@ class TestHolidayForms(TestCase):
                          [0], 'Enter a number.')
 
     def test_package_form_exclude_in_metaclass(self):
+        """Tests the excluded attribute of the package form meta class"""
         form = PackageForm()
         self.assertEqual(form.Meta.exclude, ('rating',))
 
-    def test_feature_formset_all_fields_not_required(self):
+    def test_features_formset_all_fields_not_required(self):
+        """Tests the required fields in the features formset"""
         form = FeatureFormSet({
             'features-TOTAL_FORMS': '1',
             'features-INITIAL_FORMS': '0',
@@ -62,10 +68,12 @@ class TestHolidayForms(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_feature_form_fields_in_metaclass(self):
+        """Tests the all attribute of the feature form meta class"""
         form = FeatureForm()
         self.assertEqual(form.Meta.fields, '__all__')
 
-    def test_activity_formset_all_fields_not_required(self):
+    def test_activities_formset_all_fields_not_required(self):
+        """Tests the required fields in the activities formset"""
         form = ActivityFormSet({
             'activities-TOTAL_FORMS': '1',
             'activities-INITIAL_FORMS': '0',
@@ -77,10 +85,12 @@ class TestHolidayForms(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_activity_form_fields_in_metaclass(self):
+        """Tests the all attribute of the activity form meta class"""
         form = ActivityForm()
         self.assertEqual(form.Meta.fields, '__all__')
 
-    def test_itinerary_formset_all_fields_not_required(self):
+    def test_itineraries_formset_all_fields_not_required(self):
+        """ Tests the required fields in the itineraries formset """
         form = ItineraryFormSet({
             'itineraries-TOTAL_FORMS': '1',
             'itineraries-INITIAL_FORMS': '0',
@@ -93,10 +103,12 @@ class TestHolidayForms(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_itinerary_form_fields_in_metaclass(self):
+        """Tests the all attribute of the itinerary form meta class"""
         form = ItineraryForm()
         self.assertEqual(form.Meta.fields, '__all__')
 
     def test_review_form_all_fields_required(self):
+        """Tests the required fields in the review form"""
         form = ReviewForm({
             'package': '',
             'full_name': '',
@@ -116,5 +128,6 @@ class TestHolidayForms(TestCase):
                          [0], 'This field is required.')
 
     def test_review_form_exclude_in_metaclass(self):
+        """Tests the excluded attribute of the review form meta class"""
         form = ReviewForm()
         self.assertEqual(form.Meta.exclude, ('date',))
