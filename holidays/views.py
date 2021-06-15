@@ -10,8 +10,8 @@ from .models import Package, Category, Region, Review
 from flights.models import Flight
 from booking.models import Booking
 from profiles.models import UserProfile
-from .forms import (PackageForm, FeatureFormSet,
-                    ActivityFormSet, ItineraryFormSet, ReviewForm)
+from .forms import (PackageForm, FeaturesFormSet,
+                    ActivitiesFormSet, ItinerariesFormSet, ReviewForm)
 from .utlis import superuser_required
 
 
@@ -75,7 +75,10 @@ def holidays(request, category=None, destination=None):
                 lower_country=Lower('country__name')).filter(
                 lower_country__in=current_countries)
 
-    # Code for pagination is from https://docs.djangoproject.com/en/3.2/topics/pagination/
+    """
+    Code for pagination is from
+    https://docs.djangoproject.com/en/3.2/topics/pagination/
+    """
 
     paginated_holidays = Paginator(holidays, 12)
     page_number = request.GET.get('page')
@@ -239,15 +242,15 @@ def add_holiday(request):
     if request.method == 'POST':
         redirect_url = request.POST.get('redirect_url')
         form = PackageForm(request.POST, request.FILES)
-        feature_formset = FeatureFormSet(request.POST)
-        activity_formset = ActivityFormSet(request.POST)
-        itinerary_formset = ItineraryFormSet(request.POST)
+        feature_formset = FeaturesFormSet(request.POST)
+        activity_formset = ActivitiesFormSet(request.POST)
+        itinerary_formset = ItinerariesFormSet(request.POST)
 
         if form.is_valid():
             holiday = form.save()
-            feature_formset = FeatureFormSet(request.POST, instance=holiday)
-            activity_formset = ActivityFormSet(request.POST, instance=holiday)
-            itinerary_formset = ItineraryFormSet(
+            feature_formset = FeaturesFormSet(request.POST, instance=holiday)
+            activity_formset = ActivitiesFormSet(request.POST, instance=holiday)
+            itinerary_formset = ItinerariesFormSet(
                 request.POST, instance=holiday)
 
             if feature_formset.is_valid():
@@ -270,9 +273,9 @@ def add_holiday(request):
 
     else:
         form = PackageForm()
-        feature_formset = FeatureFormSet()
-        activity_formset = ActivityFormSet()
-        itinerary_formset = ItineraryFormSet()
+        feature_formset = FeaturesFormSet()
+        activity_formset = ActivitiesFormSet()
+        itinerary_formset = ItinerariesFormSet()
 
     template = 'holidays/add_holiday.html'
     context = {
@@ -295,9 +298,9 @@ def edit_holiday(request, package):
     if request.method == 'POST':
         redirect_url = request.POST.get('redirect_url')
         form = PackageForm(request.POST, request.FILES, instance=holiday)
-        feature_formset = FeatureFormSet(request.POST, instance=holiday)
-        activity_formset = ActivityFormSet(request.POST, instance=holiday)
-        itinerary_formset = ItineraryFormSet(request.POST, instance=holiday)
+        feature_formset = FeaturesFormSet(request.POST, instance=holiday)
+        activity_formset = ActivitiesFormSet(request.POST, instance=holiday)
+        itinerary_formset = ItinerariesFormSet(request.POST, instance=holiday)
 
         if form.is_valid():
             form.save()
@@ -323,9 +326,9 @@ def edit_holiday(request, package):
             )
     else:
         form = PackageForm(instance=holiday)
-        feature_formset = FeatureFormSet(instance=holiday)
-        activity_formset = ActivityFormSet(instance=holiday)
-        itinerary_formset = ItineraryFormSet(instance=holiday)
+        feature_formset = FeaturesFormSet(instance=holiday)
+        activity_formset = ActivitiesFormSet(instance=holiday)
+        itinerary_formset = ItinerariesFormSet(instance=holiday)
 
     template = 'holidays/edit_holiday.html'
     context = {
