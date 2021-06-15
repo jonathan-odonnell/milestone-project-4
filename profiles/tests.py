@@ -13,7 +13,7 @@ import pytz
 class TestProfilesViews(TestCase):
     def setUp(self):
         """
-        Sets up the user, email address, site, social apps, holiday, flight
+        Sets up the user, email address, site, social apps, package, flight
         and user profile. Code for creating the user is from
         https://docs.djangoproject.com/en/3.2/topics/testing/advanced/,
         code for creating the email address is from
