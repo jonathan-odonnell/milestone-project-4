@@ -86,7 +86,7 @@ class TestFlightsViews(TestCase):
         the flights table template was used when a JSON request is submitted
         for the sorted flights page. Code for the login is from
         https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
-        and cose for the JSON request is from
+        and code for the JSON request is from
         https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
         """
         self.client.login(
