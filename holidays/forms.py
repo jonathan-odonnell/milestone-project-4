@@ -114,11 +114,11 @@ https://dev.to/zxenia/django-inline-formsets-with-class-based-views-and-crispy-f
 and https://docs.djangoproject.com/en/3.2/topics/forms/formsets/
 """
 
-FeatureFormSet = inlineformset_factory(
+FeaturesFormSet = inlineformset_factory(
     Package, Feature, form=FeatureForm, extra=5, max_num=5)
 
-ActivityFormSet = inlineformset_factory(
+ActivitiesFormSet = inlineformset_factory(
     Package, Activity, form=ActivityForm, extra=1)
 
-ItineraryFormSet = inlineformset_factory(
+ItinerariesFormSet = inlineformset_factory(
     Package, Itinerary, form=ItineraryForm, extra=1)
