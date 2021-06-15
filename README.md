@@ -121,7 +121,35 @@ This font was chosen because it makes the content easy to read.
 
 ### Further Testing
 
+- The Website was tested on a variety of different web browsers including Google Chrome, Microsoft Edge, Safari and Firefox.
+- The Website was also viewed on a number of different devices with a range of screen widths including an iMac, MacBook, iPad and iPhone.
+- Family and friends were asked to review the site and documentation and identify any bugs or other issues that were affecting the user experience.
+
 ### Fixed Bugs
+
+1. Many to Many fields in the Package form were not saving
+    - Fixed an error in the code.
+
+2. Non UK addresses were being populated to the wrong form fields by the address autocomplete
+    - Restricted the autocomplete to UK addresses
+
+3. Times were appearing in the wrong time zone
+    - Added time zone fields to the flights model and added logic to the flight model save method to convert departure time and arrival time to UTC.
+
+4. Itineraries were appearing in the wrong order on the holiday details pages
+    - Added sorting by ID to the itineraries model meta class
+
+5. All bookings were appearing on the bookings page, no matter how many
+    - Used the slice filter in the template to restrict the number of bookings shown to 10.
+
+6. Filters and sorting previously selected on the flights and holidays pages were not being re-applied when the user clicked the back button
+    - Added a new entry to the browser's session history every time the filters or sorting are changed.
+
+7. Payments made using Apple Pay or Google Pay were not being processed successfully
+    - Fixed an error in the code.
+
+8. The email address was not being saved when the profile was saved
+    - Fixed an error in the code.
 
 ## Deployment
 
