@@ -187,6 +187,8 @@ The project was deployed to Heroku using the following steps:
 20.  Scroll down to the convig vars section and click the "Reveal Config Vars" button.
 21. For each of the AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, DISABLE_COLLECT_STATIC, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, GOOGLE_PLACES_KEY, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET and USE_AWS, enter the key and value and click the "add" button.
 
+More information about deploying a website to Heroku is available [here](https://devcenter.heroku.com/categories/deployment).
+
 ### Forking the GitHub repository
 
 The GitHub Repository can be forked using the following steps:
