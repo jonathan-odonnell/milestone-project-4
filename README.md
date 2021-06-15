@@ -115,6 +115,14 @@ This font was chosen because it makes the content easy to read.
 
 ### Validation and Accessibility Testing
 
+| Test                      | Outcome                                           |
+| ------------------------- |--------------------------------------------------:|
+| W3C Markup Validator      | No errors except for the django templating syntax |
+| W3C CSS Validator         | No errors                                         |
+| PEP8                      | No errors                                         |
+| JSHint                    | No errors                                         |
+| Lighthouse Accessibility  | TBC                                               |
+
 ### Testing User Stories from User Experience (UX) Section
 
 ### Manual Testing
