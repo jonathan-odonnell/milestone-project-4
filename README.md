@@ -189,7 +189,42 @@ The project was deployed to Heroku using the following steps:
 
 ### Forking the GitHub repository
 
+The GitHub Repository can be forked using the following steps:
+
+1.  Log in to GitHub and locate the project's [GitHub Repository](https://github.com/jonathan-odonnell/milestone-project-4).
+2.  At the top-right of the repository, click the "Fork" Button.
+
+More information about forking a GitHub repository is available [here](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo).
+
 ### Making a Local Clone
+
+A local clone of the project can be created using the following steps:
+
+1.  Log in to GitHub and locate the project's [GitHub Repository](https://github.com/jonathan-odonnell/milestone-project-4).
+2.  Under the repository name, click the "Code" button.
+3.  To clone the repository using HTTPS, under "Clone with HTTPS", click the clipboard button to copy the repository URL.
+    To clone using SSH click "Use SSH" and then click the clipboard button.
+4.  Open the terminal.
+5.  Change the current working directory to the location where you want to store the cloned repository.
+6.  Type `git clone` and then paste the URL you copied in Step 3.
+
+```
+$ git clone https://github.com/jonathan-odonnell/milestone-project-4.git
+```
+
+7.  Press enter to create your clone.
+
+```
+Cloning into 'milestone-project-4'...
+remote: Enumerating objects: 4783, done.
+remote: Counting objects: 100% (190/190), done.
+remote: Compressing objects: 100% (106/106), done.
+remote: Total 4783 (delta 119), reused 130 (delta 82), pack-reused 4593
+Receiving objects: 100% (4783/4783), 78.78 MiB | 3.19 MiB/s, done.
+Resolving deltas: 100% (2919/2919), done.
+```
+
+More information about making a local clone of a GitHub repository is available [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
 
 ## Credits
 
