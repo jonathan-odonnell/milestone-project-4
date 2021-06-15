@@ -9,6 +9,17 @@ from datetime import date
 
 
 class TestHolidaysViews(TestCase):
+    """
+    Sets up the users, email addresses, site, social apps, category, region,
+    country and package. Code for creating the user is from
+    https://docs.djangoproject.com/en/3.2/topics/testing/advanced/,
+    code for creating the email address is from
+    https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py,
+    code for creating the site and social apps is from
+    https://stackoverflow.com/questions/29721360/django-test-with-allauth,
+    code for the image is from
+    https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield
+    """
     def setUp(self):
         self.superuser = User.objects.create_superuser(
             username='admin',
@@ -53,7 +64,6 @@ class TestHolidaysViews(TestCase):
             secret="0987654321",
         )
 
-        # https://stackoverflow.com/questions/26298821/django-testing-model-with-imagefield
         self.image = SimpleUploadedFile(name='test_image.jpg', content=open(
             'media/toronto.jpg', 'rb').read(), content_type='image/jpeg')
 
@@ -85,68 +95,124 @@ class TestHolidaysViews(TestCase):
         )
 
     def test_get_holiday_category_page(self):
+        """
+        Verifies that a status of 200 is returned and the holidays template was
+        used when the user tries to access a holiday category page
+        """
         response = self.client.get(f'/holidays/{self.holiday.category.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'holidays/holidays.html')
 
     def test_get_holiday_destination_page(self):
+        """
+        Verifies that a status of 200 is returned and the holidays template was
+        used when the user tries to access a holiday destination page
+        """
         response = self.client.get(
             f'/holidays/destinations/{self.holiday.region.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'holidays/holidays.html')
 
     def test_get_holiday_offers_page(self):
+        """
+        Verifies that a status of 200 is returned and the holidays template was
+        used when the user tries to access the offers page
+        """
         response = self.client.get('/holidays/offers/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'holidays/holidays.html')
 
     def test_get_sorted_holiday_destination_page(self):
-        # https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
+        """
+        Verifies that a status of 200 is returned and the holiday cards
+        template was used when a JSON request is submitted for a sorted
+        holiday destination page. Code for the JSON request is from
+        https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
+        """
         response = self.client.get(
-            f'/holidays/destinations/{self.holiday.region.slug}/?sort=price&direction=asc', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            f'/holidays/destinations/\
+                {self.holiday.region.slug}/?sort=price&direction=asc',
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, 'holidays/includes/holiday_cards.html')
 
     def test_get_filtered_countries_holiday_category_page(self):
-        # https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
+        """
+        Verifies that a status of 200 is returned and the holiday cards
+        template was used when a JSON request is submitted for a filtered
+        holiday category page. Code for the JSON request is from
+        https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
+        """
         response = self.client.get(
-            f'/holidays/{self.holiday.category.slug}/?countries=usa', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            f'/holidays/{self.holiday.category.slug}/?countries=usa',
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, 'holidays/includes/holiday_cards.html')
 
     def test_get_filtered_categories_holiday_destination_page(self):
-        # https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
+        """
+        Verifies that a status of 200 is returned and the holiday cards
+        template was used when a JSON request is submitted for a filtered
+        holiday destination page. Code for the JSON request is from
+        https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
+        """
         response = self.client.get(
-            f'/holidays/destinations/{self.holiday.region.slug}/?categories=city-breaks', HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+            f'/holidays/destinations/\
+                {self.holiday.region.slug}/?categories=city-breaks',
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, 'holidays/includes/holiday_cards.html')
 
     def test_get_holiday_category_details_page(self):
+        """
+        Verifies that a status of 200 is returned and the holidays template was
+        used when the user tries to access an holiday category details page
+        """
         response = self.client.get(
             f'/holidays/{self.holiday.category.slug}/{self.holiday.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'holidays/holiday_details.html')
 
     def test_get_holiday_offers_details_page(self):
+        """
+        Verifies that a status of 200 is returned and the holidays template was
+        used when the user tries to access an holiday destination details page
+        """
         response = self.client.get(f'/holidays/offers/{self.holiday.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'holidays/holiday_details.html')
 
     def test_get_holiday_destination_details_page(self):
+        """
+        Verifies that a status of 200 is returned and the holidays template was
+        used when the user tries to access an offer details page
+        """
         response = self.client.get(
-            f'/holidays/destinations/{self.holiday.region.slug}/{self.holiday.slug}/')
+            f'/holidays/destinations/\
+                {self.holiday.region.slug}/{self.holiday.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'holidays/holiday_details.html')
 
     def test_anonymous_user_get_reviews_page(self):
+        """
+        Verifies that the user is redirected to the login page when an
+        anonymous user tries to access the reviews page
+        """
         response = self.client.get(f'/holidays/review/{self.holiday.slug}/')
         self.assertRedirects(
-            response, f'/accounts/login/?next=/holidays/review/{self.holiday.slug}/')
+            response, f'/accounts/login/?next=/holidays/review/\
+                {self.holiday.slug}/')
 
     def test_logged_in_user_with_booking_get_reviews_page(self):
+        """
+        Logs in the user and verifies that a status of 200 is returned and
+        the review template was used when the user has purchased the package
+        and tries to access the review page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -165,6 +231,12 @@ class TestHolidaysViews(TestCase):
         self.assertTemplateUsed(response, 'holidays/review.html')
 
     def test_logged_in_user_without_booking_get_reviews_page(self):
+        """
+        Logs in the user and verifies that a status of 403 is returned
+        when the user has not purchased the package and tries to access
+        the review page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -173,6 +245,13 @@ class TestHolidaysViews(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_reviews_form_submit(self):
+        """
+        Logs in the user and verifies that they are redirected to the
+        package's destination details page and a new review is created
+        in the database when a post request with valid review details
+        is submitted to the review page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -194,12 +273,19 @@ class TestHolidaysViews(TestCase):
         })
 
         self.assertRedirects(
-            response, f'/holidays/destinations/{self.holiday.region.slug}/{self.holiday.slug}/')
+            response, f'/holidays/destinations/\
+                {self.holiday.region.slug}/{self.holiday.slug}/')
         review = Review.objects.filter(
             full_name=self.user.get_full_name(), package=self.holiday)
         self.assertEqual(len(review), 1)
 
     def test_standard_user_get_add_holiday_page(self):
+        """
+        Logs in the standard user and verifies that a status of 403 is returned
+        when they try and access the add holiday page. Code for the login is
+        from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -208,6 +294,12 @@ class TestHolidaysViews(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_superuser_get_add_holiday_page(self):
+        """
+        Logs in the superuser and verifies that a status of 200 is returned and
+        the add holiday template was used when they try and access the add
+        holiday page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.superuser.email,
             password='Password',
@@ -217,6 +309,14 @@ class TestHolidaysViews(TestCase):
         self.assertTemplateUsed(response, 'holidays/add_holiday.html')
 
     def test_can_add_holiday(self):
+        """
+        Logs in the superuser and verifies that they are redirected to the
+        package's destination details page and a new package is created in the
+        database when a post request with valid package, feature, activity and
+        itinerary details is submitted to the add holiday page. Code for the
+        login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.superuser.email,
             password='Password',
@@ -252,9 +352,16 @@ class TestHolidaysViews(TestCase):
         holiday = Package.objects.filter(name='Test holiday 1')
         self.assertEqual(len(holiday), 1)
         self.assertRedirects(
-            response, f'/holidays/destinations/{holiday.first().region.slug}/{holiday.first().slug}/')
+            response, f'/holidays/destinations/\
+                {holiday.first().region.slug}/{holiday.first().slug}/')
 
     def test_standard_user_get_edit_holiday_page(self):
+        """
+        Logs in the standard user and verifies that a status of 403 is returned
+        when they try and access the edit holiday page. Code for the login is
+        from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -263,6 +370,12 @@ class TestHolidaysViews(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_superuser_get_edit_holiday_page(self):
+        """
+        Logs in the superuser and verifies that a status of 200 is returned and
+        the edit holiday template was used when they try and access the edit
+        holiday page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.superuser.email,
             password='Password',
@@ -272,6 +385,14 @@ class TestHolidaysViews(TestCase):
         self.assertTemplateUsed(response, 'holidays/edit_holiday.html')
 
     def test_can_edit_holiday(self):
+        """
+        Logs in the superuser and verifies that they are redirected to the
+        package's destination details page and updates the package's price
+        in the database when a post request with valid package, feature,
+        activity and itinerary details details is submitted to the edit holiday
+        page. Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.superuser.email,
             password='Password',
@@ -318,9 +439,16 @@ class TestHolidaysViews(TestCase):
         holiday = Package.objects.get(id=holiday.id)
         self.assertEqual(holiday.price, 599)
         self.assertRedirects(
-            response, f'/holidays/destinations/{holiday.region.slug}/{holiday.slug}/')
+            response, f'/holidays/destinations/\
+                {holiday.region.slug}/{holiday.slug}/')
 
     def test_standard_user_cant_delete_holiday(self):
+        """
+        Logs in the standard user and verifies that a status of 403 is returned
+        when they try and access the delete package page. Code for the login is
+        from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.user.email,
             password='Password',
@@ -329,6 +457,12 @@ class TestHolidaysViews(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_superuser_can_delete_holiday(self):
+        """
+        Logs in the superuser and verifies that they are redirected to the
+        home page and deletes the package from the database.
+        Code for the login is from
+        https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
+        """
         self.client.login(
             email=self.superuser.email,
             password='Password',
