@@ -17,10 +17,10 @@ class Extra(models.Model):
 
     name = models.CharField(max_length=254)
     slug = AutoSlugField(populate_from='name', unique=True)
-    description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image = models.ImageField()
     image_url = models.CharField(max_length=254, null=True, blank=True)
+    description = models.TextField()
 
     def save(self, *args, **kwargs):
         self.slug = None
