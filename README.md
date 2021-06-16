@@ -23,6 +23,8 @@ This font was chosen because it makes the content easy to read.
 
 ### Entity Relationship Diagrams
 
+The Entity Relationship Diagram shows details of each field in each model in the database and the relationships between the different models. They can be accessed [here](static/readme/entity_relationship_diagram.pdf).
+
 ## Features
 
 ### Existing Features
