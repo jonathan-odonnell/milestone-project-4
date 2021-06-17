@@ -22,6 +22,10 @@ class Flight(models.Model):
         ('Return', 'Return'),
     ]
 
+    """
+    Code for the TimeZoneField is from
+    https://pypi.org/project/django-timezone-field/
+    """
     flight_number = models.CharField(max_length=5, unique=True)
     direction = models.CharField(max_length=50, choices=DIRECTION_CHOICES)
     origin = models.CharField(max_length=50)
