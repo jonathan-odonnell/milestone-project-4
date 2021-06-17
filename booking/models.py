@@ -22,6 +22,10 @@ class Coupon(models.Model):
 
 
 class Booking(models.Model):
+    """
+    Code for the PhoneNumberField is from
+    https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models
+    """
     booking_number = models.CharField(max_length=32)
     full_name = models.CharField(max_length=50, default='')
     user_profile = models.ForeignKey(
