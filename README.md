@@ -523,6 +523,79 @@ More information about making a local clone of a GitHub repository is available 
 
 ### Code
 
+- Code for for updating the address input's parent element's ID is from [Stack Overflow](https://stackoverflow.com/questions/10219396/jquery-update-element-id/).
+- Code for the autocomplete is from [Google](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform/).
+- Code for the JQuery hasClass method is from [jQuery](https://api.jquery.com/hasclass/). 
+- Code for triggering the change event is from [Stack Overflow](https://stackoverflow.com/questions/3179385/val-doesnt-trigger-change-in-jquery/).
+- Code for the JQuery each method is from [jQuery](https://api.jquery.com/jquery.each/).
+- Code for checking if a checkbox is checked is from [Stack Overflow](https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked/).
+- Code for checking or unchecking the switches is from [Stack Overflow](https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery).
+- Code for the JQuery insertBefore method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
+- Code for the datepicker and datetimepicker min date is from [Gijgo](https://gijgo.com/datepicker/configuration/minDate).
+- Code for the datepicker and datetimepicker max date is from [Gijgo](https://gijgo.com/datepicker/configuration/maxDate).
+- Code for the datetimepicker configuration is from [Gijgo](https://gijgo.com/datetimepicker/) and Gijgo](https://gijgo.com/datetimepicker/configuration).
+- Code for the datepicker configuration is from [Gijgo](https://gijgo.com/datepicker/) and Gijgo](https://gijgo.com/datepicker/configuration).
+- Code for adding a new entry to the browser's session history is from [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState).
+- Code for the delegated target JQuery is from [JQuery](https://api.jquery.com/event.delegateTarget/#event-delegateTarget1).
+- Code for the home page hero image carousel and the popular destinations and related holidays sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
+- Code for the toggleClass JQuery method is from [JQuery](https://api.jquery.com/toggleClass/#toggleClass1).
+- Code for the PayPal smart button is from [PayPal](https://developer.paypal.com/docs/checkout/integrate/).
+- Code for the PayPal payment form validation is from [PayPal](https://developer.paypal.com/docs/checkout/integration-features/validation/).
+- Code for setting up the PayPal transaction on the server is from [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/) and [Stack Overflow](https://stackoverflow.com/questions/43606056/proper-django-csrf-validation-using-fetch-post-request).
+- Code for capturing the PayPal transaction funds on the server is from [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/capture-transaction/) and [Stack Overflow](https://stackoverflow.com/questions/43606056/proper-django-csrf-validation-using-fetch-post-request).
+- Code for mounting the cvc element and unmounting the card element is from [Stripe](https://stripe.com/docs/js/element/other_methods/).
+- Code for creating the cvc element is from [Stripe](https://stripe.com/docs/payments/save-during-payment).
+- Code for saving the card is from [GitHub]( https://github.com/stripe-samples/saving-card-after-payment/blob/master/using-webhooks/client/script.js#L86-L91).
+- Code for charging a saved card is from [Stripe](https://stripe.com/docs/payments/save-during-payment).
+- Code for showing the spinner on the pay button when clicked is from [Stripe](https://stripe.com/docs/payments/integration-builder). 
+- Code for the payment request button and handling payment request button payments and form submission is from [Stripe](https://stripe.com/docs/stripe-js/elements/payment-request-button).
+- Code for disabling the payment request button if the form is not valid is from [StackOverflow](https://stackoverflow.com/questions/53707534/how-can-i-disable-the-stripe-payment-request-button-until-a-form-is-complete).
+- Code for list_per_page, filter_horizontal, list_filter in the admin view is from [Django](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#modeladmin-options).
+- Code to hide the sidebar and change the site header text in the admin view is from [Django](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#adminsite-attributes).
+- Code for returning a distinct values list from a model is from [Stack Overflow](https://stackoverflow.com/questions/10848809/django-model-get-distinct-value-list).
+- Code for the pagination of a queryset is from [Django](https://docs.djangoproject.com/en/3.2/topics/pagination/)
+- Code for processing JSON requests is from [Stack Overflow](https://stackoverflow.com/questions/8587693/django-request-is-ajax-returning-false).
+- Code for redering the holiday cards template to a string is from [Stack Overflow](https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax).
+- Code for randomly ordering a queryset is from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#order-by).
+- Code for excluding from a queryset is from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#exclude).
+- Code for returning the first result in a queryset is from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first).
+- Code for accessing the previous URL is from [Stack Overflow](https://stackoverflow.com/questions/27325505/django-getting-previous-url).
+- Code for the slug fields is from [Django Extensions](https://django-extensions.readthedocs.io/en/latest/field_extensions.html).
+- Code for removing the accents from a string is from [Stack Overflow](https://stackoverflow.com/questions/33328645/how-to-remove-accent-in-python-3-5-and-get-a-string-with-unicodedata-or-other-so).
+- Code for the default ordering of a model is from [Stack Overflow](https://docs.djangoproject.com/en/3.2/ref/models/options/#ordering).
+- Code for the average aggregation method is from [Django](https://docs.djangoproject.com/en/3.2/topics/db/aggregation/#cheat-sheet). 
+- Code for the Crispy Forms form helper is from [Django](https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html).
+- Code for the inline formsets is from [Dev Community](https://dev.to/zxenia/django-inline-formsets-with-class-based-views-and-crispy-forms-14o6) and [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/).
+- Code for the stacked inline, extra and classes in the admin view is from [Django](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#inlinemodeladmin-objects).
+- Code for formatting the datetime form field values is from [Django](https://docs.djangoproject.com/en/3.2/ref/forms/widgets/#django.forms.DateTimeInput).
+- Code for charfield choices is from [Django](ttps://docs.djangoproject.com/en/3.2/ref/models/fields/#choices).
+- Code for converting timezones is from [Stack Overflow](ttps://stackoverflow.com/questions/36122619/manually-setting-time-zone-in-django-form), [pypi](https://pypi.org/project/pytz/) and [Django](https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/).
+- Code for the timezone fields in the flights model is from [pypi](https://pypi.org/project/django-timezone-field/).
+- Code for adding time onto a datetime object is from [Kite](https://www.kite.com/python/answers/how-to-add-hours-to-the-current-time-in-python).
+- Code for converting a string to a date object is from [Stackabuse](https://stackabuse.com/converting-strings-to-datetime-in-python).
+- Code for removing trailing zeros from totals is from [Stack Overflow](https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros).
+- Code for prefetch related from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#prefetch-related).
+- Code for the phonenumber fields in the booking and userprofile models is from [Stack Overflow](https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models).
+- Code for passing argiments to the inline formset is from [Stack Overflow](https://stackoverflow.com/questions/23084595/basemodelformset-init-got-an-unexpected-keyword-argument) and [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/#passing-custom-parameters-to-formset-forms).
+- Code for the duration template tag is from [Stack Overflow](https://stackoverflow.com/questions/33105457/display-and-format-django-durationfield-in-template).
+- Code for calculating time between dates is from [Stack Overflow](https://stackoverflow.com/questions/151199/how-to-calculate-number-of-days-between-two-given-dates).
+- Code for creating a new payment intent with a customer id attached is from [Stripe](https://stripe.com/docs/payments/save-during-payment).
+- Code for getting saved cards is from [Stripe](https://stripe.com/docs/api/cards/list).
+Code for settin up a paypal transaction is from [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/setup-sdk/) and [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/).
+- Code for capturing the paypal transaction funds is from [Stack Oveflow](https://stackoverflow.com/questions/59630300/getting-bytes-when-using-axios) and [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/capture-transaction/).
+- Code for creating Stripe customers is from [Stripe](https://stripe.com/docs/api/accounts/create).
+- Code for updating Stripe customer details is from [Stripe](https://stripe.com/docs/api/accounts/update).
+- Code for updating the email address in the allauth email address database and sending the verification email is from [GitHub](https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py).
+- Code for overriding allauth forms is from [Django Allauth](https://django-allauth.readthedocs.io/en/latest/forms.html).
+- Code for the custom signup form is from [GeeksforGeeks](https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/).
+- Code for creating the users in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/).
+- Code for creating the email addresses in the tests is from [Django](https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py).
+- Code for creating the site and social apps in the tests is from [Django](https://stackoverflow.com/questions/29721360/django-test-with-allauth).
+- Code for creating the flights in the tests is from [Django](https://docs.djangoproject.com/en/3.2/ref/models/relations/).
+- Code for creating the user profile in the tests is from [Django](https://stackoverflow.com/questions/11088901/django-onetoone-reverse-access).
+- Code for the tests login is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests).
+- Code for the request factory, logging in the user and setting the session variable in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory).
+
 ### Content
 
 ### Media
