@@ -24,7 +24,7 @@ class TestCheckoutViews(TestCase):
         https://docs.djangoproject.com/en/3.2/topics/testing/advanced/,
         code for creating the email address is from
         https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py,
-        code for creating the flight and booking passenger is from
+        code for creating the flight is from
         https://docs.djangoproject.com/en/3.2/ref/models/relations/
         """
         self.factory = RequestFactory()
