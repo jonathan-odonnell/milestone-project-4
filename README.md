@@ -29,6 +29,136 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 ### Existing Features
 
+1. Brand Logo
+
+    - This familiarises users with the organisation's logo and is also a link which the user can access from any page to take them back to the home page.
+
+2. Navigation links
+
+    - These enable users to access the different pages of the website so they can easily find the content they are looking for.
+
+3. Home Page Hero Image Carousel
+
+    - This provides users with an image, details of the duration and price and a link to the holiday package's offer details page for three holiday packages currently on offer.
+
+4. Popular Holidays Carousel
+
+    - This provides users with cards for six of the most popular holidays. Each card contains the holiday package's image, name, price country, rating and duration. The name is a link to the holiday package's destination details page. 
+
+5. Features
+
+    - This provides users with up to 3 key features which differentiates Go Explore from its competitors and why they can have confidence when placing a booking with the company.
+
+6. Sign Up Form
+
+    - This allows users to sign up for an account by entering their first name, last name, email address and password into the form. They can also sign up by clicking on the Facebook or Google icons to sign up using their Facebook or Google account. 
+
+7. Sign In Form
+
+    - This enables users to sign in to their account by entering their email address and password or by using their Facebook or Google account.
+
+8. Profile
+
+    - This enables users to update their profile information. If the user changes their email adddress, they will need to re-verify the new email address to continue to be able to access their account.
+
+9. Change Password Form
+
+    - This enables users to change their password.
+
+10. Bookings
+
+    - This displays to logged in users table of the booking number, holiday package name and duration, and booking total for each of their bookings. The booking number is a link to the booking's booking details page.
+
+11. Booking Details/Checkout Success
+
+    - This provides the user with a summary of their booking including customer details, booking total breakdown, holiday package details, extras details and flights details. Only logged in users can access the booking details page.
+
+12. Holidays Cards
+
+    - Cards are displayed for all holidays that satisfy the category or destination in the URL. If the user is on the offers page, offers are shown.
+    - Each card includes the holiday package's image, name, price, country, rating and duration. The name is a link to the holiday package's category, destination or offer details page.
+    - Users can sort the holidays by selecting an option from the sort by select input or filter them by selecting or unselecting the country or holiday type badges.
+
+13. Holiday Details
+
+    - This provides users with details of the holiday package including a description, 5 key features, activities (where applicable), the itinerary (where applicable) and reviews.
+    - Links to edit and delete the package are displayed when a superuser is logged in.
+    - A link to the review page is displayed when a user is logged in who has purchased the holiday package and has not already reviewed it.
+
+14. Related holidays
+
+    - This provides users with cards for four randomly selected related holiday packages in the category or destination in the URL. If the user is on a offer details page, offers are shown.
+    - Each card contains the holiday package's image, name, price country, rating and duration. The name is a link to the holiday package's category, destination or offer details page. 
+
+15. Write Review Form
+
+    - This enables logged in users to write a review of their holiday if they have purchased the holiday and not already reviewed it.
+    - Every time a new review is added, the holiday package's ratings average is re-calculated.
+
+16. Booking Form
+
+    - This enables users to select their departure date using the datepicker and enter their departure date, departure airport and number of guests for their booking.
+
+17. Booking Summary
+
+    - This provides users with a summary of their booking including holiday package details, number of guests, flight details, whether transfers are included and a breakdown of the booking total.
+    - The user can update the number of guests by using the buttons next to the guests input.
+    - The extras available for the booking are listed in the extras table.
+    - The user can add an extra to the booking by changing the switch next to the relevant extra to the on position or update their quantity by using the buttons next to the quantity input. 
+    - The quantity of each extra is limited to the number of guests in the booking.
+    - The user can add a coupon code to the booking by entering a valid coupon code in the coupon field and clicking the apply button.
+
+18. Passenger Details
+
+    - This enables users to enter the passengers details including full name, date of birth and passport number. If the user is signed in, the full name for passenger 1 is automatically entered into the relevant field.
+
+19. Checkout
+
+    - This enables the user to enter the booking contact details and pay for their holiday using a card payment, Paypal, Apple Pay or Google Pay.
+    - Addresses are populated into the booking contact details form when the user begins to enter an address in the address field and selects an option from the autocomplete.
+    - Signed in users who have saved a card to their account can select the relevent card under saved cards and enter the CVC rather than having to enter their full card details if they choose to pay by card.
+
+20. Add/Edit Holiday Forms
+
+    - These enable admin users to add or edit the details of each holiday package including package details, features, activities and itineraries.
+
+21. Flights Table
+
+    - This displays to admin users a table of the flight number, origin, destination and links to edit and delete each product for each flight.
+    - Admin users can add a new product by clicking on the add flight link or sort the flights by selecting an option from the sort by select input.
+
+22. Add/Edit Flights Forms
+
+    - These enable admin users to add or edit the details of each holiday destination including package details, features, activities and itineraries.
+
+23. Extra Details
+
+    - This provides users with details of each extra incuding it's name, image, price and description.
+
+24. Add/Edit Extras Forms
+
+    - These enable admin users to add or edit the details of each extra.
+
+25. Contact Us Form
+
+    - This enables users to contact the organisation about any questions they may have by completing the form. If a user is signed in, their full name and email address are automatically entered into the relevant form fields.
+
+26. Footer Navigation links
+
+    - These enable users to access key different pages of the website so they can easily find the content they are looking for.
+
+27. Newsletter Sign Up
+
+    - This enables users to sign up to receive updates about the latest products by entering their email address into the form.
+
+28. Social Media links
+
+    - These provide users with links to the different social media platforms where the organisation has a presence.
+
+29. Responsive Design
+
+    - Bootstrap grids and CSS media queries are used throughout the website to ensure that it is optimised for use on devices with a wide range of screen sizes.
+
 ### Features Left To Implement
 
 1. More Destinations
