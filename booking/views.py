@@ -231,8 +231,7 @@ def remove_extra(request, extra_id):
 def add_coupon(request):
     """
     A view to add the specified coupon to the booking if it
-    exists in the database. Code for the coupon query is from
-    https://docs.djangoproject.com/en/3.2/ref/models/querysets/
+    exists in the database.
     """
     coupon_name = request.POST.get('coupon')
     booking_number = request.session.get('booking_number')
