@@ -6,10 +6,7 @@ from django.conf import settings
 
 
 def index(request):
-    """
-    A view to retun the index page. Code for filtering queries using a list 
-    is from https://docs.djangoproject.com/en/3.2/ref/models/querysets/#in
-    """
+    """A view to retun the index page"""
     holidays = [
         settings.POPULAR_DESTINATION_1,
         settings.POPULAR_DESTINATION_2,
@@ -38,7 +35,10 @@ def index(request):
 
 @require_POST
 def newsletter(request):
-    """A view to add the customer's email to the newsletter sign ups database"""
+    """
+    A view to add the customer's email to
+    the newsletter sign ups database
+    """
     sign_up = NewsletterSignUp(email=request.POST['newsletter'])
     sign_up.save()
     return HttpResponse(status=200)
