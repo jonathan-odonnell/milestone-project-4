@@ -622,6 +622,34 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 
 ### Content
 
+- The holiday information was from [Jet2](https://www.jet2.com), [Kuoni](https://www.kuoni.co.uk), [Tui](https://www.tui.co.uk) and [British Airways](https://www.britishairways.com).
+- Information in the Toronto itinerary was from [Destination Toronto](https://www.destinationtoronto.com).
+- The information in the Toronto itinerary was from [Visit Montréal](https://www.mtl.org).
+- The information in the Toronto itinerary was from [Tourism Vancouver](https://www.tourismvancouver.com).
+- The information in the Miami activities was from[Miami and Miami Beach Guide](https://www.miamiandbeaches.com).
+- The information in the New York itinerary was from [Visit the USA](https://www.visittheusa.co.uk/destination/new-york-city) and [The Travel](https://www.thetravel.com/10-day-itinerary-new-york).
+- The information in the Hawaii activities was from [Go Hawaii](https://www.gohawaii.com).
+- The information in the Los Angeles itinerary was from [Discover Los Angeles](https://www.discoverlosangeles.com).
+- The information in the San Francisco itinerary was from [Travel to San Francisco](https://www.sftravel.com).
+- The information in the Chicago itinerary was from [Choose Chicago](https://www.choosechicago.com).
+- The information in the Cancun activities was from [Visit Cancun](https://www.mexicancaribbean.travel/cancun).
+- The information in the Whitsler activities was from [Whistler Tourism](https://www.whistler.com).
+- The information in the Canadian Rockies activities was from [Banff and Lake Louise Tourism](https://www.banfflakelouise.com/).
+- The information in the Dublin itinerary was from [Tourism Ireland](https://www.ireland.com).
+- The information in the Paris itinerary was from [Paris Tourist Office](https://en.parisinfo.com).
+- The information in the Madrid itinerary was from [Tourism Madrid](https://www.esmadrid.com/en/) and [Spanish Tourism](https://www.spain.info/en/).
+- The information in the Zermatt activities was from [Matterhorn Paradise](https://www.matterhornparadise.ch/en/) and [Crystal Ski](https://www.crystalski.co.uk/ski-resorts/switzerland-ski-holidays/zermatt/).
+- The information in the Milan itinerary was from [Yes Milan](https://www.yesmilano.it/en/).
+- The information in the New Zealand itineraries was from [New Zealand Travel](https://www.newzealand.com).
+- The information in the New Zealand itineraries was from [Visit Australia](https://www.australia.com).
+- The information in the New South Wales itinerary was from [Visit New South Wales](https://www.visitnsw.com/).
+- The information in the Singapore itinerary was from [Visit Singapore](https://www.visitsingapore.com).
+- The information in the Northern Territory and North Island itineraries was from [Ultimate Travel](https://www.ultimate.travel/australia-tour-packages/red-centre-tour/).
+- The information in the Tasmania itinerary was from [Discover Tasmania](https://www.discovertasmania.com.au).
+- The information in the Victoria itinerary was from [Visit Victoria](https://www.visitvictoria.com/) and [Adventure Tours](https://www.adventuretours.travel/uk/great-ocean-road/).
+- The information in the Queensland itinerary was from [Welcome to Travel](https://welcometo.travel/tours/east-coast-the-mid-semester/).
+- The reviews were from [Jet2](https://www.jet2.com) and [Trip Advisor](https://www.tripadvisor.co.uk).
+
 ### Media
 
 - The North Island image was from [Unsplash](https://unsplash.com/photos/73F4pKoUkM0).
