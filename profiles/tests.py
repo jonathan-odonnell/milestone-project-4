@@ -209,7 +209,7 @@ class TestProfilesForms(TestCase):
         self.assertEqual(form.errors['email_address']
                          [0], 'This field is required.')
 
-    def test_user_profile_form_invalid_email_address_field(self):
+    def test_user_profile_form_invalid_email_address(self):
         """Tests the email address invalid input in the extra form"""
         form = UserProfileForm({
             'email_address': 'Not an email address',
@@ -222,6 +222,21 @@ class TestProfilesForms(TestCase):
         })
         self.assertEqual(form.errors['email_address']
                          [0], 'Enter a valid email address.')
+
+    def test_user_profile_form_invalid_phone_number(self):
+        """Tests invalid phone number input in the extra form"""
+        form = UserProfileForm({
+            'email_address': 'test@example.com',
+            'phone_number': '0000000000',
+            'street_address1': 'Test',
+            'town_or_city': 'Test',
+            'county': 'Test',
+            'country': 'GB',
+            'postcode': 'Test',
+        })
+        self.assertEqual(form.errors['phone_number'][0],
+                         'Enter a valid phone number (e.g. 0121 234 5678) or '
+                         + 'a number with an international call prefix.')
 
     def test_user_profile_form_excluded_in_metaclass(self):
         """Tests the excluded attribute of the profile form meta class"""
@@ -250,7 +265,7 @@ class TestProfilesForms(TestCase):
 
 
 class TestProfilesModels(TestCase):
-    def test_user_profile_string_method_returns_flight_number(self):
+    def test_user_profile_string_method(self):
         """
         Creates a user and verifies that the string
         method is correct. Code for creating the user is from
