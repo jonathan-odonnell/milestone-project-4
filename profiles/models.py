@@ -7,7 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class UserProfile(models.Model):
     """
     A user profile model for maintaining default contact information
-    and order history. Code for the PhoneNumberField is from
+    and booking history. Code for the PhoneNumberField is from
     https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)

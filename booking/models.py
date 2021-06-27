@@ -11,7 +11,9 @@ from extras.models import Extra
 
 
 class Coupon(models.Model):
-
+    """
+    A coupon model for maintaining coupon information
+    """
     name = models.CharField(max_length=254)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -23,6 +25,7 @@ class Coupon(models.Model):
 
 class Booking(models.Model):
     """
+    A booking model for maintaining booking information.
     Code for the PhoneNumberField is from
     https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models
     """
@@ -90,6 +93,9 @@ class Booking(models.Model):
 
 
 class BookingExtra(models.Model):
+    """
+    A booking extra model for maintaining booking extras
+    """
     booking = models.ForeignKey(
         Booking, on_delete=models.CASCADE, related_name='booking_extras')
     extra = models.ForeignKey(
@@ -107,6 +113,9 @@ class BookingExtra(models.Model):
 
 
 class BookingPassenger(models.Model):
+    """
+    A booking passenger model for maintaining booking passengers
+    """
     booking = models.ForeignKey(
         Booking, on_delete=models.CASCADE, related_name='booking_passengers')
     full_name = models.CharField(max_length=50)

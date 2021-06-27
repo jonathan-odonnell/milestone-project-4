@@ -3,6 +3,7 @@ from django.db import models
 
 class CustomerContact(models.Model):
     """
+    A customer contact model for maintaining customer contact information
     Code for direction choices is from
     https://docs.djangoproject.com/en/3.2/ref/models/fields/#choices
     """

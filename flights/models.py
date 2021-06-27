@@ -4,7 +4,7 @@ from django.utils import timezone
 
 
 class Flight(models.Model):
-
+    """A flight model for maintaining flights."""
     class Meta:
         """
         Code for default ordering is from

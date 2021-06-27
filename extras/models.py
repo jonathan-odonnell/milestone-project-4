@@ -4,7 +4,8 @@ from django_extensions.db.fields import AutoSlugField
 
 class Extra(models.Model):
     """
-    Code for the slug field is from
+    An extra model for maintaining extra information. Code for the slug field
+    is from
     https://django-extensions.readthedocs.io/en/latest/field_extensions.html
     """
 

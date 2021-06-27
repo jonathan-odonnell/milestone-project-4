@@ -20,6 +20,7 @@ def slugify(name):
 
 
 class Activity(models.Model):
+    """ An activity model for maintaining activity information. """
 
     class Meta:
         """
@@ -44,6 +45,7 @@ class Activity(models.Model):
 
 
 class Category(models.Model):
+    """ A category model for maintaining category information. """
 
     class Meta:
         """
@@ -69,6 +71,7 @@ class Category(models.Model):
 
 
 class Country(models.Model):
+    """ A country model for maintaining country information. """
 
     class Meta:
         """
@@ -85,6 +88,7 @@ class Country(models.Model):
 
 
 class Feature(models.Model):
+    """ A feature model for maintaining feature information. """
 
     class Meta:
         """
@@ -102,6 +106,7 @@ class Feature(models.Model):
 
 
 class Itinerary(models.Model):
+    """ An itinerary model for maintaining itinerary information. """
 
     class Meta:
         """
@@ -127,7 +132,10 @@ class Itinerary(models.Model):
 
 
 class Package(models.Model):
-
+    """
+    A package model for maintaining holiday package information
+    and associated extras and flights.
+    """
     class Meta:
         """
         Code for default ordering is from
@@ -181,6 +189,7 @@ class Package(models.Model):
 
 
 class Region(models.Model):
+    """ A region model for maintaining region information. """
 
     class Meta:
         """
@@ -205,6 +214,7 @@ class Region(models.Model):
 
 
 class Review(models.Model):
+    """ An review model for maintaining review information. """
 
     class Meta:
         """
