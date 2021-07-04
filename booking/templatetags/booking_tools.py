@@ -24,7 +24,7 @@ def extra_days(flight):
     https://pypi.org/project/pytz/ and
     https://stackoverflow.com/questions/151199/how-to-calculate-number-of-days-between-two-given-dates
     """
-    departure = flight.origin.time_zone.normalize(
+    departure = flight.origin_time_zone.normalize(
         flight.departure_time.astimezone(flight.origin_time_zone)
     )
     arrival = flight.destination_time_zone.normalize(
