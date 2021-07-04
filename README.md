@@ -248,25 +248,27 @@ The Entity Relationship Diagram shows details of each field in each model in the
     - The Stripe API was used for the processing of card, Apple Pay and Google Pay payments.
 11. [Paypal](https://developer.paypal.com/docs/checkout/)
     - The Paypal Smart Payment Button API was used for the processing of Paypal Payments.
-12. [Django](https://www.djangoproject.com/)
+12. [Google Places Autocomplete API](https://developers.google.com/maps/documentation/javascript/places-autocomplete)
+    - Google Places Autocomplete API was used for the address autocomplete on the profile and checkout pages.
+13. [Django](https://www.djangoproject.com/)
     - Django was used for the accessing of the data models, the routing of the appliction, the messages and the templating.
-13. [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
+14. [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
     - Django allauth was used for the authentication of users.
-14. [Postgresql](https://www.postgresql.org/)
+15. [Postgresql](https://www.postgresql.org/)
     - A postgresql database was used to store the data used in the project.
-15. [Visual Studio Code](https://code.visualstudio.com/)
+16. [Visual Studio Code](https://code.visualstudio.com/)
     - Visual Studio Code was used to write the code for this project and gitpod terminal was used to commit changes to Git and push them to GitHub.
-16. [Git](https://git-scm.com/)
+17. [Git](https://git-scm.com/)
     - Git was the version control system used for this project.
-17. [GitHub](https://github.com/)
+18. [GitHub](https://github.com/)
     - GitHub is used to store the project's code and any other required files.
-18. [Heroku](https://www.heroku.com/)
+19. [Heroku](https://www.heroku.com/)
     - Heroku is used to host the deployed website.
-19. [Amazon Web Services](https://aws.amazon.com)
+20. [Amazon Web Services](https://aws.amazon.com)
     - An Amazon Web Services S3 bucket was used to host the images and static files used in the website
-20. [Balsamiq](https://balsamiq.com/)
+21. [Balsamiq](https://balsamiq.com/)
     - Balsamiq was used to create the wireframes during the design phase of the project.
-21. [DB Diagram](https://dbdiagram.io/home)
+22. [DB Diagram](https://dbdiagram.io/home)
     - DB Diagram was used to create the Entity Relationship Diagrams of the database.
 
 ## Testing
