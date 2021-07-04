@@ -13,20 +13,19 @@
 7. As a customer, I want to be able to find out about the extras that are available.
 8. As a customer, I want to be able to easily enter the departure date, departure airport and number of guests when making a booking.
 9. As a customer, I want to be able to easily select extras and their quantities when making a booking
-10. As a customer, I want to be able to feel my personal and payment information is secure
+10. As a customer, I want to be able to easily enter my personal and payment information and feel that it is safe and secure.
 11. As a customer, I want to be able to view a booking confirmation after checkout.
 12. As a site user, I want to be able to sign in to my account or sign up for an account if I don't already have one.
-13. As a site user, I want to be able to sign up for an account and access my personal account information.
-14. As a site user, I want to be able to easily recover my password if I forget it.
-15. As a site user, I want to be able to view my personal profile and update my profile information.
-16. As a site user, I want to be able to view details of my bookings.
-17. As a site user, I want to be able to write reviews of the holiday packages I have purchased.
-18. As a site user, I want to be able to contact the organisation to get answers to any questions I may have.
-19. As a site user, I want to be able to sign up for email updates about the latest holiday offers.
-20. As a site user, I want to be able to find the organisation's social media links.
-21. As a site owner, I want to be able to add, edit and delete holiday packages.
-22. As a site owner, I want to be able to add, edit and delete extras.
-23. As a site owner, I want to be able to add, edit and delete flights.
+13. As a site user, I want to be able to easily recover my password if I forget it.
+14. As a site user, I want to be able to view my personal profile and update my profile information.
+15. As a site user, I want to be able to view details of my bookings.
+16. As a site user, I want to be able to write reviews of the holiday packages I have purchased.
+17. As a site user, I want to be able to contact the organisation to get answers to any questions I may have.
+18. As a site user, I want to be able to sign up for email updates about the latest holiday offers.
+19. As a site user, I want to be able to find the organisation's social media links.
+20. As a site owner, I want to be able to add, edit and delete holiday packages.
+21. As a site owner, I want to be able to add, edit and delete extras.
+22. As a site owner, I want to be able to add, edit and delete flights.
 
 ### Design
 
