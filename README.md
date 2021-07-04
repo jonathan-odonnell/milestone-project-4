@@ -284,6 +284,137 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 ### Testing User Stories from User Experience (UX) Section
 
+1. As a user or a site owner, I want to be able to navigate the website easily to find the content I am looking for.
+
+    - The navigation bar can be easily accessed in the header of each page.
+    - It is clean and easy to read and contains the organisation's logo and the navigation links to the other pages of the website.
+    - Each of the navigation links clearly communicates to the user what page it will take them to.
+    - The Go Explore brand logo is also a link which takes the user back to the home page.
+    - The footer also contains key links which take the user to the holiday categories pages, offers page, extras page, contact page and the profile page and bookings page if a standard user is signed in.
+    - The website is structured in a logical way with the hero image carousel, popular holidays and features on the home page, and each other item of content on its own page. 
+
+2. As a customer, I want to be able to find out about the latest holiday offers.
+
+    - The hero image carousel is clearly highlighted on the home page.
+    - Here the customer can find information about three of the latest offers including the holiday package's image, name, price and duration.
+    - If the customer clicks on the 'Explore Now' button, they are taken to the holiday package's destination details page where they can find out more about the holiday package.
+
+3. As a customer, I want to be able to find out about the most popular holiday packages.
+
+    - The popular holidays slider is clearly highlighted on the home page.
+    - This contains cards for six popular holiday packages which include details of the holiday package's image, name, price country, rating and duration.
+    - If the customer clicks on the name, they are taken to the holiday package's destination details page where they can find out more about the holiday package.
+
+4. As a customer, I want to be able to find out about the features that differentiate Go Explore from its competitiors.
+
+    - The features section is clearly highlighted on the home page.
+    - Here the customer is provided with up to 3 key features which differentiates Go Explore from its competitors and why they can have confidence when placing a booking with the company.
+
+5. As a customer, I want to be able to search for holiday packages that meet my needs.
+
+    - The holiday types, destinations and offers pages are clearly highlighted in the navigation bar in the header of each page.
+    - For each holiday in the holiday type or destination in the URL, a card which includes the holiday package's image, name, price, country, rating and duration is displayed. The name is a link to the holiday package's category, destination or offer details page.
+    - If the customer would like to sort the holidays, they can select an option from the sort by dropdown.
+    - If the customer would like to filter the holidays, they can select country or holiday type badges.
+
+6. As a customer, I want to be able to view details of individual holiday packages.
+
+    - Customers can access a holiday package's details page by clicking on a holiday package name on the holiday category, holiday destination or the offers details pages.
+    - Here the customer is provided with information about the holiday package including a description, five key features, activities (where applicable), the itinerary (where applicable) and reviews.
+
+7. As a customer, I want to be able to find out about the extras that are available.
+
+    - The extras link is clearly highlighted in the navigation bar in the header of each page.
+    - If the customer clicks on this link, they are taken to the extras page page where they find out about each extra incuding it's name, image, price and description.
+
+8. As a customer, I want to be able to easily enter the departure date, departure airport and number of guests when making a booking.
+
+    - The booking form is clearly highlighted on the holiday details pages.
+    - Here the customer can enter their departure date, departure airport and the number of guests for their booking.
+
+9. As a customer, I want to be able to easily select extras and their quantities when making a booking
+
+    - The extras section is clearly highlighted on the booking page.
+    - Here the customer can select the extras they would like to add to their booking by changing the extra's switch to the on position.
+    - The customer can increase or decrease the quantity of the extra by using the up and down arrow buttons next to the quantity input.
+
+10. As a customer, I want to be able to easily enter my personal and payment information and feel that it is safe and secure.
+
+    - The passenger details sections are clearly highlighted on the passenger details page.
+    - Here the customer can enter the full name, date of birth and passport number for each guest in the booking.
+    - The booking contact section is clearly highlighted on the checkout page.
+    - Here the customer can enter the contact details for the booking contact.
+    - The express payment and card payment sections are clearly highlighted on the checkout page.
+    - Here the customer can enter the relevant details to complete the payment.
+    - Customers can feel confident that the checkout process is safe and secure as it is quick and easy to check out and no unneccessary information is requested.
+
+11. As a customer, I want to be able to view a booking confirmation after checkout.
+
+    - Once the customer has successfully paid for their booking, the checkout success page is displayed.
+    - Here the customer will find a summary of their booking including billing information, holiday details, extras, and flight details.
+
+12. As a site user, I want to be able to sign in to my account or sign up for an account if I don't already have one.
+
+    - The sign in / register links are clearly highlighted in the user options dropdown.
+    - On the sign in page, users can sign in to their account by entering their email address and password into the sign in form or by clicking on the google or facebook icon and signing into the relevant account.
+    - On the register page, users can sign up for an account by entering their details into the sign up form.
+
+13. As a site user, I want to be able to easily recover my password if I forget it.
+
+    - The profile link is clearly highlighted on the sign in page.
+    - If the user clicks on this link, they are taken to the password reset page page where they can request a password reset link.
+
+14. As a site user, I want to be able to view my personal profile and update my profile information.
+
+    - The profile link is clearly highlighted in the user options dropdown when the user is signed in.
+    - If the user clicks on this link, they are taken to the profile page where they can view and update their profile details.
+
+15. As a site user, I want to be able to view details of my bookings.
+
+    - The bookings link is clearly highlighted in the user options dropdown when the user is signed in.
+    - If the user clicks on this link, they are taken to the bookings page which contains a table displays the booking number, departure date, holiday package name, duration and total for each booking they have made.
+    - If the user clicks on a booking number, they are taken to the booking details page which includes full details of the booking.
+
+16. As a site user, I want to be able to write reviews of the holiday packages I have purchased.
+
+    - The add review link is clearly highlighted on the holiday details pages when the user is signed in, has purchased the holiday and not already reviewed it.
+    - If the user clicks on this link, they are taken to the write review page which contains a form they can complete to add a review for the holiday.
+
+17. As a site user, I want to be able to contact the organisation to get answers to any questions I may have.
+
+    - A link to the contact us page is clearly highlighted in the footer of each page.
+    - Here there is a form which the user can complete to get in touch with the organisation.
+
+18. As a site user, I want to be able to sign up for email updates about the latest holiday offers.
+
+    - The newsletter sign up section is clearly highlighted in the footer of each page.
+    - This contains a form where users can enter their email address to sign up to receive email updates about the latest holiday offers.
+
+19. As a site user, I want to be able to find the organisation's social media links.
+
+    - The social media icons are clearly highlighted in the footer of each page.
+    - Each of these provides a link to the relevant social media platform.
+
+20. As a site owner, I want to be able to add, edit and delete holiday packages.
+
+    - Site owners can access the add holiday form by clicking on the user dropdown and selecting the add holiday option. Here, they can complete the form to add a new holiday.
+    - If the site owner clicks on the edit link below the relevant holiday description on the holiday details pages, the edit holiday form is displayed where they can amend the relevant holiday details.
+    - If the site owner clicks on the delete link below the relevant holiday description on the holiday details pages, the holiday is deleted.
+
+21. As a site owner, I want to be able to add, edit and delete extras.
+
+    - Site owners can access the add extra form by clicking on the user dropdown and selecting the add extra option. Here, they can complete the form to add a new extra.
+    - If the site owner clicks on the edit link below the relevant extra on the extras page, the edit extra form is displayed where they can amend the relevant extra details.
+    - If the site owner clicks on the delete link below the relevant extra on the extras page, the extra is deleted.
+
+22. As a site owner, I want to be able to add, edit and delete flights.
+    
+    - Site owners can access the flights page by clicking on the user dropdown and selecting the flights option.
+    - Here, site owners can find a table containing each flight's flight number, origin, destination and links to the edit and delete the flight.
+    - If the site owner clicks on the add flight link, the add flight form is displayed which they can complete to add a new flight.
+    - If the site owner clicks on the edit link, the edit flight form is displayed where they can amend the relevant flight details.
+    - If the site owner clicks on the delete link, the flight is deleted.
+
 ### Manual Testing
 
 ### Further Testing
