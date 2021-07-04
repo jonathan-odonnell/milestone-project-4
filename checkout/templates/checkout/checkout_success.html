@@ -232,7 +232,7 @@
                         </div>
                         <div class="col-4 mt-3">
                             <p class="small text-end mb-0">{{ return_flight.arrival_time|timezone:return_flight.destination_time_zone|time:'H:i' }}</p>
-                            {% with return_flight|next_day as extra_days %}
+                            {% with return_flight|extra_days as extra_days %}
                             {% if extra_days %}
                                 <p class="small text-end mb-0">{{ extra_days }}</p>
                             {% endif %}
