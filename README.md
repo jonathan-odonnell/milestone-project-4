@@ -426,6 +426,8 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 ### Manual Testing
 
+Details of the manual testing carried out can be viewed [here](testing.md).
+
 ### Further Testing
 
 - The Website was tested on a variety of different web browsers including Google Chrome, Microsoft Edge, Safari and Firefox.
