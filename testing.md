@@ -178,7 +178,7 @@
 
 ## Home page
 
-1. Verify that the hero image carousel includes 3 items, with each containing a holiday package's image, price, duration and a explore now button.
+1. Verify that the hero image carousel includes 3 items, with each containing a holiday's image, price, duration and a explore now button.
 
     - Outcome: Pass
 
@@ -206,7 +206,7 @@
 
     - Outcome: Pass
 
-8. Scroll down to the popular holiday destinations slider and verify that it appears with 3 cards displayed, with each containing a holiday package's image, name, price, country, rating and duration.
+8. Scroll down to the popular holiday destinations slider and verify that it appears with 3 cards displayed, with each containing a holiday's image, name, price, country, rating and duration.
 
     - Outcome: Pass
 
@@ -226,12 +226,145 @@
 
     - Outcome: Pass
 
-13. Verify that each holiday package name links to the relevant product's review details page.
+13. Verify that each holiday name links to the relevant holiday's destination details page.
 
     - Outcome: Pass
 
-
 14. Scroll down to the features section and verify that it appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+## Holidays
+
+1. Verify that the page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that cards containing the holiday image, name, price, country, rating and duration for each holiday satisfying the holiday type or destination.
+
+    - Outcome: Pass
+
+3. Verify that cards containing the holiday image, name, price, country, rating and duration for each offer is displayed on the offers page.
+
+    - Outcome: Pass
+
+4. Verify that each holiday name links to the relevant holiday details page.
+
+    - Outcome: Pass
+
+5. Verify that when the user selects one or more options from the country or category filters, the holiday cards reload and they are filtered accordingly.
+
+    - Outcome: Pass
+
+6. Verify that when the user deselects an option from the country or category filters, the holiday cards reload and they are filtered accordingly.
+
+    - Outcome: Pass
+
+7. Verify that when the user selects an option from the sort by select menu, the holiday cards reload and they are sorted accordingly. 
+
+    - Outcome: Pass
+
+8. Verify that if there are more than 6 results in the holidays list, pagination links are displayed and when the user clicks on a link, cards for the holidays in the relevant positions in the reviews list are displayed.
+
+    - Outcome: Pass
+
+## Holiday Details
+
+1. Verify that the holiday details page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. On a screen with a width of 576px or above, click on each tab and verify that the correct content is displayed and all other content is hidden
+
+    - Outcome: Pass
+
+3. On a screen with a width below 576px, click on each item in the tab dropdown and verify that the correct content is displayed and all other content is hidden.
+
+    - Outcome: Pass
+
+4. Verify that the overview tab displays the holiday's price, duration, rating, catering type, whether transfers are included or not, 5 key features and the description.
+
+    - Outcome: Pass
+
+5. Verify that when an admin user is signed in, edit and delete icons appear below the holiday description.
+
+    - Outcome: Pass
+
+6. Verify that the activities tab displays cards which contain information about the activities on offer at the holiday destination.
+
+    - Outcome: Pass
+
+7. Verify that the itinerary tab contains cards containing details of each day's itinerary items.
+
+    - Outcome: Pass
+
+8. Verify that the reviews tab displays up to 5 cards containing the most recent reviews of the holiday. Each card should contain the review title, rating, review, author's name and the date reviewed.
+
+    - Outcome: Pass
+
+9. Verify that the add review button is displayed in the reviews tab if a user is signed in, has booked the holiday and has not already reviewed it.
+
+    - Outcome: Pass
+
+10. Verify that when the user clicks in the departure date field in the trip booking form, the datepicker opens and the user cannot manually enter a value into the field.
+
+    - Outcome: Pass
+
+11. Verify that when the user clicks the plus button next to the guests input in the booking form, the guests input value is increased by one if the existing value is less than 9.
+
+    - Outcome: Pass
+
+12. Verify that when the user clicks the minus button next to the guests input in the booking form, the guests input value is decreased by one if the existing value is greater than 1.
+
+    - Outcome: Pass
+
+13. Verify that if the user manually enters a value that is not a number between 1 and 10, the value of the input resets to 1.
+
+    - Outcome: Pass
+
+14. In the trip booking form, verify that if the user hasn't entered a value in each field, when the book trip button is clicked the form does not submit and the invalid input error message appears.
+
+    - Outcome: Pass
+
+15. Enter a valid value in each field in the booking form and click the book trip button. Verify that the form submits, the booking is added to the booking database and the user is redirected to the booking page.
+
+    - Outcome: Pass
+
+16. Scroll down to the related holidays slider and verify that it appears with 4 cards displayed, with each containing a holiday's image, name, price, country, rating and duration.
+
+    - Outcome: Pass
+
+17. Click the left arrow and verify that the carousel now shows the 2nd, 3rd and 4th cards.
+
+    - Outcome: Pass
+
+18. Click the right arrow and verify that the carousel now shows the 6th, 1st, and 2nd cards.
+
+    - Outcome: Pass
+
+19. Reduce and expand the width of the screen and verify that the number of cards changes to 3 at screen widths below 992px, 2 at screen widths below 768px and 1 at screen widths below 576px.
+
+    - Outcome: Pass
+
+20. Reduce and expand the width of the screen and verify that the slider and cards look good at all screen widths.
+
+    - Outcome: Pass
+
+21. Verify that each holiday name links to the relevant holiday's category, destination or offer details page.
+
+    - Outcome: Pass
+
+## Extras
+
+1. Verify that the extras page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that a card containing the extra's image, name, description and price for each extra.
+
+    - Outcome: Pass
+
+3. Verify that when an admin user is signed in, edit and delete icons appear in each card.
 
     - Outcome: Pass
 
