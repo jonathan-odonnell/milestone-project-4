@@ -526,9 +526,9 @@
 
     - Outcome: Pass
 
-## Contact Us Page
+## Contact Page
 
-1. Verify that the contact us page appears as expected and looks good at all screen widths.
+1. Verify that the contact page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
@@ -540,7 +540,7 @@
 
     - Outcome: Pass
 
-4. In the email address field, enter an invalid email address, click on the send message button and verify that the form does not submit and shows the invalid input error message.
+4. Verify that when the user enters an invalid email address in the email address field and clicks on the send message button, the form does not submit and the invalid input error message appears on the email address field.
 
     - Outcome: Pass
 
@@ -562,7 +562,7 @@
 
     - Outcome: Pass
 
-4. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+4. Verify that when the user enters a non-numerical input in the phone number field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the phone number field.
 
     - Outcome: Pass
 
@@ -570,7 +570,11 @@
 
     - Outcome: Pass
 
-6. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the user and user profile databases and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
+6. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+
+    - Outcome: Pass
+
+7. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the user and user profile databases and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
 
     - Outcome: Pass
 
