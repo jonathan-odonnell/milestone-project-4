@@ -500,7 +500,7 @@
 
     - Outcome: Pass
 
-3. Verify that when the user enters an invalid price in the price field and clicks on the add extra button, the form does not submit and the invalid input error message appears on the price field.
+3. Verify that when the user enters a non-numerical input in the price field and clicks on the add extra button, the form does not submit and the invalid input error message appears on the price field.
 
     - Outcome: Pass
 
@@ -518,7 +518,7 @@
 
     - Outcome: Pass
 
-3. Verify that when the user enters an invalid price in the price field and clicks on the update extra button, the form does not submit and the invalid input error message appears on the price field.
+3. Verify that when the user enters a non-numerical input in the price field and clicks on the update extra button, the form does not submit and the invalid input error message appears on the price field.
 
     - Outcome: Pass
 
