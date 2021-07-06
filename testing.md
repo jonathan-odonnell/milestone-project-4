@@ -148,31 +148,35 @@
 
     - Outcome: Pass
 
-13. In the newsletter sign up field, enter an invalid email address, click on the arrow button and verify that the form does not submit and shows the invalid input error message.
+13. Verify that if the user hasn't entered a value in the newsletter sign up field, when the arrow button is clicked the form does not submit and the required input error message appears.
 
     - Outcome: Pass
 
-14.  Enter a valid value in the newsletter sign up field and click the arrow button. Verify that the form submits, the email address is added to the newsletter sign ups database and the HTML is dynamically updated to show a message thanking the user for signing up to the newsletter.
+14. In the newsletter sign up field, enter an invalid email address, click on the arrow button and verify that the form does not submit and shows the invalid input error message.
 
     - Outcome: Pass
 
-15. Click on the Facebook icon and verify that it takes the user to the Facebook home page.
+15.  Enter a valid value in the newsletter sign up field and click the arrow button. Verify that the form submits, the email address is added to the newsletter sign ups database and the HTML is dynamically updated to show a message thanking the user for signing up to the newsletter.
 
     - Outcome: Pass
 
-16. Click on the Twitter icon and verify that it takes the user to the Twitter home page.
+16. Click on the Facebook icon and verify that it takes the user to the Facebook home page.
 
     - Outcome: Pass
 
-17. Click on the Instagram icon and verify that it takes the user to the Instagram home page.
+17. Click on the Twitter icon and verify that it takes the user to the Twitter home page.
 
     - Outcome: Pass
 
-18. Click on the Youtube icon and verify that it takes the user to the Youtube home page.
+18. Click on the Instagram icon and verify that it takes the user to the Instagram home page.
 
     - Outcome: Pass
 
-19. Verify that when the user hovers over an icon, it increases in size and appears in light blue.
+19. Click on the Youtube icon and verify that it takes the user to the Youtube home page.
+
+    - Outcome: Pass
+
+20. Verify that when the user hovers over an icon, it increases in size and appears in light blue.
 
     - Outcome: Pass
 
@@ -488,7 +492,7 @@
 
     - Outcome: Pass
 
-3. Verify that if the user hasn't entered a value in each field, when the send message button is clicked the form does not submit and the invalid input error message appears.
+3. Verify that if the user hasn't entered a value in each field, when the send message button is clicked the form does not submit and the required input error message appears.
 
     - Outcome: Pass
 
