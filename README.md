@@ -761,6 +761,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for creating the user profile in the tests is from [Django](https://stackoverflow.com/questions/11088901/django-onetoone-reverse-access).
 - Code for the tests login is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests).
 - Code for the request factory, logging in the user and setting the session variable in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory).
+- Code for the non field error messages is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/#rendering-form-error-messages).
 
 ### Content
 
