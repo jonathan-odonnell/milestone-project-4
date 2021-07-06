@@ -234,6 +234,116 @@
 
     - Outcome: Pass
 
+# Sign Up
+
+1. Verify that the sign up form appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that the sign in image disappears at screen widths below 992px.
+
+    - Outcome: Pass
+
+3. Verify that if the user hasn't entered a value in each field, when the sign in button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+4. Verify that when the user enters an invalid email address in the email address field and clicks on the sign in button, the form does not submit and the invalid input error message appears on the email address field.
+
+    - Outcome: Pass
+
+5. Verify that when the user enters an invalid password in the password field and clicks on the sign in button, the page reloads and the invalid password error message appears below the password field.
+
+    - Outcome: Pass
+
+6. Verify that when the user enters a password in the confirm password field which does not match the value in the password field and clicks on the sign in button, the page reloads and the passwords do not match error message appears below the confirm password field.
+
+    - Outcome: Pass
+
+7. Verify that when a user correctly enters a valid input in all fields and clicks the sign in button, the form submits, and the user is successfully registered and redirected to the verify email address page.
+
+    - Outcome: Pass
+
+8. Click on the Facebook icon and verify that it takes the user to the facebook sign in page.
+
+    - Outcome: Pass
+
+9. Click on the Google link and verify that it takes the user to the Google sign in page.
+
+    - Outcome: Pass
+
+10. Click on the register link and verify that it takes the user to the sign up page.
+
+    - Outcome: Pass
+
+11. Click on the forgot password link and verify that it takes the user to the password reset page.
+
+    - Outcome: Pass
+
+# Sign In page
+
+1. Verify that the sign in form appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that if the user hasn't entered a value in each field, when the sign in button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+3. Verify that when the user enters an invalid email address in the email address field and clicks on the sign in button, the form does not submit and the invalid input error message appears on the email address field.
+
+    - Outcome: Pass
+
+4. Verify that when a user enters a valid email addess and password, but the email address and / or password is incorrect and clicks on the sign in button, they are redirected back to the sign in page and a toast appears informing them that their email address and / or password is incorrect.
+
+    - Outcome: Pass
+
+5. Verify that when a user correctly enters their email address and password and clicks the sign in button, the form submits, and the user is signed in and redirected to their previous page. A toast should also appear informing the user that they have been successfully signed in.
+
+    - Outcome: Pass
+
+6. Click on the Facebook icon and verify that it takes the user to the facebook sign in page.
+
+    - Outcome: Pass
+
+7. Click on the Google link and verify that it takes the user to the Google sign in page.
+
+    - Outcome: Pass
+
+8. Click on the register link and verify that it takes the user to the sign up page.
+
+    - Outcome: Pass
+
+9. Click on the forgot password link and verify that it takes the user to the password reset page.
+
+    - Outcome: Pass
+
+# Change Password
+
+1. Verify that the change password form appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that if the user hasn't entered a value in each field, when the sign in button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+3. Verify that when the user enters the incorrect password in the current password field and clicks on the sign in button, the page reloads and the incorrect password error message appears below the current password field.
+
+    - Outcome: Pass
+
+4. Verify that when the user enters an invalid password in the new password field and clicks on the change password button, the page reloads and the invalid password error message appears below the new password field.
+
+    - Outcome: Pass
+
+5. Verify that when the user enters a password in the confirm new password field which does not match the value in the new password field and clicks on the change password button, the page reloads and the passwords do not match error message appears below the confirm new password field.
+
+    - Outcome: Pass
+
+6. Verify that when a user correctly enters their existing password and new password twice and clicks the change password button, the form submits, and the page reloads. A toast should also appear informing the user that their password has been successfully changed.
+
+    - Outcome: Pass
+
 ## Holidays
 
 1. Verify that the page appears as expected and looks good at all screen widths.
@@ -387,5 +497,63 @@
     - Outcome: Pass
 
 5. Enter a valid value in each field and click the send message button. Verify that the form submits, the data inputted is added to the customer contact database and the HTML is dynamically updated to show a message thanking the user for their message.
+
+    - Outcome: Pass
+
+# Profile
+
+1. Verify that the profile form appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that if the user hasn't entered a value in the email address field, when the update profile button is clicked the form does not submit and the required input error message appears on the email address field.
+
+    - Outcome: Pass
+
+3. Verify that when the user enters an invalid email address in the email address field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the email address field.
+
+    - Outcome: Pass
+
+4. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+
+    - Outcome: Pass
+
+5. Verify that when the user enters an invalid phone number in the phone number field and clicks on the update profile button, the page reloads and the invalid phone number error message appears below the phone number field.
+
+    - Outcome: Pass
+
+6. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the user and user profile databases and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
+
+    - Outcome: Pass
+
+# Bookings
+
+1. Verify that the bookings page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that a table containing the booking number, departure date, holiday name, duration and total for up to 10 of the user's most recent bookings.
+
+    - Outcome: Pass
+
+3. Verify that each booking number links to the relevant booking details page.
+
+    - Outcome: Pass
+
+# Booking Details
+
+1. Verify that the booking details page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
+
+    - Outcome: Pass
+
+3. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
+
+    - Outcome: Pass
+
+4. Verify that the Back to Bookings links to the bookings page.
 
     - Outcome: Pass
