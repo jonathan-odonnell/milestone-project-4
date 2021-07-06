@@ -468,7 +468,7 @@
 
     - Outcome: Pass
 
-## Extras
+## Extras Page
 
 1. Verify that the extras page appears as expected and looks good at all screen widths.
 
@@ -479,6 +479,50 @@
     - Outcome: Pass
 
 3. Verify that when an admin user is signed in, edit and delete icons appear in each card.
+
+    - Outcome: Pass
+
+4. Verify that when the admin user clicks on an extra's edit icon, they are taken to that extra's edit page.
+
+    - Outcome: Pass
+
+5. Verify that when the admin user clicks on an extra's delete icon, the extra is deleted from the database, the page reloads and a toast appears informing the user that the extra has been successfully deleted.
+
+    - Outcome: Pass
+
+# Add Extra Page
+
+1. Verify that the add extra page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that if the user hasn't entered a value in each field, when the add extra button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+3. Verify that when the user enters an invalid price in the price field and clicks on the add extra button, the form does not submit and the invalid input error message appears on the price field.
+
+    - Outcome: Pass
+
+4. Verify that when a user correctly enters a valid input in all fields and clicks the add extra button, the form submits, and the extra is added to the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully added.
+
+    - Outcome: Pass
+
+# Edit Extra Page
+
+1. Verify that the edit extra page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that if the user hasn't entered a value in each field, when the update extra button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+3. Verify that when the user enters an invalid price in the price field and clicks on the update extra button, the form does not submit and the invalid input error message appears on the price field.
+
+    - Outcome: Pass
+
+4. Verify that when a user correctly enters a valid input in all fields and clicks the update extra button, the form submits, and the extra is updated in the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
 
     - Outcome: Pass
 
