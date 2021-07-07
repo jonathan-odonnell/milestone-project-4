@@ -348,8 +348,6 @@
 
     - Outcome: Pass
 
-
-
 # Profile
 
 1. Verify that the profile form appears as expected and looks good at all screen widths.
@@ -705,6 +703,58 @@
     - Outcome: Pass
 
 # Checkout Page
+
+1. Verify that the checkout page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that the user's details are automatically completed in the checkout form from their profile if the user is signed in.
+
+    - Outcome: Pass
+
+3. Verify that if the user hasn't entered a value in each field except for street address 2, when user clicks on the PayPal, Apple Pay/Google Pay or Pay button the required input error message appears.
+
+    - Outcome: Pass
+
+4. Verify that if the user hasn't entered a value in the email address field, when the user clicks on the PayPal, Apple Pay/Google Pay or Pay button the input error message appears on the email address field.
+
+    - Outcome: Pass
+
+5. Verify that when the user enters an invalid email address in the email address field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the email address field.
+
+    - Outcome: Pass
+
+6. Verify that when the user enters a non-numerical input in the phone number field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the phone number field.
+
+    - Outcome: Pass
+
+7. Verify that when the user enters an invalid phone number in the phone number field, clicks on the PayPal, Apple Pay/Google Pay or Pay button and successfully completes the payment process, the page reloads and the invalid phone number error message appears below the phone number field.
+
+    - Outcome: Pass
+
+8. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+
+    - Outcome: Pass
+
+9. Verify that if the user is signed in and has previously saved their card details, up to 3 saved cards are displayed above the card payment section.
+
+    - Outcome: Pass
+
+10. Verify that if the user selects a saved card, the card payment field dissapears and is replaced by the CVC field.
+
+    - Outcome: Pass
+
+11. Verify that if the user enters invalid card details or CVC number in the relevant fields and clicks on the pay button, an error message is displayed below the field.
+
+    - Outcome: Pass
+
+12. Verify that if the Paypal or Apple Pay / Google Pay payment fails, the modal closes and the user is returned to the checkout page.
+
+    - Outcome: Pass
+
+13. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
+
+    - Outcome: Pass
 
 # Extras Page
 
