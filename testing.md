@@ -532,7 +532,91 @@
 
     - Outcome: Pass
 
-## Extras Page
+22. Verify that when the admin user clicks on the edit icon, they are taken to the holiday's edit page.
+
+    - Outcome: Pass
+
+23. Verify that when the admin user clicks on the delete icon, the holiday is deleted from the database, the user is redirected to the home page and a toast appears informing the user that the holiday has been successfully deleted.
+
+    - Outcome: Pass
+
+# Add Holiday Page
+
+1. Verify that the add holiday page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that when the next button is clicked and the inputs in the fieldset shown are valid, the current fieldset is hidden and the next fieldset is shown.
+
+     - Outcome: Pass
+
+3. Verify that when the back button is clicked the current fieldset is hidden and the previous fieldset is shown.
+
+    - Outcome: Pass
+
+4. Verify that if the user hasn't entered a value in each mandatory field in the package fieldset, when the next button is clicked the features fieldset is not displayed and the required input error message appears.
+
+    - Outcome: Pass
+
+5. Verify that when the user enters a non-numerical input in the price or duration fields and clicks on the next button, the features fieldset is not displaye and the invalid input error message appears on the relevant field.
+
+    - Outcome: Pass
+
+6. Verify that when the user clicks on the add another link in the activities or itineraries fieldsets another form row is added.
+
+    - Outcome: Pass
+
+7. Verify that when a user correctly enters a valid input in all fields and clicks the add holiday button, the form submits, and the holiday is added to the database and the user is redirected to the holiday's destination details page. A toast also appears informing the user that the holiday has been successfully added.
+
+    - Outcome: Pass
+
+8. Verify that users who are not signed in cannot access the add holiday page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+9. Verify that standard users cannot access the add holiday page by manually typing in it's URL and are returned to the 403 page.
+
+    - Outcome: Pass
+
+# Edit Holiday Page
+
+1. Verify that the edit holiday page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that when the next button is clicked and the inputs in the fieldset shown are valid, the current fieldset is hidden and the next fieldset is shown.
+
+     - Outcome: Pass
+
+3. Verify that when the back button is clicked the current fieldset is hidden and the previous fieldset is shown.
+
+    - Outcome: Pass
+
+4. Verify that if the user hasn't entered a value in each mandatory field in the package fieldset, when the next button is clicked the features fieldset is not displayed and the required input error message appears.
+
+    - Outcome: Pass
+
+5. Verify that when the user enters a non-numerical input in the price or duration fields and clicks on the next button, the features fieldset is not displaye and the invalid input error message appears on the relevant field.
+
+    - Outcome: Pass
+
+6. Verify that when the user clicks on the add another link in the activities or itineraries fieldsets another form row is added.
+
+    - Outcome: Pass
+
+7. Verify that when a user correctly enters a valid input in all fields and clicks the update holiday button, the form submits, and the holiday is updated in the database and the user is redirected to the holiday's destination details page. A toast also appears informing the user that the holiday has been successfully updated.
+
+    - Outcome: Pass
+
+8. Verify that users who are not signed in cannot access the edit holiday page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+9. Verify that standard users cannot access the edit holiday page by manually typing in it's URL and are returned to the 403 page.
+
+    - Outcome: Pass
+
+# Extras Page
 
 1. Verify that the extras page appears as expected and looks good at all screen widths.
 
