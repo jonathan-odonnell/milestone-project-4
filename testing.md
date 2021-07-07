@@ -348,6 +348,70 @@
 
     - Outcome: Pass
 
+
+
+# Profile
+
+1. Verify that the profile form appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that if the user hasn't entered a value in the email address field, when the update profile button is clicked the form does not submit and the required input error message appears on the email address field.
+
+    - Outcome: Pass
+
+3. Verify that when the user enters an invalid email address in the email address field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the email address field.
+
+    - Outcome: Pass
+
+4. Verify that when the user enters a non-numerical input in the phone number field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the phone number field.
+
+    - Outcome: Pass
+
+5. Verify that when the user enters an invalid phone number in the phone number field and clicks on the update profile button, the page reloads and the invalid phone number error message appears below the phone number field.
+
+    - Outcome: Pass
+
+6. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+
+    - Outcome: Pass
+
+7. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the user and user profile databases and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
+
+    - Outcome: Pass
+
+# Bookings
+
+1. Verify that the bookings page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that a table containing the booking number, departure date, holiday name, duration and total for up to 10 of the user's most recent bookings.
+
+    - Outcome: Pass
+
+3. Verify that each booking number links to the relevant booking details page.
+
+    - Outcome: Pass
+
+# Booking Details
+
+1. Verify that the booking details page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
+
+    - Outcome: Pass
+
+3. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
+
+    - Outcome: Pass
+
+4. Verify that the Back to Bookings links to the bookings page.
+
+    - Outcome: Pass
+
 ## Holidays
 
 1. Verify that the page appears as expected and looks good at all screen widths.
@@ -548,64 +612,109 @@
 
     - Outcome: Pass
 
-# Profile
+# Flights Page
 
-1. Verify that the profile form appears as expected and looks good at all screen widths.
-
-    - Outcome: Pass
-
-2. Verify that if the user hasn't entered a value in the email address field, when the update profile button is clicked the form does not submit and the required input error message appears on the email address field.
+1. Verify that the flights page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
-3. Verify that when the user enters an invalid email address in the email address field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the email address field.
+2. Verify that a table containing the flight number, origin, destination and edit and delete links for up to 10 flights.
 
     - Outcome: Pass
 
-4. Verify that when the user enters a non-numerical input in the phone number field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the phone number field.
+3. Verify that when the user clicks the add product link, they are taken to the add product page.
 
     - Outcome: Pass
 
-5. Verify that when the user enters an invalid phone number in the phone number field and clicks on the update profile button, the page reloads and the invalid phone number error message appears below the phone number field.
+4. Verify that when the user selects an option from the sort by dropdown, the page table is updated and the flights are sorted accordingly.
 
     - Outcome: Pass
 
-6. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+5. Verify that when an admin user clicks on a flight's edit icon, they are taken to that flight's edit page.
 
     - Outcome: Pass
 
-7. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the user and user profile databases and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
+6. Verify that when an admin user clicks on a flight's delete icon, the flight is deleted from the database, the page reloads and a toast appears informing the user that the flight has been successfully deleted.
 
     - Outcome: Pass
 
-# Bookings
-
-1. Verify that the bookings page appears as expected and looks good at all screen widths.
+7. Verify that if there are more than 10 results in the flights list, pagination links are displayed and when the user clicks on a link, rows for the flights in the relevant positions in the flights list are displayed.
 
     - Outcome: Pass
 
-2. Verify that a table containing the booking number, departure date, holiday name, duration and total for up to 10 of the user's most recent bookings.
+8. Verify that users who are not signed in cannot access the flights page by manually typing in it's URL and are returned to the sign in page.
 
     - Outcome: Pass
 
-3. Verify that each booking number links to the relevant booking details page.
+9. Verify that standard users cannot access the flights page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
-# Booking Details
+# Add Flight Page
 
-1. Verify that the booking details page appears as expected and looks good at all screen widths.
-
-    - Outcome: Pass
-
-2. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
+1. Verify that the add flight page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
-3. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
+2. Verify that if the user hasn't entered a value in each field, when the add flight button is clicked the form does not submit and the required input error message appears.
 
     - Outcome: Pass
 
-4. Verify that the Back to Bookings links to the bookings page.
+3. Verify that the user cannot enter more than 5 characters into the flight number field.
+
+    - Outcome: Pass
+
+4. Verify that when the user clicks in the departure time field, the datetime picker opens and the user cannot manually enter a value into the field.
+
+    - Outcome: Pass
+
+5. Verify that when the user clicks in the arrival time field, the datetime picker opens and the user cannot manually enter a value into the field.
+
+    - Outcome: Pass
+
+6. Verify that when the user enters a non-numerical input in the baggage field and clicks on the add flight button, the form does not submit and the invalid input error message appears on the baggage field.
+
+    - Outcome: Pass
+
+7. Verify that users who are not signed in cannot access the add flight page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+8. Verify that standard users cannot access the add flight page by manually typing in it's URL and are returned to the 403 page.
+
+    - Outcome: Pass
+
+# Edit Flight Page
+
+1. Verify that the edit flight page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that if the user hasn't entered a value in each field, when the update flight button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+3. Verify that the user cannot enter more than 5 characters into the flight number field.
+
+    - Outcome: Pass
+
+4. Verify that when the user clicks in the departure time field, the datetime picker opens and the user cannot manually enter a value into the field.
+
+    - Outcome: Pass
+
+5. Verify that when the user clicks in the arrival time field, the datetime picker opens and the user cannot manually enter a value into the field.
+
+    - Outcome: Pass
+
+
+6. Verify that when the user enters a non-numerical input in the baggage field and clicks on the add flight button, the form does not submit and the invalid input error message appears on the baggage field.
+
+    - Outcome: Pass
+
+7. Verify that users who are not signed in cannot access the edit flight page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+8. Verify that standard users cannot access the edit flight page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
