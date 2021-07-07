@@ -238,9 +238,9 @@
 
     - Outcome: Pass
 
-# Sign Up
+# Sign Up Page
 
-1. Verify that the sign up form appears as expected and looks good at all screen widths.
+1. Verify that the sign up page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
@@ -284,9 +284,9 @@
 
     - Outcome: Pass
 
-# Sign In page
+# Sign In Page
 
-1. Verify that the sign in form appears as expected and looks good at all screen widths.
+1. Verify that the sign in Page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
@@ -322,9 +322,19 @@
 
     - Outcome: Pass
 
+# Sign Out Page
+
+1. Verify that the sign out page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that when the user clicks on the sign out button, they are signed out and redirected to their previous page. If the previous page requires the user to be signed in, the user should be redirected to the sign in page.
+
+    - Outcome: Pass
+
 # Change Password
 
-1. Verify that the change password form appears as expected and looks good at all screen widths.
+1. Verify that the change password page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
@@ -350,7 +360,7 @@
 
 # Profile
 
-1. Verify that the profile form appears as expected and looks good at all screen widths.
+1. Verify that the profile page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
