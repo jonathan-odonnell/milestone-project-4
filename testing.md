@@ -776,11 +776,15 @@
 
     - Outcome: Pass
 
-7. Verify that users who are not signed in cannot access the add flight page by manually typing in it's URL and are returned to the sign in page.
+7. Verify that when a user correctly enters a valid input in all fields and clicks the add flight button, the form submits, and the flight is added to the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully added.
 
     - Outcome: Pass
 
-8. Verify that standard users cannot access the add flight page by manually typing in it's URL and are returned to the 403 page.
+8. Verify that users who are not signed in cannot access the add flight page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+9. Verify that standard users cannot access the add flight page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
@@ -806,15 +810,18 @@
 
     - Outcome: Pass
 
-
 6. Verify that when the user enters a non-numerical input in the baggage field and clicks on the add flight button, the form does not submit and the invalid input error message appears on the baggage field.
 
     - Outcome: Pass
 
-7. Verify that users who are not signed in cannot access the edit flight page by manually typing in it's URL and are returned to the sign in page.
+7. Verify that when a user correctly enters a valid input in all fields and clicks the update flight button, the form submits, and the flight is updated in the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully updated.
 
     - Outcome: Pass
 
-8. Verify that standard users cannot access the edit flight page by manually typing in it's URL and are returned to the 403 page.
+8. Verify that users who are not signed in cannot access the edit flight page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+9. Verify that standard users cannot access the edit flight page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
