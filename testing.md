@@ -616,6 +616,96 @@
 
     - Outcome: Pass
 
+# Booking Page
+
+1. Verify that the booking page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that the holiday table contains the holiday's name, duration, departure date, catering type, number of guests and price per person.
+
+    - Outcome: Pass
+
+3. Verify that when the user clicks the up arrow button next to the guests input, the guests input value is increased by one if the existing value is less than 10. 
+
+    - Outcome: Pass
+
+4. Verify that when the user clicks the down arrow button next to an extra's quantity input, the guests input value is decreased by one if the existing value is greater than 1.
+
+    - Outcome: Pass
+
+5. Verify that when the guests input value is changed, it is updated in the booking in the database and the totals are updated.
+
+    - Outcome: Pass
+
+6. Verify that the extras table contains the name, quantity and price for each extra that can be added to the booking.
+
+    - Outcome: Pass
+
+7. Verify that when an extra's switch is changed to the on position, it is added to the booking in the database and the totals are updated.
+
+    - Outcome: Pass
+
+8. Verify that when an extra's switch is changed to the off position, it is removed from the booking in the database and the totals are updated.
+
+    - Outcome: Pass
+
+9. Verify that when the user clicks the up arrow button next to an extra's quantity input, the quantity input value is increased by one if the existing value is less than the guests value. 
+
+    - Outcome: Pass
+
+10. Verify that when the user clicks the down arrow button next to an extra's quantity input, the quantity input value is decreased by one if the existing value is greater than 1.
+
+    - Outcome: Pass
+
+11. Verify that when an extra's quantity input value is changed, it is updated in the booking in the database and the totals are updated.
+
+    - Outcome: Pass
+
+12. Verify that the booking summary section contatins the flight details, whether transfers are included or not, totals and the promo code form.
+
+    - Outcome: Pass
+
+13. Verify that when the user enters a valid coupon code into the promo code field, it is updated in the booking in the database and the totals are updated.
+
+    - Outcome: Pass
+
+14. Verify that when the user enters an invalid coupon code into the promo code field, an error message appears below the promo code field informing them that the coupon code is not valid.
+
+    - Outcome: Pass
+
+15. Verify that the Continue to Passengers button links to the passenger details page.
+
+    - Outcome: Pass
+
+# Passenger Details Page
+
+1. Verify that the passenger details page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that the number of rows in the formset is equal to the number of guests in the booking.
+
+    - Outcome: Pass
+
+3. Verify that if the user hasn't entered a value in each field, when the next button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+4. Verify that the user cannot enter more than 9 characters into the passport number fields.
+
+    - Outcome: Pass
+
+5. Verify that when a user correctly enters a valid input in all fields and clicks the next button, the form submits, and the passenger details are added to the booking in the database and the user is redirected to the checkout page.
+
+    - Outcome: Pass
+
+6. Verify that users cannot access the passenger details page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
+
+    - Outcome: Pass
+
+# Checkout Page
+
 # Extras Page
 
 1. Verify that the extras page appears as expected and looks good at all screen widths.
