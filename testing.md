@@ -680,6 +680,10 @@
 
     - Outcome: Pass
 
+16. Verify that the View Our Latest Offers button links to the offers page.
+
+    - Outcome: Pass
+
 # Passenger Details Page
 
 1. Verify that the passenger details page appears as expected and looks good at all screen widths.
@@ -870,7 +874,7 @@
 
     - Outcome: Pass
 
-3. Verify that when the user clicks the add product link, they are taken to the add product page.
+3. Verify that when the user clicks the add flight link, they are taken to the add flight page.
 
     - Outcome: Pass
 
