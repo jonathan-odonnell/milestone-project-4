@@ -572,6 +572,14 @@
 
     - Outcome: Pass
 
+5. Verify that users who are not signed in cannot access the edit extra page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+6. Verify that standard users cannot access the edit extra page by manually typing in it's URL and are returned to the 403 page.
+
+    - Outcome: Pass
+
 # Edit Extra Page
 
 1. Verify that the edit extra page appears as expected and looks good at all screen widths.
@@ -587,6 +595,14 @@
     - Outcome: Pass
 
 4. Verify that when a user correctly enters a valid input in all fields and clicks the update extra button, the form submits, and the extra is updated in the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
+
+    - Outcome: Pass
+
+5. Verify that users who are not signed in cannot access the edit extra page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+6. Verify that standard users cannot access the edit extra page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
