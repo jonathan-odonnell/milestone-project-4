@@ -406,7 +406,11 @@
 
     - Outcome: Pass
 
-4. Verify that the Back to Bookings links to the bookings page.
+4. Verify that the Back to Bookings button links to the bookings page.
+
+    - Outcome: Pass
+
+5. Verify that the Now Check Out The Latest Offers button links to the offers page.
 
     - Outcome: Pass
 
@@ -686,19 +690,23 @@
 
     - Outcome: Pass
 
-3. Verify that if the user hasn't entered a value in each field, when the next button is clicked the form does not submit and the required input error message appears.
+3. Verify that the user's full name is automatically completed in the lead passenger form from their profile if the user is signed in.
 
     - Outcome: Pass
 
-4. Verify that the user cannot enter more than 9 characters into the passport number fields.
+4. Verify that if the user hasn't entered a value in each field, when the next button is clicked the form does not submit and the required input error message appears.
 
     - Outcome: Pass
 
-5. Verify that when a user correctly enters a valid input in all fields and clicks the next button, the form submits, and the passenger details are added to the booking in the database and the user is redirected to the checkout page.
+5. Verify that the user cannot enter more than 9 characters into the passport number fields.
 
     - Outcome: Pass
 
-6. Verify that users cannot access the passenger details page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
+6. Verify that when a user correctly enters a valid input in all fields and clicks the next button, the form submits, and the passenger details are added to the booking in the database and the user is redirected to the checkout page.
+
+    - Outcome: Pass
+
+7. Verify that users cannot access the passenger details page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
 
     - Outcome: Pass
 
