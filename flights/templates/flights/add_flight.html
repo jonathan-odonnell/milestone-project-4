@@ -18,7 +18,7 @@
 
 <!-- Content block start -->
 {% block content %}
-<!-- Content container start -->
+<!-- Container start -->
 <div class="container-fluid p-4">
     <div class="row g-0">
         <!-- Heading start -->
@@ -49,10 +49,10 @@
 {% endblock %}
 <!-- Content block end -->
 
-<!-- postloadjs block start -->
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
-<!--Import flights_form.js script-->
+<!-- Import flights_form.js script -->
 <script src="{% static 'js/flights_form.js' %}"></script>
 {% endblock %}
-<!-- postloadjs block end -->
+<!-- Postloadjs block end -->
