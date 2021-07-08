@@ -1,95 +1,115 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
 
+<!-- Content block start -->
 {% block content %}
-<div class="container-fluid hero-image p-0" style="background-image: url('{{ MEDIA_URL }}contact.jpg')">
-    <div class="overlay">&nbsp;</div>
-    <div class="row no-gutters">
-        <div class="col-12">
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                    <h1 class="display-2 text-center text-white">Contact Us</h1>
+<!-- Container start -->
+<section class="container-fuid g-0">
+    <!-- Hero image start -->
+    <div class="container-fluid hero-image p-0" style="background-image: url('{{ MEDIA_URL }}contact.jpg')">
+        <div class="overlay">&nbsp;</div>
+        <div class="row no-gutters">
+            <div class="col-12">
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-2 text-center text-white">Contact Us</h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container py-4">
-    <div class="row g-0">
-        <div class="col-12 col-lg-4 pb-3 pb-lg-0 px-4 order-lg-1">
-            <div class="contact-info-item mb-3">
-                <div class="key">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div class="value">
-                    <h4 class="mb-2">Location:</h4>
-                    <p class="mb-0">6th Floor, Hudson's Bay,</p>
-                    <p class="mb-0">176 Yonge Street, Toronto,</p>
-                    <p class="mb-0">ON, M5C 2L7</p>
-                </div>
-            </div>
-            <div class="contact-info-item mb-3">
-                <div class="key">
-                    <i class="far fa-clock"></i>
-                </div>
-                <div class="value">
-                    <h4 class="mb-2">Open Hours:</h4>
-                    <p class="mb-0">Monday - Friday</p>
-                    <p class="mb-0">09:00 - 17:00</p>
-                </div>
-            </div>
-            <div class="contact-info-item mb-3">
-                <div class="key">
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="value">
-                    <h4 class="mb-2">Email:</h4>
-                    <p class="mb-0">info@goexplore.com</p>
-                </div>
-            </div>
-            <div class="contact-info-item">
-                <div class="key">
-                    <i class="fas fa-phone-alt"></i>
-                </div>
-                <div class="value">
-                    <h4 class="mb-2">Telephone:</h4>
-                    <p class="mb-0">+1 1234 55488 55</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-8 pt-3 pt-lg-0 px-4 order-lg-0">
-            <h2 class="mb-4"><strong>Get In Touch</strong></h2>
-            <form>
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        {{ form.full_name | as_crispy_field }}
+    <!-- Hero Image end -->
+    <!-- Main content container start -->
+    <div class="container p-4">
+        <div class="row g-0">
+            <!-- Contact info start -->
+            <div class="col-12 col-lg-4 pb-3 pb-lg-0 px-4 order-lg-1">
+                <div class="contact-info-item mb-3">
+                    <div class="key">
+                        <i class="fas fa-map-marker-alt" aria-label="map marker"></i>
                     </div>
-                    <div class="col-12 col-md-6">
-                        {{ form.email | as_crispy_field }}
+                    <div class="value">
+                        <h4 class="mb-2">Location:</h4>
+                        <p class="mb-0">6th Floor, Hudson's Bay,</p>
+                        <p class="mb-0">176 Yonge Street, Toronto,</p>
+                        <p class="mb-0">ON, M5C 2L7</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        {{ form.subject | as_crispy_field }}
+                <div class="contact-info-item mb-3">
+                    <div class="key">
+                        <i class="far fa-clock" aria-label="clock"></i>
+                    </div>
+                    <div class="value">
+                        <h4 class="mb-2">Open Hours:</h4>
+                        <p class="mb-0">Monday - Friday</p>
+                        <p class="mb-0">09:00 - 17:00</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        {{ form.message | as_crispy_field }}
+                <div class="contact-info-item mb-3">
+                    <div class="key">
+                        <i class="fas fa-envelope" aria-label="envelope"></i>
+                    </div>
+                    <div class="value">
+                        <h4 class="mb-2">Email:</h4>
+                        <p class="mb-0">info@goexplore.com</p>
                     </div>
                 </div>
-                <div class="text-center">
-                    <button class="btn btn-primary">Send Message</button>
+                <div class="contact-info-item">
+                    <div class="key">
+                        <i class="fas fa-phone-alt" aria-label="phone"></i>
+                    </div>
+                    <div class="value">
+                        <h4 class="mb-2">Telephone:</h4>
+                        <p class="mb-0">+1 1234 55488 55</p>
+                    </div>
                 </div>
-            </form>
+            </div>
+            <!-- Contact info end -->
+            <!-- Contact form start -->
+            <div class="col-12 col-lg-8 pt-3 pt-lg-0 px-4 order-lg-0">
+                <h2 class="mb-4"><strong>Get In Touch</strong></h2>
+                <form>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            {{ form.full_name | as_crispy_field }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            {{ form.email | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form.subject | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form.message | as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary">Send Message</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Contact form end -->
         </div>
     </div>
-</div>
+    <!-- Main content container end -->
+</section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
 <script>
+    /* Posts the form data to the contact URL and dynamically updates the HTML to show a message thanking
+    the user for their message. Code for the insertAfter jQuery method is from
+    https://api.jquery.com/insertAfter/#insertAfter-target */
     $('form .btn').click(function (e) {
         e.preventDefault()
         if ($('form')[0].reportValidity()) {
@@ -110,3 +130,4 @@
     })
 </script>
 {% endblock %}
+<!-- Block postloadjs end -->
