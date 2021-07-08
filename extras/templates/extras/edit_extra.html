@@ -1,12 +1,19 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
 
+
+<!-- Content block start -->
 {% block content %}
-<div class="container-fluid p-4">
+<!-- Container start -->
+<section class="container-fluid p-4">
     <div class="row g-0">
+        <!-- Heading start -->
         <div class="col-12 text-center">
-            <h2 class="section-heading mb-3">Edit Extra</h2>
+            <h1 class="section-heading mb-3">Edit Extra</h1>
         </div>
+        <!-- Heading end -->
+        <!-- Form start -->
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'edit_extra' form.instance.slug %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -19,12 +26,18 @@
                 </div>
             </form>
         </div>
+        <!-- Form end -->
     </div>
-</div>
+</section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
 <script type="text/javascript">
+    // Updates the image filename when the image has been changed
     $('#new-image').change(function () {
         var file = $('#new-image')[0].files[0];
         $('#filename').text(`Image will be set to: ${file.name}`);
@@ -32,3 +45,4 @@
     });
 </script>
 {% endblock %}
+<!-- Postloadjs block end -->
