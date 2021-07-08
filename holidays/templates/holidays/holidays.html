@@ -1,7 +1,12 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
+
+<!-- Content block start -->
 {% block content %}
-<section>
+<!-- Container start -->
+<section class="container-fluid g-0">
+    <!-- Category hero image start -->
     {% if category %}
     <div class="container-fluid hero-image {% if category.name == 'City Breaks' %}hero-image-80 {% endif %}{% if category.name == 'Beach' %}hero-image-top{% endif %} p-0"
         style="background-image: url('{{ category.image.url }}')">
@@ -16,6 +21,8 @@
             </div>
         </div>
     </div>
+    <!-- Category hero image end -->
+    <!-- Destination hero image start -->
     {% elif destination %}
     <div class="container-fluid hero-image {% if destination.name == 'Europe' %}hero-image-80 {% endif %}p-0"
         style="background-image: url('{{ destination.image.url }}')">
@@ -30,6 +37,8 @@
             </div>
         </div>
     </div>
+    <!-- Destination hero image end -->
+    <!-- Offers hero image start -->
     {% else %}
     <div class="container-fluid hero-image p-0" style="background-image: url('{{ MEDIA_URL }}offers.jpg')">
         <div class="overlay">&nbsp;</div>
@@ -43,11 +52,15 @@
             </div>
         </div>
     </div>
+    <!-- Offers hero image end -->
     {% endif %}
+    <!-- Main content container start -->
     <div class="container p-4 pb-3">
+        <!-- Filters and sort selector row start -->
         <div class="row g-0">
             <div class="col-12 mx-auto mb-2">
                 <div class="row g-0">
+                    <!-- Countries filters start. Code is from https://getbootstrap.com/docs/5.0/components/badge/ -->
                     {% if countries %}
                     <div id="country-filters" class="col-12 col-md-8 col-lg-9 mb-3 mb-md-0">
                         {% for country in countries %}
@@ -59,6 +72,8 @@
                         </a>
                         {% endfor %}
                     </div>
+                    <!-- Countries filters end -->
+                    <!-- Categories filters start. Code is from https://getbootstrap.com/docs/5.0/components/badge/ -->
                     {% else %}
                     <div id="category-filters" class="col-12 col-md-8 col-lg-9 mb-3 mb-md-0">
                         {% for category in categories %}
@@ -71,6 +86,8 @@
                         {% endfor %}
                     </div>
                     {% endif %}
+                    <!-- Categories filters end -->
+                    <!-- Sort selector end -->
                     <div class="col-12 col-md-4 col-lg-3">
                         <select id="sort-selector" class="form-select shadow-none">
                             <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by:</option>
@@ -81,15 +98,23 @@
                             <option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Rating</option>
                         </select>
                     </div>
+                    <!-- Sort selector end -->
                 </div>
             </div>
         </div>
+        <!-- Filters and sort selector row end -->
+        <!-- Holidays cards row start -->
         <div id="holidays" class="row g-0">
             {% include 'holidays/includes/holiday_cards.html' %}
         </div>
+        <!-- Holidays cards row end -->
     </div>
+    <!-- Main content container end -->
 </section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
 {% block postloadjs %}
 {{ block.super }}
 <script src="{% static 'js/ratings.js' %}"></script>

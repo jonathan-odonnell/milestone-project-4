@@ -1,35 +1,45 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
+
+<!-- Content block start -->
 {% block content %}
+<!-- Container start -->
 <section class="container-fluid p-4">
     <div class="row g-0">
+        <!-- Heading start -->
         <div class="col-12 text-center">
             <h1 class="section-heading mb-3">Write Review</h1>
         </div>
+        <!-- Heading end -->
+        <!-- Form start -->
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
-            <form action="#" method="POST">
+            <form action="{% 'rating' %}" method="POST">
                 {% csrf_token %}
+                <!-- Rating stars start -->
                 <p class="form-label mb-2">Rating</p>
                 <div class="rating-stars mb-3">
                     <button class="btn shadow-none p-0 me-1" type="button" data-rating="1">
-                        <i class="far fa-star fa-lg"></i>
+                        <i class="far fa-star fa-lg" aria-label="1 star"></i>
                     </button>
                     <button class="btn shadow-none p-0 me-1" type="button" data-rating="2">
-                        <i class="far fa-star fa-lg"></i>
+                        <i class="far fa-star fa-lg" aria-label="2 stara"></i>
                     </button>
                     <button class="btn shadow-none p-0 me-1" type="button" data-rating="3">
-                        <i class="far fa-star fa-lg"></i>
+                        <i class="far fa-star fa-lg" aria-label="3 stars"></i>
                     </button>
                     <button class="btn shadow-none p-0 me-1" type="button" data-rating="4">
-                        <i class="far fa-star fa-lg"></i>
+                        <i class="far fa-star fa-lg" aria-label="4 stars"></i>
                     </button>
                     <button class="btn shadow-none p-0 me-1" type="button" data-rating="5">
-                        <i class="far fa-star fa-lg"></i>
+                        <i class="far fa-star fa-lg" aria-label="5 stars"></i>
                     </button>
                 </div>
+                <!-- Rating stars end -->
                 {{ form.rating | as_crispy_field }}
                 {{ form.title | as_crispy_field }}
                 {{ form.review | as_crispy_field }}
+                <!-- Redirect URL hidden field. Code is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
                 {% if request.META.HTTP_REFERER %}
                 <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}
@@ -37,10 +47,15 @@
                     <button class="btn btn-primary" type="submit">Add Review</button>
                 </div>
             </form>
+            <!-- Form end -->
         </div>
     </div>
 </section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
 <script>
@@ -71,3 +86,4 @@
     })
 </script>
 {% endblock %}
+<!-- Postloadjs block end -->

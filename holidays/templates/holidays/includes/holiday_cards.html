@@ -1,9 +1,12 @@
+<!-- Holiday cards column start -->
 <div class="col-12">
     <div class="row">
+        <!-- Holiday cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ and https://getbootstrap.com/docs/5.0/components/badge/ -->
         {% for holiday in holidays %}
         <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
             <div id="holidays" class="card destination-card shadow-0 border">
                 <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                 <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
                 <div class="card-body">
                     {% if category %}
@@ -21,7 +24,7 @@
                             <span class="rating">{{holiday.rating}}</span>
                         </p>
                         <p class="small mb-0">
-                            <i class="far fa-clock"></i>
+                            <i class="far fa-clock" aria-label="clock"></i>
                             <span>{{holiday.duration}} Nights</span>
                         </p>
                     </div>
@@ -29,8 +32,11 @@
             </div>
         </div>
         {% endfor %}
+        <!-- Holiday cards end -->
     </div>
 </div>
+<!-- Holiday cards column end -->
+<!-- Pagination start. Code is from https://docs.djangoproject.com/en/3.2/topics/pagination/ and https://getbootstrap.com/docs/5.0/components/pagination/ -->
 {% if holidays.paginator.num_pages > 1 %}
 <div class="col-12 my-3">
     <nav aria-label="Page navigation example">
@@ -65,3 +71,4 @@
     </nav>
 </div>
 {% endif %}
+<!-- Pagination end -->

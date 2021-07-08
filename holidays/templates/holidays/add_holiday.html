@@ -1,23 +1,30 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
 
+<!-- Extra js block start -->
 {% block extra_js %}
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"
     integrity="sha512-ltwjKsDTo3hW/wV66ZaEkf2wOAFxmg7rWM76J8kOcYKLSKy44WBYO/BFaNNH3NGDS8BSz3meB9wtSnm41oL+pA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 {% endblock %}
+<!-- Extra js block start -->
 
+<!-- Content block start -->
 {% block content %}
+<!-- Container start -->
 <section class="container-fluid p-4">
     <div class="row g-0">
+        <!-- Heading start -->
         <div class="col-12 text-center">
             <h1 class="section-heading mb-4">Add Holiday</h1>
         </div>
+        <!-- Heading end -->
+        <!-- Form start -->
         <div class="col-12 col-10 col-lg-8 mx-auto">
             <form action="{% url 'add_holiday' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+                <!-- Package fieldset start -->
                 <fieldset id="package">
                     {% for field in form %}
                     {% if field.name == 'image' %}
@@ -27,6 +34,8 @@
                     {% endif %}
                     {% endfor %}
                 </fieldset>
+                <!-- Package fieldset end -->
+                <!-- Features fieldset start -->
                 <fieldset id="features" class="d-none">
                     <div>
                         {{feature_formset.management_form}}
@@ -41,6 +50,8 @@
                     </div>
                     {% endfor %}
                 </fieldset>
+                <!-- Features fieldset end -->
+                <!-- Activities fieldset start -->
                 <fieldset id="activities" class="d-none">
                     <div>
                         {{activity_formset.management_form}}
@@ -56,6 +67,8 @@
                     </div>
                     {% endfor %}
                 </fieldset>
+                <!-- Activities fieldset end -->
+                <!-- Itineraries fieldset start -->
                 <fieldset id="itineraries" class="d-none">
                     <div>
                         {{itinerary_formset.management_form}}
@@ -72,30 +85,40 @@
                     </div>
                     {% endfor %}
                 </fieldset>
+                <!-- Itineraries fieldset end -->
+                <!-- Buttons start -->
                 <div class="text-center mt-3 mb-2">
                     <button id="back" class="btn btn-primary btn-holidays mx-2 d-none" type="button">
-                        <i class="fas fa-chevron-left me-2"></i>
+                        <i class="fas fa-chevron-left me-2" aria-hidden="true"></i>
                         <span>Back</span>
                     </button>
                     <button id="next" class="btn btn-primary btn-holidays mx-2" type="button">
                         <span>Next</span>
-                        <i class="fas fa-chevron-right ms-2"></i>
+                        <i class="fas fa-chevron-right ms-2" aria-hidden="true"></i>
                     </button>
                     <button class="btn btn-primary btn-holidays mx-2 d-none" type="submit">
                         <span>Add Holiday</span>
-                        <i class="fas fa-chevron-right ms-2"></i>
+                        <i class="fas fa-chevron-right ms-2" aria-hidden="true"></i>
                     </button>
                 </div>
+                <!-- Buttons end -->
+                <!-- Redirect URL hidden field. Code is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
                 {% if request.META.HTTP_REFERER %}
                     <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}
             </form>
         </div>
+        <!-- Form end -->
     </div>
 </section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
+<!-- Import holiday_form.js script -->
 <script src="{% static 'js/holiday_form.js' %}"></script>
 <script type="text/javascript">
     $('.activity').formset({
@@ -112,3 +135,4 @@
     })
 </script>
 {% endblock %}
+<!-- Postloadjs block end -->
