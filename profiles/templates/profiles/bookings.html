@@ -1,14 +1,18 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
 
+<!-- Content block start -->
+{% block content %}
+<!-- Container start -->
 <section class="container p-4">
     <div class="row g-0">
+        <!-- Heading start -->
         <div class="col">
             <h1 class="mb-4 section-heading text-center">Bookings</h1>
         </div>
-    </div>
-    <div class="row g-0">
+        <!-- Heading end -->
+        <!-- Table start. Code is from https://getbootstrap.com/docs/5.0/content/tables/ -->
         <div class="col-12 col-lg-10 mx-auto mx-auto">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -21,6 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Code for slice filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice -->
                         {% for booking in bookings|slice:":10" %}
                         <tr>
                             <td>
@@ -30,13 +35,8 @@
                                 </a>
                             </td>
                             <td>{{ booking.departure_date }}</td>
-                            <td>
-                                <ul class="list-unstyled">
-                                    <li>
-                                        {{booking.package.duration}} Nights in {{ booking.package.name }}
-                                    </li>
-                                </ul>
-                            </td>
+                            <td>{{booking.package.duration}} Nights in {{ booking.package.name }}</td>
+                            <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                             <td>£{{ booking.grand_total|floatformat:"-2" }}</td>
                         </tr>
                         {% endfor %}
@@ -44,6 +44,9 @@
                 </table>
             </div>
         </div>
+        <!-- Table end -->
     </div>
 </section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->

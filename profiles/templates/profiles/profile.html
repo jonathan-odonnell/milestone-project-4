@@ -1,14 +1,18 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
 
-<div class="container p-4">
+<!-- Content block start -->
+{% block content %}
+<!-- Container start -->
+<section class="container p-4">
     <div class="row g-0">
+        <!-- Heading start -->
         <div class="col-12">
             <h1 class="mb-4 section-heading text-center">My Profile</h1>
         </div>
-    </div>
-    <div class="row g-0">
+        <!-- Heading end -->
+        <!-- Form start -->
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
@@ -28,14 +32,21 @@
                 </div>
             </form>
         </div>
+        <!-- Form end -->
     </div>
-</div>
+</section>
+<!-- Content container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
+<!-- Import autocomplete script. https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform -->
 <script async
     src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initAutocomplete&libraries=places&v=weekly">
 </script>
+<!-- Import autocomplete.js script -->
 <script src="{% static 'js/autocomplete.js' %}"></script>
 <script>
     /* Sets the colour of the country field and changes it when the country field is changed
@@ -56,3 +67,4 @@
     });
 </script>
 {% endblock %}
+<!-- Postloadjs block start -->
