@@ -1,23 +1,31 @@
+<!-- Extends base template, loads static files and timezones -->
 {% extends "base.html" %}
 {% load static %}
 {% load tz %}
 
-<!--Datepicker stylesheet and script are from https://gijgo.com/datepicker/-->
-
+<!-- Extra css block start -->
 {% block extra_css %}
+    <!--Import datepicker stylesheet. Code is from https://gijgo.com/datepicker/ -->
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 {% endblock %}
+<!-- Extra css block end -->
 
+<!-- Extra js block start -->
 {% block extra_js %}
-<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <!--Import datepicker script. Code is from https://gijgo.com/datepicker/ -->
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 {% endblock %}
+<!-- Extra js block end -->
 
+<!-- Content block start -->
 {% block content %}
+<!-- Content container start -->
 <div class="container-fluid p-4">
     <div class="row g-0">
         <div class="col-12 text-center">
             <h2 class="section-heading mb-3">Edit Flight</h2>
         </div>
+        <!-- Form start. Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'edit_flight' form.instance.flight_number %}" method="POST">
                 {% csrf_token %}
@@ -37,15 +45,23 @@
                 <div class="text-center mt-4">
                     <button class="btn btn-primary" type="submit">Update Flight</button>
                 </div>
+                <!-- Previous URL hidden field. Code is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
                 {% if request.META.HTTP_REFERER %}
                     <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}
             </form>
         </div>
+        <!-- Form end -->
     </div>
 </div>
+<!-- Content container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
+<!--Import flights_form.js script-->
 <script src="{% static 'js/flights_form.js' %}"></script>
 {% endblock %}
+<!-- postloadjs block end -->
