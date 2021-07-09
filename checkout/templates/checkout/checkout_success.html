@@ -1,35 +1,44 @@
+<!-- Extends base template and loads static files, timezones and booking tools -->
 {% extends "base.html" %}
 {% load static %}
 {% load tz %}
 {% load booking_tools %}
 
-{% block extra_css %}
-
-<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
-
-{% endblock %}
-
+<!-- Content block start -->
 {% block content %}
-<div class="container p-4">
+<!-- Container start -->
+<section class="container p-4">
+    <!-- Heading start -->
     <div class="row g-0">
         <div class="col">
             <h1 class="section-heading text-center mb-4">{% if from_booking %}Booking Details{% else %}Thank You{% endif %}</h1>
         </div>
     </div>
+    <!-- Heading end -->
+    <!-- Main content start -->
     <div class="row g-0">
+        <!-- Booking confirmation introductory text start -->
         {% if not from_booking %}
         <div class="col-12 col-lg-8 mx-auto">
             <p class="text-center">Your booking information is below. A confirmation email will be sent to <strong class="text-black">{{ booking.email }}</strong>.</p>
         </div>
         {% endif %}
+        <!-- Booking confirmation introductory text end -->
+        <!-- Booking summary start -->
         <div class="col-12 col-lg-8 mx-auto border p-3">
+            <!-- Billing information start -->
             <div class="row g-0 mb-2 mb-sm-3">
+                <!-- Heading start -->
                 <div class="col-12">
                     <div class="row g-0">
                         <div class="col-12">
                             <h5 class="section-subheading mb-3">Billing Information</h5>
                         </div>
                     </div>
+                </div>
+                <!-- Heading end -->
+                <!-- Content start -->
+                <div class="col-12">
                     <div class="row g-0 mb-2 mb-sm-0">
                         <div class="col-12 col-sm-4">
                             <p class="small text-black font-weight-bold mb-0">Booking Number</p>
@@ -82,6 +91,7 @@
                             <p class="small text-black font-weight-bold mb-0">Subtotal</p>
                         </div>
                         <div class="col-12 col-sm-4 text-sm-end">
+                            <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                             <p class="small mb-0">£{{ booking.subtotal|floatformat:"-2" }}</p>
                         </div>
                     </div>
@@ -92,6 +102,7 @@
                             <p class="small text-black font-weight-bold mb-0">Extras</p>
                         </div>
                         <div class="col-12 col-sm-4 text-sm-end">
+                            <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                             <p class="small mb-0">£{{ booking.extras_total|floatformat:"-2" }}</p>
                         </div>
                     </div>
@@ -102,6 +113,7 @@
                             <p class="small text-black font-weight-bold mb-0">Discount</p>
                         </div>
                         <div class="col-12 col-sm-4 text-sm-end">
+                            <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                             <p class="small text-danger mb-0">- £{{ booking.discount|floatformat:"-2" }}</p>
                         </div>
                     </div>
@@ -111,14 +123,23 @@
                             <p class="small text-black font-weight-bold mb-0">Total</p>
                         </div>
                         <div class="col-12 col-sm-4 text-sm-end">
+                            <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                             <p class="small mb-0">£{{ booking.grand_total|floatformat:"-2" }}</p>
                         </div>
                     </div>
                 </div>
+                <!-- Content end -->
             </div>
+            <!-- Billing information end -->
+            <!-- Holiday details start -->
             <div class="row g-0 mb-3">
+                <!-- Heading start -->
                 <div class="col-12">
                     <h5 class="section-subheading mb-3">Holiday Details</h5>
+                </div>
+                <!-- Heading end -->
+                <!-- Content start -->
+                <div class="col-12">
                     <div class="row g-0">
                         <div class="col-3">
                             <img class="img-fluid" src="{{ booking.package.image.url }}" alt="Image of {{ booking.package.name }}">
@@ -131,12 +152,20 @@
                         </div>
                     </div>
                 </div>
+                <!-- Content end -->
             </div>
+            <!-- Holiday details end -->
+            <!-- Extras start -->
             {% if booking.booking_extras.all %}
             <div class="row g-0 mb-3">
+                <!-- Heading start -->
                 <div class="col-12">
                     <h5 class="section-subheading mb-3">Extras</h5>
                     {% for extra in booking.booking_extras.all %}
+                </div>
+                <!-- Heading end -->
+                <!-- Content start -->
+                <div class="col-12">
                     <div class="row g-0 mb-3">
                         <div class="col-3">
                             <img class="img-fluid" src="{{ extra.extra.image.url }}" alt="Image of {{ extra.extra.name }}">
@@ -149,12 +178,18 @@
                     </div>
                     {% endfor %}
                 </div>
+                <!-- Content end -->
             </div>
             {% endif %}
+            <!-- Extras end -->
+            <!-- Flight detials start -->
             <div class="row g-0 mb-3">
+                <!-- Heading start -->
                 <div class="col-12">
                     <h5 class="section-subheading mb-3">Flights</h5>
                 </div>
+                <!-- Heading end -->
+                <!-- Outbound flight start -->
                 {% with booking.outbound_flight as outbound_flight %}
                 <div class="col-12">
                     <p class="small text-black font-weight-bold">
@@ -178,6 +213,7 @@
                             <div class="circle-end"></div>
                         </div>
                         <div class="col-4 mt-3">
+                            <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                             <p class="small">{{ outbound_flight.departure_time|timezone:outbound_flight.origin_time_zone|time:'H:i' }}</p>
                         </div>
                         <div class="col-4 mt-3">
@@ -188,6 +224,7 @@
                             {% endif %}
                         </div>
                         <div class="col-4 mt-3">
+                            <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                             <p class="small text-end mb-0">{{ outbound_flight.arrival_time|timezone:outbound_flight.destination_time_zone|time:'H:i' }}</p>
                             {% with outbound_flight|extra_days as extra_days %}
                             {% if next_day %}
@@ -198,6 +235,8 @@
                     </div>
                 </div>
                 {% endwith %}
+                <!-- Outbound flight end -->
+                <!-- Return flight start -->
                 {% with booking.return_flight as return_flight %}
                 <div class="col-12">
                     <p class="small text-black font-weight-bold">
@@ -221,6 +260,7 @@
                             <div class="circle-end"></div>
                         </div>
                         <div class="col-4 mt-3">
+                            <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                             <p class="small mb-0">{{ return_flight.departure_time|timezone:return_flight.origin_time_zone|time:'H:i' }}</p>
                         </div>
                         <div class="col-4 mt-3">
@@ -231,6 +271,7 @@
                             {% endif %}
                         </div>
                         <div class="col-4 mt-3">
+                            <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                             <p class="small text-end mb-0">{{ return_flight.arrival_time|timezone:return_flight.destination_time_zone|time:'H:i' }}</p>
                             {% with return_flight|extra_days as extra_days %}
                             {% if extra_days %}
@@ -241,24 +282,33 @@
                     </div>
                 </div>
                 {% endwith %}
+                <!-- Return flight end -->
             </div>
+            <!-- Flight details end -->
         </div>
+        <!-- Booking summary end -->
+        <!-- Back to bookings link start -->
         {% if from_booking %}
         <div class="col-12 col-lg-8 mx-auto text-center text-md-start mt-4">
             <a href="{% url 'bookings' %}" class="btn btn-primary">
-                <i class="fas fa-chevron-left ms-2"></i>
+                <i class="fas fa-chevron-left ms-2" aria-hidden="true"></i>
                 <span>Back to Bookings</span>
             </a>
         </div>
+        <!-- Back to bookings link end -->
+        <!-- Latest offers link start -->
         {% else %}
         <div class="col-12 col-lg-8 mx-auto text-center text-md-end mt-4">
             <a href="{% url 'offers' %}" class="btn btn-primary">
-                <i class="fas fa-chevron-right ms-2"></i>
+                <i class="fas fa-chevron-right ms-2" aria-hidden="true" ></i>
                 <span>Now check out the latest offers!</span>
             </a>
         </div>
         {% endif %}
+        <!-- Latest offers link end -->
     </div>
-</div>
-
+    <!-- Main content end -->
+</section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->

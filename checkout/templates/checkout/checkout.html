@@ -1,45 +1,66 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
 
+<!-- Extra css block start -->
 {% block extra_css %}
+<!-- Import checkout.css stylesheet -->
 <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
 {% endblock %}
+<!-- Extra css block end -->
 
+<!-- Extra js block start -->
 {% block extra_js %}
-<!--Paypal Javascript-->
+<!--Import PayPal script. Code is from https://developer.paypal.com/docs/checkout/integrate/ and https://developer.paypal.com/docs/checkout/reference/customize-sdk/-->
 <script
-    src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency={{paypal_currency}}&disable-funding=credit,card,sofort"></script>
+    src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency={{paypal_currency}}&disable-funding=credit,card,sofort">
+</script>
 {% endblock %}
+<!-- Extra js block end -->
 
+<!-- Content block start -->
 {% block content %}
-<div class="container p-4">
+<!-- Container start -->
+<section class="container p-4">
+    <!-- Heading start -->
     <div class="row g-0">
         <div class="col">
             <h1 class="section-heading text-center mb-4">Checkout</h1>
         </div>
     </div>
+    <!-- Heading end -->
+    <!-- Main content start -->
     <div class="row g-0">
+        <!-- Booking summary start -->
         <div class="col-12 col-lg-6">
-            <a href="{% url 'passengers' %}"" class="back-btn"><i class="fas fa-chevron-left"></i></a>
+            <a href="{% url 'passengers' %}"" class=" back-btn">
+                <i class="fas fa-chevron-left" aria-label="back"></i>
+            </a>
             <div class="card shadow-none mt-lg-1">
                 <div class="text-center">
-                    <h5 class="font-weight-bold mb-2 text-black">{{ booking.package.duration }} Nights in 
+                    <h5 class="font-weight-bold mb-2 text-black">{{ booking.package.duration }} Nights in
                         {{ booking.package.name }}</h5>
+                    <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                     <h3 class="mb-4">£{{ booking.grand_total|floatformat:"-2" }}</h3>
                     <img src="{{ booking.package.image.url }}" class="card-img-bottom rounded w-75"
                         alt="Image of {{ booking.package.name }}">
                 </div>
             </div>
         </div>
+        <!-- Booking summary end -->
+        <!-- Form start -->
         <div class="col-12 col-lg-6 mt-4 mt-lg-0">
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
+                <!-- Booking contact fieldset start -->
                 <fieldset class="rounded px-3">
                     <legend class="section-subheading">Booking Contact</legend>
                     {{ checkout_form.full_name | as_crispy_field }}
                     {{ checkout_form.email | as_crispy_field }}
                     {{ checkout_form.phone_number | as_crispy_field }}
                 </fieldset>
+                <!-- Booking contact fieldset end -->
+                <!-- Address fieldset start -->
                 <fieldset id="address" class="rounded px-3 mt-2">
                     <legend class="section-subheading">Address</legend>
                     {{ checkout_form.address | as_crispy_field }}
@@ -49,6 +70,7 @@
                     {{ checkout_form.county | as_crispy_field }}
                     {{ checkout_form.country | as_crispy_field }}
                     {{ checkout_form.postcode | as_crispy_field }}
+                    <!-- Save contact information checkbox is displayed for signed in users -->
                     {% if user.is_authenticated %}
                     <div class="form-check ms-2">
                         <label class="form-check-label" for="id_save_info">Save contact information to my
@@ -58,17 +80,25 @@
                     </div>
                     {% endif %}
                 </fieldset>
+                <!-- Address fieldset start -->
+                <!-- Express payment fieldset start -->
                 <fieldset class="rounded px-3 mt-4">
                     <legend class="section-subheading">Express Payment</legend>
-                    <div id="paypal" class="mb-3"></div>
-                    <div class="mb-3" id="payment-request-button">
-                        <!-- A Stripe Element will be inserted here. -->
+                    <div id="paypal" class="mb-3">
+                        <!-- paypal.js injects the PayPal smart button here -->
                     </div>
-                    <!-- Used to display payment request button errors -->
-                    <div class="mb-3 text-danger" id="payment-request-button-errors" role="alert"></div>
+                    <div class="mb-3" id="payment-request-button">
+                        <!-- stripe.js injects the payment request button here -->
+                    </div>
+                    <div class="mb-3 text-danger" id="payment-request-button-errors" role="alert">
+                        <!-- Used to display payment request button errors -->
+                    </div>
                 </fieldset>
+                <!-- Express payment fieldset end -->
+                <!-- Card payment fieldset start -->
                 <fieldset class="rounded px-3">
                     <legend class="section-subheading">Card Payment</legend>
+                    <!-- Saved cards start -->
                     {% if cards %}
                     <div class="pb-3">
                         {% for card in cards.data %}
@@ -82,11 +112,14 @@
                         {% endfor %}
                     </div>
                     {% endif %}
+                    <!-- Saved cards end -->
                     <div id="card-element" class="mb-3">
-                        <!--Stripe.js injects the Card Element-->
+                        <!-- stripe.js injects the card element here -->
                     </div>
-                    <!-- Used to display card errors -->
-                    <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                    <div class="mb-3 text-danger" id="card-errors" role="alert">
+                        <!-- Used to display card errors -->
+                    </div>
+                    <!-- Save card checkbox is displayed for signed in users -->
                     {% if user.is_authenticated %}
                     <div class="form-check ms-2 mb-3">
                         <label class="form-check-label" for="id_save_card">Save card to my
@@ -96,31 +129,47 @@
                     </div>
                     {% endif %}
                 </fieldset>
-                <fieldset class="px-3 mt-4 mb-3">
+                <!-- Card payment fieldset start -->
+                <!-- Pay button start -->
+                <div class="px-3 mt-4 mb-3">
                     <button class="payment-btn" type="submit">
                         <div class="spinner d-none" id="spinner"></div>
                         <span id="button-text"><i class="fas fa-lock me-2"></i>Pay</span>
                     </button>
-                    <!-- Pass the client secret to the view so we can get the stripe payment intent id -->
-                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
-                    <!-- Pass the paypal payment ID to the view -->
-                    <input type="hidden" value="" name="paypal_pid">
-                </fieldset>
+                </div>
+                <!-- Pay button end -->
+                <!-- Pass the client secret to the view so we can get the stripe payment intent id -->
+                <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                <!-- Pass the paypal payment ID or an empty string to the view -->
+                <input type="hidden" value="" name="paypal_pid">
             </form>
         </div>
+        <!-- Form end -->
     </div>
-</div>
+    <!-- Main content end -->
+</section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
+<!-- Outputs the stripe public key, client secret, country, currency and total as a json objects -->
 {{ stripe_public_key|json_script:"id_stripe_public_key" }}
 {{ client_secret|json_script:"id_client_secret" }}
 {{ stripe_country|json_script:"id_stripe_country" }}
 {{ stripe_currency|json_script:"id_stripe_currency" }}
 {{ stripe_total|json_script:"id_stripe_total" }}
+<!-- Import stripe.js script -->
 <script src="{% static 'js/stripe_elements.js' %}"></script>
+<!-- Import paypal.js script -->
 <script src="{% static 'js/paypal.js' %}"></script>
+<!-- Import autocomplete script. https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform -->
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initAutocomplete&libraries=places&v=weekly"></script>
+    src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initAutocomplete&libraries=places&v=weekly">
+</script>
+<!-- Import autocomplete.js script -->
 <script src="{% static 'js/autocomplete.js' %}"></script>
 {% endblock %}
+<!-- Postloadjs block end -->
