@@ -4,6 +4,7 @@
 
 <!-- Extra js block start -->
 {% block extra_js %}
+<!-- Import jquery.formset.js. Code is from https://cdnjs.com/libraries/jquery.formset -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"
     integrity="sha512-ltwjKsDTo3hW/wV66ZaEkf2wOAFxmg7rWM76J8kOcYKLSKy44WBYO/BFaNNH3NGDS8BSz3meB9wtSnm41oL+pA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -20,7 +21,7 @@
             <h1 class="section-heading mb-4">Edit Holiday</h1>
         </div>
         <!-- Heading end -->
-        <!-- Form start -->
+        <!-- Form start. Code for holiday slug is from https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template -->
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'edit_holiday' form.instance.slug %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -35,7 +36,7 @@
                     {% endfor %}
                 </fieldset>
                 <!-- Package fieldset end -->
-                <!-- Features fieldset start -->
+                <!-- Features fieldset start. Code is from https://docs.djangoproject.com/en/3.2/topics/forms/formsets/  -->
                 <fieldset id="features" class="d-none">
                     <div>
                         {{ feature_formset.management_form}}
@@ -52,7 +53,7 @@
                     {% endfor %}
                 </fieldset>
                 <!-- Features fieldset end -->
-                <!-- Activities fieldset start -->
+                <!-- Activities fieldset start. Code is from https://docs.djangoproject.com/en/3.2/topics/forms/formsets/  -->
                 <fieldset id="activities" class="d-none">
                     <div>
                         {{ activity_formset.management_form }}
@@ -70,7 +71,7 @@
                     {% endfor %}
                 </fieldset>
                 <!-- Activities fieldset end -->
-                <!-- Itineraries fieldset start -->
+                <!-- Itineraries fieldset start. Code is from https://docs.djangoproject.com/en/3.2/topics/forms/formsets/ -->
                 <fieldset id="itineraries" class="d-none">
                     <div>
                         {{ itinerary_formset.management_form }}
@@ -124,12 +125,16 @@
 <!-- Import holiday_form.js script -->
 <script src="{% static 'js/holiday_form.js' %}"></script>
 <script type="text/javascript">
+    /* Configures jQuery formset to add rows to the activity formset.
+    Code is from https://github.com/nortigo/jquery-formset */
     $('.activity').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ activity_formset.prefix }}',
         formCssClass: 'activity',
         added: editActivity,
     });
+    /* Configures jQuery formset to add rows to the itinerary formset.
+    Code is from https://github.com/nortigo/jquery-formset */
     $('.itinerary').formset({
         addText: '<i class="fas fa-plus pe-2"></i>add another',
         prefix: '{{ itinerary_formset.prefix }}',
