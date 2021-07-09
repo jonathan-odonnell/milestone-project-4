@@ -291,14 +291,14 @@
                             </div>
                             <div class="row g-0">
                                 <div class="col-4">
-                                    <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
+                                    <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                                     <small>{{outbound_flight.departure_time|timezone:outbound_flight.origin_time_zone|time:'H:i'}}</small>
                                 </div>
                                 <div class="col-4 text-center">
                                     <small>{{ outbound_flight.duration|duration }}</small>
                                 </div>
                                 <div class="col-4 text-end">
-                                    <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
+                                    <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                                     <small>{{outbound_flight.arrival_time|timezone:outbound_flight.destination_time_zone|time:'H:i'}}</small>
                                     <br>
                                     {% with outbound_flight|extra_days as extra_days %}
@@ -329,14 +329,14 @@
                         </div>
                         <div class="row g-0">
                             <div class="col-4">
-                                <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
+                                <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                                 <small>{{return_flight.departure_time|timezone:return_flight.origin_time_zone|time:'H:i'}}</small>
                             </div>
                             <div class="col-4 text-center">
                                 <small>{{ return_flight.duration|duration }}</small>
                             </div>
                             <div class="col-4 text-end">
-                                <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
+                                <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for time filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time -->
                                 <small>{{return_flight.arrival_time|timezone:return_flight.destination_time_zone|time:'H:i'}}</small>
                                 <br>
                                 {% with return_flight|extra_days as extra_days %}
