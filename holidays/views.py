@@ -199,8 +199,8 @@ def review(request, package):
         review = Review.objects.filter(
             package=holiday, full_name=profile.user.get_full_name()).first()
 
-    if review or not bookings:
-        return HttpResponse(status=403)
+    #if review or not bookings:
+        #return HttpResponse(status=403)
 
     if request.POST:
         review_data = {
@@ -228,6 +228,7 @@ def review(request, package):
     template = 'holidays/review.html'
     context = {
         'form': form,
+        'holiday': holiday
     }
     return render(request, template, context)
 
