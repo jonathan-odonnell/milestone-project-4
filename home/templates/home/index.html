@@ -1,112 +1,150 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
-
-{% block extra_css %}
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-{% endblock %}
-
-{% block extra_js %}
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-{% endblock %}
 {% load static %}
 
+<!-- Extra css block start -->
+{% block extra_css %}
+<!-- Import slick stylesheet. Code is from https://kenwheeler.github.io/slick/ -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+{% endblock %}
+<!-- Extra css block end -->
+
+<!-- Extra js block start -->
+{% block extra_js %}
+<!-- Import slick script. Code is from https://kenwheeler.github.io/slick/ -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+{% endblock %}
+<!-- Extra css block end -->
+
+<!-- Content block start -->
 {% block content %}
-<section>
-    <div class="container-fluid p-0">
-        <div class="row g-0">
-            <div id="hero-image-carousel" class="col-12">
-                {% for offer in offers %}
-                <div class="hero-image" style="background-image: url('{{ offer.image.url }}')">
-                    <div class="overlay">&nbsp;</div>
-                    <div class="row g-0">
-                        <div class="col-12">
-                            <div class="jumbotron jumbotron-fluid text-center">
-                                <div class="container">
-                                    <h1 class="display-1 text-white">{{offer.name}}</h1>
-                                    <h3 class="text-white">{{offer.duration}} nights from £{{ offer.price|floatformat:"-2" }}
-                                        per person</h3>
-                                    <a href="{% url 'category_details' 'offers' offer.slug %}"
-                                        class="btn btn-primary btn-lg">Explore Now</a>
-                                </div>
+<!-- Container start -->
+<section class="container-fluid p-0">
+    <!-- Hero image carousel start -->
+    <div class="row g-0">
+        <div id="hero-image-carousel" class="col-12">
+            {% for offer in offers %}
+            <div class="hero-image" style="background-image: url('{{ offer.image.url }}')">
+                <div class="overlay">&nbsp;</div>
+                <div class="row g-0">
+                    <div class="col-12">
+                        <div class="jumbotron jumbotron-fluid text-center">
+                            <div class="container">
+                                <h1 class="display-1 text-white">{{ offer.name }}</h1>
+                                <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
+                                <h3 class="text-white">{{ offer.duration }} Nights from
+                                    £{{ offer.price|floatformat:"-2" }}
+                                    per person</h3>
+                                <a href="{% url 'category_details' 'offers' offer.slug %}"
+                                    class="btn btn-primary btn-lg">Explore Now</a>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Hero image carousel end -->
+    <!-- Popular destinations container start -->
+    <div class="bg-light">
+        <div class="container p-4">
+            <div class="row g-0">
+                <!-- Heading start -->
+                <div class="col-12 col-md-8">
+                    <h1 class="text-center text-md-start section-heading text-blue">Popular Destinations</h1>
+                </div>
+                <!-- Heading end -->
+                <!-- Slider arrows start -->
+                <div class="col-12 col-md-4">
+                    <div id="arrows" class="col-12 text-md-end">
+                    </div>
+                </div>
+                <!-- Slider arrows start -->
+                <!-- Popular destinations cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ and https://getbootstrap.com/docs/5.0/components/badge/ -->
+                <div id="popular-destinations" class="my-3">
+                    {% for holiday in holidays %}
+                    <div class="card destination-card shadow-0 border d-flex">
+                        <img class="card-img-top" src="{{ holiday.image.url }}" alt="Image of {{ holiday.name }}">
+                        <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
+                        <span class="badge bg-secondary">£{{ holiday.price|floatformat:"-2" }}</span>
+                        <div class="card-body">
+                            <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
+                                <h5 class="card-title mb-1">{{ holiday.name }}</h5>
+                            </a>
+                            <p class="small mb-1">{{ holiday.country} }</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="d-block card-text small mb-2">
+                                        <span class="rating">{{ holiday.rating }}</span>
+                            </p>
+                            <p class="d-block card-text small mb-2">
+                                <i class="far fa-clock" aria-label="clock"></i>
+                                <span>{{ holiday.duration }} Nights</span>
+                            </p>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+            <!-- Popular destinations cards end -->
         </div>
     </div>
-    <div class="bg-light">
-        <div class="container p-4">
-            <div class="row g-0">
-                <div class="col-12 col-md-8">
-                    <h1 class="text-center text-md-start section-heading text-blue">Popular Destinations</h1>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div id="arrows" class="col-12 text-md-end">
-                    </div>
-                </div>
-                <div id="popular-destinations" class="my-3">
-                    {% for holiday in holidays %}
-                        <div class="card destination-card shadow-0 border d-flex">
-                            <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
-                            <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
-                            <div class="card-body">
-                                <a href="{% url 'destination_details' holiday.region.slug holiday.slug %}">
-                                    <h5 class="card-title mb-1">{{holiday.name}}</h5>
-                                </a>
-                                <p class="small mb-1">{{holiday.country}}</p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="d-block card-text small mb-2">
-                                        <span class="rating">{{holiday.rating}}</span>
-                                    </p>
-                                    <p class="d-block card-text small mb-2">
-                                        <i class="far fa-clock pe-1"></i>{{holiday.duration}}
-                                        Nights</p>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
     </div>
+    <!-- Popular destinations container end -->
+    <!-- Features container start -->
     <div class="container p-4">
         <div class="row features">
+            <!-- Feature 1 start -->
             <div class="col-12 col-md-6 col-lg-4 text-center pt-3">
                 <h3 class="text-black">
-                    <i class="far fa-credit-card d-block fa-lg text-secondary"></i>Refund Guarantee
+                    <i class="far fa-credit-card d-block fa-lg text-secondary" aria-hidden="true"></i>
+                    <span>Refund Guarantee</span>
                 </h3>
                 <p>
                     If we have to cancel, we guarantee a speedy and smooth refund, so you can book with confidence.
                     T&Cs apply.
                 </p>
             </div>
+            <!-- Feature 1 end -->
+            <!-- Feature 2 start -->
             <div class="col-12 col-md-6 col-lg-4 text-center pt-3">
                 <h3 class="text-black">
-                    <i class="fas fa-shield-alt d-block fa-lg text-secondary"></i>ATOL Protected
+                    <i class="fas fa-shield-alt d-block fa-lg text-secondary" aria-hidden="true"></i>
+                    <span>ATOL Protected</span>
                 </h3>
                 <p>
                     Every holiday package we sell is ATOL protected, which means that you’ll never be left stranded
                     or lose your money.
                 </p>
             </div>
+            <!-- Feature 2 end -->
+            <!-- Feature 3 start -->
             <div class="col-12 col-lg-4 d-md-none d-lg-block text-center pt-3">
                 <h3 class="text-black">
-                    <i class="far fa-smile d-block fa-lg text-secondary"></i>Excellent Reviews
+                    <i class="far fa-smile d-block fa-lg text-secondary" aria-hidden="true"></i>
+                    <span>Excellent Reviews</span>
                 </h3>
                 <p>
                     We’re really proud of our famously friendly service and we’ve got the trophies and reviews to
                     prove just how good it is.
                 </p>
             </div>
+            <!-- Feature 3 end -->
         </div>
     </div>
+    <!-- Features container end -->
 </section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
+<!-- Import ratings.js script -->
 <script src="{% static 'js/ratings.js' %}"></script>
 <script>
+    // Configures the hero image carousel. Code is from https://kenwheeler.github.io/slick/
     $('#hero-image-carousel').slick({
         infinite: true,
         slidesToShow: 1,
@@ -115,15 +153,15 @@
         autoplay: true,
         autoplaySpeed: 5000,
         dots: true,
-        prevArrow: '<button type="button" class="btn shadow-0 slick-prev d-none d-md-block"><i class="fas fa-chevron-left"></i></button>',
-        nextArrow: '<button type="button" class="btn shadow-0 slick-next d-none d-md-block"><i class="fas fa-chevron-right"></i></button>',
+        prevArrow: '<button type="button" class="btn shadow-0 slick-prev d-none d-md-block"><i class="fas fa-chevron-left" aria-label="previous"></i></button>',
+        nextArrow: '<button type="button" class="btn shadow-0 slick-next d-none d-md-block"><i class="fas fa-chevron-right" aria-label="next"></i></button>',
     })
+    // Configures the popular destinations slider. Code is from https://kenwheeler.github.io/slick/
     $('#popular-destinations').slick({
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 1,
-        responsive: [
-        {
+        responsive: [{
                 breakpoint: 998,
                 settings: {
                     slidesToShow: 2,
@@ -136,10 +174,12 @@
                     slidesToShow: 1,
                     slidesToScroll: 1,
                 }
-            }],
+            }
+        ],
         appendArrows: '#arrows',
-        prevArrow: '<button type="button" class="btn shadow-0 ps-0"><i class="fas fa-arrow-left fa-2x"></i></button>',
-        nextArrow: '<button type="button" class="btn shadow-0 pe-md-0"><i class="fas fa-arrow-right fa-2x"></i></button>',
+        prevArrow: '<button type="button" class="btn shadow-0 ps-0"><i class="fas fa-arrow-left fa-2x" aria-label="previous"></i></button>',
+        nextArrow: '<button type="button" class="btn shadow-0 pe-md-0"><i class="fas fa-arrow-right fa-2x" aria-label="next"></i></button>',
     });
 </script>
 {% endblock %}
+<!-- Postloadjs block end -->
