@@ -45,7 +45,7 @@
                 <div class="text-center mt-4">
                     <button class="btn btn-primary" type="submit">Update Flight</button>
                 </div>
-                <!-- Previous URL hidden field. Code is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
+                <!-- Code for redirect url hidden field is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
                 {% if request.META.HTTP_REFERER %}
                 <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}

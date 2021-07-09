@@ -106,7 +106,7 @@
                     </button>
                 </div>
                 <!-- Buttons end -->
-                <!-- Redirect URL hidden field. Code is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
+                <!-- Code for redirect URL is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
                 {% if request.META.HTTP_REFERER %}
                     <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}
