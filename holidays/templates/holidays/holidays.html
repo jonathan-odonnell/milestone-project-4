@@ -115,8 +115,12 @@
 {% endblock %}
 <!-- Content block end -->
 
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
+<!-- Import ratings.js script -->
 <script src="{% static 'js/ratings.js' %}"></script>
+<!-- Import holidays.js script -->
 <script src="{% static 'js/holidays.js' %}"></script>
 {% endblock %}
+<!-- Postloadjs block end -->

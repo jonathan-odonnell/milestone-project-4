@@ -5,9 +5,9 @@
         {% for holiday in holidays %}
         <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
             <div id="holidays" class="card destination-card shadow-0 border">
-                <img class="card-img-top" src="{{holiday.image.url}}" alt="Card image cap">
+                <img class="card-img-top" src="{{ holiday.image.url }}" alt="Image of {{ holiday.name }}">
                 <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
-                <span class="badge bg-secondary">£{{holiday.price|floatformat:"-2"}}</span>
+                <span class="badge bg-secondary">£{{ holiday.price|floatformat:"-2" }}</span>
                 <div class="card-body">
                     {% if category %}
                     <a href="{% url 'category_details' category.slug holiday.slug %}">
@@ -16,16 +16,16 @@
                     {% else %}
                     <a href="{% url 'offer_details' holiday.slug %}">
                     {% endif %}
-                        <h5 class="card-title mb-1">{{holiday.name}}</h5>
+                        <h5 class="card-title mb-1">{{ holiday.name }}</h5>
                     </a>
-                    <p class="small mb-1">{{holiday.country}}</p>
+                    <p class="small mb-1">{{ holiday.country }}</p>
                     <div class="d-flex justify-content-between">
                         <p class="small mb-0">
-                            <span class="rating">{{holiday.rating}}</span>
+                            <span class="rating">{{ holiday.rating }}</span>
                         </p>
                         <p class="small mb-0">
                             <i class="far fa-clock" aria-label="clock"></i>
-                            <span>{{holiday.duration}} Nights</span>
+                            <span>{{ holiday.duration }} Nights</span>
                         </p>
                     </div>
                 </div>
