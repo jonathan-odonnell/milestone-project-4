@@ -5,15 +5,15 @@
 
 <!-- Extra css block start -->
 {% block extra_css %}
-    <!--Import datepicker stylesheet. Code is from https://gijgo.com/datepicker/ -->
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<!--Import datepicker stylesheet. Code is from https://gijgo.com/datepicker/ -->
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 {% endblock %}
 <!-- Extra css block end -->
 
 <!-- Extra js block start -->
 {% block extra_js %}
-    <!--Import datepicker script. Code is from https://gijgo.com/datepicker/ -->
-    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<!--Import datepicker script. Code is from https://gijgo.com/datepicker/ -->
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 {% endblock %}
 <!-- Extra js block end -->
 
@@ -25,29 +25,29 @@
         <div class="col-12 text-center">
             <h2 class="section-heading mb-3">Edit Flight</h2>
         </div>
-        <!-- Form start. Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
+        <!-- Form start. Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and code for flight slug is from https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template -->
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'edit_flight' form.instance.flight_number %}" method="POST">
                 {% csrf_token %}
                 {% for field in form %}
-                    {% if field.name == 'departure_time' %}
-                        {% timezone form.instance.origin_time_zone %}
-                            {{ field | as_crispy_field }}
-                        {% endtimezone %}
-                    {% elif field.name == 'arrival_time' %}
-                        {% timezone form.instance.destination_time_zone %}
-                            {{ field | as_crispy_field }}
-                        {% endtimezone %}
-                    {% else %}
-                        {{ field | as_crispy_field }}
-                    {% endif %}
+                {% if field.name == 'departure_time' %}
+                {% timezone form.instance.origin_time_zone %}
+                {{ field | as_crispy_field }}
+                {% endtimezone %}
+                {% elif field.name == 'arrival_time' %}
+                {% timezone form.instance.destination_time_zone %}
+                {{ field | as_crispy_field }}
+                {% endtimezone %}
+                {% else %}
+                {{ field | as_crispy_field }}
+                {% endif %}
                 {% endfor %}
                 <div class="text-center mt-4">
                     <button class="btn btn-primary" type="submit">Update Flight</button>
                 </div>
                 <!-- Previous URL hidden field. Code is from https://stackoverflow.com/questions/27325505/django-getting-previous-url -->
                 {% if request.META.HTTP_REFERER %}
-                    <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
+                <input type="hidden" name="redirect_url" value="{{ request.META.HTTP_REFERER }}" />
                 {% endif %}
             </form>
         </div>

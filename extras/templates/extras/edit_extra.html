@@ -13,7 +13,7 @@
             <h1 class="section-heading mb-3">Edit Extra</h1>
         </div>
         <!-- Heading end -->
-        <!-- Form start -->
+        <!-- Form start. Code for extra slug is from https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template -->
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'edit_extra' form.instance.slug %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
