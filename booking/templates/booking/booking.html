@@ -1,21 +1,32 @@
+<!-- Extends base template and loads static files, timezones and booking tools -->
 {% extends "base.html" %}
 {% load static %}
 {% load tz %}
 {% load booking_tools %}
 
+<!-- Content block start -->
 {% block content %}
+<!-- Container start -->
 <section class="container h-100 p-4">
     <div class="row g-0">
+        <!-- Heading Start -->
         <div class="col-12 mb-4">
             <h1 class="section-heading text-center mb-0">Your Booking</h1>
         </div>
+        <!-- Heading End -->
     </div>
     {% if booking %}
+    <!-- Active booking content start -->
     <div class="row g-0">
+        <!-- Holiday details and extras column start -->
         <div class="d-none d-md-block col-md col-lg-8 px-lg-3">
             <div class="row g-0">
+                <!-- Holiday details start -->
                 <div class="col-12 table-responsive mb-3">
+                    <!-- Heading start -->
                     <h3 class="section-subheading">Holiday</h3>
+                    <!-- Heading end -->
+                    <!-- Table start. Code is from https://getbootstrap.com/docs/5.0/content/tables/ -->
                     <table class="table table-sm align-middle mb-3">
                         <thead>
                             <tr>
@@ -38,6 +49,7 @@
                                         <li class="mb-0">{{ booking.package.catering }}</li>
                                     </ul>
                                 </td>
+                                <!-- Code for guests input is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
                                 <td class="w-25 p-2 ps-4">
                                     <form class="guests-form">
                                         {% csrf_token %}
@@ -48,26 +60,33 @@
                                             <div class="btn-group-vertical rounded-0 shadow-none">
                                                 <button class="btn plus rounded-0 p-2 py-0" type="button">
                                                     <span>
-                                                        <i class="fas fa-chevron-up fa-sm"></i>
+                                                        <i class="fas fa-chevron-up fa-sm" aria-label="chevron up"></i>
                                                     </span>
                                                 </button>
                                                 <button class="btn minus rounded-0 p-2 py-0" type="button">
                                                     <span>
-                                                        <i class="fas fa-chevron-down fa-sm"></i>
+                                                        <i class="fas fa-chevron-down fa-sm" aria-label="chevron down"></i>
                                                     </span>
                                                 </button>
                                             </div>
                                         </div>
                                     </form>
                                 </td>
+                                <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                                 <td class="w-25 p-2">£{{ booking.package.price|floatformat:"-2" }}</td>
                             </tr>
                         </tbody>
                     </table>
+                    <!-- Table end -->
                 </div>
+                <!-- Holiday details end -->
+                <!-- Extras start -->
                 {% if booking.package.extras.all %}
                 <div class="col-12 table-responsive">
+                    <!-- Heading start -->
                     <h3 class="section-subheading">Extras</h3>
+                    <!-- Heading end -->
+                    <!-- Table start. Code is from https://getbootstrap.com/docs/5.0/content/tables/ -->
                     <table class="table table-sm align-middle">
                         <thead>
                             <tr>
@@ -85,6 +104,7 @@
                                     <img class="img-fluid" src="{{ extra.image.url }}" alt="Image of {{extra.name}}">
                                 </td>
                                 <td class="w-25 p-2"><strong>{{ extra.name }}</strong></td>
+                                <!-- Code for quantity input is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
                                 <td class="w-25 p-2 ps-4">
                                     <form class="quantity-form">
                                         {% csrf_token %}
@@ -96,19 +116,21 @@
                                             <div class="btn-group-vertical rounded-0 shadow-none">
                                                 <button class="btn plus rounded-0 p-2 py-0" type="button">
                                                     <span>
-                                                        <i class="fas fa-chevron-up fa-sm"></i>
+                                                        <i class="fas fa-chevron-up fa-sm" aria-label="chevron up"></i>
                                                     </span>
                                                 </button>
                                                 <button class="btn minus rounded-0 p-2 py-0" type="button">
                                                     <span>
-                                                        <i class="fas fa-chevron-down fa-sm"></i>
+                                                        <i class="fas fa-chevron-down fa-sm" aria-label="chevron down"></i>
                                                     </span>
                                                 </button>
                                             </div>
                                         </div>
                                     </form>
                                 </td>
+                                <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                                 <td class="p-2">£{{ extra.price|floatformat:"-2" }}</td>
+                                <!-- Code for switch is from https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches -->
                                 <td class="p-2">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in selected_extras %}checked{% endif %}>
@@ -118,15 +140,23 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    <!-- Table end -->
                 </div>
                 {% endif %}
+                <!-- Extras end -->
             </div>
         </div>
+        <!-- Holiday details and extras column end -->
+        <!-- Mobile holiday details and extras column start -->
         <div class="d-md-none col px-3">
             <div class="row g-0">
+                <!-- Mobile holiday details start -->
                 <div class="col-12 table-responsive mb-3">
+                    <!-- Heading start -->
                     <h3 class="section-subheading">Holiday</h3>
+                    <!-- Heading end -->
                     <hr class="my-0">
+                    <!-- Table start. Code is from https://getbootstrap.com/docs/5.0/content/tables/ -->
                     <table class="table table-sm mb-3">
                         <tr>
                             <td class="w-25 py-3">
@@ -138,10 +168,12 @@
                                     <li class="mb-0">{{ booking.departure_date }}</li>
                                     <li class="mb-0">{{ booking.package.duration}} nights</li>
                                     <li class="mb-3">{{ booking.package.catering }}</li>
+                                    <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                                     <li class="mb-3">
                                         £{{ booking.package.price|floatformat:"-2" }}
                                     </li>
                                     <li>
+                                        <!-- Code for guests input is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
                                         <form class="d-inline-block guests-form">
                                             {% csrf_token %}
                                             <div class="input-group justify-content-start">
@@ -151,12 +183,12 @@
                                                 <div class="btn-group-vertical rounded-0 shadow-none">
                                                     <button class="btn plus rounded-0 p-2 py-0" type="button">
                                                         <span>
-                                                            <i class="fas fa-chevron-up fa-sm"></i>
+                                                            <i class="fas fa-chevron-up fa-sm" aria-label="chevron up"></i>
                                                         </span>
                                                     </button>
                                                     <button class="btn minus rounded-0 p-2 py-0" type="button">
                                                         <span>
-                                                            <i class="fas fa-chevron-down fa-sm"></i>
+                                                            <i class="fas fa-chevron-down fa-sm" aria-label="chevron down"></i>
                                                         </span>
                                                     </button>
                                                 </div>
@@ -167,11 +199,17 @@
                             </td>
                         </tr>
                     </table>
+                    <!-- Table end -->
                 </div>
+                <!-- Mobile holidat details end -->
+                <!-- Mobile extras start -->
                 {% if booking.package.extras.all %}
                 <div class="col-12 mb-3">
+                    <!-- Heading start -->
                     <h3 class="section-subheading">Extras</h3>
+                    <!-- Heading end -->
                     <hr class="my-0">
+                    <!-- Table start. Code is from https://getbootstrap.com/docs/5.0/content/tables/ -->
                     <table class="table table-sm mb-3">
                         {% for extra in booking.package.extras.all %}
                         <tr>
@@ -181,12 +219,14 @@
                             <td colspan="2" class="border-0 pt-3 pb-0">
                                 <ul class="list-unstyled py-0">
                                     <li class="mb-3"><strong>{{ extra.name }}</strong></li>
+                                    <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                                     <li class="mb-3">£{{ extra.price|floatformat:"-2" }}</li>
                                 </ul>
                             </td>
                         </tr>
                         <tr id="mobile-extra-{{extra.id}}">
                             <td class="pt-0 pb-4">
+                                <!-- Code for guests input is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
                                 <form class="d-inline-block quantity-form">
                                     {% csrf_token %}
                                     <div class="input-group">
@@ -197,18 +237,19 @@
                                         <div class="btn-group-vertical rounded-0 shadow-none">
                                             <button class="btn plus rounded-0 p-2 py-0" type="button">
                                                 <span>
-                                                    <i class="fas fa-chevron-up fa-sm"></i>
+                                                    <i class="fas fa-chevron-up fa-sm" aria-label="chevron up"></i>
                                                 </span>
                                             </button>
                                             <button class="btn minus rounded-0 p-2 py-0" type="button"">
                                                 <span>
-                                                    <i class=" fas fa-chevron-down fa-sm"></i>
+                                                    <i class=" fas fa-chevron-down fa-sm" aria-label="chevron down"></i>
                                                 </span>
                                             </button>
                                         </div>
                                     </div>
                                 </form>
                             </td>
+                            <!-- Code for switch is from https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches -->
                             <td class="text-center">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="{{ extra.id }}"{% if extra.id in seleted_extras %}checked{% endif %}>
@@ -217,14 +258,22 @@
                         </tr>
                         {% endfor %}
                     </table>
+                    <!-- Table end -->
                 </div>
                 {% endif %}
+                <!-- Mobile extras end -->
             </div>
         </div>
+        <!-- Mobile holiday details and extras column end -->
+        <!-- Booking summary column start -->
         <div class="col-lg-4 mt-2">
             <div class="px-lg-3">
-                <h3 class="section-subheading d-flex justify-content-between align-items-center mb-3">Booking Summary</h3>
+                <!-- Heading start -->
+                <h3 class="section-subheading mb-3">Booking Summary</h3>
+                <!-- Heading end -->
+                <!-- List group start. Code is from https://getbootstrap.com/docs/5.0/components/list-group/ and https://getbootstrap.com/docs/5.0/utilities/flex/-->
                 <ul class="list-group mb-3">
+                    <!-- Outbound flight list item start -->
                     {% with booking.outbound_flight as outbound_flight %}
                     <li class="list-group-item p-3">
                         <div>
@@ -234,7 +283,7 @@
                                     <small>{{outbound_flight.origin}}</small>
                                 </div>
                                 <div class="col text-center my-auto">
-                                    <i class="fas fa-plane"></i>
+                                    <i class="fas fa-plane" aria-label="plane"></i>
                                 </div>
                                 <div class="col text-end">
                                     <small>{{outbound_flight.destination}}</small>
@@ -242,12 +291,14 @@
                             </div>
                             <div class="row g-0">
                                 <div class="col-4">
+                                    <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
                                     <small>{{outbound_flight.departure_time|timezone:outbound_flight.origin_time_zone|time:'H:i'}}</small>
                                 </div>
                                 <div class="col-4 text-center">
                                     <small>{{ outbound_flight.duration|duration }}</small>
                                 </div>
                                 <div class="col-4 text-end">
+                                    <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
                                     <small>{{outbound_flight.arrival_time|timezone:outbound_flight.destination_time_zone|time:'H:i'}}</small>
                                     <br>
                                     {% with outbound_flight|extra_days as extra_days %}
@@ -260,6 +311,8 @@
                         </div>
                     </li>
                     {% endwith %}
+                    <!-- Outbound flight list item end -->
+                    <!-- Return flight list item start -->
                     {% with booking.return_flight as return_flight %}
                     <li class="list-group-item p-3">
                         <h6>{{ booking.return_date }} ({{return_flight.flight_number}})</h6>
@@ -268,7 +321,7 @@
                                 <small>{{return_flight.origin}}</small>
                             </div>
                             <div class="col text-center my-auto">
-                                <i class="fas fa-plane"></i>
+                                <i class="fas fa-plane" aria-label="plane"></i>
                             </div>
                             <div class="col text-end">
                                 <small>{{return_flight.destination}}</small>
@@ -276,12 +329,14 @@
                         </div>
                         <div class="row g-0">
                             <div class="col-4">
+                                <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
                                 <small>{{return_flight.departure_time|timezone:return_flight.origin_time_zone|time:'H:i'}}</small>
                             </div>
                             <div class="col-4 text-center">
                                 <small>{{ return_flight.duration|duration }}</small>
                             </div>
                             <div class="col-4 text-end">
+                                <!-- Code for timezones is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
                                 <small>{{return_flight.arrival_time|timezone:return_flight.destination_time_zone|time:'H:i'}}</small>
                                 <br>
                                 {% with return_flight|extra_days as extra_days %}
@@ -293,37 +348,54 @@
                         </div>
                     </li>
                     {% endwith %}
+                    <!-- Return flight list item end -->
+                    <!-- Subtotal list item start -->
                     {% if booking.subtotal != booking.grand_total %}
                     <li id="subtotal" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Base Price</span>
+                        <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <span>£{{ booking.subtotal|floatformat:"-2" }}</span>
                     </li>
                     {% endif %}
+                    <!-- Subtotal list item start -->
+                    <!-- Extras total list item start -->
                     {% if booking.extras_total %}
                     <li id="extras" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Options and Extras</span>
+                        <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <span>£{{ booking.extras_total|floatformat:"-2" }}</span>
                     </li>
                     {% endif %}
+                    <!-- Extras total list item end -->
+                    <!-- Transfers list item start -->
                     <li id="transfers" class="list-group-item d-flex justify-content-between">
                         <span class="my-0">Transfers</span>
                         <span class="my-0">{% if holiday.transfers_included == True %}Included{% else %}
                             Not Included{% endif %}</span>
                     </li>
+                    <!-- Transfers list item end -->
+                    <!-- Discount list item start -->
                     {% if booking.discount %}
                     <li id="discount" class="list-group-item d-flex justify-content-between">
                         <div class="text-success">
                             <h6 class="my-0">Promo code</h6>
                             <small class="text-uppercase">{{booking.coupon}}</small>
                         </div>
+                        <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <span class="text-success">-£{{booking.discount|floatformat:"-2"}}</span>
                     </li>
                     {% endif %}
+                    <!-- Discount list item end -->
+                    <!-- Total list item start -->
                     <li id="total" class="list-group-item d-flex justify-content-between">
                         <span>Total</span>
+                        <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <strong>£{{ booking.grand_total|floatformat:"-2" }}</strong>
                     </li>
+                    <!-- Total list item start -->
                 </ul>
+                <!-- List group end -->
+                <!-- Coupon form start. Code is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
                 <form class="coupon-form">
                     {% csrf_token %}
                     <div class="input-group mb-3">
@@ -331,25 +403,38 @@
                         <button class="btn btn-grey rounded-0 rounded-end shadow-none" type="submit">Apply</button>
                     </div>
                 </form>
+                <!-- Coupon form end -->
+                <!-- Continue to passengers button start -->
                 <a class="btn btn-primary shadow-none w-100 mb-3" href="{% url 'passengers' %}">Continue to Passengers</a>
+                <!-- Continue to passengers button end -->
             </div>
         </div>
+        <!-- Booking summary column end -->
     </div>
+    <!-- Active booking content end -->
+    <!-- No active booking content start -->
     {% else %}
     <div class="row g-0">
         <div class="col-12 text-center">
             <hr class="mb-4 mt-0">
             <p class="lead mb-4">You have not added a booking.</p>
             <a href="{% url 'offers' %}" class="btn btn-primary">
-                <i class="fas fa-chevron-left me-2"></i>
+                <i class="fas fa-chevron-left me-2" aria-hidden="true"></i>
                 <span class="text-uppercase">View our latest offers</span>
             </a>
         </div>
         {% endif %}
     </div>
+    <!-- No active booking content end -->
 </section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
+
+<!-- Postloadjs block start -->
 {% block postloadjs %}
 {{ block.super }}
+<!-- Import booking.js script -->
 <script src="{% static 'js/booking.js' %}"></script>
 {% endblock %}
+<!-- Postloadjs block start -->
