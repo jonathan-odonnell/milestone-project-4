@@ -19,12 +19,12 @@
                         {% if field.is_readonly %}
                             <div class="readonly">{{ field.contents }}</div>
                         {% else %}
-                            <!-- Sets departure time field to the origin timezone. Code is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
+                            <!-- Sets departure time field to the origin timezone. Code is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and https://stackoverflow.com/questions/3137984/how-to-access-model-data-when-overriding-django-admin-templates -->
                             {% if field.field.name == 'departure_time' %}
                                 {% timezone fieldset.form.instance.origin_time_zone %}  
                                     {{ field.field }}
                                 {% endtimezone %}
-                            <!-- Sets arrival time field to the destination timezone. Code is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
+                            <!-- Sets arrival time field to the destination timezone. Code is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags and https://stackoverflow.com/questions/3137984/how-to-access-model-data-when-overriding-django-admin-templates -->
                             {% elif field.field.name == 'arrival_time' %}
                                 {% timezone fieldset.form.instance.destination_time_zone %}
                                     {{ field.field }}
