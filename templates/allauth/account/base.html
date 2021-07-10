@@ -2,6 +2,9 @@
 {% extends "base.html" %}
 {% load static %}
 
+<!-- Title block -->
+{% block title %} - {% block head_title %}{% endblock %}{% endblock%}
+
 <!-- Extra css block start -->
 {% block extra_css %}
 <!-- Import allauth.css stylesheet -->
