@@ -1,17 +1,22 @@
+<!-- Extends account base template -->
 {% extends "account/base.html" %}
 
 {% load i18n %}
 {% load account socialaccount %}
 
+<!-- Head title block -->
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
+<!-- Inner content block start -->
 {% block inner_content %}
-
+<!-- Login container start -->
 <div class="container p-4">
   <div class="row g-0">
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
 
       <h1 class="section-heading text-center mb-4">{% trans "Sign In" %}</h1>
+
+      <!-- Social accounts start -->
 
       {% get_providers as socialaccount_providers %}
 
@@ -31,7 +36,9 @@
       {% include "socialaccount/snippets/login_extra.html" %}
 
       {% endif %}
+      <!-- Social accounts end -->
 
+      <!-- form start -->
       <form class="account login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         <div class="row">
@@ -60,12 +67,14 @@
             href="{% url 'account_signup' %}"><strong>Register</strong></a>
         </p>
       </form>
+      <!-- Form end -->
 
     </div>
   </div>
 </div>
+<!-- Container end -->
 
-<!--Code is from https://docs.djangoproject.com/en/3.2/topics/forms/#rendering-form-error-messages-->
+<!-- Error messages start. Code is from https://docs.djangoproject.com/en/3.2/topics/forms/#rendering-form-error-messages -->
 {% if form.non_field_errors %}
 <div class="message-container">
   {% for message in form.non_field_errors %}
@@ -73,5 +82,7 @@
   {% endfor %}
 </div>
 {% endif %}
+<!-- Error messages end -->
 
 {% endblock %}
+<!-- Inner content block end -->

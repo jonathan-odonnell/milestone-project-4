@@ -1,11 +1,14 @@
+<!-- Extends account base template -->
 {% extends "account/base.html" %}
 
 {% load i18n %}
 
+<!-- Head title block -->
 {% block head_title %}{% trans "E-mail Addresses" %}{% endblock %}
 
+<!-- Inner content block start -->
 {% block inner_content %}
-
+<!-- Email content start -->
 <div class="container p-4">
   <div class="row g-0">
       <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-auto">
@@ -60,10 +63,11 @@
     </div>
   </div>
 </div>
-
+<!-- Email content end -->
 {% endblock %}
+<!-- Inner content block end -->
 
-
+<!-- Extra body block start -->
 {% block extra_body %}
 <script type="text/javascript">
 (function() {
@@ -79,3 +83,4 @@
 })();
 </script>
 {% endblock %}
+<!-- Extra body block end -->

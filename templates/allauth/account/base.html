@@ -1,11 +1,22 @@
+<!-- Extends base template and loads static files -->
 {% extends "base.html" %}
 {% load static %}
+
+<!-- Extra css block start -->
 {% block extra_css %}
+<!-- Import allauth.css stylesheet -->
 <link rel="stylesheet" href="{% static 'css/allauth.css' %}">
 {% endblock %}
+<!-- Extra css block end -->
+
+<!-- Content block start -->
 {% block content %}
+<!-- Container start -->
 <section class="container-fluid g-0">
+  <!-- Insert inner content block -->
   {% block inner_content %}
   {% endblock %}
 </section>
+<!-- Container end -->
 {% endblock %}
+<!-- Content block end -->
