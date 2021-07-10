@@ -239,10 +239,6 @@ a:hover {
     z-index: 1;
 }
 
-.jumbotron {
-    background-color: transparent;
-}
-
 .jumbotron .display-1 {
     font-weight: bold;
     font-family: 'Nothing You Could Do', sans-serif;

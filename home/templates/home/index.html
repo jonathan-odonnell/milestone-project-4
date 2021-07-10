@@ -27,17 +27,15 @@
             <div class="hero-image" style="background-image: url('{{ offer.image.url }}')">
                 <div class="overlay">&nbsp;</div>
                 <div class="row g-0">
-                    <div class="col-12">
-                        <div class="jumbotron jumbotron-fluid text-center">
-                            <div class="container">
-                                <h1 class="display-1 text-white">{{ offer.name }}</h1>
-                                <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
-                                <h3 class="text-white">{{ offer.duration }} Nights from
-                                    £{{ offer.price|floatformat:"-2" }}
-                                    per person</h3>
-                                <a href="{% url 'category_details' 'offers' offer.slug %}"
-                                    class="btn btn-primary btn-lg">Explore Now</a>
-                            </div>
+                    <div class="col-12 jumbotron text-center">
+                        <div class="container">
+                            <h1 class="display-1 text-white">{{ offer.name }}</h1>
+                            <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
+                            <h3 class="text-white">{{ offer.duration }} Nights from
+                                £{{ offer.price|floatformat:"-2" }}
+                                per person</h3>
+                            <a href="{% url 'category_details' 'offers' offer.slug %}"
+                                class="btn btn-primary btn-lg">Explore Now</a>
                         </div>
                     </div>
                 </div>
