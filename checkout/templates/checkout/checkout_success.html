@@ -4,6 +4,9 @@
 {% load tz %}
 {% load booking_tools %}
 
+<!-- Title block -->
+{% block title %} - {% if from_booking %}Booking Details{% else %}Checkout Success{% endif %}{% endblock%}
+
 <!-- Content block start -->
 {% block content %}
 <!-- Container start -->
