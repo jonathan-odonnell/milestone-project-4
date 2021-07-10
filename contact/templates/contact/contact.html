@@ -107,9 +107,10 @@
 {% block postloadjs %}
 {{ block.super }}
 <script>
-    /* Posts the form data to the contact URL and dynamically updates the HTML to show a message thanking
-    the user for their message. Code for the insertAfter jQuery method is from
-    https://api.jquery.com/insertAfter/#insertAfter-target */
+    /* Checks the form is valid, posts the form data to the contact URL and dynamically updates
+    the HTML to show a message thanking the user for their message. Code for the insertAfter
+    jQuery method is from https://api.jquery.com/insertAfter/#insertAfter-target */
+    
     $('form .btn').click(function (e) {
         e.preventDefault()
         if ($('form')[0].reportValidity()) {
