@@ -695,7 +695,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the insertBefore jQuery method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
 - Code for the JQuery insertAfter method is from [jQuery](https://api.jquery.com/insertAfter/#insertBefore-target).
 - Code for configuring the hero image carousel and the sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
-- Code for accessing a form's model instance in a template is from [Stack Overflow](https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template).
+- Code for accessing a form's model data in a template is from [Stack Overflow](https://stackoverflow.com/questions/3137984/how-to-access-model-data-when-overriding-django-admin-templates) and [Stack Overflow](https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template).
 - Code for the formset templating is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/).
 - Code for the badges is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/badge/).
 - Code for the cards is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/card/) and [Bootstrap]( https://getbootstrap.com/docs/5.0/utilities/flex/#media-object/).
