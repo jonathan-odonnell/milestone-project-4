@@ -689,6 +689,26 @@ More information about making a local clone of a GitHub repository is available 
 
 ### Code
 
+- Code for the navbar is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/navbar/).
+- Code for the form input groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/input-group/).
+- Code for making the back to top button appear when the user scrolls is from [Codepen](https://codepen.io/deveb22/pen/QxPmGz).
+- Code for the insertBefore jQuery method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
+- Code for the JQuery insertAfter method is from [jQuery](https://api.jquery.com/insertAfter/#insertBefore-target).
+- Code for configuring the hero image carousel and the sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
+- Code for accessing a form's model instance in a template is from [Stack Overflow](https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template).
+- Code for the formset templating is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/).
+- Code for the badges is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/badge/).
+- Code for the cards is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/card/) and [Bootstrap]( https://getbootstrap.com/docs/5.0/utilities/flex/#media-object/).
+- Code for floatformat filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat).
+- - Code for the pagination is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/pagination/ ) and [Django](https://docs.djangoproject.com/en/3.2/topics/pagination/)
+- Code for the holiday details tabs is from [Material Design Bootstrap](https://mdbootstrap.com/docs/standard/navigation/tabs/).
+- Code for the holiday details tab dropdown is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/dropdowns/).
+- Code for the tables is from [Bootstrap](https://getbootstrap.com/docs/5.0/content/tables/).
+- Code for switches is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches).
+- Code for the list groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/list-group/) and [Bootstrap](https://getbootstrap.com/docs/5.0/utilities/flex/).
+- Code for the time filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time).
+- Code for the wrap jQuery method is from [jQuery](https://api.jquery.com/wrap/#wrap-wrappingElement/).
+- Code for slice filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice).
 - Code for for updating the address input's parent element's ID is from [Stack Overflow](https://stackoverflow.com/questions/10219396/jquery-update-element-id/).
 - Code for the autocomplete is from [Google](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform/).
 - Code for the JQuery hasClass method is from [jQuery](https://api.jquery.com/hasclass/). 
@@ -696,14 +716,12 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the JQuery each method is from [jQuery](https://api.jquery.com/jquery.each/).
 - Code for checking if a checkbox is checked is from [Stack Overflow](https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked/).
 - Code for checking or unchecking the switches is from [Stack Overflow](https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery).
-- Code for the JQuery insertBefore method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
 - Code for the datepicker and datetimepicker min date is from [Gijgo](https://gijgo.com/datepicker/configuration/minDate).
 - Code for the datepicker and datetimepicker max date is from [Gijgo](https://gijgo.com/datepicker/configuration/maxDate).
 - Code for the datetimepicker configuration is from [Gijgo](https://gijgo.com/datetimepicker/) and Gijgo](https://gijgo.com/datetimepicker/configuration).
 - Code for the datepicker configuration is from [Gijgo](https://gijgo.com/datepicker/) and Gijgo](https://gijgo.com/datepicker/configuration).
 - Code for adding a new entry to the browser's session history is from [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState).
 - Code for the delegated target JQuery is from [JQuery](https://api.jquery.com/event.delegateTarget/#event-delegateTarget1).
-- Code for the home page hero image carousel and the popular destinations and related holidays sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
 - Code for the toggleClass JQuery method is from [JQuery](https://api.jquery.com/toggleClass/#toggleClass1).
 - Code for the PayPal smart button is from [PayPal](https://developer.paypal.com/docs/checkout/integrate/).
 - Code for the PayPal payment form validation is from [PayPal](https://developer.paypal.com/docs/checkout/integration-features/validation/).
@@ -719,7 +737,6 @@ More information about making a local clone of a GitHub repository is available 
 - Code for list_per_page, filter_horizontal, list_filter in the admin view is from [Django](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#modeladmin-options).
 - Code to hide the sidebar and change the site header text in the admin view is from [Django](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#adminsite-attributes).
 - Code for returning a distinct values list from a model is from [Stack Overflow](https://stackoverflow.com/questions/10848809/django-model-get-distinct-value-list).
-- Code for the pagination of a queryset is from [Django](https://docs.djangoproject.com/en/3.2/topics/pagination/)
 - Code for processing JSON requests is from [Stack Overflow](https://stackoverflow.com/questions/8587693/django-request-is-ajax-returning-false).
 - Code for redering the holiday cards template to a string is from [Stack Overflow](https://stackoverflow.com/questions/50879653/django-render-template-in-template-using-ajax).
 - Code for randomly ordering a queryset is from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#order-by).
