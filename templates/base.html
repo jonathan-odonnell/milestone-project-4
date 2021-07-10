@@ -1,49 +1,54 @@
+<!-- Load static files -->
 {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+    <!-- Meta block start -->
     {% block meta %}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% endblock %}
+    <!-- Meta block end -->
 
-    {% block extra_meta %}
-    {% endblock %}
-
+    <!-- Core css block start -->
     {% block corecss %}
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <!-- Hover.CSS -->
+    <!-- Import Hover.CSS stylesheet. Code is from https://cdnjs.com/libraries/hover.css/2.1.1 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css"
         integrity="sha512-csw0Ma4oXCAgd/d4nTcpoEoz4nYvvnk21a8VA2h2dzhPAvjbUIK6V3si7/g/HehwdunqqW18RwCJKpD7rL67Xg=="
         crossorigin="anonymous">
-    <!-- MDB -->
+    <!-- Import MDB stylesheet. Code is from https://mdbootstrap.com/docs/standard/getting-started/installation/#section-cdn -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.css" rel="stylesheet">
-    <!-- Style.css -->
+    <!-- Import style.css stylesheet -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-
     {% endblock %}
+    <!-- Core css block end -->
 
+    <!-- Insert extra css block content -->
     {% block extra_css%}
     {% endblock %}
 
+    <!-- Core js block start -->
     {% block corejs %}
-
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-    <!--MDB Javascript-->
+    <!-- Import Bootstrap script. Code is from https://getbootstrap.com/docs/5.0/getting-started/ -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+    <!-- Import MDB script. Code is from https://mdbootstrap.com/docs/standard/getting-started/installation/#section-cdn -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
-    <!-- jQuery -->
+    <!-- Import jQuery script. Code is from https://code.jquery.com -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <!--Stripe Javascript-->
+    <!-- Import Stripe script. Code is from https://stripe.com/docs/payments/integration-builder -->
     <script src="https://js.stripe.com/v3/"></script>
+    <!-- Import Font Awesome script. Code is from https://fontawesome.com/ -->
+    <script src="https://kit.fontawesome.com/b4302a2923.js" crossorigin="anonymous"></script>
     {% endblock %}
+    <!-- Core js block start -->
 
+    <!-- Insert extra js block content -->
     {% block extra_js %}
     {% endblock %}
 
@@ -51,32 +56,34 @@
 </head>
 
 <body>
-    <!--Navbar container-->
-    <header class="container-fluid p-0">
-        <!-- Navbar -->
+    <!-- Header container start -->
+    <header class="container-fluid g-0">
+        <!-- Navbar start. Code is from https://getbootstrap.com/docs/5.0/components/navbar/ -->
         <nav class="navbar navbar-expand-lg navbar-light p-3 py-lg-0">
-            <!-- Toggle button -->
+            <!-- Toggle button start -->
             <div class="col-3 d-lg-none">
                 <button class="navbar-toggler border-0 ps-3 py-0" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-bars" aria-hidden="true"></i>
                 </button>
             </div>
-            <!-- Navbar brand -->
+            <!-- Toggle button end -->
+            <!-- Navbar brand start -->
             <div class="col-6 col-lg-3 order-lg-0 ps-lg-3 text-center text-lg-start">
                 <a class="navbar-brand d-inline-flex mx-auto" href="{% url 'home' %}">
                     <h2 class="font-weight-bold mb-0">
-                        <i class="fas fa-globe-europe me-3"></i>
+                        <i class="fas fa-globe-europe me-3" aria-hidden="true"></i>
                         <span>Go Explore</span>
                     </h2>
                 </a>
             </div>
-            <!-- User Options Dropdown -->
+            <!-- Navbar brand end -->
+            <!-- User options dropdown start -->
             <div class="col-3 order-lg-2 text-end ps-lg-3 nav-links position-relative">
-                <a class="nav-link d-inline-flex py-0" href="#" role="button" id="user-options" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="fas fa-user fa-lg"></i>
+                <a class="nav-link d-inline-flex py-0" href="#" role="button" id="user-options"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user fa-lg" aria-label="user options"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end user-options-dropdown" aria-labelledby="user-options">
                     {% if request.user.is_authenticated %}
@@ -89,14 +96,17 @@
                     <li><a class="dropdown-item" href="{% url 'bookings' %}">Bookings</a></li>
                     {% endif %}
                     <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
-                    <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a>
+                    </li>
                     {% else %}
-                    <li><a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a>
+                    </li>
                     <li><a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign In</a></li>
                     {% endif %}
                 </ul>
             </div>
-            <!-- Collapsible wrapper -->
+            <!-- User options dropdown end -->
+            <!-- Collapsible nav links start -->
             <div class="col col-lg-6">
                 <div class="collapse navbar-collapse mt-lg-0" id="navbar-content">
                     <!-- Nav links -->
@@ -110,10 +120,15 @@
                                 Holiday Types
                             </a>
                             <ul class="dropdown-menu shadow-0 w-100 w-lg-auto" aria-labelledby="holidayTypes">
-                                <li><a class="dropdown-item" href="{% url 'categories' 'activity' %}">Activity</a></li>
-                                <li><a class="dropdown-item" href="{% url 'categories' 'city-breaks' %}">City Breaks</a>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'categories' 'activity' %}">Activity</a>
                                 </li>
-                                <li><a class="dropdown-item" href="{% url 'categories' 'resort' %}">Resort</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'categories' 'city-breaks' %}">City Breaks</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'categories' 'resort' %}">Resort</a>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown border-bottom">
@@ -122,10 +137,15 @@
                                 Destinations
                             </a>
                             <ul class="dropdown-menu shadow-0 w-100 w-lg-auto" aria-labelledby="destinations">
-                                <li><a class="dropdown-item" href="{% url 'destinations' 'asia-and-oceana' %}">Asia and
-                                        Oceana</a></li>
-                                <li><a class="dropdown-item" href="{% url 'destinations' 'europe' %}"">Europe</a></li>
-                              <li><a class=" dropdown-item" href="{% url 'destinations' 'north-america' %}"">North America</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'destinations' 'asia-and-oceana' %}">Asia and
+                                        Oceana</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'destinations' 'europe' %}"">Europe</a></li>
+                                <li>
+                                  <a class=" dropdown-item" href="{% url 'destinations' 'north-america' %}"">North America</a>
+                                </li>
                             </ul>
                         </li>
                         <li class=" nav-item border-bottom">
@@ -137,27 +157,31 @@
                     </ul>
                 </div>
             </div>
+            <!-- Collapsible nav links end -->
         </nav>
-        <!-- Navbar -->
+        <!-- Navbar end -->
+        <!-- Banner start -->
         <div class="row g-0 text-center">
             <div class="col bg-secondary text-white p-1">
                 <h5 class="mb-0 banner">Save £{{ offer_amount }} on all bookings with code {{ promo_code }}!</h5>
             </div>
         </div>
+        <!-- Banner end -->
     </header>
+    <!-- Header container end -->
 
-    {% block page_header %}
-    {% endblock %}
+    <!-- Insert content block -->
+    {% block content %}{% endblock %}
 
-    {% block content %}
-    {% endblock %}
-
+    <!-- Back to top button start -->
     <button class="top-btn d-none" type="button">
         <div class="d-flex h-100">
-            <i class="fas fa-arrow-up m-auto"></i>
+            <i class="fas fa-arrow-up m-auto" aria-label="back to top"></i>
         </div>
     </button>
+    <!-- Back to top button end -->
 
+    <!-- Toasts start -->
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
@@ -175,13 +199,15 @@
         {% endfor %}
     </div>
     {% endif %}
-    <!-- Footer -->
+    <!-- Toasts end -->
+
+    <!-- Footer start -->
     <footer class="bg-primary mt-auto">
         <div class="container p-4">
             <div class="row no-gutters">
                 <div class="col-12 col-xl-10 mx-auto">
                     <div class="row no-gutters">
-                        <!-- Links col 1 -->
+                        <!-- Links col 1 start -->
                         <div class="col-6 col-md-3 col-lg-4 mb-4 mb-md-3">
                             <h5 class="footer-headings">Links</h5>
                             <ul class="list-unstyled mb-0">
@@ -193,7 +219,8 @@
                                 {% endif %}
                             </ul>
                         </div>
-                        <!-- Links col 2 -->
+                        <!-- Links col 1 end -->
+                        <!-- Links col 2 start -->
                         <div class="col-6 col-md-3 col-lg-4 footer-2 mb-4 mb-md-3">
                             <ul class="list-unstyled mb-0">
                                 {% if not request.user.is_authenticated or request.user.is_superuser %}
@@ -207,88 +234,114 @@
                                 <li><a href="{% url 'contact' %}">Contact Us</a></li>
                             </ul>
                         </div>
-                        <!-- Newsletter sign up -->
+                        <!-- Links col 2 end -->
+                        <!-- Newsletter sign up start -->
                         <div class="col-12 col-md-6 col-lg-4">
                             <h5 class="footer-headings mb-3">Sign up for our Newsletter!</h5>
-                            <!--- Code for pattern attribute is from https://www.w3schools.com/tags/att_input_pattern.asp-->
                             <form id="newsletter" class="form-group newsletter-signup mb-4">
                                 {% csrf_token %}
+                                <!--- Code for input group is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
                                 <div class="input-group">
+                                    <!-- Code for pattern attribute is from https://www.w3schools.com/tags/att_input_pattern.asp -->
                                     <input type="email" class="form-control border-0" name="newsletter"
                                         placeholder="Enter your email address" aria-label="Enter your email address"
-                                        aria-describedby="button-addon" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                                        aria-describedby="button-addon"
+                                        pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-newsletter shadow-none"><i
-                                                class="fas fa-arrow-right fa-lg"></i></button>
+                                        <button type="button" class="btn btn-newsletter shadow-none">
+                                            <i class="fas fa-arrow-right fa-lg" aria-label="submit"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <!-- Social Media Links -->
+                        <!-- Newsletter sign up end -->
+                        <!-- Social media links start -->
                         <div class="col-12 text-md-center">
                             <ul class="list-inline mb-3 mt-1 mt-md-0">
                                 <li class="list-inline-item pe-3 ps-md-3">
                                     <a href="https://www.facebook.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-facebook fa-lg"></i>
+                                        <i class="hvr-icon fab fa-facebook fa-lg" aria-label="facebook"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item px-3">
                                     <a href="https://www.twitter.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-twitter fa-lg"></i>
+                                        <i class="hvr-icon fab fa-twitter fa-lg" aria-label="twitter"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item px-3">
                                     <a href="https://www.instagram.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-instagram fa-lg"></i>
+                                        <i class="hvr-icon fab fa-instagram fa-lg" aria-label="instagram"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item px-3">
                                     <a href="https://www.youtube.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-youtube fa-lg"></i>
+                                        <i class="hvr-icon fab fa-youtube fa-lg" aria-label="youtube"></i>
                                     </a>
                                 </li>
                             </ul>
                         </div>
-                        <!-- Footnote -->
+                        <!-- Social media links end -->
+                        <!-- Footnote start -->
                         <div class="col-12 col-sm-10 col-md-12 text-md-center">
                             <p class="small mb-2">Registered Address: 6th Floor, Hudson's Bay, 176 Yonge
                                 Street, Toronto, ON, M5C 2L7</p>
                             <p class="small mb-0">Website designed and developed by Jonathan O'Donnell</p>
                         </div>
+                        <!-- Footnote end -->
                     </div>
                 </div>
             </div>
         </div>
     </footer>
+    <!-- Footer end -->
 
+    <!-- Postloadjs block start -->
     {% block postloadjs %}
     <script>
+        /* Changes navbar toggler icon to the times icon when the navbar is expanded and changes
+        the icon back to the bars icon when the navbar is collapsed */
+
         $(".navbar-collapse").on("show.bs.collapse", function () {
             $(".navbar-toggler i").addClass("fa-times").removeClass("fa-bars");
         });
         $(".navbar-collapse").on("hide.bs.collapse", function () {
             $(".navbar-toggler i").addClass("fa-bars").removeClass("fa-times");
         });
+
+        /* Makes back to top button appear when the user scrolls. 
+        Code is from https://codepen.io/deveb22/pen/QxPmGz */
+
         $(window).scroll(function () {
-        if ($(window).scrollTop() > 200) {
-            $(".top-btn").removeClass("d-none");
-        } else {
-            $(".top-btn").addClass("d-none");
-        }
+            if ($(window).scrollTop() > 200) {
+                $(".top-btn").removeClass("d-none");
+            } else {
+                $(".top-btn").addClass("d-none");
+            }
         });
-        $('.top-btn').click(function() {
-			window.scrollTo(0,0)
-		})
+
+        // Scrolls to the top of the page when the back to top button is clicked
+        $('.top-btn').click(function () {
+            window.scrollTo(0, 0)
+        })
+
+        // Shows the toasts when the DOM has finished loading
         $(document).ready(function () {
             $('.toast').toast('show');
         })
+
+        /* Checks the form is valid and posts the email address from the newsletter input to
+        the newsetter sign up URL and dynamically updates the HTML to show a message thanking
+        the user for signing up to the newsletter. Code for the insertBefore jQuery method is from
+        https://api.jquery.com/insertAfter/#insertBefore-target */
+
         $('.btn-newsletter').click(function () {
             if ($(this).closest('form')[0].reportValidity()) {
                 let postData = {
                     'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                     'newsletter': $('input[name="newsletter"]').val()
                 }
-                $.post('{% url "newsletter" %}', postData).done(function() {
+                $.post('{% url "newsletter" %}', postData).done(function () {
                     $('<p class="text-white">Sign Up Successful</p>').insertBefore('footer form')
                     $('footer form').remove()
                 })
@@ -296,6 +349,7 @@
         })
     </script>
     {% endblock %}
+    <!-- Postloadjs block end -->
 
 </body>
 
