@@ -1,4 +1,6 @@
+<!-- Load timezines -->
 {% load tz %}
+<!-- Overrides default admin view fieldset template -->
 <fieldset class="module aligned {{ fieldset.classes }}">
     {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
     {% if fieldset.description %}
@@ -17,10 +19,12 @@
                         {% if field.is_readonly %}
                             <div class="readonly">{{ field.contents }}</div>
                         {% else %}
+                            <!-- Sets departure time field to the origin timezone. Code is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
                             {% if field.field.name == 'departure_time' %}
                                 {% timezone fieldset.form.instance.origin_time_zone %}  
                                     {{ field.field }}
                                 {% endtimezone %}
+                            <!-- Sets arrival time field to the destination timezone. Code is from https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/#template-tags -->
                             {% elif field.field.name == 'arrival_time' %}
                                 {% timezone fieldset.form.instance.destination_time_zone %}
                                     {{ field.field }}
