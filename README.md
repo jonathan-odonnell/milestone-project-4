@@ -306,13 +306,13 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
     - The hero image carousel is clearly highlighted on the home page.
     - Here the customer can find information about three of the latest offers including the holiday package's image, name, price and duration.
-    - If the customer clicks on the 'Explore Now' button, they are taken to the holiday package's destination details page where they can find out more about the holiday package.
+    - If the customer clicks on the 'Explore Now' button, they are taken to the holiday's details page where they can find out more about the holiday package.
 
 3. As a customer, I want to be able to find out about the most popular holiday packages.
 
     - The popular holidays slider is clearly highlighted on the home page.
-    - This contains cards for six popular holiday packages which include details of the holiday package's image, name, price country, rating and duration.
-    - If the customer clicks on the name, they are taken to the holiday package's destination details page where they can find out more about the holiday package.
+    - This contains cards for six popular holiday packages which include details of the holiday's image, name, price country, rating and duration.
+    - If the customer clicks on the name, they are taken to the holiday's details page where they can find out more about the holiday package.
 
 4. As a customer, I want to be able to find out about the features that differentiate Go Explore from its competitiors.
 
@@ -322,13 +322,13 @@ The Entity Relationship Diagram shows details of each field in each model in the
 5. As a customer, I want to be able to search for holiday packages that meet my needs.
 
     - The holiday types, destinations and offers pages are clearly highlighted in the navigation bar in the header of each page.
-    - For each holiday in the holiday type or destination in the URL, a card which includes the holiday package's image, name, price, country, rating and duration is displayed. The name is a link to the holiday package's category, destination or offer details page.
+    - For each holiday in the category or destination in the URL, a card which includes the holiday's image, name, price, country, rating and duration is displayed. The name is a link to the holiday's details page.
     - If the customer would like to sort the holidays, they can select an option from the sort by dropdown.
-    - If the customer would like to filter the holidays, they can select country or holiday type badges.
+    - If the customer would like to filter the holidays, they can select country or category badges.
 
 6. As a customer, I want to be able to view details of individual holiday packages.
 
-    - Customers can access a holiday package's details page by clicking on a holiday package name on the holiday category, holiday destination or the offers details pages.
+    - Customers can access a holiday's details page by clicking on a holiday's name on the holiday types, destinations or the offers details pages.
     - Here the customer is provided with information about the holiday package including a description, five key features, activities (where applicable), the itinerary (where applicable) and reviews.
 
 7. As a customer, I want to be able to find out about the extras that are available.
@@ -339,7 +339,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 8. As a customer, I want to be able to easily enter the departure date, departure airport and number of guests when making a booking.
 
     - The booking form is clearly highlighted on the holiday details pages.
-    - Here the customer can enter their departure date, departure airport and the number of guests for their booking.
+    - Here the customer can select their departure date using the datepicker and enter their departure airport and the number of guests for their booking.
 
 9. As a customer, I want to be able to easily select extras and their quantities when making a booking
 
@@ -361,6 +361,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
     - Once the customer has successfully paid for their booking, the checkout success page is displayed.
     - Here the customer will find a summary of their booking including billing information, holiday details, extras, and flight details.
+    - The customer will also receive a booking confirmation email.
 
 12. As a site user, I want to be able to sign in to my account or sign up for an account if I don't already have one.
 
@@ -381,7 +382,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 15. As a site user, I want to be able to view details of my bookings.
 
     - The bookings link is clearly highlighted in the user options dropdown when the user is signed in.
-    - If the user clicks on this link, they are taken to the bookings page which contains a table displays the booking number, departure date, holiday package name, duration and total for each booking they have made.
+    - If the user clicks on this link, they are taken to the bookings page which contains a table displays the booking number, departure date, holiday name, duration and total for each booking they have made.
     - If the user clicks on a booking number, they are taken to the booking details page which includes full details of the booking.
 
 16. As a site user, I want to be able to write reviews of the holiday packages I have purchased.
@@ -407,8 +408,8 @@ The Entity Relationship Diagram shows details of each field in each model in the
 20. As a site owner, I want to be able to add, edit and delete holiday packages.
 
     - Site owners can access the add holiday form by clicking on the user dropdown and selecting the add holiday option. Here, they can complete the form to add a new holiday.
-    - If the site owner clicks on the edit link below the relevant holiday description on the holiday details pages, the edit holiday form is displayed where they can amend the relevant holiday details.
-    - If the site owner clicks on the delete link below the relevant holiday description on the holiday details pages, the holiday is deleted.
+    - If the site owner clicks on the edit link below the description on the relevant holiday details page, the edit holiday form is displayed where they can amend the relevant holiday details.
+    - If the site owner clicks on the delete link below the description on the relevant holiday details page, the holiday is deleted.
 
 21. As a site owner, I want to be able to add, edit and delete extras.
 
@@ -421,8 +422,8 @@ The Entity Relationship Diagram shows details of each field in each model in the
     - Site owners can access the flights page by clicking on the user dropdown and selecting the flights option.
     - Here, site owners can find a table containing each flight's flight number, origin, destination and links to the edit and delete the flight.
     - If the site owner clicks on the add flight link, the add flight form is displayed which they can complete to add a new flight.
-    - If the site owner clicks on the edit link, the edit flight form is displayed where they can amend the relevant flight details.
-    - If the site owner clicks on the delete link, the flight is deleted.
+    - If the site owner clicks on a flight's edit link, the edit flight form is displayed where they can amend the relevant flight details.
+    - If the site owner clicks on a flight's delete link, the flight is deleted.
 
 ### Manual Testing
 
