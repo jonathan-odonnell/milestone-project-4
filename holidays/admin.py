@@ -70,9 +70,9 @@ class ReviewAdmin(admin.ModelAdmin):
     """
     readonly_fields = ('date',)
 
-    fields = ('package', 'full_name', 'date', 'rating', 'title', 'review',)
+    fields = ('full_name', 'date', 'package', 'rating', 'title', 'review',)
 
-    list_display = ('title', 'full_name', 'rating', 'date',)
+    list_display = ('title', 'full_name', 'package', 'date',)
 
     ordering = ('-date',)
 
