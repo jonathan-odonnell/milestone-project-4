@@ -9,7 +9,7 @@ class PackageForm(forms.ModelForm):
 
     class Meta:
         model = Package
-        exclude = ('rating',)
+        exclude = ('rating', 'image_url')
 
     def __init__(self, *args, **kwargs):
         """
