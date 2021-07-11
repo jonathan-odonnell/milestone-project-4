@@ -167,7 +167,7 @@ def holiday_details(request, package, destination=None, category=None):
                 package=holiday,
                 full_name=profile.user.get_full_name()).first()
 
-        if review:
+        if bookings and not review:
             can_review = True
 
     context = {
