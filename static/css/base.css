@@ -402,7 +402,7 @@ a:hover {
 
 /* Form Start */
 
-.form-label {
+label {
     text-transform: capitalize;
 }
 
@@ -411,8 +411,7 @@ label .asteriskField {
 }
 
 .form-control,
-.input-group .form-control {
-    border-color: #d3d3d3;
+select {
     color: #4a4a4a;
 }
 
@@ -421,14 +420,9 @@ label .asteriskField {
 }
 
 .form-control:focus,
-.input-group .form-control:focus {
+select:focus {
+    border: 1px solid #a9a9a9;
     box-shadow: none;
-    border-color: #d3d3d3;
-}
-
-select,
-select option {
-    color: #4a4a4a;
 }
 
 select:invalid,
@@ -444,16 +438,6 @@ select option[value=""] {
 .newsletter-signup .form-control:focus {
     box-shadow: none;
     border: none !important;
-}
-
-#sort-selector option, 
-#flight-sort-selector option {
-    color: #4a4a4a;
-}
-
-#sort-selector:focus,
-#flight-sort-selector:focus {
-    border-color: #bdbdbd;
 }
 
 /* Hides number input arrow butttons in guest and quantity fields. Code is from https://www.w3schools.com/howto/howto_css_hide_arrow_number.asp */
