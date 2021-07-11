@@ -73,11 +73,11 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 3. Home Page Hero Image Carousel
 
-    - This provides users with an image, details of the duration and price and a link to the holiday package's offer details page for three holiday packages currently on offer.
+    - This provides users with an image, details of the duration and price and a link to the holiday's details page for three holiday packages currently on offer.
 
 4. Popular Holidays Carousel
 
-    - This provides users with cards for six of the most popular holidays. Each card contains the holiday package's image, name, price country, rating and duration. The name is a link to the holiday package's destination details page. 
+    - This provides users with cards for six of the most popular holidays. Each card contains the holiday's image, name, price country, rating and duration. The name is a link to the holiday's details page. 
 
 5. Features
 
@@ -85,11 +85,11 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 6. Sign Up Form
 
-    - This allows users to sign up for an account by entering their first name, last name, email address and password into the form. They can also sign up by clicking on the Facebook or Google icons to sign up using their Facebook or Google account. 
+    - This allows users to sign up for an account by entering their first name, last name, email address and password into the form.
 
 7. Sign In Form
 
-    - This enables users to sign in to their account by entering their email address and password or by using their Facebook or Google account.
+    - This enables users to sign in to their account by entering their email address and password or by by clicking on the Facebook or Google icons to sign in using their Facebook or Google account.
 
 8. Profile
 
@@ -101,41 +101,41 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 10. Bookings
 
-    - This displays to logged in users table of the booking number, holiday package name and duration, and booking total for each of their bookings. The booking number is a link to the booking's booking details page.
+    - This displays to logged in users table of the booking number, holiday name and duration, and booking total for each of their bookings. The booking number is a link to the booking's booking details page.
 
 11. Booking Details/Checkout Success
 
-    - This provides the user with a summary of their booking including customer details, booking total breakdown, holiday package details, extras details and flights details. Only logged in users can access the booking details page.
+    - This provides the user with a summary of their booking including customer details, booking total breakdown, holiday details, extras details and flights details.
 
 12. Holidays Cards
 
     - Cards are displayed for all holidays that satisfy the category or destination in the URL. If the user is on the offers page, offers are shown.
-    - Each card includes the holiday package's image, name, price, country, rating and duration. The name is a link to the holiday package's category, destination or offer details page.
-    - Users can sort the holidays by selecting an option from the sort by select input or filter them by selecting or unselecting the country or holiday type badges.
+    - Each card includes the holiday package's image, name, price, country, rating and duration. The name is a link to the holiday's details page.
+    - Users can sort the holidays by selecting an option from the sort by select input or filter them by selecting or unselecting the country or category badges.
 
 13. Holiday Details
 
-    - This provides users with details of the holiday package including a description, 5 key features, activities (where applicable), the itinerary (where applicable) and reviews.
+    - This provides users with details of the holiday including a description, 5 key features, activities (where applicable), the itinerary (where applicable) and reviews.
     - Links to edit and delete the package are displayed when a superuser is logged in.
     - A link to the review page is displayed when a user is logged in who has purchased the holiday package and has not already reviewed it.
 
-14. Related holidays
+14. Related Holidays
 
-    - This provides users with cards for four randomly selected related holiday packages in the category or destination in the URL. If the user is on a offer details page, offers are shown.
-    - Each card contains the holiday package's image, name, price country, rating and duration. The name is a link to the holiday package's category, destination or offer details page. 
+    - This provides users with cards for four randomly selected related holidays in the category or destination in the URL. If the user is on a offer details page, offers are shown.
+    - Each card contains the holiday's image, name, price country, rating and duration. The name is a link to the holiday's details page.
 
 15. Write Review Form
 
     - This enables logged in users to write a review of their holiday if they have purchased the holiday and not already reviewed it.
-    - Every time a new review is added, the holiday package's ratings average is re-calculated.
+    - Every time a new review is added, the holiday's average rating is re-calculated.
 
-16. Booking Form
+16. Trip Booking Form
 
-    - This enables users to select their departure date using the datepicker and enter their departure date, departure airport and number of guests for their booking.
+    - This enables users to select their departure date using the datepicker and enter their departure airport and the number of guests for their booking.
 
 17. Booking Summary
 
-    - This provides users with a summary of their booking including holiday package details, number of guests, flight details, whether transfers are included and a breakdown of the booking total.
+    - This provides users with a summary of their booking including holiday details, number of guests, flight details, whether transfers are included and a breakdown of the booking total.
     - The user can update the number of guests by using the buttons next to the guests input.
     - The extras available for the booking are listed in the extras table.
     - The user can add an extra to the booking by changing the switch next to the relevant extra to the on position or update their quantity by using the buttons next to the quantity input. 
@@ -148,13 +148,13 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 19. Checkout
 
-    - This enables the user to enter the booking contact details and pay for their holiday using a card payment, Paypal, Apple Pay or Google Pay.
+    - This enables the user to enter the booking contact details and pay for their holiday using a card payment, PayPal, Apple Pay or Google Pay. If the user is signed in, their booking contact details are automatically entered into the booking contact details form.
     - Addresses are populated into the booking contact details form when the user begins to enter an address in the address field and selects an option from the autocomplete.
     - Signed in users who have saved a card to their account can select the relevent card under saved cards and enter the CVC rather than having to enter their full card details if they choose to pay by card.
 
 20. Add/Edit Holiday Forms
 
-    - These enable admin users to add or edit the details of each holiday package including package details, features, activities and itineraries.
+    - These enable admin users to add a new holiday or edit the details of an existing holiday including package details, features, activities and itineraries.
 
 21. Flights Table
 
@@ -163,7 +163,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 22. Add/Edit Flights Forms
 
-    - These enable admin users to add or edit the details of each holiday destination including package details, features, activities and itineraries.
+    - These enable admin users to add a new flight or edit the details of an exisiting flight.
 
 23. Extra Details
 
@@ -171,7 +171,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 24. Add/Edit Extras Forms
 
-    - These enable admin users to add or edit the details of each extra.
+    - These enable admin users to add a new extra or edit the details of an existing extra.
 
 25. Contact Us Form
 
