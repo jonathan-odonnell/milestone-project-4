@@ -75,9 +75,9 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
     - This provides users with an image, details of the duration and price and a link to the holiday's details page for three holiday packages currently on offer.
 
-4. Popular Holidays Carousel
+4. Popular Holidays Slider
 
-    - This provides users with cards for six of the most popular holidays. Each card contains the holiday's image, name, price country, rating and duration. The name is a link to the holiday's details page. 
+    - This provides users with cards for six of the most popular holiday packages. Each card contains the holiday's image, name, price country, rating and duration. The name is a link to the holiday's details page. 
 
 5. Features
 
@@ -110,14 +110,14 @@ The Entity Relationship Diagram shows details of each field in each model in the
 12. Holidays Cards
 
     - Cards are displayed for all holidays that satisfy the category or destination in the URL. If the user is on the offers page, offers are shown.
-    - Each card includes the holiday package's image, name, price, country, rating and duration. The name is a link to the holiday's details page.
+    - Each card includes the holiday's image, name, price, country, rating and duration. The name is a link to the holiday's details page.
     - Users can sort the holidays by selecting an option from the sort by select input or filter them by selecting or unselecting the country or category badges.
 
 13. Holiday Details
 
-    - This provides users with details of the holiday including a description, 5 key features, activities (where applicable), the itinerary (where applicable) and reviews.
-    - Links to edit and delete the package are displayed when a superuser is logged in.
-    - A link to the review page is displayed when a user is logged in who has purchased the holiday package and has not already reviewed it.
+    - This provides users with details of the holiday package including a description, 5 key features, activities (where applicable), the itinerary (where applicable) and reviews.
+    - Links to edit and delete the holiday are displayed when a superuser is logged in.
+    - A link to the review page is displayed when a user is logged in who has purchased the holiday and has not already reviewed it.
 
 14. Related Holidays
 
@@ -136,9 +136,9 @@ The Entity Relationship Diagram shows details of each field in each model in the
 17. Booking Summary
 
     - This provides users with a summary of their booking including holiday details, number of guests, flight details, whether transfers are included and a breakdown of the booking total.
-    - The user can update the number of guests by using the buttons next to the guests input.
+    - The user can update the number of guests by using the up and down arrow buttons next to the guests input.
     - The extras available for the booking are listed in the extras table.
-    - The user can add an extra to the booking by changing the switch next to the relevant extra to the on position or update their quantity by using the buttons next to the quantity input. 
+    - The user can add an extra to the booking by changing the switch next to the relevant extra to the on position or update their quantity by using the up and down arrow buttons next to the quantity input. 
     - The quantity of each extra is limited to the number of guests in the booking.
     - The user can add a coupon code to the booking by entering a valid coupon code in the coupon field and clicking the apply button.
 
