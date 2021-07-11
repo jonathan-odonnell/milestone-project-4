@@ -1,4 +1,5 @@
-/* Code is from https://bbbootstrap.com/snippets/login-form-footer-and-social-media-icons-55203607 */
+/* Social account icons start. Code is from https://bbbootstrap.com/snippets/login-form-footer-and-social-media-icons-55203607 */
+
 .line {
     height: 1px;
     width: 45%;
@@ -37,6 +38,10 @@
     cursor: pointer;
 }
 
+/* Social account icons end */
+
+/* Form start */
+
 .account label {
     margin-bottom: 0.5rem;
 }
@@ -49,9 +54,15 @@
     margin-left: 5px;
 }
 
+/* Form end */
+
+/* Sign up image start */
+
 .sign-up-img {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 40% 0%;
     height: 100%;
 }
+
+/* Sign up image end */
