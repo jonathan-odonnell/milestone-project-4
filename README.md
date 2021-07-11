@@ -244,12 +244,12 @@ The Entity Relationship Diagram shows details of each field in each model in the
    - Font Awesome was used throughout the website to enhance the user experience by adding icons.
 5. [jQuery](https://jquery.com/)
    - JQuery was used throughout the website for the interactive features.
-6. [Slick Slider](https://kenwheeler.github.io/slick/)
-    - Slick Slider was used for the offers carousel, popular holidays slider and related holidays sliders. License is [here](slick_license.md).
+6. [Slick](https://kenwheeler.github.io/slick/)
+    - Slick was used for the offers carousel, popular holidays slider and related holidays sliders. The license can be viewed [here](slick_license.md).
 7. [Gijgo](https://gijgo.com/)
     - Gijgo was used for the datepicker and datetime picker.
-8. [JQuery.formset](https://github.com/nortigo/jquery-formset)
-    - JQuery.formset was used to dynamically add rows to the formsets in the add holiday and edit holiday forms.
+8. [jQuery Formset](https://github.com/nortigo/jquery-formset)
+    - JQuery.formset was used to dynamically add rows to the formsets in the add holiday and edit holiday forms. The license can be viewed [here](jquery_formset_license.md).
 9. [Pytz](https://pypi.org/project/pytz/)
     - Pytz was used for the coverting of time zones.
 10. [Stripe](https://stripe.com/docs/payments)
