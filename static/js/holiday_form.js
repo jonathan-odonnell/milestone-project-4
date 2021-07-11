@@ -17,7 +17,6 @@ $(document).ready(function() {
 $('#new-image').change(function () {
 	let file = $('#new-image')[0].files[0];
 	$('#filename').text(`Image will be set to: ${file.name}`);
-	$('#filename').addClass('mt-3');
 });
 
 /* Adds the relevant legend text and form styling to the added row when the add another activity 
