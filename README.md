@@ -707,6 +707,8 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the tables is from [Bootstrap](https://getbootstrap.com/docs/5.0/content/tables/).
 - Code for switches is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches).
 - Code for the list groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/list-group/) and [Bootstrap](https://getbootstrap.com/docs/5.0/utilities/flex/).
+- Code for the toasts if from [Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts/).
+- Code for the social account links styling is from [Bbbootstrap](https://bbbootstrap.com/snippets/login-form-footer-and-social-media-icons-55203607).
 - Code for the time filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time).
 - Code for the wrap jQuery method is from [jQuery](https://api.jquery.com/wrap/#wrap-wrappingElement/).
 - Code for slice filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice).
@@ -772,6 +774,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for updating the email address in the allauth email address database and sending the verification email is from [GitHub](https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py).
 - Code for overriding allauth forms is from [Django Allauth](https://django-allauth.readthedocs.io/en/latest/forms.html).
 - Code for the custom signup form is from [GeeksforGeeks](https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/).
+- Code for the non field error messages is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/#rendering-form-error-messages).
 - Code for creating the users in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/).
 - Code for creating the email addresses in the tests is from [Django](https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py).
 - Code for creating the site and social apps in the tests is from [Django](https://stackoverflow.com/questions/29721360/django-test-with-allauth).
@@ -779,7 +782,6 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for creating the user profile in the tests is from [Django](https://stackoverflow.com/questions/11088901/django-onetoone-reverse-access).
 - Code for the tests login is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests).
 - Code for the request factory, logging in the user and setting the session variable in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory).
-- Code for the non field error messages is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/#rendering-form-error-messages).
 
 ### Content
 
