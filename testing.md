@@ -2,7 +2,7 @@
 
 # Navigation Bar
 
-1. Load up the home page on a desktop and verify that the standard menu with the links on the right hand side of the screen appears and looks good.
+1. Load up the home page on a desktop and verify that the standard menu with the links in the center of the screen appears and looks good.
 
     - Outcome: Pass
 
@@ -14,7 +14,7 @@
 
     - Outcome: Pass
 
-4. Verify that when the user clicks on the bars icon the menu expands and the bars icon changes to the times icon. Click on the times icon and verify that the menu collapses and the times icon changes to the bars icon.
+4. Verify that when the user clicks on the bars icon the menu expands and the bars icon changes to the times icon. Click on the times icon and verify that the menu collapses and the times icon changes back to the bars icon.
 
     - Outcome: Pass
 
@@ -38,7 +38,7 @@
 
     - Outcome: Pass
 
-10. Click on the offers and verify that it takes the user to the extras page.
+10. Click on the offers and verify that it takes the user to the offers page.
 
     - Outcome: Pass
 
@@ -94,7 +94,7 @@
 
     - Outcome: Pass
 
-24. Verify that when the user hovers over each dropdown link, it appears in light blue on a grey background.
+24. Verify that when the user hovers over each dropdown link, it appears in light blue on a light grey background.
 
     - Outcome: Pass
 
@@ -132,7 +132,7 @@
 
     - Outcome: Pass
 
-9. Click on the contact link and verify that it takes the user to the contact page.
+9. Click on the contact us link and verify that it takes the user to the contact us page.
 
     - Outcome: Pass
 
@@ -152,11 +152,11 @@
 
     - Outcome: Pass
 
-14. In the newsletter sign up field, enter an invalid email address, click on the arrow button and verify that the form does not submit and shows the invalid input error message.
+14. Verify that when the user enters an invalid email address in the newsletter sign up field and clicks on the arrow button, the form does not submit and the invalid input error message appears.
 
     - Outcome: Pass
 
-15.  Enter a valid value in the newsletter sign up field and click the arrow button. Verify that the form submits, the email address is added to the newsletter sign ups database and the HTML is dynamically updated to show a message thanking the user for signing up to the newsletter.
+15.  Enter a valid value in the newsletter sign up field and click the arrow button. Verify that the form submits, the email address is added to the database and the HTML is dynamically updated to show a message thanking the user for signing up to the newsletter.
 
     - Outcome: Pass
 
@@ -186,7 +186,7 @@
 
     - Outcome: Pass
 
-2. Click on the explore now button in each carousel item and verify that it takes the user to the relevant destination details page.
+2. Click on the explore now button in each carousel item and verify that it takes the user to the relevant holiday's details page.
 
     - Outcome: Pass
 
@@ -206,19 +206,19 @@
     
     - Outcome: Pass
 
-7. Click on the explore now button in each carousel item and verify that it takes the user to the relevant destination details page.
+7. Click on the explore now button in each carousel item and verify that it takes the user to the relevant holiday's details page.
 
     - Outcome: Pass
 
-8. Scroll down to the popular holiday destinations slider and verify that it appears with 3 cards displayed, with each containing a holiday's image, name, price, country, rating and duration.
+8. Scroll down to the popular holidays slider and verify that it appears with 3 cards displayed, with each containing a holiday's image, name, price, country, rating and duration.
 
     - Outcome: Pass
 
-9. Click the left arrow and verify that the carousel now shows the 2nd, 3rd and 4th cards.
+9. Click the left arrow and verify that the slider now shows the 2nd, 3rd and 4th cards.
 
     - Outcome: Pass
 
-10. Click the right arrow and verify that the carousel now shows the 6th, 1st, and 2nd cards.
+10. Click the right arrow and verify that the slider now shows the 6th, 1st, and 2nd cards.
 
     - Outcome: Pass
 
@@ -226,11 +226,11 @@
 
     - Outcome: Pass
 
-12. Reduce and expand the width of the screen and verify that the carousel and cards look good at all screen widths.
+12. Reduce and expand the width of the screen and verify that the slider and cards look good at all screen widths.
 
     - Outcome: Pass
 
-13. Verify that each holiday name links to the relevant holiday's destination details page.
+13. Verify that each holiday name links to the relevant holiday's details page.
 
     - Outcome: Pass
 
@@ -248,23 +248,23 @@
 
     - Outcome: Pass
 
-3. Verify that if the user hasn't entered a value in each field, when the sign in button is clicked the form does not submit and the required input error message appears.
+3. Verify that if the user hasn't entered a value in each field, when the sign up button is clicked the form does not submit and the required input error message appears.
 
     - Outcome: Pass
 
-4. Verify that when the user enters an invalid email address in the email address field and clicks on the sign in button, the form does not submit and the invalid input error message appears on the email address field.
+4. Verify that when the user enters an invalid email address in the email address field and clicks on the sign up button, the form does not submit and the invalid input error message appears on the email address field.
 
     - Outcome: Pass
 
-5. Verify that when the user enters an invalid password in the password field and clicks on the sign in button, the page reloads and the invalid password error message appears below the password field.
+5. Verify that when the user enters an invalid password in the password field and clicks on the sign up button, the page reloads and the invalid password error message appears below the password field.
 
     - Outcome: Pass
 
-6. Verify that when the user enters a password in the confirm password field which does not match the value in the password field and clicks on the sign in button, the page reloads and the passwords do not match error message appears below the confirm password field.
+6. Verify that when the user enters a password in the confirm password field which does not match the value in the password field and clicks on the sign up button, the page reloads and the passwords do not match error message appears below the confirm password field.
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the sign in button, the form submits, and the user is successfully registered and redirected to the verify email address page.
+7. Verify that when a user correctly enters a valid input in all fields and clicks the sign up button, the form submits, and the user is successfully registered and redirected to the verify email address page.
 
     - Outcome: Pass
 
@@ -272,15 +272,7 @@
 
     - Outcome: Pass
 
-9. Click on the Google link and verify that it takes the user to the Google sign in page.
-
-    - Outcome: Pass
-
-10. Click on the register link and verify that it takes the user to the sign up page.
-
-    - Outcome: Pass
-
-11. Click on the forgot password link and verify that it takes the user to the password reset page.
+9. Click on the forgot password link and verify that it takes the user to the password reset page.
 
     - Outcome: Pass
 
@@ -298,7 +290,7 @@
 
     - Outcome: Pass
 
-4. Verify that when a user enters a valid email addess and password, but the email address and / or password is incorrect and clicks on the sign in button, they are redirected back to the sign in page and a toast appears informing them that their email address and / or password is incorrect.
+4. Verify that when a user enters a valid email addess and password, but the email address and / or password is incorrect and clicks on the sign in button, the page reloads and a toast appears informing them that their email address and / or password is incorrect.
 
     - Outcome: Pass
 
@@ -306,7 +298,7 @@
 
     - Outcome: Pass
 
-6. Click on the Facebook icon and verify that it takes the user to the facebook sign in page.
+6. Click on the Facebook icon and verify that it takes the user to the Facebook sign in page.
 
     - Outcome: Pass
 
@@ -358,6 +350,10 @@
 
     - Outcome: Pass
 
+7. Verify that users cannot access the change password page by manually typing in it's URL if they are not signed in and are returned to the sign in page.
+
+    - Outcome: Pass
+
 # Profile
 
 1. Verify that the profile page appears as expected and looks good at all screen widths.
@@ -388,6 +384,10 @@
 
     - Outcome: Pass
 
+8. Verify that users cannot access the profile page by manually typing in it's URL if they are not signed in and are returned to the sign in page.
+
+    - Outcome: Pass
+
 # Bookings
 
 1. Verify that the bookings page appears as expected and looks good at all screen widths.
@@ -402,13 +402,17 @@
 
     - Outcome: Pass
 
-# Booking Details
-
-1. Verify that the booking details page appears as expected and looks good at all screen widths.
+4. Verify that users cannot access the bookings page by manually typing in it's URL if they are not signed in and are returned to the sign in page.
 
     - Outcome: Pass
 
-2. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
+# Booking Details / Checkout Success Page
+
+1. Verify that the booking details / checkout success page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that the booking confirmation message only appears on the checkout success page
 
     - Outcome: Pass
 
@@ -416,21 +420,29 @@
 
     - Outcome: Pass
 
-4. Verify that the Back to Bookings button links to the bookings page.
+4. Verify that the booking information, holiday details, extras and flight details for the customer's order are displayed correctly.
 
     - Outcome: Pass
 
-5. Verify that the Now Check Out The Latest Offers button links to the offers page.
+5. Verify that the Back to Bookings button is displayed on the booking details page and links to the bookings page.
 
     - Outcome: Pass
 
-## Holidays
+6. Verify that the Now Check Out The Latest Offers button appears on the checkout success page and links to the offers page.
+
+    - Outcome: Pass
+
+7. Verify that users cannot access the booking details page by manually typing in it's URL if they are not signed in and are returned to the sign in page.
+
+    - Outcome: Pass
+
+# Holidays
 
 1. Verify that the page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
-2. Verify that cards containing the holiday image, name, price, country, rating and duration for each holiday satisfying the holiday type or destination.
+2. Verify that cards containing the holiday image, name, price, country, rating and duration for each holiday satisfying the holiday category or destination.
 
     - Outcome: Pass
 
@@ -454,21 +466,21 @@
 
     - Outcome: Pass
 
-8. Verify that if there are more than 6 results in the holidays list, pagination links are displayed and when the user clicks on a link, cards for the holidays in the relevant positions in the reviews list are displayed.
+8. Verify that if there are more than 6 results in the holidays list, pagination links are displayed and when the user clicks on a link, cards for the holidays in the relevant positions in the holidays list are displayed.
 
     - Outcome: Pass
 
-## Holiday Details
+# Holiday Details
 
 1. Verify that the holiday details page appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
-2. On a screen with a width of 576px or above, click on each tab and verify that the correct content is displayed and all other content is hidden
+2. On a screen with a width of 576px or above, click on each tab and verify that the correct content is displayed.
 
     - Outcome: Pass
 
-3. On a screen with a width below 576px, click on each item in the tab dropdown and verify that the correct content is displayed and all other content is hidden.
+3. On a screen with a width below 576px, click on each item in the tab dropdown and verify that the correct content is displayed.
 
     - Outcome: Pass
 
@@ -500,7 +512,7 @@
 
     - Outcome: Pass
 
-11. Verify that when the user clicks the plus button next to the guests input in the booking form, the guests input value is increased by one if the existing value is less than 9.
+11. Verify that when the user clicks the plus button next to the guests input in the booking form, the guests input value is increased by one if the existing value is less than 10.
 
     - Outcome: Pass
 
@@ -516,7 +528,7 @@
 
     - Outcome: Pass
 
-15. Enter a valid value in each field in the booking form and click the book trip button. Verify that the form submits, the booking is added to the booking database and the user is redirected to the booking page.
+15. Enter a valid value in each field in the booking form and click the book trip button. Verify that the form submits, the booking is added to the database and the user is redirected to the booking page.
 
     - Outcome: Pass
 
@@ -524,11 +536,11 @@
 
     - Outcome: Pass
 
-17. Click the left arrow and verify that the carousel now shows the 2nd, 3rd and 4th cards.
+17. Click the left arrow and verify that the slider now shows the 2nd, 3rd and 4th cards.
 
     - Outcome: Pass
 
-18. Click the right arrow and verify that the carousel now shows the 6th, 1st, and 2nd cards.
+18. Click the right arrow and verify that the slider now shows the 6th, 1st, and 2nd cards.
 
     - Outcome: Pass
 
@@ -540,7 +552,7 @@
 
     - Outcome: Pass
 
-21. Verify that each holiday name links to the relevant holiday's category, destination or offer details page.
+21. Verify that each holiday name links to the relevant holiday's details page.
 
     - Outcome: Pass
 
@@ -570,7 +582,7 @@
 
     - Outcome: Pass
 
-5. Verify that when the user enters a non-numerical input in the price or duration fields and clicks on the next button, the features fieldset is not displaye and the invalid input error message appears on the relevant field.
+5. Verify that when the user enters a non-numerical input in the price or duration fields and clicks on the next button, the features fieldset is not displayed and the invalid input error message appears on the relevant field.
 
     - Outcome: Pass
 
@@ -578,7 +590,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the add holiday button, the form submits, and the holiday is added to the database and the user is redirected to the holiday's destination details page. A toast also appears informing the user that the holiday has been successfully added.
+7. Verify that when a user correctly enters a valid input in all fields and clicks the add holiday button, the form submits, and the holiday is added to the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully added.
 
     - Outcome: Pass
 
@@ -586,7 +598,7 @@
 
     - Outcome: Pass
 
-9. Verify that standard users cannot access the add holiday page by manually typing in it's URL and are returned to the 403 page.
+9. Verify that signed in standard users cannot access the add holiday page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
@@ -608,7 +620,7 @@
 
     - Outcome: Pass
 
-5. Verify that when the user enters a non-numerical input in the price or duration fields and clicks on the next button, the features fieldset is not displaye and the invalid input error message appears on the relevant field.
+5. Verify that when the user enters a non-numerical input in the price or duration fields and clicks on the next button, the features fieldset is not displayed and the invalid input error message appears on the relevant field.
 
     - Outcome: Pass
 
@@ -616,7 +628,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the update holiday button, the form submits, and the holiday is updated in the database and the user is redirected to the holiday's destination details page. A toast also appears informing the user that the holiday has been successfully updated.
+7. Verify that when a user correctly enters a valid input in all fields and clicks the update holiday button, the form submits, and the holiday is updated in the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully updated.
 
     - Outcome: Pass
 
@@ -624,7 +636,7 @@
 
     - Outcome: Pass
 
-9. Verify that standard users cannot access the edit holiday page by manually typing in it's URL and are returned to the 403 page.
+9. Verify that signed in standard users cannot access the edit holiday page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
@@ -738,43 +750,51 @@
 
     - Outcome: Pass
 
-4. Verify that if the user hasn't entered a value in the email address field, when the user clicks on the PayPal, Apple Pay/Google Pay or Pay button the input error message appears on the email address field.
+4. Verify that when the user enters an invalid email address in the email address field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the email address field.
 
     - Outcome: Pass
 
-5. Verify that when the user enters an invalid email address in the email address field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the email address field.
+5. Verify that when the user enters a non-numerical input in the phone number field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the phone number field.
 
     - Outcome: Pass
 
-6. Verify that when the user enters a non-numerical input in the phone number field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the phone number field.
+6. Verify that when the user enters an invalid phone number in the phone number field, clicks on the PayPal, Apple Pay/Google Pay or Pay button and successfully completes the payment process, the page reloads and the invalid phone number error message appears below the phone number field.
 
     - Outcome: Pass
 
-7. Verify that when the user enters an invalid phone number in the phone number field, clicks on the PayPal, Apple Pay/Google Pay or Pay button and successfully completes the payment process, the page reloads and the invalid phone number error message appears below the phone number field.
+7. Verify that when the user begins to type their address in the address field, the autocomplete populates.
 
     - Outcome: Pass
 
-8. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+8. Verify that if the user is signed in and has previously saved their card details, up to 3 saved cards are displayed above the card payment section.
 
     - Outcome: Pass
 
-9. Verify that if the user is signed in and has previously saved their card details, up to 3 saved cards are displayed above the card payment section.
+9. Verify that if the user selects a saved card, the card payment field dissapears and is replaced by the CVC field.
 
     - Outcome: Pass
 
-10. Verify that if the user selects a saved card, the card payment field dissapears and is replaced by the CVC field.
+10. Verify that if the user enters invalid card details or an invalid CVC number in the relevant field and clicks on the pay button, an error message is displayed below the field.
 
     - Outcome: Pass
 
-11. Verify that if the user enters invalid card details or CVC number in the relevant fields and clicks on the pay button, an error message is displayed below the field.
+11. Verify that if the Paypal or Apple Pay / Google Pay payment fails, the modal closes and the user is returned to the checkout page.
 
     - Outcome: Pass
 
-12. Verify that if the Paypal or Apple Pay / Google Pay payment fails, the modal closes and the user is returned to the checkout page.
+12. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
 
     - Outcome: Pass
 
-13. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
+13. Verify that if the user is signed in and checks the save contact information to my profile checkbox, their phone number and address are saved to their profile.
+
+    - Outcome: Pass
+
+14. Verify that if the user is signed in and checks the save card to my profile checkbox, their card details are saved to their stripe account and they appear as a saved card the next time they access the checkout page.
+
+    - Outcome: Pass
+
+15. Verify that users cannot access the checkout page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
 
     - Outcome: Pass
 
@@ -792,7 +812,7 @@
 
     - Outcome: Pass
 
-4. Verify that when the admin user clicks on an extra's edit icon, they are taken to that extra's edit page.
+4. Verify that when the admin user clicks on an extra's edit icon, they are taken to the extra's edit page.
 
     - Outcome: Pass
 
@@ -822,7 +842,7 @@
 
     - Outcome: Pass
 
-6. Verify that standard users cannot access the edit extra page by manually typing in it's URL and are returned to the 403 page.
+6. Verify that signed in standard users cannot access the edit extra page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
@@ -848,7 +868,7 @@
 
     - Outcome: Pass
 
-6. Verify that standard users cannot access the edit extra page by manually typing in it's URL and are returned to the 403 page.
+6. Verify that signed in standard users cannot access the edit extra page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
@@ -892,7 +912,7 @@
 
     - Outcome: Pass
 
-5. Verify that when an admin user clicks on a flight's edit icon, they are taken to that flight's edit page.
+5. Verify that when an admin user clicks on a flight's edit icon, they are taken to the flight's edit page.
 
     - Outcome: Pass
 
@@ -908,7 +928,7 @@
 
     - Outcome: Pass
 
-9. Verify that standard users cannot access the flights page by manually typing in it's URL and are returned to the 403 page.
+9. Verify that signed in standard users cannot access the flights page by manually typing in it's URL and are returned to the 403 page.
 
     - Outcome: Pass
 
