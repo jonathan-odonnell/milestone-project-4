@@ -53,7 +53,7 @@ class TestHolidayForms(TestCase):
     def test_package_form_exclude_in_metaclass(self):
         """Tests the excluded attribute of the package form meta class"""
         form = PackageForm()
-        self.assertEqual(form.Meta.exclude, ('rating',))
+        self.assertEqual(form.Meta.exclude, ('rating', 'image_url'))
 
     def test_features_formset_all_fields_not_required(self):
         """Tests the required fields in the features formset"""
