@@ -436,8 +436,9 @@ select option[value=""] {
     color: #a9a9a9;
 }
 
-.input-group .invalid-feedback {
+.invalid-feedback {
     position: inherit;
+    margin-bottom: 0.5rem;
 }
 
 .newsletter-signup .form-control:focus {

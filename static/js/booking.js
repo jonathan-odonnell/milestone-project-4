@@ -190,7 +190,7 @@ $('.coupon-form').submit(function (e) {
             ('.invalid-feedback').text(`Promo code ${coupon} is not valid. Please try again.`);
         } else {
             $('.coupon-form .input-group').append(`<div class="w-100">
-            <div class="invalid-feedback d-block mt-2">Promo code ${coupon} is not valid. Please try again.</div></div>`);
+            <div class="invalid-feedback d-block mt-2 mb-0">Promo code ${coupon} is not valid. Please try again.</div></div>`);
         }
         $('.coupon-form').find("input[name='coupon']").addClass('is-invalid');
     });
