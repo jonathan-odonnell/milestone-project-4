@@ -783,6 +783,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 
 ### Content
 
+- The features inforation was from [Jet2](https://www.jet2.com) and [Kuoni](https://www.kuoni.co.uk).
 - The holiday information was from [Jet2](https://www.jet2.com), [Kuoni](https://www.kuoni.co.uk), [Tui](https://www.tui.co.uk) and [British Airways](https://www.britishairways.com).
 - Information in the Toronto itinerary was from [Destination Toronto](https://www.destinationtoronto.com).
 - The information in the Toronto itinerary was from [Visit Montréal](https://www.mtl.org).
