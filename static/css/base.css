@@ -121,12 +121,11 @@ a:hover {
 .back-btn i {
     position: absolute;
     z-index: 1;
-    width: 32px;
-    height: 32px;
-    padding: 12px 0;
+    width: 40px;
+    height: 40px;
+    padding: 10px 0;
     border-radius: 50%;
-    font-size: 13px;
-    line-height: 7px;
+    font-size: 20px;
     text-align: center;
     color: #fafafa;
     background: #70c8df;
