@@ -4,7 +4,7 @@
         <!-- Holiday cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ and https://getbootstrap.com/docs/5.0/components/badge/ -->
         {% for holiday in holidays %}
         <div class="col-sm-6 col-lg-4 col-xl-3 py-3">
-            <div id="holidays" class="card destination-card shadow-0 border">
+            <div id="holidays" class="card holiday-card">
                 <img class="card-img-top" src="{{ holiday.image.url }}" alt="Image of {{ holiday.name }}">
                 <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                 <span class="badge bg-secondary">£{{ holiday.price|floatformat:"-2" }}</span>

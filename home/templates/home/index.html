@@ -60,9 +60,9 @@
                 </div>
                 <!-- Slider arrows start -->
                 <!-- Popular destinations cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ and https://getbootstrap.com/docs/5.0/components/badge/ -->
-                <div id="popular-destinations" class="my-3">
+                <div id="popular-destinations" class="mt-3 mb-2">
                     {% for holiday in holidays %}
-                    <div class="card destination-card shadow-0 border d-flex">
+                    <div class="card holiday-card d-flex">
                         <img class="card-img-top" src="{{ holiday.image.url }}" alt="Image of {{ holiday.name }}">
                         <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <span class="badge bg-secondary">£{{ holiday.price|floatformat:"-2" }}</span>

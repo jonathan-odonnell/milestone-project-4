@@ -303,7 +303,7 @@ a:hover {
 
 /* Hero Images End */
 
-/* Carousel and Slider Start */
+/* Carousel and Slider Start. Code is from https://kenwheeler.github.io/slick/ */
 
 #hero-image-carousel .slick-slide {
     display: flex;
@@ -337,12 +337,12 @@ a:hover {
 
 #popular-destinations .slick-slide,
 #related-holidays .slick-slide {
-    margin-right: 1.5rem;
+    margin: 1.5rem 1rem;
 }
 
 #popular-destinations .slick-list,
 #related-holidays .slick-list {
-    margin-right: -1.5rem;
+    margin: -1.5rem -1rem;
 }
 
 .slick-dots {
@@ -491,6 +491,10 @@ input[name="quantity"]::-webkit-inner-spin-button {
     color: gold;
 }
 
+.holiday-card i {
+    margin-right: 2px;
+}
+
 #reviews i {
     margin-right: 5px;
 }
@@ -517,9 +521,9 @@ input[name="quantity"]::-webkit-inner-spin-button {
 
 /* Features End */
 
-/* Destination Cards Start. Code for image hover effects is from ***** */
+/* Holiday Cards Start. Code for image hover effects is from https://codepen.io/kanishkkunal/pen/emdxLm */
 
-.destination-card {
+.holiday-card {
     border-radius: 10px;
     position: relative;
     overflow: hidden;
@@ -528,19 +532,19 @@ input[name="quantity"]::-webkit-inner-spin-button {
     outline: none;
 }
 
-.destination-card img {
+.holiday-card img {
     border-radius: 10px 10px 0 0;
     transition: ease 0.5s;
     object-fit: cover;
     height: 12rem;
 }
 
-.destination-card img:hover, 
-.destination-card img:active {
+.holiday-card img:hover, 
+.holiday-card img:active {
     transform: scale(1.2);
 }
 
-.destination-card .badge {
+.holiday-card .badge {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -551,20 +555,20 @@ input[name="quantity"]::-webkit-inner-spin-button {
     border-radius: 25px;
 }
 
-.destination-card .card-body {
+.holiday-card .card-body {
     background-color: #fff;
     z-index: 1;
 }
 
-.destination-card a {
+.holiday-card a {
     color: #000;
 }
 
-.destination-card a:hover {
+.holiday-card a:hover {
     color: #d13574;
 }
 
-.destination-card .small {
+.holiday-card .small {
     color: #7A838B;
 }
 
@@ -815,19 +819,21 @@ footer .small {
 /* Media Queries Start */
 
 @media (min-width: 450px) {
-    .destination-card img {
+    .holiday-card img {
         height: 18rem;
     }
 }
 
 @media (min-width: 576px) {
-    .destination-card img {
+    #popular-destinations img,
+    .holiday-card img {
         height: 10rem;
     }
 }
 
 @media (min-width: 768px) {
-    .destination-card img {
+    #popular-destinations img,
+    .holiday-card img {
         height: 12rem;
     }
     #flights-table tr td:last-of-type {
@@ -849,13 +855,14 @@ footer .small {
         border-bottom: 0 !important;
     }
 
-    .destination-card img {
+    #popular-destinations img,
+    .holiday-card img {
         height: 12rem;
     }
 }
 
 @media (min-width: 1200px) {
-    .destination-card img {
+    .holiday-card img {
         height: 10rem;
     }
     #popular-destinations img {
