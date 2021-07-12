@@ -860,6 +860,10 @@ footer .small {
         border-bottom: 0 !important;
     }
 
+    .navbar-nav .dropdown-menu {
+        margin-top: 2px;
+    }
+
     #popular-holidays img,
     .holiday-card img {
         height: 12rem;
