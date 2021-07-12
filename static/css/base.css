@@ -418,7 +418,7 @@ a:hover {
 select {
     border: 1px solid #a9a9a9;
     color: #4a4a4a;
-    height: 44px;
+    min-height: 44px;
 }
 
 .form-control::placeholder {
