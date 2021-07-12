@@ -167,7 +167,8 @@ a:hover {
 
 .navbar-light .navbar-brand,
 .navbar-light .navbar-brand:hover,
-.navbar-light .navbar-brand:active  {
+.navbar-light .navbar-brand:focus
+  {
     color: #006994;
 }
 
