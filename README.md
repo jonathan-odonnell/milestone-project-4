@@ -733,15 +733,17 @@ More information about making a local clone of a GitHub repository is available 
 - Code for making the back to top button appear when the user scrolls is from [Codepen](https://codepen.io/deveb22/pen/QxPmGz).
 - Code for the insertBefore jQuery method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
 - Code for the JQuery insertAfter method is from [jQuery](https://api.jquery.com/insertAfter/#insertBefore-target).
-- Code for configuring the hero image carousel and the sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
+- Code for the hero image carousel and the sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
 - Code for accessing a form's model data in a template is from [Stack Overflow](https://stackoverflow.com/questions/3137984/how-to-access-model-data-when-overriding-django-admin-templates) and [Stack Overflow](https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template).
 - Code for the formset templating is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/).
 - Code for the badges is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/badge/).
 - Code for the cards is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/card/) and [Bootstrap]( https://getbootstrap.com/docs/5.0/utilities/flex/#media-object/).
 - Code for floatformat filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat).
-- - Code for the pagination is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/pagination/ ) and [Django](https://docs.djangoproject.com/en/3.2/topics/pagination/)
+- Code for the holidays cards hover effect is from [Codepen](https://codepen.io/kanishkkunal/pen/emdxLm).
+- Code for the pagination is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/pagination/ ) and [Django](https://docs.djangoproject.com/en/3.2/topics/pagination/)
 - Code for the holiday details tabs is from [Material Design Bootstrap](https://mdbootstrap.com/docs/standard/navigation/tabs/).
 - Code for the holiday details tab dropdown is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/dropdowns/).
+- Code for accessing a related field in a template is from [Stack Overflow](https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template).
 - Code for the tables is from [Bootstrap](https://getbootstrap.com/docs/5.0/content/tables/).
 - Code for switches is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches).
 - Code for the list groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/list-group/) and [Bootstrap](https://getbootstrap.com/docs/5.0/utilities/flex/).
