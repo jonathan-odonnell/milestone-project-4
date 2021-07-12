@@ -335,12 +335,12 @@ a:hover {
     z-index: 2;
 }
 
-#popular-destinations .slick-slide,
+#popular-holidays .slick-slide,
 #related-holidays .slick-slide {
     margin: 1.5rem 1rem;
 }
 
-#popular-destinations .slick-list,
+#popular-holidays .slick-list,
 #related-holidays .slick-list {
     margin: -1.5rem -1rem;
 }
@@ -825,14 +825,14 @@ footer .small {
 }
 
 @media (min-width: 576px) {
-    #popular-destinations img,
+    #popular-holidays img,
     .holiday-card img {
         height: 10rem;
     }
 }
 
 @media (min-width: 768px) {
-    #popular-destinations img,
+    #popular-holidays img,
     .holiday-card img {
         height: 12rem;
     }
@@ -855,7 +855,7 @@ footer .small {
         border-bottom: 0 !important;
     }
 
-    #popular-destinations img,
+    #popular-holidays img,
     .holiday-card img {
         height: 12rem;
     }
@@ -865,7 +865,7 @@ footer .small {
     .holiday-card img {
         height: 10rem;
     }
-    #popular-destinations img {
+    #popular-holidays img {
         height: 15rem;
     }
 }
