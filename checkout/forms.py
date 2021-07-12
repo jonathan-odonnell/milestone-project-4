@@ -49,5 +49,4 @@ class CheckoutForm(forms.ModelForm):
             else:
                 self.fields[field].choices = [
                     ('', 'Country *')] + self.fields[field].choices
-            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             self.fields[field].label = False

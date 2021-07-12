@@ -75,10 +75,10 @@
                     {{ checkout_form.postcode | as_crispy_field }}
                     <!-- Save contact information checkbox is displayed for signed in users -->
                     {% if user.is_authenticated %}
-                    <div class="form-check ms-2">
+                    <div class="form-check">
                         <label class="form-check-label" for="id_save_info">Save contact information to my
                             profile</label>
-                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id_save_info" name="save_info"
+                        <input class="form-check-input" type="checkbox" id="id_save_info" name="save_info"
                             checked>
                     </div>
                     {% endif %}
@@ -105,7 +105,7 @@
                     {% if cards %}
                     <div class="pb-3">
                         {% for card in cards.data %}
-                        <div id="saved-cards" class="form-check ms-2 mb-3">
+                        <div id="saved-cards" class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card" value="True">
                             <label class="form-check-label" for="{{card.id}}">
                                 {{ card.card.brand|capfirst }} card ending {{ card.card.last4 }} (expires
@@ -124,20 +124,20 @@
                     </div>
                     <!-- Save card checkbox is displayed for signed in users -->
                     {% if user.is_authenticated %}
-                    <div class="form-check ms-2 mb-3">
+                    <div class="form-check mb-3">
                         <label class="form-check-label" for="id_save_card">Save card to my
                             profile</label>
-                        <input class="form-check-input ml-2 mr-0" type="checkbox" id="id_save_card" name="save_card"
+                        <input class="form-check-input" type="checkbox" id="id_save_card" name="save_card"
                             checked>
                     </div>
                     {% endif %}
                 </fieldset>
                 <!-- Card payment fieldset start -->
                 <!-- Pay button start -->
-                <div class="px-3 mt-4 mb-3">
-                    <button class="payment-btn" type="submit">
+                <div class="px-3 my-3">
+                    <button id="payment-btn" class="btn btn-lg btn-primary" type="submit">
                         <div class="spinner d-none" id="spinner"></div>
-                        <span id="button-text"><i class="fas fa-lock me-2"></i>Pay</span>
+                        <span id="button-text"><i class="fas fa-lock me-2" aria-hidden="true"></i>Pay</span>
                     </button>
                 </div>
                 <!-- Pay button end -->

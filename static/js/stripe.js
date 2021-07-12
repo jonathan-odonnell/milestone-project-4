@@ -208,12 +208,12 @@ form.addEventListener('submit', function (e) {
 var loading = function (isLoading) {
     if (isLoading) {
         // Disables the button and shows the spinner
-        document.querySelector(".payment-btn").disabled = true;
+        document.querySelector("#payment-btn").disabled = true;
         document.querySelector("#spinner").classList.remove("d-none");
         document.querySelector("#button-text").classList.add("d-none");
     } else {
         // Enables the button and hides the spinner
-        document.querySelector(".payment-btn").disabled = false;
+        document.querySelector("#payment-btn").disabled = false;
         document.querySelector("#spinner").classList.add("d-none");
         document.querySelector("#button-text").classList.remove("d-none");
     }

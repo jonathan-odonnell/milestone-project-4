@@ -1,21 +1,14 @@
+/* Checkout form start. Code is from https://stripe.com/docs/payments/integration-builder */
 
-.StripeElement,
-.stripe-style-input {
-    border-radius: .25rem;
-    padding: 12px;
-    border: 1px solid #d3d3d3;
-    height: 44px;
-    width: 100%;
-    color: #4f4f4f;
-    background: #fff; 
-}
-
-.StripeElement--webkit-autofill {
-    background-color: #fefde5 !important;
-  }
-  
-.stripe-style-input::placeholder {
-    color: #a9a9a9;
+.StripeElement {
+  border-radius: .25rem;
+  border: 1px solid #a9a9a9;
+  padding: .75rem;
+  height: 44px;
+  font-size: 1rem;
+  width: 100%;
+  line-height: 1.6;
+  background: #fff; 
 }
 
 #payment-request-button {
@@ -23,29 +16,11 @@
   border: 0;
 }
 
-
-.payment-btn {
-    background: #70c8df;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    border-radius: .25rem;
-    border: 0;
-    padding: 12px 16px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    display: block;
-    transition: all 0.2s ease;
-    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-    width: 100%;
-}
-.payment-btn:hover {
-    filter: contrast(115%);
-}
-
-.payment-btn:disabled {
-    opacity: 0.5;
-    cursor: default;
+#payment-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  width: 100%;
 }
 
 .spinner,
@@ -55,49 +30,49 @@
 }
 
 .spinner {
-    color: #ffffff;
-    font-size: 22px;
-    text-indent: -99999px;
-    margin: 0px auto;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    box-shadow: inset 0 0 0 2px;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
+  color: #ffffff;
+  font-size: 22px;
+  text-indent: -99999px;
+  margin: 0px auto;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  box-shadow: inset 0 0 0 2px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .spinner:before,
 .spinner:after {
-    position: absolute;
-    content: "";
+  position: absolute;
+  content: "";
 }
 
 .spinner:before {
-    width: 10.4px;
-    height: 20.4px;
-    background: #70c8df;
-    border-radius: 20.4px 0 0 20.4px;
-    top: -0.2px;
-    left: -0.2px;
-    -webkit-transform-origin: 10.4px 10.2px;
-    transform-origin: 10.4px 10.2px;
-    -webkit-animation: loading 2s infinite ease 1.5s;
-    animation: loading 2s infinite ease 1.5s;
+  width: 10.4px;
+  height: 20.4px;
+  background: #70c8df;
+  border-radius: 20.4px 0 0 20.4px;
+  top: -0.2px;
+  left: -0.2px;
+  -webkit-transform-origin: 10.4px 10.2px;
+  transform-origin: 10.4px 10.2px;
+  -webkit-animation: loading 2s infinite ease 1.5s;
+  animation: loading 2s infinite ease 1.5s;
 }
 
 .spinner:after {
-    width: 10.4px;
-    height: 10.2px;
-    background: #70c8df;
-    border-radius: 0 10.2px 10.2px 0;
-    top: -0.1px;
-    left: 10.2px;
-    -webkit-transform-origin: 0px 10.2px;
-    transform-origin: 0px 10.2px; 
-    -webkit-animation: loading 2s infinite ease;
-    animation: loading 2s infinite ease;
+  width: 10.4px;
+  height: 10.2px;
+  background: #70c8df;
+  border-radius: 0 10.2px 10.2px 0;
+  top: -0.1px;
+  left: 10.2px;
+  -webkit-transform-origin: 0px 10.2px;
+  transform-origin: 0px 10.2px; 
+  -webkit-animation: loading 2s infinite ease;
+  animation: loading 2s infinite ease;
 }
 
 @-webkit-keyframes loading {
@@ -120,3 +95,5 @@
     transform: rotate(360deg);
   }
 }
+
+/* Checkout form end */
