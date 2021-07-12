@@ -1,7 +1,7 @@
 // Amends the form styling and removes the delete link
 
 $(document).ready(function() {
-	$('.custom-checkbox').addClass('form-check ms-1');
+	$('.custom-checkbox').addClass('form-check');
 	$('.form-check input').addClass('form-check-input').attr('type', 'checkbox');
 	$('.form-check label').addClass('form-check-label').show();
 	$('fieldset .row').addClass('mb-3');
@@ -19,8 +19,8 @@ $('#new-image').change(function () {
 	$('#filename').text(`Image will be set to: ${file.name}`);
 });
 
-/* Adds the relevant legend text and form styling to the added row when the add another activity 
-button is clicked in the add holiday form */
+/* Adds the relevant legend text and styling to the added row when the add another 
+button is clicked in the activities section of the add holiday form */
 
 let activityCounter = $('.activity').length;
 
@@ -31,12 +31,12 @@ function addActivity() {
 	$('.delete-row').remove();
 }
 
-/* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
-activity button is clicked in the edit holiday form */
+/* Adds the relevant legend text, delete checkbox and styling to the added row when the add another
+button is clicked in the activities section of the edit holiday form */
 
 function editActivity() {
 	$('fieldset .row').addClass('mb-3');
-	$(`#div_id_activities-${activityCounter}-DELETE`).addClass('form-check ms-1');
+	$(`#div_id_activities-${activityCounter}-DELETE`).addClass('form-check');
 	$(`#div_id_activities-${activityCounter}-DELETE`).addClass('delete-check');
 	$(`<input type="checkbox" name="activities-${activityCounter}-DELETE" id="id_activities-${activityCounter}
     -DELETE" class="form-check-input">`).insertBefore(`#div_id_activities-${activityCounter}-DELETE label`);
@@ -46,8 +46,8 @@ function editActivity() {
 	$('.delete-row').remove();
 }
 
-/* Adds the relevant legend text and form styling to the added row when the add another itinerary 
-button is clicked in the add holiday form */
+/* Adds the relevant legend text and styling to the added row when the add another 
+button is clicked in the itineraries section of the add holiday form */
 
 let itineraryCounter = $('.itinerary').length;
 
@@ -58,12 +58,12 @@ function addItinerary() {
 	$('.delete-row').remove();
 }
 
-/* Adds the relevant legend text, delete checkbox and form styling to the added row when the add another 
-itinerary button is clicked in the edit holiday form */
+/* Adds the relevant legend text, delete checkbox and styling to the added row when the add another
+button is clicked in the itineraries section of the edit holiday form */
 
 function editItinerary() {
 	$('fieldset .row').addClass('mb-3');
-	$(`#div_id_itineraries-${itineraryCounter}-DELETE`).addClass('form-check delete-check ms-1');
+	$(`#div_id_itineraries-${itineraryCounter}-DELETE`).addClass('form-check delete-check');
 	$(`<input type="checkbox" name="itineraries-${itineraryCounter}-DELETE" id="id_itineraries-${itineraryCounter}
     -DELETE" class="form-check-input">`).insertBefore(`#div_id_itineraries-${itineraryCounter}-DELETE label`);
 	$(`#div_id_itineraries-${itineraryCounter}-DELETE label`).addClass('form-check-label, text-danger').show();
