@@ -235,48 +235,50 @@ The Entity Relationship Diagram shows details of each field in each model in the
 ### Frameworks, Libraries & Programs Used
 
 1. [Bootstrap 5](https://getbootstrap.com/)
-   - Bootstrap was used for the navbar, forms, butons, dropdowns, tabs, cards, tables and toasts. Bootstrap was also used for the grid which assists with the responsiveness of the website and for the styling.
+   - Bootstrap was used for the navbar, buttons, dropdowns, tabs, cards, badges, pagination, switches, tables and toasts. Bootstrap was also used for the grid which assists with the responsiveness of the website and for the styling.
 2. [Material Design Bootstrap](https://mdbootstrap.com/)
     - The Material Design Bootstrap theme was used for the styling of the website.
-3. [Hover.css](https://ianlunn.github.io/Hover/)
+3. [Google Fonts](https://fonts.google.com/)
+   - Google fonts was used to import the 'PT Sans' and 'Nothing You Could Do' fonts into the style.css file.
+4. [Hover.css](https://ianlunn.github.io/Hover/)
    - Hover.css was used for the hover effects on the social media icons.
-4. [Font Awesome](https://fontawesome.com/)
+5. [Font Awesome](https://fontawesome.com/)
    - Font Awesome was used throughout the website to enhance the user experience by adding icons.
-5. [jQuery](https://jquery.com/)
+6. [jQuery](https://jquery.com/)
    - JQuery was used throughout the website for the interactive features.
-6. [Slick](https://kenwheeler.github.io/slick/)
+7. [Slick](https://kenwheeler.github.io/slick/)
     - Slick was used for the offers carousel, popular holidays slider and related holidays sliders. The license can be viewed [here](slick_license.md).
-7. [Gijgo](https://gijgo.com/)
+8. [Gijgo](https://gijgo.com/)
     - Gijgo was used for the datepicker and datetime picker.
-8. [jQuery Formset](https://github.com/nortigo/jquery-formset)
-    - JQuery.formset was used to dynamically add rows to the formsets in the add holiday and edit holiday forms. The license can be viewed [here](jquery_formset_license.md).
-9. [Pytz](https://pypi.org/project/pytz/)
+9. [jQuery Formset](https://github.com/nortigo/jquery-formset)
+    - JQuery formset was used to dynamically add rows to the formsets in the add holiday and edit holiday forms. The license can be viewed [here](jquery_formset_license.md).
+10. [Pytz](https://pypi.org/project/pytz/)
     - Pytz was used for the coverting of time zones.
-10. [Stripe](https://stripe.com/docs/payments)
+11. [Stripe](https://stripe.com/docs/payments)
     - The Stripe API was used for the processing of card, Apple Pay and Google Pay payments.
-11. [Paypal](https://developer.paypal.com/docs/checkout/)
+12. [Paypal](https://developer.paypal.com/docs/checkout/)
     - The Paypal Smart Payment Button API was used for the processing of Paypal Payments.
-12. [Google Places Autocomplete API](https://developers.google.com/maps/documentation/javascript/places-autocomplete)
+13. [Google Places Autocomplete API](https://developers.google.com/maps/documentation/javascript/places-autocomplete)
     - Google Places Autocomplete API was used for the address autocomplete on the profile and checkout pages.
-13. [Django](https://www.djangoproject.com/)
+14. [Django](https://www.djangoproject.com/)
     - Django was used for the accessing of the data models, the routing of the appliction, the messages and the templating.
-14. [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
+15. [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
     - Django allauth was used for the authentication of users.
-15. [Postgresql](https://www.postgresql.org/)
+16. [Postgresql](https://www.postgresql.org/)
     - A postgresql database was used to store the data used in the project.
-16. [Visual Studio Code](https://code.visualstudio.com/)
+17. [Visual Studio Code](https://code.visualstudio.com/)
     - Visual Studio Code was used to write the code for this project and gitpod terminal was used to commit changes to Git and push them to GitHub.
-17. [Git](https://git-scm.com/)
+18. [Git](https://git-scm.com/)
     - Git was the version control system used for this project.
-18. [GitHub](https://github.com/)
+19. [GitHub](https://github.com/)
     - GitHub is used to store the project's code and any other required files.
-19. [Heroku](https://www.heroku.com/)
+20. [Heroku](https://www.heroku.com/)
     - Heroku is used to host the deployed website.
-20. [Amazon Web Services](https://aws.amazon.com)
+21. [Amazon Web Services](https://aws.amazon.com)
     - An Amazon Web Services S3 bucket was used to host the images and static files used in the website
-21. [Balsamiq](https://balsamiq.com/)
+22. [Balsamiq](https://balsamiq.com/)
     - Balsamiq was used to create the wireframes during the design phase of the project.
-22. [DB Diagram](https://dbdiagram.io/home)
+23. [DB Diagram](https://dbdiagram.io/home)
     - DB Diagram was used to create the Entity Relationship Diagrams of the database.
 
 ## Testing
