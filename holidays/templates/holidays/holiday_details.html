@@ -129,7 +129,7 @@
                             <!-- Features column 1 end -->
                             <!-- Features column 2 start -->
                             <div class="col-12 col-sm-6">
-                                  <!-- features list start. Code is from https://getbootstrap.com/docs/5.0/components/list-group/ -->
+                                <!-- features list start. Code is from https://getbootstrap.com/docs/5.0/components/list-group/ and https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template  -->
                                 <ul class="list-group holiday-features">
                                     {% for feature in holiday.features.all %}
                                     <li class="list-group-item p-0 {% if not forloop.counter == holiday.features.all|length %}mb-3{% endif %} border-0">
@@ -163,26 +163,30 @@
                         </div>
                     </div>
                     <!-- Overview tab end -->
-                    <!-- Activities tab start -->
+                    <!-- Activities tab start. Code for accessing the related field is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template  -->
                     {% if holiday.activities.all %}
                     <div class="tab-pane fade pt-4" id="activities" role="tabpanel" aria-labelledby="activities-tab">
                         <!-- Activities cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ -->
                         {% for activity in holiday.activities.all %}
-                        <h5><strong>{{ activity.name }}</strong></h5>
-                        <p class="{% if forloop.counter == holiday.activities.all|length %}mb-0{% else%}mb-3{%endif %}">
-                            {{ activity.description }}</p>
+                        <div class="card shadow-none">
+                            <div class="card-body p-0{% if forloop.counter != holiday.activities.all|length %} pb-4{% endif %}">
+                                <h5 class="card-title"><strong>{{ activity.name }}</strong></h5>
+                                <p class="card-text mb-0">
+                                    {{ activity.description }}</p>
+                            </div>
+                        </div>
                         {% endfor %}
                         <!-- Activity cards end -->
                     </div>
                     {% endif %}
                     <!-- Activities tab start -->
-                    <!-- Itineraries tab start -->
+                    <!-- Itineraries tab start. Code for accessing the related field is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template  -->
                     {% if holiday.itineraries.all %}
                     <div class="tab-pane fade pt-4" id="itineraries" role="tabpanel" aria-labelledby="itineraries-tab">
                         {% for itinerary in holiday.itineraries.all %}
                         <!-- Itineraries cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ -->
                         <div class="card itinerary-item shadow-none">
-                            <div class="card-body ps-5 py-0{% if not forloop.counter == holiday.itineraries.all|length %} mb-3 {% endif %}">
+                            <div class="card-body ps-5 py-0{% if forloop.counter != holiday.itineraries.all|length %} mb-4{% endif %}">
                                 <h5 class="card-title"><strong>{{ itinerary.day }} - {{ itinerary.name }}</strong></h5>
                                 <p class="card-text">{{ itinerary.description }}</p>
                             </div>
@@ -195,13 +199,18 @@
                     <!-- Reviews tab start -->
                     {% if holiday.reviews.all %}
                     <div class="tab-pane fade pt-4" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <!-- Reviews cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ -->
+                        <!-- Reviews cards start. Code for accessing the related field is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template and code for the slice filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice -->
                         {% for review in holiday.reviews.all|slice:":5" %}
-                        <div class="{% if forloop.counter == holiday.reviews.all|length %}mb-0{% else %}mb-4{% endif %}">
-                            <h5><strong>{{ review.title }}</strong></h5>
-                            <p class="rating mb-2">{{ review.rating }}</p>
-                            <p class="mb-2">{{ review.review }}</p>
-                            <small>Reviewed by {{ review.full_name }} on {{ review.date|date }}</small>
+                        <!-- Code for the cards is from is from https://getbootstrap.com/docs/5.0/components/card/ -->
+                        <div class="card shadow-none">
+                            <div class="card-body p-0{% if forloop.counter != holiday.reviews.all|length %} pb-4{% endif %}">
+                                <h5 class="card-title"><strong>{{ review.title }}</strong></h5>
+                                <div class="card-text">
+                                    <p class="rating mb-2">{{ review.rating }}</p>
+                                    <p class="mb-2">{{ review.review }}</p>
+                                    <small>Reviewed by {{ review.full_name }} on {{ review.date|date }}</small>
+                                </div>
+                            </div>
                         </div>
                         {% endfor %}
                         <!-- Reviews cards end -->
