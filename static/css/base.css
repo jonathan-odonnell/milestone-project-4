@@ -491,6 +491,10 @@ input[name="quantity"]::-webkit-inner-spin-button {
     color: gold;
 }
 
+#reviews i {
+    margin-right: 5px;
+}
+
 .rating-stars .btn {
     font-size: 1.33rem;
 }
@@ -588,6 +592,10 @@ input[name="quantity"]::-webkit-inner-spin-button {
 .holiday-features i {
     width: 30px;
     color: #4f4f4f;
+}
+
+.list-group-item {
+    color: #4a4a4a;
 }
 
 .booking-form h2 {
