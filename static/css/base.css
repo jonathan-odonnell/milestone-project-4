@@ -39,14 +39,6 @@ strong {
     letter-spacing: 2px;
 }
 
-.table {
-    color: #4a4a4a;
-}
-
-.table th {
-    font-weight: bold;
-}
-
 .text-black {
     color: #000;
 }
@@ -60,6 +52,23 @@ strong {
 }
 
 /* Text End */
+
+/* Tables Start */
+
+.table {
+    color: #4a4a4a;
+}
+
+.table th,
+.table strong {
+    color: #000;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+/* Tables end */
 
 /* Backgrounds Start */
 
