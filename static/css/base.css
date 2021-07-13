@@ -89,11 +89,32 @@ a:hover {
 /* Buttons Start */
 
 .btn-primary {
-    background-color: #70c8df !important;
+    background-color: #70c8df;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-newsletter:hover,
+.btn-newsletter:focus {
+   background-color: #9ad8e8;
 }
 
 .btn-secondary {
-    background-color: #d13574 !important;
+    background-color: #d13574;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: #da5f91;
+}
+
+.btn-newsletter {
+    position: inherit !important;
+    background-color: #70c8df;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .btn-grey {
@@ -113,7 +134,7 @@ a:hover {
     color: #006994;
     text-align: center;
     border-radius: 50%;
-    z-index: 1;
+    z-index: 5;
     position: fixed;
     right: 20px;
     bottom: 70px;
@@ -337,7 +358,7 @@ a:hover {
     color: #fff;
     transform: translate(0, -50%);
     cursor: pointer;
-    z-index: 2;
+    z-index: 1;
 }
 
 #popular-holidays .slick-slide,
@@ -615,16 +636,6 @@ input[name="quantity"]::-webkit-inner-spin-button {
     font-weight: bold;
 }
 
-#airports-list {
-    max-height: 150px;
-    overflow-y: scroll;
-    z-index: 3;
-}
-
-#airports-list li:hover {
-    background-color: #e9ecef;
-}
-
 .itinerary-item:after {
     content: '';
     display: block;
@@ -801,13 +812,6 @@ footer a {
 .footer-headings {
     font-weight: 600;
     color: #fff;
-}
-
-.btn-newsletter {
-    position: inherit !important;
-    background-color: #70c8df;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
 }
 
 .btn-newsletter i {
