@@ -1,5 +1,7 @@
 # Go Explore Website
 
+![Image of the website on different sized devices](media/responsive.png)
+
 [View the live website here](https://go-explore.herokuapp.com/)
 
 Go Explore is a fictitious travel agency based in Toronto, Canada. This is the organisation's main marketing website which aims to inform customers about the different holiday packages currently available and persuade them to make a purchase. It provides customers with information and reviews for a variety of holiday types including activity holidays, city breaks and resort holidays in a variety of different countries around the world. The website is designed to be responsive and easy to navigate on a range of devices.
