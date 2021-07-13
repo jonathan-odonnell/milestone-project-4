@@ -287,9 +287,8 @@
     <!-- Postloadjs block start -->
     {% block postloadjs %}
     <script>
-        /* Changes navbar toggler icon to the times icon when the navbar is expanded and changes
+    /* Changes navbar toggler icon to the times icon when the navbar is expanded and changes
         the icon back to the bars icon when the navbar is collapsed */
-
         $(".navbar-collapse").on("show.bs.collapse", function () {
             $(".navbar-toggler i").addClass("fa-times").removeClass("fa-bars");
         });
@@ -299,7 +298,6 @@
 
         /* Makes back to top button appear when the user scrolls. 
         Code is from https://codepen.io/deveb22/pen/QxPmGz */
-
         $(window).scroll(function () {
             if ($(window).scrollTop() > 200) {
                 $(".top-btn").removeClass("d-none");
@@ -310,31 +308,30 @@
 
         // Scrolls to the top of the page when the back to top button is clicked
         $('.top-btn').click(function () {
-            window.scrollTo(0, 0)
-        })
+            window.scrollTo(0, 0);
+        });
 
         // Shows the toasts when the DOM has finished loading
         $(document).ready(function () {
             $('.toast').toast('show');
-        })
+        });
 
         /* Checks the form is valid and posts the email address from the newsletter input to
         the newsetter sign up URL and dynamically updates the HTML to show a message thanking
         the user for signing up to the newsletter. Code for the insertBefore jQuery method is from
         https://api.jquery.com/insertAfter/#insertBefore-target */
-
         $('.btn-newsletter').click(function () {
             if ($(this).closest('form')[0].reportValidity()) {
                 let postData = {
                     'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
                     'newsletter': $('input[name="newsletter"]').val()
-                }
+                };
                 $.post('{% url "newsletter" %}', postData).done(function () {
-                    $('<p class="text-white">Sign Up Successful</p>').insertBefore('footer form')
-                    $('footer form').remove()
-                })
+                    $('<p class="text-white">Sign Up Successful</p>').insertBefore('footer form');
+                    $('footer form').remove();
+                });
             }
-        })
+        });
     </script>
     {% endblock %}
     <!-- Postloadjs block end -->
