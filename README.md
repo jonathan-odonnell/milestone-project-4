@@ -743,7 +743,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the form input groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/input-group/).
 - Code for making the back to top button appear when the user scrolls is from [Codepen](https://codepen.io/deveb22/pen/QxPmGz).
 - Code for the insertBefore jQuery method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
-- Code for the JQuery insertAfter method is from [jQuery](https://api.jquery.com/insertAfter/#insertBefore-target).
+- Code for the jQuery insertAfter method is from [jQuery](https://api.jquery.com/insertAfter/#insertBefore-target).
 - Code for the hero image carousel and the sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
 - Code for accessing a form's model data in a template is from [Stack Overflow](https://stackoverflow.com/questions/3137984/how-to-access-model-data-when-overriding-django-admin-templates) and [Stack Overflow](https://stackoverflow.com/questions/5002182/how-can-i-access-the-model-instance-used-by-a-form-from-a-template).
 - Code for the formset templating is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/).
@@ -766,18 +766,18 @@ More information about making a local clone of a GitHub repository is available 
 - Code for slice filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice).
 - Code for for updating the address input's parent element's ID is from [Stack Overflow](https://stackoverflow.com/questions/10219396/jquery-update-element-id/).
 - Code for the autocomplete is from [Google](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform/).
-- Code for the JQuery hasClass method is from [jQuery](https://api.jquery.com/hasclass/). 
+- Code for the jQuery hasClass method is from [jQuery](https://api.jquery.com/hasclass/). 
 - Code for triggering the change event is from [Stack Overflow](https://stackoverflow.com/questions/3179385/val-doesnt-trigger-change-in-jquery/).
-- Code for the JQuery each method is from [jQuery](https://api.jquery.com/jquery.each/).
+- Code for the jQuery each method is from [jQuery](https://api.jquery.com/jquery.each/).
 - Code for checking if a checkbox is checked is from [Stack Overflow](https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked/).
 - Code for checking or unchecking the switches is from [Stack Overflow](https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery).
 - Code for the datepicker and datetimepicker min date is from [Gijgo](https://gijgo.com/datepicker/configuration/minDate).
 - Code for the datepicker and datetimepicker max date is from [Gijgo](https://gijgo.com/datepicker/configuration/maxDate).
-- Code for the datetimepicker configuration is from [Gijgo](https://gijgo.com/datetimepicker/) and Gijgo](https://gijgo.com/datetimepicker/configuration).
-- Code for the datepicker configuration is from [Gijgo](https://gijgo.com/datepicker/) and Gijgo](https://gijgo.com/datepicker/configuration).
+- Code for the datetimepicker configuration is from [Gijgo](https://gijgo.com/datetimepicker/) and [Gijgo](https://gijgo.com/datetimepicker/configuration).
+- Code for the datepicker configuration is from [Gijgo](https://gijgo.com/datepicker/) and [Gijgo](https://gijgo.com/datepicker/configuration).
 - Code for adding a new entry to the browser's session history is from [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState).
-- Code for the delegated target JQuery is from [JQuery](https://api.jquery.com/event.delegateTarget/#event-delegateTarget1).
-- Code for the toggleClass JQuery method is from [JQuery](https://api.jquery.com/toggleClass/#toggleClass1).
+- Code for the delegated target jQuery is from [jQuery](https://api.jquery.com/event.delegateTarget/#event-delegateTarget1).
+- Code for the toggleClass jQuery method is from [jQuery](https://api.jquery.com/toggleClass/#toggleClass1).
 - Code for the PayPal smart button is from [PayPal](https://developer.paypal.com/docs/checkout/integrate/).
 - Code for the PayPal payment form validation is from [PayPal](https://developer.paypal.com/docs/checkout/integration-features/validation/).
 - Code for setting up the PayPal transaction on the server is from [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/) and [Stack Overflow](https://stackoverflow.com/questions/43606056/proper-django-csrf-validation-using-fetch-post-request).
@@ -834,7 +834,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for creating the user profile in the tests is from [Django](https://stackoverflow.com/questions/11088901/django-onetoone-reverse-access).
 - Code for the tests login is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests).
 - Code for the request factory, logging in the user and setting the session variable in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory).
-- Code for left aligning the table columns in the readme is from https://www.markdownguide.org/extended-syntax/
+- Code for left aligning the table columns in the readme is from [Markdown Guide](https://www.markdownguide.org/extended-syntax/).
 
 ### Content
 
