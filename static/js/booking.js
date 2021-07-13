@@ -122,7 +122,7 @@ $('input[type="checkbox"]').change(function () {
                 $(`<li id="subtotal" class="list-group-item d-flex justify-content-between">
                 <span class="my-0">Base Price</span><span>£${data.subtotal}</span></li>
                 <li id="extras" class="list-group-item d-flex justify-content-between">
-                <span class="my-0">Options and Extras</span>
+                <span class="my-0">Extras</span>
                 <span>£${data.extras}</span>
             </li>`).insertBefore('#transfers');
             }

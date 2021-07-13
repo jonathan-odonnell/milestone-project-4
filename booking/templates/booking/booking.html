@@ -45,10 +45,11 @@
                                     <img class="img-fluid" src="{{booking.package.image.url}}" alt="Image of {{ booking.package.name }}">
                                 </td>
                                 <td class="p-2">
+                                    <!-- Code for the unstyled list is from https://getbootstrap.com/docs/5.0/content/typography/#unstyled -->
                                     <ul class="list-unstyled">
                                         <li><strong>{{ booking.package.name }}</strong></li>
                                         <li class="mb-0">{{ booking.departure_date }}</li>
-                                        <li class="mb-0">{{ booking.package.duration}} nights</li>
+                                        <li class="mb-0">{{ booking.package.duration}} Nights</li>
                                         <li class="mb-0">{{ booking.package.catering }}</li>
                                     </ul>
                                 </td>
@@ -83,7 +84,7 @@
                     <!-- Table end -->
                 </div>
                 <!-- Holiday details end -->
-                <!-- Extras start -->
+                <!-- Extras start. Code for accessing the related fields is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template -->
                 {% if booking.package.extras.all %}
                 <div class="col-12 table-responsive">
                     <!-- Heading start -->
@@ -166,46 +167,45 @@
                                 <img class="img-fluid mt-1" src="{{ booking.package.image.url }}" alt="Image of {{ booking.package.name }}">
                             </td>
                             <td class="pt-3 pb-4">
-                                <ul class="list-unstyled my-0">
-                                    <li class="mb-3"><strong>{{ booking.package.name }}</strong></li>
+                                <!-- Code for the unstyled list is from https://getbootstrap.com/docs/5.0/content/typography/#unstyled -->
+                                <ul class="list-unstyled py-0">
+                                    <li class="mb-2"><strong>{{ booking.package.name }}</strong></li>
                                     <li class="mb-0">{{ booking.departure_date }}</li>
-                                    <li class="mb-0">{{ booking.package.duration}} nights</li>
-                                    <li class="mb-3">{{ booking.package.catering }}</li>
+                                    <li class="mb-0">{{ booking.package.duration}} Nights</li>
+                                    <li class="mb-2">{{ booking.package.catering }}</li>
                                     <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
-                                    <li class="mb-3">
+                                    <li class="mb-2">
                                         £{{ booking.package.price|floatformat:"-2" }}
                                     </li>
-                                    <li>
-                                        <!-- Code for guests input is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
-                                        <form class="d-inline-block guests-form">
-                                            {% csrf_token %}
-                                            <div class="input-group justify-content-start">
-                                                <input
-                                                    class="form-control form-control-sm form-control-guests text-center rounded-0"
-                                                    type="number" name="guests" value="{{ booking.guests }}" />
-                                                <div class="btn-group-vertical rounded-0 shadow-none">
-                                                    <button class="btn plus rounded-0 p-2 py-0" type="button">
-                                                        <span>
-                                                            <i class="fas fa-chevron-up fa-sm" aria-label="chevron up"></i>
-                                                        </span>
-                                                    </button>
-                                                    <button class="btn minus rounded-0 p-2 py-0" type="button">
-                                                        <span>
-                                                            <i class="fas fa-chevron-down fa-sm" aria-label="chevron down"></i>
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </li>
                                 </ul>
+                                <!-- Code for guests input is from https://getbootstrap.com/docs/5.0/forms/input-group/ -->
+                                <form class="d-inline-block guests-form">
+                                    {% csrf_token %}
+                                    <div class="input-group justify-content-start">
+                                        <input
+                                            class="form-control form-control-sm form-control-guests text-center rounded-0"
+                                            type="number" name="guests" value="{{ booking.guests }}" />
+                                        <div class="btn-group-vertical rounded-0 shadow-none">
+                                            <button class="btn plus rounded-0 p-2 py-0" type="button">
+                                                <span>
+                                                    <i class="fas fa-chevron-up fa-sm" aria-label="chevron up"></i>
+                                                </span>
+                                            </button>
+                                            <button class="btn minus rounded-0 p-2 py-0" type="button">
+                                                <span>
+                                                    <i class="fas fa-chevron-down fa-sm" aria-label="chevron down"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </td>
                         </tr>
                     </table>
                     <!-- Table end -->
                 </div>
                 <!-- Mobile holiday details end -->
-                <!-- Mobile extras start -->
+                <!-- Mobile extras start. Code for accessing the related fields is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template -->
                 {% if booking.package.extras.all %}
                 <div class="col-12 mb-3">
                     <!-- Heading start -->
@@ -221,9 +221,9 @@
                             </td>
                             <td colspan="2" class="border-0 pt-3 pb-0">
                                 <ul class="list-unstyled py-0">
-                                    <li class="mb-3"><strong>{{ extra.name }}</strong></li>
+                                    <li class="mb-2"><strong>{{ extra.name }}</strong></li>
                                     <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
-                                    <li class="mb-3">£{{ extra.price|floatformat:"-2" }}</li>
+                                    <li class="mb-2">£{{ extra.price|floatformat:"-2" }}</li>
                                 </ul>
                             </td>
                         </tr>
@@ -280,7 +280,7 @@
                     {% with booking.outbound_flight as outbound_flight %}
                     <li class="list-group-item p-3">
                         <div>
-                            <h6>{{booking.departure_date}} ({{outbound_flight.flight_number}})</h6>
+                            <h6 class="font-weight-bold">{{booking.departure_date}} ({{outbound_flight.flight_number}})</h6>
                             <div class="row g-0">
                                 <div class="col">
                                     <small>{{outbound_flight.origin}}</small>
@@ -318,7 +318,7 @@
                     <!-- Return flight list item start -->
                     {% with booking.return_flight as return_flight %}
                     <li class="list-group-item p-3">
-                        <h6>{{ booking.return_date }} ({{return_flight.flight_number}})</h6>
+                        <h6 class="font-weight-bold">{{ booking.return_date }} ({{return_flight.flight_number}})</h6>
                         <div class="row g-0">
                             <div class="col">
                                 <small>{{return_flight.origin}}</small>
@@ -364,7 +364,7 @@
                     <!-- Extras total list item start -->
                     {% if booking.extras_total %}
                     <li id="extras" class="list-group-item d-flex justify-content-between">
-                        <span class="my-0">Options and Extras</span>
+                        <span class="my-0">Extras</span>
                         <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <span>£{{ booking.extras_total|floatformat:"-2" }}</span>
                     </li>
