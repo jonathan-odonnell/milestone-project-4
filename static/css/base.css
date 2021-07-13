@@ -101,6 +101,11 @@ a:hover {
 
 /* Buttons Start */
 
+.btn,
+.btn:hover {
+    box-shadow: none;
+}
+
 .btn-primary {
     background-color: #70c8df;
 }
@@ -490,6 +495,11 @@ input[name="quantity"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   margin: 0;
+}
+
+.form-check-input[type=checkbox]:checked {
+    background-color: #70c8df;
+    border-color: #70c8df;
 }
 
 .form-switch .form-check-input[type=checkbox]:checked {
