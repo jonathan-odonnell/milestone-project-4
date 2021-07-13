@@ -77,15 +77,23 @@
                                 overview
                             </button>
                             <ul class="dropdown-menu text-center w-100" aria-labelledby="tabs-dropdown">
-                                <li><button class="dropdown-item text-capitalize" type="button">overview</button></li>
+                                <li>
+                                    <button class="dropdown-item text-capitalize" type="button">overview</button>
+                                </li>
                                 {% if holiday.itineraries.all %}
-                                <li><button class="dropdown-item text-capitalize" type="button">itineraries</button></li>
+                                <li>
+                                    <button class="dropdown-item text-capitalize" type="button">itineraries</button>
+                                </li>
                                 {% endif %}
                                 {% if holiday.activities.all %}
-                                <li><button class="dropdown-item text-capitalize" type="button">activities</button></li>
+                                <li>
+                                    <button class="dropdown-item text-capitalize" type="button">activities</button>
+                                </li>
                                 {% endif %}
                                 {% if holiday.reviews.all %}
-                                <li><button class="dropdown-item text-capitalize" type="button">reviews</button></li>
+                                <li>
+                                    <button class="dropdown-item text-capitalize" type="button">reviews</button>
+                                </li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -170,9 +178,10 @@
                         {% for activity in holiday.activities.all %}
                         <div class="card shadow-none">
                             <div class="card-body p-0{% if forloop.counter != holiday.activities.all|length %} pb-4{% endif %}">
-                                <h5 class="card-title"><strong>{{ activity.name }}</strong></h5>
-                                <p class="card-text mb-0">
-                                    {{ activity.description }}</p>
+                                <h5 class="card-title">
+                                    <strong>{{ activity.name }}</strong>
+                                </h5>
+                                <p class="card-text mb-0">{{ activity.description }}</p>
                             </div>
                         </div>
                         {% endfor %}
@@ -187,7 +196,9 @@
                         <!-- Itineraries cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ -->
                         <div class="card itinerary-item shadow-none">
                             <div class="card-body ps-5 py-0{% if forloop.counter != holiday.itineraries.all|length %} mb-4{% endif %}">
-                                <h5 class="card-title"><strong>{{ itinerary.day }} - {{ itinerary.name }}</strong></h5>
+                                <h5 class="card-title">
+                                    <strong>{{ itinerary.day }} - {{ itinerary.name }}</strong>
+                                </h5>
                                 <p class="card-text">{{ itinerary.description }}</p>
                             </div>
                         </div>
@@ -204,7 +215,9 @@
                         <!-- Code for the cards is from is from https://getbootstrap.com/docs/5.0/components/card/ -->
                         <div class="card shadow-none">
                             <div class="card-body p-0{% if forloop.counter != holiday.reviews.all|length %} pb-4{% endif %}">
-                                <h5 class="card-title"><strong>{{ review.title }}</strong></h5>
+                                <h5 class="card-title">
+                                    <strong>{{ review.title }}</strong>
+                                </h5>
                                 <div class="card-text">
                                     <p class="rating mb-2">{{ review.rating }}</p>
                                     <p class="mb-2">{{ review.review }}</p>
