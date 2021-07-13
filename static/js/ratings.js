@@ -1,8 +1,8 @@
 // Generates HTML for the star ratings based on the value inside the rating class
 function generateStars() {
-    let fullStar = '<i class="fas fa-star"></i>'
-    let halfStar = '<i class="fas fa-star-half-alt"></i>'
-    let emptyStar = '<i class="far fa-star"></i>'
+    let fullStar = '<i class="fas fa-star" aria-hidden="true"></i>'
+    let halfStar = '<i class="fas fa-star-half-alt" aria-hidden="true"></i>'
+    let emptyStar = '<i class="far fa-star" aria-hidden="true"></i>'
     $('.rating').each(function () {
         rating = parseFloat($(this).html());
         displayStars = "";

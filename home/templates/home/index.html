@@ -71,22 +71,23 @@
                                 <h5 class="card-title mb-1">{{ holiday.name }}</h5>
                             </a>
                             <p class="small mb-1">{{ holiday.country }}</p>
-                                <div class="d-flex justify-content-between">
-                                    <p class="d-block card-text small mb-2">
-                                        <span class="rating">{{ holiday.rating }}</span>
-                            </p>
-                            <p class="d-block card-text small mb-2">
-                                <i class="far fa-clock" aria-label="clock"></i>
-                                <span>{{ holiday.duration }} Nights</span>
-                            </p>
+                            <div class="d-flex justify-content-between">
+                                <p class="d-block card-text small mb-2">
+                                    <span class="rating">{{ holiday.rating }}</span>
+                                    <span class="sr-only">{{ holiday.rating }} stars</span>
+                                </p>
+                                <p class="d-block card-text small mb-2">
+                                    <i class="far fa-clock" aria-label="clock"></i>
+                                    <span>{{ holiday.duration }} Nights</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                <!-- Popular holidays cards end -->
             </div>
-            <!-- Popular holidays cards end -->
         </div>
-    </div>
     </div>
     <!-- Popular holidays container end -->
     <!-- Features container start -->
