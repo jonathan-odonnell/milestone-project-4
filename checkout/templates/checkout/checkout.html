@@ -81,6 +81,9 @@
                         <input class="form-check-input" type="checkbox" id="id_save_info" name="save_info"
                             checked>
                     </div>
+                    {% else %}
+                    <a href="{% url 'account_signup' %}">Create an account</a> or 
+                    <a href="{% url 'account_login' %}">login</a> to save this information to your profile
                     {% endif %}
                 </fieldset>
                 <!-- Address fieldset start -->
