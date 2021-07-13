@@ -86,20 +86,37 @@
                 <ul class="dropdown-menu dropdown-menu-end user-options-dropdown" aria-labelledby="user-options">
                     {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}
-                    <li><a class="dropdown-item" href="{% url 'add_holiday' %}">Add Holiday</a></li>
-                    <li><a class="dropdown-item" href="{% url 'add_extra' %}">Add Extra</a></li>
-                    <li><a class="dropdown-item" href="{% url 'flights' %}">Manage Flights</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'add_holiday' %}">Add Holiday</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'add_extra' %}">Add Extra</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'flights' %}">Manage Flights</a>
+                    </li>
                     {% else %}
-                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                    <li><a class="dropdown-item" href="{% url 'bookings' %}">Bookings</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'bookings' %}">Bookings</a>
+                    </li>
                     {% endif %}
-                    <li><a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a></li>
-                    <li><a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_change_password' %}">Change Password</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_logout' %}?next={{request.path}}">Sign Out</a>
                     </li>
                     {% else %}
-                    <li><a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_signup' %}?next={{request.path}}">Register</a>
                     </li>
-                    <li><a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign In</a></li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_login' %}?next={{request.path}}">Sign In</a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
@@ -146,8 +163,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class=" nav-item border-bottom">
-                                <a class="nav-link" href="{% url 'offers' %}">Offers</a>
+                        <li class="nav-item border-bottom">
+                            <a class="nav-link" href="{% url 'offers' %}">Offers</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'extras' %}">Extras</a>
@@ -199,11 +216,19 @@
                         <div class="col-6 col-md-3 col-lg-4 mb-4 mb-md-3">
                             <h5 class="footer-headings">Links</h5>
                             <ul class="list-unstyled mb-0">
-                                <li><a href="{% url 'categories' 'activity' %}">Activity</a></li>
-                                <li><a href="{% url 'categories' 'city-breaks' %}">City Breaks</a></li>
-                                <li><a href="{% url 'categories' 'resort' %}">Resort</a></li>
+                                <li>
+                                    <a href="{% url 'categories' 'activity' %}">Activity</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'categories' 'city-breaks' %}">City Breaks</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'categories' 'resort' %}">Resort</a><
+                                        /li>
                                 {% if request.user.is_authenticated and not request.user.is_superuser %}
-                                <li><a href="{% url 'categories' 'offers' %}">Offers</a></li>
+                                <li>
+                                    <a href="{% url 'categories' 'offers' %}">Offers</a>
+                                </li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -212,14 +237,24 @@
                         <div class="col-6 col-md-3 col-lg-4 footer-2 mb-4 mb-md-3">
                             <ul class="list-unstyled mb-0">
                                 {% if not request.user.is_authenticated or request.user.is_superuser %}
-                                <li><a href="{% url 'offers' %}">Offers</a></li>
+                                <li>
+                                    <a href="{% url 'offers' %}">Offers</a>
+                                </li>
                                 {% endif %}
-                                <li><a href="{% url 'extras' %}">Extras</a></li>
+                                <li>
+                                    <a href="{% url 'extras' %}">Extras</a>
+                                </li>
                                 {% if request.user.is_authenticated and not request.user.is_superuser %}
-                                <li><a href="{% url 'profile' %}">Profile</a></li>
-                                <li><a href="{% url 'bookings' %}">Bookings</a></li>
+                                <li>
+                                    <a href="{% url 'profile' %}">Profile</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'bookings' %}">Bookings</a>
+                                </li>
                                 {% endif %}
-                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                                <li>
+                                    <a href="{% url 'contact' %}">Contact Us</a>
+                                </li>
                             </ul>
                         </div>
                         <!-- Links col 2 end -->
