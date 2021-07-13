@@ -449,7 +449,7 @@ a:hover {
 .form-select {
     border: 1px solid #a9a9a9;
     color: #4a4a4a;
-    min-height: 44px;
+    min-height: 40px;
 }
 
 .form-control:focus,
