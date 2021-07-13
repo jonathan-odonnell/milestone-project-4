@@ -163,7 +163,7 @@
                         </div>
                     </div>
                     <!-- Overview tab end -->
-                    <!-- Activities tab start. Code for accessing the related field is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template  -->
+                    <!-- Activities tab start. Code for accessing the related fields is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template  -->
                     {% if holiday.activities.all %}
                     <div class="tab-pane fade pt-4" id="activities" role="tabpanel" aria-labelledby="activities-tab">
                         <!-- Activities cards start. Code is from https://getbootstrap.com/docs/5.0/components/card/ -->
@@ -180,7 +180,7 @@
                     </div>
                     {% endif %}
                     <!-- Activities tab start -->
-                    <!-- Itineraries tab start. Code for accessing the related field is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template  -->
+                    <!-- Itineraries tab start. Code for accessing the related fields is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template  -->
                     {% if holiday.itineraries.all %}
                     <div class="tab-pane fade pt-4" id="itineraries" role="tabpanel" aria-labelledby="itineraries-tab">
                         {% for itinerary in holiday.itineraries.all %}
@@ -199,7 +199,7 @@
                     <!-- Reviews tab start -->
                     {% if holiday.reviews.all %}
                     <div class="tab-pane fade pt-4" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                        <!-- Reviews cards start. Code for accessing the related field is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template and code for the slice filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice -->
+                        <!-- Reviews cards start. Code for accessing the related fields is from https://stackoverflow.com/questions/33487424/how-to-get-related-field-in-django-template and code for the slice filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice -->
                         {% for review in holiday.reviews.all|slice:":5" %}
                         <!-- Code for the cards is from is from https://getbootstrap.com/docs/5.0/components/card/ -->
                         <div class="card shadow-none">
