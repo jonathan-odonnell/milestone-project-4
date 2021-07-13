@@ -813,7 +813,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for converting a string to a date object is from [Stackabuse](https://stackabuse.com/converting-strings-to-datetime-in-python).
 - Code for removing trailing zeros from totals is from [Stack Overflow](https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros).
 - Code for prefetch related from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#prefetch-related).
-- Code for the phonenumber fields in the booking and userprofile models is from [Stack Overflow](https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models).
+- Code for the phonenumber fields in the booking and userprofile models is from [Stack Overflow](https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models) and [Github](https://github.com/stefanfoulis/django-phonenumber-field).
 - Code for passing argiments to the inline formset is from [Stack Overflow](https://stackoverflow.com/questions/23084595/basemodelformset-init-got-an-unexpected-keyword-argument) and [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/#passing-custom-parameters-to-formset-forms).
 - Code for the duration template tag is from [Stack Overflow](https://stackoverflow.com/questions/33105457/display-and-format-django-durationfield-in-template).
 - Code for calculating time between dates is from [Stack Overflow](https://stackoverflow.com/questions/151199/how-to-calculate-number-of-days-between-two-given-dates).
