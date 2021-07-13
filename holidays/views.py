@@ -215,6 +215,8 @@ def review(request, package):
 
         if form.is_valid():
             form.save()
+            messages.success(
+                request, 'Successfully added review!')
             return redirect(redirect_url or reverse(
                 'destination_details',
                 args=[holiday.region.slug, holiday.slug]))
@@ -249,8 +251,10 @@ def add_holiday(request):
 
         if form.is_valid():
             holiday = form.save()
-            feature_formset = FeaturesFormSet(request.POST, instance=holiday)
-            activity_formset = ActivitiesFormSet(request.POST, instance=holiday)
+            feature_formset = FeaturesFormSet(
+                request.POST, instance=holiday)
+            activity_formset = ActivitiesFormSet(
+                request.POST, instance=holiday)
             itinerary_formset = ItinerariesFormSet(
                 request.POST, instance=holiday)
 
