@@ -749,6 +749,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the tables is from [Bootstrap](https://getbootstrap.com/docs/5.0/content/tables/).
 - Code for switches is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/checks-radios/#switches).
 - Code for the list groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/list-group/) and [Bootstrap](https://getbootstrap.com/docs/5.0/utilities/flex/).
+- Code for the unstled lists is from [Bootstrap](https://getbootstrap.com/docs/5.0/content/typography/#unstyled).
 - Code for the toasts if from [Bootstrap](https://getbootstrap.com/docs/5.0/components/toasts/).
 - Code for the social account links styling is from [Bbbootstrap](https://bbbootstrap.com/snippets/login-form-footer-and-social-media-icons-55203607).
 - Code for the time filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#time).
