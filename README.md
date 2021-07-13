@@ -359,11 +359,16 @@ The Entity Relationship Diagram shows details of each field in each model in the
     - The booking form is clearly highlighted on the holiday details pages.
     - Here the customer can select their departure date using the datepicker and enter their departure airport and the number of guests for their booking.
 
+
+![Image of the booking page](media/user_stories/booking.png)
+
 9. As a customer, I want to be able to easily select extras and their quantities when making a booking
 
     - The extras section is clearly highlighted on the booking page.
     - Here the customer can select the extras they would like to add to their booking by changing the extra's switch to the on position.
     - The customer can increase or decrease the quantity of the extra by using the up and down arrow buttons next to the quantity input.
+
+![Image of the checkout page](media/user_stories/checkout.png)
 
 10. As a customer, I want to be able to easily enter my personal and payment information and feel that it is safe and secure.
 
