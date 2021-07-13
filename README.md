@@ -287,7 +287,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 ### Validation and Lighthouse Testing
 
-[]: # 
+<!-- Code for left aligning the table columns is from https://www.markdownguide.org/extended-syntax/ -->
 
 | Test                 | Outcome                                           |
 | :------------------- | :------------------------------------------------ |
@@ -834,6 +834,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for creating the user profile in the tests is from [Django](https://stackoverflow.com/questions/11088901/django-onetoone-reverse-access).
 - Code for the tests login is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests).
 - Code for the request factory, logging in the user and setting the session variable in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory).
+- Code for left aligning the table columns in the readme is from https://www.markdownguide.org/extended-syntax/
 
 ### Content
 
