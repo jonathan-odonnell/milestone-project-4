@@ -380,7 +380,7 @@
 
     - Outcome: Pass
 
-7. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the user and user profile databases and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
+7. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the database and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
 
     - Outcome: Pass
 
@@ -640,6 +640,32 @@
 
     - Outcome: Pass
 
+# Write Review Page
+
+1. Verify that the write review page appears as expected and looks good at all screen widths.
+
+    - Outcome: Pass
+
+2. Verify that when a user hovers over or clicks on a star, the current star and all prevoius stars change colour to gold. If the user has clicked on the star, the value of the hidden rating field should also be updated to the value of the star's rating data attribute.
+
+    - Outcome: Pass
+
+3. Verify that if the user hasn't entered a value in each field, when the add review button is clicked the form does not submit and the required input error message appears.
+
+    - Outcome: Pass
+
+4. Verify that when a user correctly enters a valid input in all fields and clicks on the add review button, the form submits, and the review is added to the database and the user is redirected to the previous page. A toast also appears informing the user that the review has been successfully added.
+
+    - Outcome: Pass
+
+5. Verify that users who are not signed in cannot access the write review page by manually typing in it's URL and are returned to the sign in page.
+
+    - Outcome: Pass
+
+6. Verify that signed in standard users who have not purchased the holiday or have already reviewed it cannot access the write review page by manually typing in it's URL and are returned to the 403 page.
+
+    - Outcome: Pass
+
 # Booking Page
 
 1. Verify that the booking page appears as expected and looks good at all screen widths.
@@ -794,7 +820,7 @@
 
     - Outcome: Pass
 
-15. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
+15. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking in the database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
 
     - Outcome: Pass
 
@@ -846,7 +872,7 @@
 
     - Outcome: Pass
 
-4. Verify that when a user correctly enters a valid input in all fields and clicks on the add extra button, the form submits, and the extra is added to the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully added.
+4. Verify that when a user correctly enters a valid input in all fields and clicks on the add extra button, the form submits, and the extra is added to the database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully added.
 
     - Outcome: Pass
 
@@ -872,7 +898,7 @@
 
     - Outcome: Pass
 
-4. Verify that when a user correctly enters a valid input in all fields and clicks on the update extra button, the form submits, and the extra is updated in the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
+4. Verify that when a user correctly enters a valid input in all fields and clicks on the update extra button, the form submits, and the extra is updated in the database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
 
     - Outcome: Pass
 
@@ -902,7 +928,7 @@
 
     - Outcome: Pass
 
-5. Enter a valid value in each field and click the send message button. Verify that the form submits, the data inputted is added to the customer contact database and the HTML is dynamically updated to show a message thanking the user for their message.
+5. Enter a valid value in each field and click the send message button. Verify that the form submits, the data inputted is added to the database and the HTML is dynamically updated to show a message thanking the user for their message.
 
     - Outcome: Pass
 
@@ -970,7 +996,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks on the add flight button, the form submits, and the flight is added to the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully added.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the add flight button, the form submits, and the flight is added to the database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully added.
 
     - Outcome: Pass
 
@@ -1008,7 +1034,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks on the update flight button, the form submits, and the flight is updated in the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully updated.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the update flight button, the form submits, and the flight is updated in the database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully updated.
 
     - Outcome: Pass
 
