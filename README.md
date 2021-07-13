@@ -287,13 +287,15 @@ The Entity Relationship Diagram shows details of each field in each model in the
 
 ### Validation and Lighthouse Testing
 
-| Test | Outcome |
-| ---- | -------|
+[]: # 
+
+| Test                 | Outcome                                           |
+| :------------------- | :------------------------------------------------ |
 | W3C Markup Validator | No errors except for the django templating syntax |
-| W3C CSS Validator | No errors |
-| PEP8 | No errors |
-| JSHint | No errors except for jQuery syntax and warnings for ES6 syntax |
-| Lighthouse | Accessibility test result was approximately 97% and performace test result was approximately 60% - 80% on each page. Opportunities for improvement include ensuring that there is a sufficient conttrast between background and foreground colours, ensuring that heading elements are in a sequentially descending order and properley sizing images. |
+| W3C CSS Validator    | No errors |
+| PEP8                 | No errors                                         |
+| JSHint               | No errors except for jQuery syntax and warnings for ES6 syntax |
+| Lighthouse           | Accessibility test result was approximately 97% and performace test result was approximately 60% - 80% on each page. Opportunities for improvement include ensuring that there is a sufficient conttrast between background and foreground colours, ensuring that heading elements are in a sequentially descending order and properley sizing images. |
 
 ### Testing User Stories from User Experience (UX) Section
 
