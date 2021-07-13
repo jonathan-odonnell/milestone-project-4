@@ -63,23 +63,24 @@
 {{ block.super }}
 <script>
     // Hides the rating field when the DOM has finished loading
-    let rating = $('input[name="rating"]').val()
+    let rating = $('input[name="rating"]').val();
     $(document).ready(function() {
-        $('#div_id_rating').addClass('d-none')
-    })
+        $('#div_id_rating').addClass('d-none');
+    });
+
     /* Changes the colour of the stars so all stars up to and including the current star are gold
     when the user hovers over a star. Code for the prevAll and nextAll JQuery methods is from 
     https://api.jquery.com/prevAll/#prevAll-selector and https://api.jquery.com/nextAll/#nextAll-selector */
     $('.rating-stars .btn').mouseenter(function () {
-        $(this).prevAll().find('i').addClass('fas').removeClass('far')
-        $(this).find('i').addClass('fas').removeClass('far')
-        $(this).nextAll().find('i').addClass('far').removeClass('fas')
-    })
+        $(this).prevAll().find('i').addClass('fas').removeClass('far');
+        $(this).find('i').addClass('fas').removeClass('far');
+        $(this).nextAll().find('i').addClass('far').removeClass('fas');
+    });
 
     // Updates the rating hidden input and the rating variable values when a star button is clicked
     $('.rating-stars .btn').click(function () {
-        $('input[name="rating"]').val($(this).data('rating'))
-        rating = $('input[name="rating"]').val()
+        $('input[name="rating"]').val($(this).data('rating'));
+        rating = $('input[name="rating"]').val();
     })
 
     /* Changes the colour of the stars so the number of stars equal to the rating are gold.
@@ -87,12 +88,12 @@
     */
     $('.rating-stars').mouseleave(function () {
         if (rating) {
-            $(this).find('i').slice(0, parseInt(rating)).addClass('fas').removeClass('far')
-            $(this).find('i').slice(parseInt(rating), 5).addClass('far').removeClass('fas')
+            $(this).find('i').slice(0, parseInt(rating)).addClass('fas').removeClass('far');
+            $(this).find('i').slice(parseInt(rating), 5).addClass('far').removeClass('fas');
         } else {
-            $(this).find('i').addClass('far').removeClass('fas')
+            $(this).find('i').addClass('far').removeClass('fas');
         }
-    })
+    });
 </script>
 {% endblock %}
 <!-- Postloadjs block end -->

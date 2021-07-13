@@ -129,7 +129,7 @@
 <script src="{% static 'js/holiday_form.js' %}"></script>
 <script type="text/javascript">
     // Amends select image button margins
-    $('.btn-file').removeClass('mt-2').addClass('mt-3')
+    $('.btn-file').removeClass('mt-2').addClass('mt-3');
 
     /* Configures jQuery formset to add rows to the activity formset.
     Code is from https://github.com/nortigo/jquery-formset */
@@ -147,7 +147,7 @@
         prefix: '{{ itinerary_formset.prefix }}',
         formCssClass: 'itinerary',
         added: editItinerary,
-    })
+    });
 </script>
 {% endblock %}
 <!-- Postloadjs block end -->
