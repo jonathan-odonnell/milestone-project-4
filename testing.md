@@ -264,7 +264,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the sign up button, the form submits, and the user is successfully registered and redirected to the verify email address page.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the sign up button, the form submits, and the user is successfully registered and redirected to the verify email address page.
 
     - Outcome: Pass
 
@@ -294,7 +294,7 @@
 
     - Outcome: Pass
 
-5. Verify that when a user correctly enters their email address and password and clicks the sign in button, the form submits, and the user is signed in and redirected to their previous page. A toast should also appear informing the user that they have been successfully signed in.
+5. Verify that when a user correctly enters their email address and password and clicks on the sign in button, the form submits, and the user is signed in and redirected to their previous page. A toast should also appear informing the user that they have been successfully signed in.
 
     - Outcome: Pass
 
@@ -346,7 +346,7 @@
 
     - Outcome: Pass
 
-6. Verify that when a user correctly enters their existing password and new password twice and clicks the change password button, the form submits, and the page reloads. A toast should also appear informing the user that their password has been successfully changed.
+6. Verify that when a user correctly enters their existing password and new password twice and clicks on the change password button, the form submits, and the page reloads. A toast should also appear informing the user that their password has been successfully changed.
 
     - Outcome: Pass
 
@@ -512,11 +512,11 @@
 
     - Outcome: Pass
 
-11. Verify that when the user clicks the plus button next to the guests input in the booking form, the guests input value is increased by one if the existing value is less than 10.
+11. Verify that when the user clicks on the plus button next to the guests input in the booking form, the guests input value is increased by one if the existing value is less than 10.
 
     - Outcome: Pass
 
-12. Verify that when the user clicks the minus button next to the guests input in the booking form, the guests input value is decreased by one if the existing value is greater than 1.
+12. Verify that when the user clicks on the minus button next to the guests input in the booking form, the guests input value is decreased by one if the existing value is greater than 1.
 
     - Outcome: Pass
 
@@ -590,7 +590,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the add holiday button, the form submits, and the holiday is added to the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully added.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the add holiday button, the form submits, and the holiday is added to the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully added.
 
     - Outcome: Pass
 
@@ -628,7 +628,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the update holiday button, the form submits, and the holiday is updated in the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully updated.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the update holiday button, the form submits, and the holiday is updated in the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully updated.
 
     - Outcome: Pass
 
@@ -650,11 +650,11 @@
 
     - Outcome: Pass
 
-3. Verify that when the user clicks the up arrow button next to the guests input, the guests input value is increased by one if the existing value is less than 10. 
+3. Verify that when the user clicks on the up arrow button next to the guests input, the guests input value is increased by one if the existing value is less than 10. 
 
     - Outcome: Pass
 
-4. Verify that when the user clicks the down arrow button next to an extra's quantity input, the guests input value is decreased by one if the existing value is greater than 1.
+4. Verify that when the user clicks on the down arrow button next to an extra's quantity input, the guests input value is decreased by one if the existing value is greater than 1.
 
     - Outcome: Pass
 
@@ -674,11 +674,11 @@
 
     - Outcome: Pass
 
-9. Verify that when the user clicks the up arrow button next to an extra's quantity input, the quantity input value is increased by one if the existing value is less than the guests value. 
+9. Verify that when the user clicks on the up arrow button next to an extra's quantity input, the quantity input value is increased by one if the existing value is less than the guests value. 
 
     - Outcome: Pass
 
-10. Verify that when the user clicks the down arrow button next to an extra's quantity input, the quantity input value is decreased by one if the existing value is greater than 1.
+10. Verify that when the user clicks on the down arrow button next to an extra's quantity input, the quantity input value is decreased by one if the existing value is greater than 1.
 
     - Outcome: Pass
 
@@ -728,7 +728,7 @@
 
     - Outcome: Pass
 
-6. Verify that when a user correctly enters a valid input in all fields and clicks the next button, the form submits, and the passenger details are added to the booking in the database and the user is redirected to the checkout page.
+6. Verify that when a user correctly enters a valid input in all fields and clicks on the next button, the form submits, and the passenger details are added to the booking in the database and the user is redirected to the checkout page.
 
     - Outcome: Pass
 
@@ -746,55 +746,67 @@
 
     - Outcome: Pass
 
-3. Verify that if the user hasn't entered a value in each field except for street address 2, when user clicks on the PayPal, Apple Pay/Google Pay or Pay button the required input error message appears.
+3. Verify that if the user is signed in, the save contact information to my profile checkbox is displayed and if the user is not signed in the create account and sign in links are displayed.
 
     - Outcome: Pass
 
-4. Verify that when the user enters an invalid email address in the email address field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the email address field.
+4. Verify that when the user clicks on the create account link, they are taken to the sign up page.
 
     - Outcome: Pass
 
-5. Verify that when the user enters a non-numerical input in the phone number field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the phone number field.
+5. Verify that when the user clicks on the sign in link, they are taken to the sign in page.
 
     - Outcome: Pass
 
-6. Verify that when the user enters an invalid phone number in the phone number field, clicks on the PayPal, Apple Pay/Google Pay or Pay button and successfully completes the payment process, the page reloads and the invalid phone number error message appears below the phone number field.
+6. Verify that if the user hasn't entered a value in each field except for street address 2, when user clicks on the PayPal, Apple Pay/Google Pay or Pay button the required input error message appears.
 
     - Outcome: Pass
 
-7. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+7. Verify that when the user enters an invalid email address in the email address field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the email address field.
 
     - Outcome: Pass
 
-8. Verify that if the user is signed in and has previously saved their card details, up to 3 saved cards are displayed above the card payment section.
+8. Verify that when the user enters a non-numerical input in the phone number field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the phone number field.
 
     - Outcome: Pass
 
-9. Verify that if the user selects a saved card, the card payment field dissapears and is replaced by the CVC field.
+9. Verify that when the user enters an invalid phone number in the phone number field, clicks on the PayPal, Apple Pay/Google Pay or Pay button and successfully completes the payment process, the page reloads and the invalid phone number error message appears below the phone number field.
 
     - Outcome: Pass
 
-10. Verify that if the user enters invalid card details or an invalid CVC number in the relevant field and clicks on the pay button, an error message is displayed below the field.
+10. Verify that when the user begins to type their address in the address field, the autocomplete populates.
 
     - Outcome: Pass
 
-11. Verify that if the Paypal or Apple Pay / Google Pay payment fails, the modal closes and the user is returned to the checkout page.
+11. Verify that if the user is signed in and has previously saved their card details, up to 3 saved cards are displayed above the card payment section.
 
     - Outcome: Pass
 
-12. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
+12. Verify that if the user selects a saved card, the card payment field dissapears and is replaced by the CVC field.
 
     - Outcome: Pass
 
-13. Verify that if the user is signed in and checks the save contact information to my profile checkbox, their phone number and address are saved to their profile.
+13. Verify that if the user enters invalid card details or an invalid CVC number in the relevant field and clicks on the pay button, an error message is displayed below the field.
 
     - Outcome: Pass
 
-14. Verify that if the user is signed in and checks the save card to my profile checkbox, their card details are saved to their stripe account and they appear as a saved card the next time they access the checkout page.
+14. Verify that if the Paypal or Apple Pay / Google Pay payment fails, the modal closes and the user is returned to the checkout page.
 
     - Outcome: Pass
 
-15. Verify that users cannot access the checkout page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
+15. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
+
+    - Outcome: Pass
+
+16. Verify that if the user is signed in and checks the save contact information to my profile checkbox, their phone number and address are saved to their profile.
+
+    - Outcome: Pass
+
+17. Verify that if the user is signed in and checks the save card to my profile checkbox, their card details are saved to their stripe account and they appear as a saved card the next time they access the checkout page.
+
+    - Outcome: Pass
+
+18. Verify that users cannot access the checkout page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
 
     - Outcome: Pass
 
@@ -834,7 +846,7 @@
 
     - Outcome: Pass
 
-4. Verify that when a user correctly enters a valid input in all fields and clicks the add extra button, the form submits, and the extra is added to the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully added.
+4. Verify that when a user correctly enters a valid input in all fields and clicks on the add extra button, the form submits, and the extra is added to the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully added.
 
     - Outcome: Pass
 
@@ -860,7 +872,7 @@
 
     - Outcome: Pass
 
-4. Verify that when a user correctly enters a valid input in all fields and clicks the update extra button, the form submits, and the extra is updated in the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
+4. Verify that when a user correctly enters a valid input in all fields and clicks on the update extra button, the form submits, and the extra is updated in the extra database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
 
     - Outcome: Pass
 
@@ -904,7 +916,7 @@
 
     - Outcome: Pass
 
-3. Verify that when the user clicks the add flight link, they are taken to the add flight page.
+3. Verify that when the user clicks on the add flight link, they are taken to the add flight page.
 
     - Outcome: Pass
 
@@ -958,7 +970,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the add flight button, the form submits, and the flight is added to the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully added.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the add flight button, the form submits, and the flight is added to the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully added.
 
     - Outcome: Pass
 
@@ -996,7 +1008,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks the update flight button, the form submits, and the flight is updated in the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully updated.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the update flight button, the form submits, and the flight is updated in the flights database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully updated.
 
     - Outcome: Pass
 
