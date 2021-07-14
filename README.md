@@ -742,6 +742,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the navbar is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/navbar/).
 - Code for the form input groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/input-group/).
 - Code for making the back to top button appear when the user scrolls is from [Codepen](https://codepen.io/deveb22/pen/QxPmGz).
+- Code for the back to top button smooth scroll is from [Stack Overflow](https://stackoverflow.com/questions/15935318/smooth-scroll-to-top).
 - Code for the insertBefore jQuery method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
 - Code for the jQuery insertAfter method is from [jQuery](https://api.jquery.com/insertAfter/#insertBefore-target).
 - Code for the hero image carousel and the sliders is from [Ken Wheeler](https://kenwheeler.github.io/slick/).
