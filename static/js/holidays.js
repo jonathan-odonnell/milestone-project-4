@@ -52,7 +52,7 @@ each jQuery method is from https://api.jquery.com/each/#each-function and code f
 browser's session history is from https://developer.mozilla.org/en-US/docs/Web/API/History/pushState */
 
 $('#category-filters a').on('click', function () {
-    $(this).find('span').toggleClass('bg-primary text-dark');
+    $(this).find('span').toggleClass('bg-primary text-black');
     let categories = [];
     let currentUrl = new URL(window.location);
     currentUrl.searchParams.delete('page');
@@ -81,7 +81,7 @@ code for the each jQuery method is from https://api.jquery.com/each/#each-functi
 entry to the  browser's session history is from https://developer.mozilla.org/en-US/docs/Web/API/History/pushState */
 
 $('#country-filters a').on('click', function () {
-    $(this).find('span').toggleClass('bg-primary text-dark');
+    $(this).find('span').toggleClass('bg-primary text-black');
     let countries = [];
     let currentUrl = new URL(window.location);
     currentUrl.searchParams.delete('page');

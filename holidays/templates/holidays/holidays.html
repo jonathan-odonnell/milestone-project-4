@@ -64,8 +64,8 @@
                         <a class="text-decoration-none mx-1" href="javascript:void(0)">
                             {% if country|lower in current_countries %}
                             <span class="badge bg-primary border p-2 my-1">
-                                {% else %}
-                                <span class="badge bg-light text-dark border p-2 my-1">{% endif %}{{ country }}</span>
+                            {% else %}
+                            <span class="badge bg-light text-black border p-2 my-1">{% endif %}{{ country }}</span>
                         </a>
                         {% endfor %}
                     </div>
@@ -78,7 +78,7 @@
                             {% if category|lower in current_categories %}
                             <span class="badge bg-primary border p-2 my-1">
                             {% else %}
-                            <span class="badge bg-light text-dark border p-2 my-1">{% endif %}{{ category }}</span>
+                            <span class="badge bg-light text-black border p-2 my-1">{% endif %}{{ category }}</span>
                         </a>
                         {% endfor %}
                     </div>
