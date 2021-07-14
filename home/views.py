@@ -22,7 +22,7 @@ def index(request):
     ]
 
     holidays = Package.objects.filter(name__in=holidays)
-    offers = Package.objects.filter(name__in=offers)
+    offers = Package.objects.filter(name__in=offers, offer=True)
 
     template = 'home/index.html'
     context = {
