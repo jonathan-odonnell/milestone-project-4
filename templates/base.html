@@ -223,8 +223,8 @@
                                     <a href="{% url 'categories' 'city-breaks' %}">City Breaks</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'categories' 'resort' %}">Resort</a><
-                                        /li>
+                                    <a href="{% url 'categories' 'resort' %}">Resort</a>
+                                </li>
                                 {% if request.user.is_authenticated and not request.user.is_superuser %}
                                 <li>
                                     <a href="{% url 'categories' 'offers' %}">Offers</a>
