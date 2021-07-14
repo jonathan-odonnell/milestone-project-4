@@ -815,7 +815,8 @@ input[name="quantity"]::-webkit-inner-spin-button {
 }
 
 #flights-table a {
-    width: 48%
+    width: 48%;
+    display: inline-block;
 }
 
 /* Flights Table End */
@@ -865,9 +866,6 @@ footer .small {
     #popular-holidays img,
     .holiday-card img {
         height: 12rem;
-    }
-    #flights-table tr td:last-of-type {
-        min-width: 0;
     }
 }
 
