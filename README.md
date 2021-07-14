@@ -835,6 +835,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for the tests login is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests).
 - Code for the request factory, logging in the user and setting the session variable in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory).
 - Code for left aligning the table columns in the readme is from [Markdown Guide](https://www.markdownguide.org/extended-syntax/).
+- Code for serving the Apple Pay domain association file is from [Stack Overflow](https://stackoverflow.com/questions/67960604/ios-universal-link-django-python-support).
 
 ### Content
 
