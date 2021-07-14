@@ -63,9 +63,10 @@
                         {% for country in countries %}
                         <a class="text-decoration-none mx-1" href="javascript:void(0)">
                             {% if country|lower in current_countries %}
-                            <span class="badge bg-primary border p-2 my-1">
+                            <span class="badge bg-primary border p-2 my-1">{{ country }}</span>
                             {% else %}
-                            <span class="badge bg-light text-black border p-2 my-1">{% endif %}{{ country }}</span>
+                            <span class="badge bg-light text-black border p-2 my-1">{{ country }}</span>
+                            {% endif %}
                         </a>
                         {% endfor %}
                     </div>
@@ -76,9 +77,10 @@
                         {% for category in categories %}
                         <a class="text-decoration-none mx-1" href="javascript:void(0)">
                             {% if category|lower in current_categories %}
-                            <span class="badge bg-primary border p-2 my-1">
+                            <span class="badge bg-primary border p-2 my-1">{{ category }}</span>
                             {% else %}
-                            <span class="badge bg-light text-black border p-2 my-1">{% endif %}{{ category }}</span>
+                            <span class="badge bg-light text-black border p-2 my-1">{{ category }}</span>
+                            {% endif %}
                         </a>
                         {% endfor %}
                     </div>
