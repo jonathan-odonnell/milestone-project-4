@@ -341,9 +341,10 @@
             }
         });
 
-        // Scrolls to the top of the page when the back to top button is clicked
+        /* Scrolls to the top of the page when the back to top button is clicked.
+        Code is from https://stackoverflow.com/questions/15935318/smooth-scroll-to-top */
         $('.top-btn').click(function () {
-            window.scrollTo(0, 0);
+            window.scrollTo({top: 0, behavior: 'smooth'});
         });
 
         // Shows the toasts when the DOM has finished loading
