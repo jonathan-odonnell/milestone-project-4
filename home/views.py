@@ -42,3 +42,15 @@ def newsletter(request):
     sign_up = NewsletterSignUp(email=request.POST['newsletter'])
     sign_up.save()
     return HttpResponse(status=200)
+
+
+def apple_pay_domain_association(request):
+    """
+    A view to serve the apple pay domain association file. Code is from
+    https://stackoverflow.com/questions/67960604/ios-universal-link-django-python-support
+    """
+    with open(
+        './static/apple-developer-merchantid-domain-association',
+            'r') as file:
+        data = file.read()
+    return HttpResponse(content=data)
