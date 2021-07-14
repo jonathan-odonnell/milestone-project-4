@@ -190,8 +190,8 @@ PHONENUMBER_DEFAULT_REGION = 'GB'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/site/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'site')
 
 # AWS Configuration
 if 'USE_AWS' in os.environ:
