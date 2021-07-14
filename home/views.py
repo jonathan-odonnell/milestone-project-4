@@ -44,13 +44,13 @@ def newsletter(request):
     return HttpResponse(status=200)
 
 
-def apple_pay_domain_association(request):
+def apple_pay_domain_association(request, path):
     """
     A view to serve the apple pay domain association file. Code is from
     https://stackoverflow.com/questions/67960604/ios-universal-link-django-python-support
     """
     with open(
-        './static/apple-developer-merchantid-domain-association',
+        f'./static/{path}',
             'r') as file:
         data = file.read()
     return HttpResponse(content=data)
