@@ -224,7 +224,7 @@ if 'USE_AWS' in os.environ:
 OFFER_AMOUNT = 100
 PROMO_CODE = 'HOLIDAY100'
 OFFER_DESTINATION_1 = 'Chicago'
-OFFER_DESTINATION_2 = 'Fethiye'
+OFFER_DESTINATION_2 = 'Lagos'
 OFFER_DESTINATION_3 = 'Singapore'
 
 # Popular Destinations
