@@ -130,7 +130,7 @@ class TestHolidaysViews(TestCase):
         https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
         """
         response = self.client.get(
-            f'/holidays/destinations/\
+            f'/holidays/filter/destinations/\
                 {self.holiday.region.slug}/?sort=price&direction=asc',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
@@ -145,7 +145,7 @@ class TestHolidaysViews(TestCase):
         https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
         """
         response = self.client.get(
-            f'/holidays/{self.holiday.category.slug}/?countries=usa',
+            f'/holidays/filter/{self.holiday.category.slug}/?countries=usa',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -159,7 +159,7 @@ class TestHolidaysViews(TestCase):
         https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
         """
         response = self.client.get(
-            f'/holidays/destinations/\
+            f'/holidays/filter/destinations/\
                 {self.holiday.region.slug}/?categories=city-breaks',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
