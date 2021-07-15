@@ -487,7 +487,7 @@ Details of the manual testing carried out can be viewed [here](testing.md).
 ### Fixed Bugs
 
 1. Many to Many fields in the Package form were not saving
-    - Fixed an error in the code.
+    - Refactored code to avoid using using commit=False when saving the form.
 
 2. Non UK addresses were being populated to the wrong form fields by the address autocomplete
     - Restricted the autocomplete to UK addresses
