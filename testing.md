@@ -98,7 +98,7 @@
 
     - Outcome: Pass
 
-## Footer
+# Footer
 
 1. Scroll down to the footer and verify that it appears with the content in two columns and looks good.
 
@@ -140,7 +140,7 @@
 
     - Outcome: Pass
 
-11.  Verify that when a standard user is signed in, the bookings link appears and verify that it takes the user to the bookings page.
+11. Verify that when a standard user is signed in, the bookings link appears and verify that it takes the user to the bookings page.
 
     - Outcome: Pass
 
@@ -156,7 +156,7 @@
 
     - Outcome: Pass
 
-15.  Enter a valid value in the newsletter sign up field and click the arrow button. Verify that the form submits, the email address is added to the database and the HTML is dynamically updated to show a message thanking the user for signing up to the newsletter.
+15. Enter a valid value in the newsletter sign up field and click the arrow button. Verify that the form submits, the email address is added to the database and the HTML is dynamically updated to show a message thanking the user for signing up to the newsletter.
 
     - Outcome: Pass
 
