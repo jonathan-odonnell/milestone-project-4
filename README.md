@@ -776,6 +776,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the datepicker and datetimepicker max date is from [Gijgo](https://gijgo.com/datepicker/configuration/maxDate).
 - Code for the datetimepicker configuration is from [Gijgo](https://gijgo.com/datetimepicker/) and [Gijgo](https://gijgo.com/datetimepicker/configuration).
 - Code for the datepicker configuration is from [Gijgo](https://gijgo.com/datepicker/) and [Gijgo](https://gijgo.com/datepicker/configuration).
+- Code for updating a URL object's pathname is from [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/URL/pathname).
 - Code for adding a new entry to the browser's session history is from [Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState).
 - Code for the delegated target jQuery is from [jQuery](https://api.jquery.com/event.delegateTarget/#event-delegateTarget1).
 - Code for the toggleClass jQuery method is from [jQuery](https://api.jquery.com/toggleClass/#toggleClass1).
