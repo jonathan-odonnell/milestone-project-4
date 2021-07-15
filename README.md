@@ -862,7 +862,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Information in the Toronto itinerary was from [Destination Toronto](https://www.destinationtoronto.com).
 - The information in the Toronto itinerary was from [Visit Montréal](https://www.mtl.org).
 - The information in the Toronto itinerary was from [Tourism Vancouver](https://www.tourismvancouver.com).
-- The information in the Miami activities was from[Miami and Miami Beach Guide](https://www.miamiandbeaches.com).
+- The information in the Miami activities was from [Miami and Miami Beach Guide](https://www.miamiandbeaches.com).
 - The information in the New York itinerary was from [Visit the USA](https://www.visittheusa.co.uk/destination/new-york-city) and [The Travel](https://www.thetravel.com/10-day-itinerary-new-york).
 - The information in the Hawaii activities was from [Go Hawaii](https://www.gohawaii.com).
 - The information in the Los Angeles itinerary was from [Discover Los Angeles](https://www.discoverlosangeles.com).
@@ -884,6 +884,8 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - The information in the Tasmania itinerary was from [Discover Tasmania](https://www.discovertasmania.com.au).
 - The information in the Victoria itinerary was from [Visit Victoria](https://www.visitvictoria.com/) and [Adventure Tours](https://www.adventuretours.travel/uk/great-ocean-road/).
 - The information in the Queensland itinerary was from [Welcome to Travel](https://welcometo.travel/tours/east-coast-the-mid-semester/).
+- The information in the Lefkas activities was from [Greeka](https://www.greeka.com/).
+- The information in the Zante activities was from [Visit Greece](http://www.visitgreece.gr/en/).
 - The reviews were from [Jet2](https://www.jet2.com) and [Trip Advisor](https://www.tripadvisor.co.uk).
 
 ### Media
