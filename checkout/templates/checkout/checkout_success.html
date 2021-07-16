@@ -147,11 +147,12 @@
                         <div class="col-3">
                             <img class="img-fluid" src="{{ booking.package.image.url }}" alt="Image of {{ booking.package.name }}">
                         </div>
+                        <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <div class="col-9 ps-3 text-end">
                             <p class="small text-black font-weight-bold mb-0">{{ booking.package.name }}</p>
                             <p class="small mb-0">{{ booking.package.duration }} Nights</p>
                             <p class="small mb-0">{{ booking.package.catering }}</p>
-                            <p class="small mb-0">{{ booking.guests }} x £{{ booking.package.price }}</p>
+                            <p class="small mb-0">{{ booking.guests }} x £{{ booking.package.price|floatformat:"-2" }}</p>
                         </div>
                     </div>
                 </div>
@@ -173,9 +174,10 @@
                         <div class="col-3">
                             <img class="img-fluid" src="{{ extra.extra.image.url }}" alt="Image of {{ extra.extra.name }}">
                         </div>
+                        <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                         <div class="col-9 ps-3 text-end">
                             <p class="small text-black font-weight-bold mb-0">{{ extra.extra.name }}</p>
-                            <p class="small mb-0">{{ extra.quantity }} x £{{ extra.total }}</p>
+                            <p class="small mb-0">{{ extra.quantity }} x £{{ extra.total|floatformat:"-2" }}</p>
 
                         </div>
                     </div>
