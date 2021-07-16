@@ -497,13 +497,10 @@ input[name="quantity"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.form-check-input[type=checkbox]:checked {
+.form-check-input[type=checkbox]:checked,
+.form-check-input[type=checkbox]:checked:focus {
     background-color: #70c8df;
     border-color: #70c8df;
-}
-
-.form-switch .form-check-input[type=checkbox]:checked {
-    background-color: #70c8df;
 }
 
 .form-switch .form-check-input:checked[type=checkbox]:after {
@@ -529,7 +526,8 @@ input[name="quantity"]::-webkit-inner-spin-button {
     border-color: #dc3545;
 }
   
-.delete-check .form-check-input:checked {
+.delete-check .form-check-input:checked,
+.delete-check .form-check-input:checked:focus {
     background-color: #dc3545;
     border-color: #dc3545;
 }
