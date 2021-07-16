@@ -512,11 +512,11 @@
 
     - Outcome: Pass
 
-11. Verify that when the user clicks on the plus button next to the guests input in the booking form, the guests input value is increased by one if the existing value is less than 10.
+11. Verify that when the user clicks on the plus button next to the guests input in the trip booking form, the guests input value is increased by one if the existing value is less than 10.
 
     - Outcome: Pass
 
-12. Verify that when the user clicks on the minus button next to the guests input in the booking form, the guests input value is decreased by one if the existing value is greater than 1.
+12. Verify that when the user clicks on the minus button next to the guests input in the trip booking form, the guests input value is decreased by one if the existing value is greater than 1.
 
     - Outcome: Pass
 
@@ -528,7 +528,7 @@
 
     - Outcome: Pass
 
-15. Enter a valid value in each field in the booking form and click the book trip button. Verify that the form submits, the booking is added to the database and the user is redirected to the booking page.
+15. Enter a valid value in each field in the trip booking form and click the book trip button. Verify that the form submits, the booking is added to the database and the user is redirected to the booking page.
 
     - Outcome: Pass
 
