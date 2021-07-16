@@ -352,6 +352,13 @@
                     </li>
                     {% endwith %}
                     <!-- Return flight list item end -->
+                    <!-- Transfers list item start -->
+                    <li id="transfers" class="list-group-item d-flex justify-content-between">
+                        <span class="my-0">Transfers</span>
+                        <span class="my-0">{% if holiday.transfers_included == True %}Included{% else %}
+                            Not Included{% endif %}</span>
+                    </li>
+                    <!-- Transfers list item end -->
                     <!-- Subtotal list item start -->
                     {% if booking.subtotal != booking.grand_total %}
                     <li id="subtotal" class="list-group-item d-flex justify-content-between">
@@ -370,13 +377,6 @@
                     </li>
                     {% endif %}
                     <!-- Extras total list item end -->
-                    <!-- Transfers list item start -->
-                    <li id="transfers" class="list-group-item d-flex justify-content-between">
-                        <span class="my-0">Transfers</span>
-                        <span class="my-0">{% if holiday.transfers_included == True %}Included{% else %}
-                            Not Included{% endif %}</span>
-                    </li>
-                    <!-- Transfers list item end -->
                     <!-- Discount list item start -->
                     {% if booking.discount %}
                     <li id="discount" class="list-group-item d-flex justify-content-between">
