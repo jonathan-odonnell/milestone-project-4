@@ -659,8 +659,9 @@ The project's media and static files were stored in an Amazon Web Services S3 bu
 63. Select the "I understand the risk of granting public access to the specified objects" checkbox and click on the "upload" button.
 ![Image of the upload page](media/deployment/aws_63.png)
 64. Run the command ```pip3 install boto3``` and ```pip3 install django-storages``` in the terminal to install the neccessary packages to connect to the Amazon Web Services s3 bucket.
-65. Add "storages" to installed apps and add the Amazon Web Services s3 bucket settings to the static and media settings in settings.py
-66. Commit these changes to GitHub.
+65. Add "storages" to installed apps and add the Amazon Web Services s3 bucket settings to the static files and media files settings in settings.py
+66. Add the custom_storages.py file to set the static files and media files storage locations in the relevant s3boto3 storage classes.
+67. Commit these changes to GitHub.
 
 ### Heroku
 
@@ -680,29 +681,30 @@ The project was deployed to Heroku using the following steps:
 ![Image of the add-ons page](media/deployment/heroku_6.png)
 7. Make sure the plan name is set to "hobby dev - free" and click the "provision" button.
 ![Image of the order modal](media/deployment/heroku_7.png)
-8. Run the commands ```pip3 install dj_database_url``` and ```pip3 install psycopg2```in the terminal to install the neccessary packages to connect to the heroku database.
-9. Add the heroku database settings to settings.py
-10. Run the command ```python3 manage.py migrate``` in the terminal to migrate the models to the database.
-11. Run the command ```python3 manage.py createsuperuser``` in the terminal and enter a username, email address and password for the superuser.
-12. Run the command ```pip3 install gunicorn``` in the terminal to install the gunicorn web server.
-13. Run the command ```pip3 freeze > requirements.txt``` in the terminal and press enter to create the requirements.txt file.
-14. Run the command ``echo web: gunicorn go_explore.wsgi:application > Procfile`` in the terminal and press enter to create the procfile.
-15. Commit these changes to GitHub.
-16. In Heroku, click on the "deploy" tab
+8. Run the command ```python3 manage.py dumpdata --exclude auth.permission --exclude contenttypes > db.json``` in the terminal to backup the local database and load it into a db.json file.
+9. Run the commands ```pip3 install dj_database_url``` and ```pip3 install psycopg2```in the terminal to install the neccessary packages to connect to the heroku database.
+10. Add the heroku database settings to settings.py and commit the changes to github.
+11. Run the command ```python3 manage.py migrate``` in the terminal to migrate the models to the database.
+12. Run the command ```python3 manage.py loaddata db.json``` in the terminal to load the data from the db.json file into the postgres database.
+13. Run the command ```python3 manage.py createsuperuser``` in the terminal and enter a username, email address and password for the superuser.
+14. Run the command ```pip3 install gunicorn``` in the terminal to install the gunicorn web server.
+15. Run the command ```pip3 freeze > requirements.txt``` in the terminal and press enter to create the requirements.txt file and commit these changes to GitHub.
+16. Run the command ``echo web: gunicorn go_explore.wsgi:application > Procfile`` in the terminal and press enter to create the procfile and commit these changes to GitHub.
+17. In Heroku, click on the "deploy" tab
 ![Image of the deploy tab](media/deployment/heroku_8.png)
-17. Scroll down to the "deployment method" section and click on the "connect to GitHub" button
+18. Scroll down to the "deployment method" section and click on the "connect to GitHub" button
 ![Image of the deployment method section](media/deployment/heroku_9.png)
-18. Enter the project's GitHub repository name in the repo-name field and click the "search" button.
+19. Enter the project's GitHub repository name in the repo-name field and click the "search" button.
 ![Image of the connect to GitHub section](media/deployment/heroku_10.png)
-19. Click the "connect" button next to the GitHub repository.
+20. Click the "connect" button next to the GitHub repository.
 ![Image of the connect button](media/deployment/heroku_11.png)
-20. Scroll down to the automatic deploys section and click the "enable automatic deploys" button.
+21. Scroll down to the automatic deploys section and click the "enable automatic deploys" button.
 ![Image of the enable automatic deploys section](media/deployment/heroku_12.png)
-21. Scroll back up to the top of the page and click the "settings" tab.
+22. Scroll back up to the top of the page and click the "settings" tab.
 ![Image of the settings tab](media/deployment/heroku_13.png)
-22. Scroll down to the convig vars section and click the "reveal config vars" button.
+23. Scroll down to the convig vars section and click the "reveal config vars" button.
 ![Image of the config variables section](media/deployment/heroku_14.png)
-23. For each of the AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY,EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, GOOGLE_PLACES_KEY, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET and USE_AWS, enter the key and value and click the "add" button.
+24. For each of the AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY,EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, GOOGLE_PLACES_KEY, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET, SECRET_KEY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_WH_SECRET and USE_AWS, enter the key and value and click the "add" button.
 ![Image of the config variables](media/deployment/heroku_15.png)
 
 More information about deploying a website to Heroku is available [here](https://devcenter.heroku.com/categories/deployment).
