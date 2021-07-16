@@ -12,8 +12,9 @@ class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         """
         Adds address field, placeholders and classes, removes the
-        labels and changes the phone number field widget to a number input.
-        Code for setting the field_class and label_class is from
+        labels and changes the phone number field widget to a number input
+        and sets the min and max attributes. Code for setting the field_class
+        and label_class is from
         https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
         """
         super().__init__(*args, **kwargs)
@@ -35,6 +36,8 @@ class UserProfileForm(forms.ModelForm):
         self.fields['email_address'] = forms.EmailField(required=True)
         self.fields['address'] = forms.CharField(required=False)
         self.fields['phone_number'].widget = forms.NumberInput()
+        self.fields['phone_number'].widget.attrs['min'] = '01000000000'
+        self.fields['phone_number'].widget.attrs['max'] = '09999999999'
         for field in self.fields:
             if field != 'country':
                 placeholder = placeholders[field]
