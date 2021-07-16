@@ -59,11 +59,14 @@ def checkout(request):
     if not booking.booking_passengers.all():
         return redirect(reverse('passengers'))
 
+    # Gets the user profile if the user is signed in
+    if request.user.is_authenticated:
+        profile = UserProfile.objects.get(user=request.user)
+
     if request.method == 'POST':
         save_info = 'save_info' in request.POST
         stripe_pid = request.POST['client_secret'].split('_secret')[0]
         paypal_pid = request.POST['paypal_pid']
-        stripe.api_key = settings.STRIPE_SECRET_KEY
 
         # Saves the checkout form if it is valid
         form_data = {
@@ -93,7 +96,6 @@ def checkout(request):
                 booking.paid = True
 
             if request.user.is_authenticated:
-                profile = UserProfile.objects.get(user=request.user)
                 booking.user_profile = profile
                 booking.save()
 
@@ -134,17 +136,7 @@ def checkout(request):
                 Please double check your information.')
 
     else:
-        total = booking.grand_total
-        stripe_total = round(total * 100)
-        stripe.api_key = stripe_secret_key
-
         if request.user.is_authenticated:
-            """
-            Creates a booking form filled in with the user's profile data
-            and a new payment intent with their customer id attached. Code
-            is from https://stripe.com/docs/payments/save-during-payment
-            """
-            profile = UserProfile.objects.get(user=request.user)
             checkout_form = CheckoutForm(initial={
                 'full_name': profile.user.get_full_name(),
                 'email': profile.user.email,
@@ -157,32 +149,38 @@ def checkout(request):
                 'postcode': profile.postcode,
             })
 
-            intent = stripe.PaymentIntent.create(
-                amount=stripe_total,
-                currency=settings.STRIPE_CURRENCY,
-                customer=profile.stripe_customer_id
-            )
-
         else:
-            """
-            Creates an empty booking form and a new payment intent
-            with no customer id attached
-            """
             checkout_form = CheckoutForm()
-            intent = stripe.PaymentIntent.create(
-                amount=stripe_total,
-                currency=settings.STRIPE_CURRENCY
-            )
 
-    """
-    Gets up to 3 of the customer's latest saved cards if they are logged in.
-    Code is from https://stripe.com/docs/api/cards/list
-    """
+    total = booking.grand_total
+    stripe_total = round(total * 100)
+    stripe.api_key = stripe_secret_key
+
     if request.user.is_authenticated:
+        """
+        Creates a new payment intent with their customer id attached and gets
+        up to  of the customer's latest saved cards if they are logged in.
+        Code is from https://stripe.com/docs/payments/save-during-payment and
+        https://stripe.com/docs/api/cards/list
+        """
+
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+            customer=profile.stripe_customer_id
+        )
+
         cards = stripe.PaymentMethod.list(
             customer=profile.stripe_customer_id,
             type="card",
             limit=3
+        )
+
+    else:
+        # Creates a new payment intent
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY
         )
 
     context = {
