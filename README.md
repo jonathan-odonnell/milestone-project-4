@@ -879,7 +879,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - The information in the Zermatt activities was from [Matterhorn Paradise](https://www.matterhornparadise.ch/en/) and [Crystal Ski](https://www.crystalski.co.uk/ski-resorts/switzerland-ski-holidays/zermatt/).
 - The information in the Milan itinerary was from [Yes Milan](https://www.yesmilano.it/en/).
 - The information in the New Zealand itineraries was from [New Zealand Travel](https://www.newzealand.com).
-- The information in the New Zealand itineraries was from [Visit Australia](https://www.australia.com).
+- The information in the Australia itineraries was from [Visit Australia](https://www.australia.com).
 - The information in the New South Wales itinerary was from [Visit New South Wales](https://www.visitnsw.com/).
 - The information in the Singapore itinerary was from [Visit Singapore](https://www.visitsingapore.com).
 - The information in the Northern Territory and North Island itineraries was from [Ultimate Travel](https://www.ultimate.travel/australia-tour-packages/red-centre-tour/).
