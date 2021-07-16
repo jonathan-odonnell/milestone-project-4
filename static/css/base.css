@@ -653,14 +653,6 @@ input[name="quantity"]::-webkit-inner-spin-button {
     color: #4a4a4a;
 }
 
-.booking-form h2 {
-    font-size: 1.5rem;
-}
-
-.booking-heading {
-    font-weight: bold;
-}
-
 .itinerary-item:after {
     content: '';
     display: block;
