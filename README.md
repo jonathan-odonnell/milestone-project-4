@@ -759,6 +759,7 @@ More information about making a local clone of a GitHub repository is available 
 
 - Code for the navbar is from [Bootstrap](https://getbootstrap.com/docs/5.0/components/navbar/).
 - Code for the form input groups is from [Bootstrap](https://getbootstrap.com/docs/5.0/forms/input-group/).
+- Code for the newsletter sign up input pattern attribute is from [w3schools](https://www.w3schools.com/tags/att_input_pattern.asp).
 - Code for making the back to top button appear when the user scrolls is from [Codepen](https://codepen.io/deveb22/pen/QxPmGz).
 - Code for scrolling back to the top of the page using jQuery animate [Stack Overflow](https://stackoverflow.com/questions/16334874/scroll-to-top-of-the-page-using-jquery-animate).
 - Code for the insertBefore jQuery method is from [jQuery](https://api.jquery.com/insertBefore/#insertBefore-target).
@@ -834,6 +835,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for removing trailing zeros from totals is from [Stack Overflow](https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros).
 - Code for prefetch related from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#prefetch-related).
 - Code for the phonenumber fields in the booking and userprofile models is from [Stack Overflow](https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models) and [Github](https://github.com/stefanfoulis/django-phonenumber-field).
+- Code for the phonenumber field pattern attribute is adapted from [Stack Overflow](https://stackoverflow.com/questions/19611599/html5-phone-number-validation-with-pattern).
 - Code for passing argiments to the inline formset is from [Stack Overflow](https://stackoverflow.com/questions/23084595/basemodelformset-init-got-an-unexpected-keyword-argument) and [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/#passing-custom-parameters-to-formset-forms).
 - Code for the duration template tag is from [Stack Overflow](https://stackoverflow.com/questions/33105457/display-and-format-django-durationfield-in-template).
 - Code for calculating time between dates is from [Stack Overflow](https://stackoverflow.com/questions/151199/how-to-calculate-number-of-days-between-two-given-dates).
