@@ -52,11 +52,11 @@
         </div>
         <!-- Booking summary end -->
         <!-- Form start -->
-        <div class="col-12 col-lg-6 mt-4 mt-lg-0">
+        <div class="col-12 col-lg-6 mt-4 mt-lg-0 px-3">
             <form action="{% url 'checkout' %}" method="POST" id="payment-form">
                 {% csrf_token %}
                 <!-- Booking contact fieldset start -->
-                <fieldset class="rounded px-3">
+                <fieldset class="mb-2">
                     <legend class="section-subheading">Booking Contact</legend>
                     {{ checkout_form.full_name | as_crispy_field }}
                     {{ checkout_form.email | as_crispy_field }}
@@ -64,7 +64,7 @@
                 </fieldset>
                 <!-- Booking contact fieldset end -->
                 <!-- Address fieldset start -->
-                <fieldset id="address" class="rounded px-3 mt-2">
+                <fieldset id="address" class="mb-4">
                     <legend class="section-subheading">Address</legend>
                     {{ checkout_form.address | as_crispy_field }}
                     {{ checkout_form.street_address1 | as_crispy_field }}
@@ -88,25 +88,25 @@
                 </fieldset>
                 <!-- Address fieldset start -->
                 <!-- Express payment fieldset start -->
-                <fieldset class="rounded px-3 mt-4">
+                <fieldset class="mb-2">
                     <legend class="section-subheading">Express Payment</legend>
-                    <div id="paypal" class="mb-3">
+                    <div class="mb-3" id="paypal">
                         <!-- paypal.js injects the PayPal smart button here -->
                     </div>
                     <div class="mb-3" id="payment-request-button">
                         <!-- stripe.js injects the payment request button here -->
                     </div>
-                    <div class="mb-3 text-danger" id="payment-request-button-errors" role="alert">
+                    <div id="payment-request-button-errors" class="text-danger mb-3" role="alert">
                         <!-- Used to display payment request button errors -->
                     </div>
                 </fieldset>
                 <!-- Express payment fieldset end -->
                 <!-- Card payment fieldset start -->
-                <fieldset class="rounded px-3">
+                <fieldset class="mb-4">
                     <legend class="section-subheading">Card Payment</legend>
                     <!-- Saved cards start -->
                     {% if cards %}
-                    <div class="pb-3">
+                    <div class="mb-4">
                         {% for card in cards.data %}
                         <div id="saved-cards" class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="{{card.id}}" name="card" value="True">
@@ -122,12 +122,12 @@
                     <div id="card-element" class="mb-3">
                         <!-- stripe.js injects the card element here -->
                     </div>
-                    <div class="mb-3 text-danger" id="card-errors" role="alert">
+                    <div id="card-errors" class="text-danger mb-3" role="alert">
                         <!-- Used to display card errors -->
                     </div>
                     <!-- Save card checkbox is displayed for signed in users -->
                     {% if user.is_authenticated %}
-                    <div class="form-check mb-3">
+                    <div class="form-check">
                         <label class="form-check-label" for="id_save_card">Save card to my
                             profile</label>
                         <input class="form-check-input" type="checkbox" id="id_save_card" name="save_card"
@@ -137,7 +137,7 @@
                 </fieldset>
                 <!-- Card payment fieldset start -->
                 <!-- Pay button start -->
-                <div class="px-3 my-3">
+                <div class="mb-2">
                     <button id="payment-btn" class="btn btn-lg btn-primary" type="submit">
                         <div class="spinner d-none" id="spinner"></div>
                         <span id="button-text"><i class="fas fa-lock me-2" aria-hidden="true"></i>Pay</span>
