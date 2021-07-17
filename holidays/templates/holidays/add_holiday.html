@@ -45,8 +45,8 @@
                         {{feature_formset.management_form}}
                     </div>
                     {% for form in feature_formset %}
-                    <div class="feature">
-                        <legend class="section-subheading">Feature 1</legend>
+                    <div class="feature mb-4">
+                        <legend class="section-subheading">Feature {{ forloop.counter }}</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
                         {% endfor %}
@@ -61,7 +61,7 @@
                         {{activity_formset.management_form}}
                     </div>
                     {% for form in activity_formset %}
-                    <div class="activity">
+                    <div class="activity mb-4">
                         <legend class="section-subheading">Activity 1</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
@@ -78,7 +78,7 @@
                         {{itinerary_formset.management_form}}
                     </div>
                     {% for form in itinerary_formset %}
-                    <div class="itinerary">
+                    <div class="itinerary mb-4">
                         <legend class="section-subheading">Itinerary 1</legend>
                         {% for hidden in form.hidden_fields %}
                         {{ hidden }}
@@ -91,7 +91,7 @@
                 </fieldset>
                 <!-- Itineraries fieldset end -->
                 <!-- Buttons start -->
-                <div class="text-center mt-3 mb-2">
+                <div class="text-center">
                     <button id="back" class="btn btn-primary btn-holidays mx-2 d-none" type="button">
                         <i class="fas fa-chevron-left me-2" aria-hidden="true"></i>
                         <span>Back</span>
