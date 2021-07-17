@@ -1,4 +1,3 @@
-from re import I
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -139,7 +138,8 @@ class WH_Handler:
                 """
                 if username != 'AnonymousUser':
                     profile = UserProfile.objects.get(user__username=username)
-                    booking.update(user_profile=profile)
+                    booking.user_profile = profile
+                    booking.save()
 
                     if save_info:
                         profile_data = {
