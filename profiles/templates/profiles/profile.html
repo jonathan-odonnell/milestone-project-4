@@ -19,18 +19,22 @@
         <div class="col-12 col-md-10 col-lg-8 mx-auto">
             <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
                 {% csrf_token %}
-                <legend class="section-subheading">Personal Information</legend>
-                {{ form.email_address | as_crispy_field }}
-                {{ form.phone_number | as_crispy_field }}
-                <legend class="section-subheading">Address</legend>
-                {{ form.address | as_crispy_field }}
-                {{ form.street_address1 | as_crispy_field }}
-                {{ form.street_address2 | as_crispy_field }}
-                {{ form.town_or_city | as_crispy_field }}
-                {{ form.county | as_crispy_field }}
-                {{ form.country | as_crispy_field }}
-                {{ form.postcode | as_crispy_field }}
-                <div class="text-center mt-4">
+                <fieldset class="mb-2">
+                    <legend class="section-subheading">Personal Information</legend>
+                    {{ form.email_address | as_crispy_field }}
+                    {{ form.phone_number | as_crispy_field }}
+                </fieldset>
+                <fieldset class="mb-2">
+                    <legend class="section-subheading">Address</legend>
+                    {{ form.address | as_crispy_field }}
+                    {{ form.street_address1 | as_crispy_field }}
+                    {{ form.street_address2 | as_crispy_field }}
+                    {{ form.town_or_city | as_crispy_field }}
+                    {{ form.county | as_crispy_field }}
+                    {{ form.country | as_crispy_field }}
+                    {{ form.postcode | as_crispy_field }}
+                </fieldset>
+                <div class="text-center">
                     <button class="btn btn-primary shadow-none">Update Information</button>
                 </div>
             </form>
