@@ -37,7 +37,7 @@ class UserProfileForm(forms.ModelForm):
         self.fields['email_address'] = forms.EmailField(required=True)
         self.fields['address'] = forms.CharField(required=False)
         self.fields['phone_number'].widget.attrs[
-            'pattern'] = '[0]{1}[1-9]{1}[0-9]{9}'
+            'pattern'] = '[+44]{3}[1-9]{1}[0-9]{9}'
         for field in self.fields:
             if field != 'country':
                 placeholder = placeholders[field]
