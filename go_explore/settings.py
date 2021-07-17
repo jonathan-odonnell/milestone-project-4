@@ -182,8 +182,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-PHONENUMBER_DB_FORMAT = 'NATIONAL'
-
 PHONENUMBER_DEFAULT_REGION = 'GB'
 
 # Static files (CSS, JavaScript, Images)
