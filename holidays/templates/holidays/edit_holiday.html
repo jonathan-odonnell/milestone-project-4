@@ -29,7 +29,7 @@
             <form action="{% url 'edit_holiday' form.instance.slug %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <!-- Package fieldset start -->
-                <fieldset id="package">
+                <fieldset id="package" class="mb-2">
                     {% for field in form %}
                     {% if field.name == 'image' %}
                     {{ field }}
@@ -40,7 +40,7 @@
                 </fieldset>
                 <!-- Package fieldset end -->
                 <!-- Features fieldset start. Code is from https://docs.djangoproject.com/en/3.2/topics/forms/formsets/  -->
-                <fieldset id="features" class="d-none">
+                <fieldset id="features" class="d-none mb-2">
                     <div>
                         {{ feature_formset.management_form}}
                     </div>
@@ -57,7 +57,7 @@
                 </fieldset>
                 <!-- Features fieldset end -->
                 <!-- Activities fieldset start. Code is from https://docs.djangoproject.com/en/3.2/topics/forms/formsets/  -->
-                <fieldset id="activities" class="d-none">
+                <fieldset id="activities" class="d-none mb-4">
                     <div>
                         {{ activity_formset.management_form }}
                     </div>
@@ -75,7 +75,7 @@
                 </fieldset>
                 <!-- Activities fieldset end -->
                 <!-- Itineraries fieldset start. Code is from https://docs.djangoproject.com/en/3.2/topics/forms/formsets/ -->
-                <fieldset id="itineraries" class="d-none">
+                <fieldset id="itineraries" class="d-none mb-4">
                     <div>
                         {{ itinerary_formset.management_form }}
                     </div>
