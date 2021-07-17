@@ -828,7 +828,7 @@ More information about making a local clone of a GitHub repository is available 
 - Code for the stacked inline, extra and classes in the admin view is from [Django](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#inlinemodeladmin-objects).
 - Code for formatting the datetime form field values is from [Django](https://docs.djangoproject.com/en/3.2/ref/forms/widgets/#django.forms.DateTimeInput).
 - Code for charfield choices is from [Django](ttps://docs.djangoproject.com/en/3.2/ref/models/fields/#choices).
-- Code for converting timezones is from [Stack Overflow](ttps://stackoverflow.com/questions/36122619/manually-setting-time-zone-in-django-form), [pypi](https://pypi.org/project/pytz/) and [Django](https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/).
+- Code for converting timezones is from [Stack Overflow](https://stackoverflow.com/questions/36122619/manually-setting-time-zone-in-django-form), [pypi](https://pypi.org/project/pytz/) and [Django](https://docs.djangoproject.com/en/3.2/topics/i18n/timezones/).
 - Code for the timezone fields in the flights model is from [pypi](https://pypi.org/project/django-timezone-field/).
 - Code for adding time onto a datetime object is from [Kite](https://www.kite.com/python/answers/how-to-add-hours-to-the-current-time-in-python).
 - Code for converting a string to a date object is from [Stackabuse](https://stackabuse.com/converting-strings-to-datetime-in-python).
@@ -843,8 +843,10 @@ More information about making a local clone of a GitHub repository is available 
 - Code for getting saved cards is from [Stripe](https://stripe.com/docs/api/cards/list).
 Code for settin up a paypal transaction is from [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/setup-sdk/) and [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/set-up-transaction/).
 - Code for capturing the paypal transaction funds is from [Stack Oveflow](https://stackoverflow.com/questions/59630300/getting-bytes-when-using-axios) and [PayPal](https://developer.paypal.com/docs/checkout/reference/server-integration/capture-transaction/).
-- Code for creating Stripe customers is from [Stripe](https://stripe.com/docs/api/accounts/create).
-- Code for updating Stripe customer details is from [Stripe](https://stripe.com/docs/api/accounts/update).
+- Code for creating a stripe customer is from [Stripe](https://stripe.com/docs/api/accounts/create).
+- Code for updating a stripe customer's details is from [Stripe](https://stripe.com/docs/api/accounts/update).
+- Code for listing a stripe customer's saved payment methods is from [Stripe](https://stripe.com/docs/api/payment_methods/list).
+- Code for updating a stripe customer's payment methods is from [Stripe](https://stripe.com/docs/api/payment_methods/update).
 - Code for updating the email address in the allauth email address database and sending the verification email is from [GitHub](https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py).
 - Code for overriding allauth forms is from [Django Allauth](https://django-allauth.readthedocs.io/en/latest/forms.html).
 - Code for the custom signup form is from [GeeksforGeeks](https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/).
