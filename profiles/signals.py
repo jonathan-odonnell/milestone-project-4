@@ -44,14 +44,18 @@ def update_user_email(sender, instance, created, **kwargs):
 @receiver(post_save, sender=UserProfile)
 def stripe_update_on_save(sender, instance, created, **kwargs):
     """
-    Update stripe customer details on when the user profile is updated.
-    Code is from https://stripe.com/docs/api/accounts/update
+    Updates the customer details and card billing details in stripe
+    when the user profile is updated.
+    Code is from https://stripe.com/docs/api/accounts/update,
+    https://stripe.com/docs/api/payment_methods/list, and
+    https://stripe.com/docs/api/payment_methods/update
     """
     if not created:
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.Customer.modify(
             instance.stripe_customer_id,
             email=instance.user.email,
+            phone=instance.phone_number,
             address={
                 'line1': instance.street_address1,
                 'line2': instance.street_address2,
@@ -61,3 +65,25 @@ def stripe_update_on_save(sender, instance, created, **kwargs):
                 'postal_code': instance.postcode
             }
         )
+
+        cards = stripe.PaymentMethod.list(
+            customer=instance.stripe_customer_id,
+            type="card",
+        )
+
+        for card in cards.data:
+            stripe.PaymentMethod.modify(
+                card.id,
+                billing_details={
+                    'email': instance.user.email,
+                    'phone': instance.phone_number,
+                    'address': {
+                        'line1': instance.street_address1,
+                        'line2': instance.street_address2,
+                        'city': instance.town_or_city,
+                        'state': instance.county,
+                        'country': instance.country,
+                        'postal_code': instance.postcode
+                    },
+                }
+            )
