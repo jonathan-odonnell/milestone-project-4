@@ -1,6 +1,6 @@
 # Manual Testing
 
-# Navigation Bar
+## Navigation Bar
 
 1. Load up the home page on a desktop and verify that the standard menu with the links in the center of the screen appears and looks good.
 
@@ -98,7 +98,7 @@
 
     - Outcome: Pass
 
-# Footer
+## Footer
 
 1. Scroll down to the footer and verify that it appears with the content in two columns and looks good.
 
@@ -238,7 +238,7 @@
 
     - Outcome: Pass
 
-# Sign Up Page
+## Sign Up Page
 
 1. Verify that the sign up page appears as expected and looks good at all screen widths.
 
@@ -276,7 +276,7 @@
 
     - Outcome: Pass
 
-# Sign In Page
+## Sign In Page
 
 1. Verify that the sign in Page appears as expected and looks good at all screen widths.
 
@@ -314,7 +314,7 @@
 
     - Outcome: Pass
 
-# Sign Out Page
+## Sign Out Page
 
 1. Verify that the sign out page appears as expected and looks good at all screen widths.
 
@@ -324,7 +324,7 @@
 
     - Outcome: Pass
 
-# Change Password
+## Change Password
 
 1. Verify that the change password page appears as expected and looks good at all screen widths.
 
@@ -354,7 +354,7 @@
 
     - Outcome: Pass
 
-# Profile
+## Profile
 
 1. Verify that the profile page appears as expected and looks good at all screen widths.
 
@@ -368,27 +368,23 @@
 
     - Outcome: Pass
 
-4. Verify that when the user enters a non-numerical input in the phone number field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the phone number field.
+4. Verify that when the user enters an invalid phone number in the phone number field and clicks on the update profile button, the form does not submit and the invalid input error message appears on the phone number field.
 
     - Outcome: Pass
 
-5. Verify that when the user enters an invalid phone number in the phone number field and clicks on the update profile button, the page reloads and the invalid phone number error message appears below the phone number field.
+5. Verify that when the user begins to type their address in the address field, the autocomplete populates.
 
     - Outcome: Pass
 
-6. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+6. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the database and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
 
     - Outcome: Pass
 
-7. Enter a valid value in each field and click the update profile button. Verify that the form submits, the data inputted is updated in the database and the page reloads. The user's details should also be updated in their stripe account and a toast should appear informing the user that their profile has been successfully updated.
+7. Verify that users cannot access the profile page by manually typing in it's URL if they are not signed in and are returned to the sign in page.
 
     - Outcome: Pass
 
-8. Verify that users cannot access the profile page by manually typing in it's URL if they are not signed in and are returned to the sign in page.
-
-    - Outcome: Pass
-
-# Bookings
+## Bookings
 
 1. Verify that the bookings page appears as expected and looks good at all screen widths.
 
@@ -406,7 +402,7 @@
 
     - Outcome: Pass
 
-# Booking Details / Checkout Success Page
+## Booking Details / Checkout Success Page
 
 1. Verify that the booking details / checkout success page appears as expected and looks good at all screen widths.
 
@@ -436,7 +432,7 @@
 
     - Outcome: Pass
 
-# Holidays
+## Holidays
 
 1. Verify that the page appears as expected and looks good at all screen widths.
 
@@ -470,7 +466,7 @@
 
     - Outcome: Pass
 
-# Holiday Details
+## Holiday Details
 
 1. Verify that the holiday details page appears as expected and looks good at all screen widths.
 
@@ -564,7 +560,7 @@
 
     - Outcome: Pass
 
-# Add Holiday Page
+## Add Holiday Page
 
 1. Verify that the add holiday page appears as expected and looks good at all screen widths.
 
@@ -590,7 +586,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks on the add holiday button, the form submits, and the holiday is added to the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully added.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the add holiday button, the form submits, the holiday is added to the database, the image is uploaded to AWS and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully added.
 
     - Outcome: Pass
 
@@ -602,7 +598,7 @@
 
     - Outcome: Pass
 
-# Edit Holiday Page
+## Edit Holiday Page
 
 1. Verify that the edit holiday page appears as expected and looks good at all screen widths.
 
@@ -628,7 +624,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks on the update holiday button, the form submits, and the holiday is updated in the database and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully updated.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the update holiday button, the form submits, the holiday is updated in the database, if the image was changed it is uploaded to AWS and the user is redirected to the holiday's details page. A toast also appears informing the user that the holiday has been successfully updated.
 
     - Outcome: Pass
 
@@ -640,7 +636,7 @@
 
     - Outcome: Pass
 
-# Write Review Page
+## Write Review Page
 
 1. Verify that the write review page appears as expected and looks good at all screen widths.
 
@@ -666,7 +662,7 @@
 
     - Outcome: Pass
 
-# Booking Page
+## Booking Page
 
 1. Verify that the booking page appears as expected and looks good at all screen widths.
 
@@ -732,7 +728,7 @@
 
     - Outcome: Pass
 
-# Passenger Details Page
+## Passenger Details Page
 
 1. Verify that the passenger details page appears as expected and looks good at all screen widths.
 
@@ -762,7 +758,7 @@
 
     - Outcome: Pass
 
-# Checkout Page
+## Checkout Page
 
 1. Verify that the checkout page appears as expected and looks good at all screen widths.
 
@@ -792,51 +788,47 @@
 
     - Outcome: Pass
 
-8. Verify that when the user enters a non-numerical input in the phone number field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the phone number field.
+8. Verify that when the user enters an invalid phone number in the phone number field and clicks on the PayPal, Apple Pay/Google Pay or Pay button, the invalid input error message appears on the phone number field.
 
     - Outcome: Pass
 
-9. Verify that when the user enters an invalid phone number in the phone number field, clicks on the PayPal, Apple Pay/Google Pay or Pay button and successfully completes the payment process, the page reloads and the invalid phone number error message appears below the phone number field.
+9. Verify that when the user begins to type their address in the address field, the autocomplete populates.
 
     - Outcome: Pass
 
-10. Verify that when the user begins to type their address in the address field, the autocomplete populates.
+10. Verify that if the user is signed in and has previously saved their card details, up to 3 saved cards are displayed above the card payment section.
 
     - Outcome: Pass
 
-11. Verify that if the user is signed in and has previously saved their card details, up to 3 saved cards are displayed above the card payment section.
+11. Verify that if the user selects a saved card, the card payment field dissapears and is replaced by the CVC field.
 
     - Outcome: Pass
 
-12. Verify that if the user selects a saved card, the card payment field dissapears and is replaced by the CVC field.
+12. Verify that if the user enters invalid card details or an invalid CVC number in the relevant field and clicks on the pay button, an error message is displayed below the field.
 
     - Outcome: Pass
 
-13. Verify that if the user enters invalid card details or an invalid CVC number in the relevant field and clicks on the pay button, an error message is displayed below the field.
+13. Verify that if the Paypal or Apple Pay / Google Pay payment fails, the modal closes and the user is returned to the checkout page.
 
     - Outcome: Pass
 
-14. Verify that if the Paypal or Apple Pay / Google Pay payment fails, the modal closes and the user is returned to the checkout page.
+14. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking in the database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
 
     - Outcome: Pass
 
-15. Enter a valid value in each field, click on the PayPal, Apple Pay/Google Pay or Pay button and complete the payment process. Verify that the form submits, the data inputted is updated in the booking in the database and the user is redirected to the checkout success page. The user will also receive a confirmation email which includes a summary of their booking details.
+15. Verify that if the user is signed in and checks the save contact information to my profile checkbox, their phone number and address are saved to their profile.
 
     - Outcome: Pass
 
-16. Verify that if the user is signed in and checks the save contact information to my profile checkbox, their phone number and address are saved to their profile.
+16. Verify that if the user is signed in and checks the save card to my profile checkbox, their card details are saved to their stripe account and they appear as a saved card the next time they access the checkout page.
 
     - Outcome: Pass
 
-17. Verify that if the user is signed in and checks the save card to my profile checkbox, their card details are saved to their stripe account and they appear as a saved card the next time they access the checkout page.
+17. Verify that users cannot access the checkout page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
 
     - Outcome: Pass
 
-18. Verify that users cannot access the checkout page by manually typing in it's URL if there is no booking number stored in the browser's session variable and are returned to the booking page.
-
-    - Outcome: Pass
-
-# Extras Page
+## Extras Page
 
 1. Verify that the extras page appears as expected and looks good at all screen widths.
 
@@ -858,7 +850,7 @@
 
     - Outcome: Pass
 
-# Add Extra Page
+## Add Extra Page
 
 1. Verify that the add extra page appears as expected and looks good at all screen widths.
 
@@ -872,7 +864,7 @@
 
     - Outcome: Pass
 
-4. Verify that when a user correctly enters a valid input in all fields and clicks on the add extra button, the form submits, and the extra is added to the database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully added.
+4. Verify that when a user correctly enters a valid input in all fields and clicks on the add extra button, the form submits, the extra is added to the database, the image is uploaded to AWS and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully added.
 
     - Outcome: Pass
 
@@ -884,7 +876,7 @@
 
     - Outcome: Pass
 
-# Edit Extra Page
+## Edit Extra Page
 
 1. Verify that the edit extra page appears as expected and looks good at all screen widths.
 
@@ -898,7 +890,7 @@
 
     - Outcome: Pass
 
-4. Verify that when a user correctly enters a valid input in all fields and clicks on the update extra button, the form submits, and the extra is updated in the database and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
+4. Verify that when a user correctly enters a valid input in all fields and clicks on the update extra button, the form submits, the extra is updated in the database, if the image was changed it is uploaded to AWS and the user is redirected to the extras page. A toast also appears informing the user that the extra has been successfully updated.
 
     - Outcome: Pass
 
@@ -996,7 +988,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks on the add flight button, the form submits, and the flight is added to the database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully added.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the add flight button, the form submits, the flight is added to the database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully added.
 
     - Outcome: Pass
 
@@ -1034,7 +1026,7 @@
 
     - Outcome: Pass
 
-7. Verify that when a user correctly enters a valid input in all fields and clicks on the update flight button, the form submits, and the flight is updated in the database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully updated.
+7. Verify that when a user correctly enters a valid input in all fields and clicks on the update flight button, the form submits, the flight is updated in the database and the user is redirected to the flights page. A toast also appears informing the user that the flight has been successfully updated.
 
     - Outcome: Pass
 
