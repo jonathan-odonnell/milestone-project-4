@@ -58,7 +58,7 @@ card.addEventListener('change', function (event) {
     if (event.error) {
         let html = `
               <span class="icon" role="alert">
-                  <i class="fas fa-times"></i>
+                  <i class="fas fa-times me-2" aria-hidden="true"></i>
               </span>
               <span>${event.error.message}</span>
           `;
@@ -183,7 +183,7 @@ form.addEventListener('submit', function (e) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
                     <span class="icon" role="alert">
-                    <i class="fas fa-times"></i>
+                    <i class="fas fa-times me-2" aria-hidden="true"></i>
                     </span>
                     <span>${result.error.message}</span>`;
                 $(errorDiv).html(html);
@@ -312,7 +312,7 @@ paymentRequest.on('paymentmethod', function (e) {
                             var errorDiv = document.getElementById('payment-request-button-errors');
                             var html = `
                                 <span class="icon" role="alert">
-                                <i class="fas fa-times"></i>
+                                <i class="fas fa-times me-2" aria-hidden="true"></i>
                                 </span>
                                 <span>${result.error.message}</span>`;
                             $(errorDiv).html(html);
