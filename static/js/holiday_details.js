@@ -104,7 +104,7 @@ $('#related-holidays').slick({
             },
         },
         {
-            breakpoint: 768,
+            breakpoint: 576,
             settings: {
                 slidesToShow: 1,
                 slidesToScroll: 1,
@@ -112,8 +112,8 @@ $('#related-holidays').slick({
         },
     ],
     appendArrows: "#arrows",
-    prevArrow: `<button type="button" class="btn shadow-0 ps-0">
+    prevArrow: `<button type="button" class="btn shadow-0 ps-0 pe-3">
             <i class="fas fa-arrow-left fa-2x"></i></button>`,
-    nextArrow: `<button type="button" class="btn shadow-0 pe-md-0">
+    nextArrow: `<button type="button" class="btn shadow-0 ps-3 pe-0">
             <i class="fas fa-arrow-right fa-2x"></i></button>`,
 });
