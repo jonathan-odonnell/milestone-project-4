@@ -222,19 +222,23 @@
 
     - Outcome: Pass
 
-11. Reduce and expand the width of the screen and verify that the number of cards changes to 2 at screen widths below 992px and 1 at screen widths below 576px.
+11. Reduce and expand the width of the screen and verify that the arrows disappear and the heading is centered at screen widths below 768px.
 
     - Outcome: Pass
 
-12. Reduce and expand the width of the screen and verify that the slider and cards look good at all screen widths.
+12. Reduce and expand the width of the screen and verify that the number of cards changes to 2 at screen widths below 992px and 1 at screen widths below 576px.
 
     - Outcome: Pass
 
-13. Verify that each holiday name links to the relevant holiday's details page.
+13. Reduce and expand the width of the screen and verify that the slider and cards look good at all screen widths.
 
     - Outcome: Pass
 
-14. Scroll down to the features section and verify that it appears as expected and looks good at all screen widths.
+14. Verify that each holiday name links to the relevant holiday's details page.
+
+    - Outcome: Pass
+
+15. Scroll down to the features section and verify that it appears as expected and looks good at all screen widths.
 
     - Outcome: Pass
 
@@ -540,23 +544,27 @@
 
     - Outcome: Pass
 
-19. Reduce and expand the width of the screen and verify that the number of cards changes to 3 at screen widths below 992px, 2 at screen widths below 768px and 1 at screen widths below 576px.
+19. Reduce and expand the width of the screen and verify that the arrows disappear at screen widths above 1200px and below 768px.
 
     - Outcome: Pass
 
-20. Reduce and expand the width of the screen and verify that the slider and cards look good at all screen widths.
+20. Reduce and expand the width of the screen and verify that the number of cards changes to 3 at screen widths below 992px, 2 at screen widths below 768px and 1 at screen widths below 576px.
 
     - Outcome: Pass
 
-21. Verify that each holiday name links to the relevant holiday's details page.
+21. Reduce and expand the width of the screen and verify that the slider and cards look good at all screen widths.
 
     - Outcome: Pass
 
-22. Verify that when the admin user clicks on the edit icon, they are taken to the holiday's edit page.
+22. Verify that each holiday name links to the relevant holiday's details page.
 
     - Outcome: Pass
 
-23. Verify that when the admin user clicks on the delete icon, the holiday is deleted from the database, the user is redirected to the home page and a toast appears informing the user that the holiday has been successfully deleted.
+23. Verify that when the admin user clicks on the edit icon, they are taken to the holiday's edit page.
+
+    - Outcome: Pass
+
+24. Verify that when the admin user clicks on the delete icon, the holiday is deleted from the database, the user is redirected to the home page and a toast appears informing the user that the holiday has been successfully deleted.
 
     - Outcome: Pass
 
