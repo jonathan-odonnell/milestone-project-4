@@ -163,7 +163,7 @@
                     <!-- Table start. Code is from https://getbootstrap.com/docs/5.0/content/tables/ -->
                     <table class="table table-sm mb-3">
                         <tr>
-                            <td class="w-25 py-3">
+                            <td class="w-25 px-2 py-3">
                                 <img class="img-fluid mt-1" src="{{ booking.package.image.url }}" alt="Image of {{ booking.package.name }}">
                             </td>
                             <td class="pt-3 pb-4">
@@ -216,7 +216,7 @@
                     <table class="table table-sm mb-3">
                         {% for extra in booking.package.extras.all %}
                         <tr>
-                            <td class="w-25 pt-3 pb-0" rowspan="2">
+                            <td class="w-25 pt-3 px-2 pb-0" rowspan="2">
                                 <img class="img-fluid mt-1" src="{{extra.image.url}}" alt="Image of {{extra.name}}">
                             </td>
                             <td colspan="2" class="border-0 pt-3 pb-0">
