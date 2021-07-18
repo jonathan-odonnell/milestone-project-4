@@ -33,7 +33,7 @@
                             <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                             <h3 class="text-white">{{ offer.duration }} Nights from
                                 £{{ offer.price|floatformat:"-2" }}
-                                per person</h3>
+                                <br class="d-sm-none">per person</h3>
                             <a href="{% url 'category_details' 'offers' offer.slug %}"
                                 class="btn btn-primary btn-lg">Explore Now</a>
                         </div>
