@@ -291,11 +291,15 @@ a:hover {
 .jumbotron .display-1 {
     font-weight: bold;
     font-family: 'Nothing You Could Do', sans-serif;
+    font-size: calc(3rem + 4.5vw);
+    line-height: 1.5;
 }
 
 .jumbotron .display-2 {
     font-weight: bold;
     font-family: 'Nothing You Could Do', sans-serif;
+    font-size: calc(2.5rem + 4.5vw);
+    line-height: 1.5;
 }
 
 .jumbotron h3 {
@@ -885,9 +889,15 @@ footer .small {
 }
 
 @media (min-width: 1200px) {
+    .jumbotron .display-1,
+    .jumbotron .display-2 {
+        font-size: 5rem;
+    }
+    
     .holiday-card img {
         height: 10rem;
     }
+
     #popular-holidays img {
         height: 15rem;
     }
