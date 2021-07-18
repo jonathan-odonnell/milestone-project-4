@@ -222,7 +222,7 @@
 
     - Outcome: Pass
 
-11. Reduce and expand the width of the screen and verify that the arrows disappear and the heading is centered at screen widths below 768px.
+11. Reduce and expand the width of the screen and verify that the arrows disappear and the heading is centered at screen widths below 576px.
 
     - Outcome: Pass
 
@@ -544,7 +544,7 @@
 
     - Outcome: Pass
 
-19. Reduce and expand the width of the screen and verify that the arrows disappear at screen widths above 1200px and below 768px.
+19. Reduce and expand the width of the screen and verify that the arrows disappear at screen widths above 1200px and below 576px.
 
     - Outcome: Pass
 
