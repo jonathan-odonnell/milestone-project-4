@@ -31,9 +31,9 @@
                         <div class="container p-3">
                             <h1 class="display-1 text-white">{{ offer.name }}</h1>
                             <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
-                            <h3 class="text-white">{{ offer.duration }} Nights from
+                            <h4 class="text-white">{{ offer.duration }} Nights from
                                 £{{ offer.price|floatformat:"-2" }}
-                                <br class="d-sm-none">per person</h3>
+                                per person</h4>
                             <a href="{% url 'category_details' 'offers' offer.slug %}"
                                 class="btn btn-primary btn-lg">Explore Now</a>
                         </div>
