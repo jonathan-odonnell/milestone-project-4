@@ -265,22 +265,28 @@ The Entity Relationship Diagram shows details of each field in each model in the
 14. [Django](https://www.djangoproject.com/)
     - Django was used for the accessing of the data models, the routing of the appliction, the messages and the templating.
 15. [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
-    - Django allauth was used for the authentication of users.
-16. [Postgresql](https://www.postgresql.org/)
+    - Django Allauth was used for the authentication of users.
+16. [Django Phonenumber Field](https://github.com/stefanfoulis/django-phonenumber-field)
+    - Django Phonenumber Field was used for the phonenumber fields.
+17. [Django Countries](https://pypi.org/project/django-countries/)
+    - Django Countries was used for the country fields.
+18. [Django Timezone Field](https://pypi.org/project/django-timezone-field/)
+    - Django Timezone Field was used for the timezone fields.
+19. [Postgresql](https://www.postgresql.org/)
     - A postgresql database was used to store the data used in the project.
-17. [Visual Studio Code](https://code.visualstudio.com/)
+20. [Visual Studio Code](https://code.visualstudio.com/)
     - Visual Studio Code was used to write the code for this project and gitpod terminal was used to commit changes to Git and push them to GitHub.
-18. [Git](https://git-scm.com/)
+21. [Git](https://git-scm.com/)
     - Git was the version control system used for this project.
-19. [GitHub](https://github.com/)
+22. [GitHub](https://github.com/)
     - GitHub is used to store the project's code and any other required files.
-20. [Heroku](https://www.heroku.com/)
+23. [Heroku](https://www.heroku.com/)
     - Heroku is used to host the deployed website.
-21. [Amazon Web Services](https://aws.amazon.com)
+24. [Amazon Web Services](https://aws.amazon.com)
     - An Amazon Web Services S3 bucket was used to host the images and static files used in the website
-22. [Balsamiq](https://balsamiq.com/)
+25. [Balsamiq](https://balsamiq.com/)
     - Balsamiq was used to create the wireframes during the design phase of the project.
-23. [DB Diagram](https://dbdiagram.io/home)
+26. [DB Diagram](https://dbdiagram.io/home)
     - DB Diagram was used to create the Entity Relationship Diagrams of the database.
 
 ## Testing
@@ -529,8 +535,7 @@ Details of the manual testing carried out can be viewed [here](testing.md).
 ### Known Bugs
 
 - Form validation errors are not displayed in Chrome or Edge when the first input with an error in it is outside of the current browser view due to an error with bootstrap.
-
-- Phone numbers entered into the profile and checkout forms need to be prefixed with the relevant  international code.
+- Phone numbers entered into the profile and checkout forms need to be either a British number or an  prefixed with the relevant international code.
 
 ## Deployment
 
