@@ -526,6 +526,12 @@ Details of the manual testing carried out can be viewed [here](testing.md).
 
     - Implemented an alternative approach as scroll options are not compatible with Safari.
 
+### Known Bugs
+
+- Form validation errors are not displayed in Chrome or Edge when the first input with an error in it is outside of the current browser view due to an error with bootstrap.
+
+- Phone numbers entered into the profile and checkout forms need to be prefixed with the relevant  international code.
+
 ## Deployment
 
 ### Amazon Web Services S3 Bucket
