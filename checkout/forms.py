@@ -1,6 +1,7 @@
 from django import forms
 from booking.models import Booking
 from crispy_forms.helper import FormHelper
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
 
 class CheckoutForm(forms.ModelForm):
@@ -14,11 +15,15 @@ class CheckoutForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         """
         Adds address field, placeholders, classes, and country field blank
-        option, removes the labels, sets the autofocus on the full name field
-        and sets the pattern attribute of the phone number field widget.
-        Code for setting the field_class and label_class is from
-        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
-        and code for setting the pattern attribute is adapted from
+        option, removes the labels, sets the autofocus on the full name field,
+        changes the phone number field widget to the phone number international
+        fallback widget and sets the pattern attribute of the phone number
+        widget. Code for setting the field_class and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html,
+        code for the phone number international fallback widget is from
+        https://github.com/stefanfoulis/django-phonenumber-field
+        and code for setting the pattern attribute of the phone number
+        widget is adapted from
         https://stackoverflow.com/questions/19611599/html5-phone-number-validation-with-pattern
         """
         super().__init__(*args, **kwargs)
@@ -40,8 +45,10 @@ class CheckoutForm(forms.ModelForm):
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
         self.fields['address'] = forms.CharField(required=False)
+        self.fields[
+            'phone_number'].widget = PhoneNumberInternationalFallbackWidget()
         self.fields['phone_number'].widget.attrs[
-            'pattern'] = '[+]{1}[0-9]{2,3}[1-9]{1}[0-9]{8,}'
+           'pattern'] = '[+0]{1}[0-9]{0,3}[1-9]{1}[0-9]{8,}'
 
         for field in self.fields:
             if field != 'country':
