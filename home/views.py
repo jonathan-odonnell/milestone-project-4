@@ -54,3 +54,8 @@ def apple_pay_domain_association(request, path):
             'r') as file:
         data = file.read()
     return HttpResponse(content=data)
+
+
+def google_domain_verification(request):
+    """A view to retun the google domain verification page"""
+    return render(request, 'home/google3dc647a21b4afb17.html')
