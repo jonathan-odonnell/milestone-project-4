@@ -498,7 +498,7 @@ Details of the manual testing carried out can be viewed [here](testing.md).
 
 2. Non UK addresses were being populated to the wrong form fields by the address autocomplete.
 
-    - Restricted the autocomplete to UK addresses.
+    - Added logic to handle UK/Swedish addresses differently to addresses from all other countries to enable address data to be populated to the correct fields.
 
 3. Times were appearing in the wrong time zone.
 
@@ -574,9 +574,11 @@ Details of how the site was deployed can be viewed [here](deployment.md).
 - Code for slice filter is from [Django](https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#slice).
 - Code for for updating the address input's parent element's ID is from [Stack Overflow](https://stackoverflow.com/questions/10219396/jquery-update-element-id/).
 - Code for the autocomplete is from [Google](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform/).
+- Code for selecting an option in a select menu is from [Stack Overflow](https://stackoverflow.com/questions/314636/how-do-you-select-a-particular-option-in-a-select-element-in-jquery).
 - Code for the jQuery hasClass method is from [jQuery](https://api.jquery.com/hasclass/). 
 - Code for triggering the change event is from [Stack Overflow](https://stackoverflow.com/questions/3179385/val-doesnt-trigger-change-in-jquery/).
 - Code for the jQuery each method is from [jQuery](https://api.jquery.com/jquery.each/).
+- Code for the jQuery not method is from [jQuery](https://api.jquery.com/not/).
 - Code for checking if a checkbox is checked is from [Stack Overflow](https://stackoverflow.com/questions/7960208/jquery-if-checkbox-is-checked/).
 - Code for checking or unchecking the switches is from [Stack Overflow](https://stackoverflow.com/questions/426258/setting-checked-for-a-checkbox-with-jquery).
 - Code for the datepicker and datetimepicker min date is from [Gijgo](https://gijgo.com/datepicker/configuration/minDate).
