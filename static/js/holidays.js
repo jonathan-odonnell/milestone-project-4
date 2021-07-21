@@ -13,8 +13,8 @@ $('#holidays').on('click', '.page-link', function () {
     let page = $(this).data('page');
     let currentUrl = new URL(window.location);
     currentUrl.searchParams.set('page', page);
-    let filterUrl = new URL(currentUrl)
-    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter')
+    let filterUrl = new URL(currentUrl);
+    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter');
     $.get(filterUrl).done(function (data) {
         $('#holidays').html(data.holidays);
         generateStars();
@@ -44,9 +44,9 @@ $('#sort-selector').change(function () {
     } else {
         currentUrl.searchParams.delete('sort');
         currentUrl.searchParams.delete('direction');
-    };
-    let filterUrl = new URL(currentUrl)
-    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter')
+    }
+    let filterUrl = new URL(currentUrl);
+    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter');
     $.get(filterUrl).done(function (data) {
         $('#holidays').html(data.holidays);
         generateStars();
@@ -78,9 +78,9 @@ $('#category-filters a').on('click', function () {
         currentUrl.searchParams.set('categories', categories);
     } else {
         currentUrl.searchParams.delete('categories');
-    };
-    let filterUrl = new URL(currentUrl)
-    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter')
+    }
+    let filterUrl = new URL(currentUrl);
+    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter');
     $.get(filterUrl).done(function (data) {
         $('#holidays').html(data.holidays);
         generateStars();
@@ -112,9 +112,9 @@ $('#country-filters a').on('click', function () {
         currentUrl.searchParams.set('countries', countries);
     } else {
         currentUrl.searchParams.delete('countries');
-    };
-    let filterUrl = new URL(currentUrl)
-    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter')
+    }
+    let filterUrl = new URL(currentUrl);
+    filterUrl.pathname = filterUrl.pathname.replace('holidays', 'holidays/filter');
     $.get(filterUrl).done(function (data) {
         $('#holidays').html(data.holidays);
         generateStars();

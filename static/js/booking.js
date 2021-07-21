@@ -79,7 +79,7 @@ $('input[name="quantity"]').on('change', function () {
     if ($(this).closest('tr').find('input[type="checkbox"]').is(':checked')) {
         if (quantity >= 1 && quantity <= guests) {
             $.post(`/booking/update_extra/${id}/`, postData).done(function (data) {
-                console.log(data.extras)
+                console.log(data.extras);
                 $('#total strong').text(`£${data.total}`);
                 $('#extras span').last().text(`£${data.extras}`);
                 $('.quantity-form').find(`input[data-extra="${id}"]`).val(quantity);

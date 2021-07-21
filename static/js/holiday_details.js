@@ -79,7 +79,7 @@ $('#guests').change(function () {
     let guests = parseInt($(this).val());
     if (!(guests >= 1 && guests <= 10)) {
         $(this).val(1);
-    };
+    }
 });
 
 /* Configures the related holidays slider. Code for the related holidays slider is

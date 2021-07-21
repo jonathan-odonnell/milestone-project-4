@@ -22,8 +22,8 @@ $('#flight-sort-selector').change(function () {
         currentUrl.searchParams.delete("sort");
         currentUrl.searchParams.delete("direction");
     };
-    let filterUrl = new URL(currentUrl)
-    filterUrl.pathname = filterUrl.pathname.replace('flights', 'flights/filter')
+    let filterUrl = new URL(currentUrl);
+    filterUrl.pathname = filterUrl.pathname.replace('flights', 'flights/filter');
     $.get(filterUrl).done(function (data) {
         $('#flights-table').html(data.flights);
         window.history.pushState({}, '', currentUrl);
@@ -43,8 +43,8 @@ $('#flights-table').on('click', '.page-link', function () {
     let page = $(this).data('page');
     let currentUrl = new URL(window.location);
     currentUrl.searchParams.set("page", page);
-    let filterUrl = new URL(currentUrl)
-    filterUrl.pathname = filterUrl.pathname.replace('flights', 'flights/filter')
+    let filterUrl = new URL(currentUrl);
+    filterUrl.pathname = filterUrl.pathname.replace('flights', 'flights/filter');
     $.get(filterUrl).done(function (data) {
         $('#flights-table').html(data.flights);
         window.history.pushState({}, '', currentUrl);
