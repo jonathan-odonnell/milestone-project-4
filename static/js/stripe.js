@@ -241,7 +241,6 @@ let prButton = elements.create('paymentRequestButton', {
             type: 'book',
             theme: 'dark',
             height: '55px',
-            padding: '0',
         },
     },
 });
