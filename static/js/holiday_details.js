@@ -35,7 +35,7 @@ $('#departure_date').datepicker({
     format: 'dd/mm/yyyy',
 });
 
-//Removes the default datepicker input styling from the departure date input
+// Removes the default datepicker input styling from the departure date input
 
 $('#departure_date').removeClass('gj-textbox-md');
 
