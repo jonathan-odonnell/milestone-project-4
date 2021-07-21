@@ -267,7 +267,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 15. [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
     - Django Allauth was used for the authentication of users.
 16. [Django Phonenumber Field](https://github.com/stefanfoulis/django-phonenumber-field)
-    - Django Phonenumber Field was used for the phonenumber fields.
+    - Django Phonenumber Field was used for the phonenumber fields. The license can be viewed [here](django_phonenumber_field_license.md).
 17. [Django Countries](https://pypi.org/project/django-countries/)
     - Django Countries was used for the country fields.
 18. [Django Timezone Field](https://pypi.org/project/django-timezone-field/)
