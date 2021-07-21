@@ -624,7 +624,7 @@ Details of how the site was deployed can be viewed [here](deployment.md).
 - Code for converting a string to a date object is from [Stackabuse](https://stackabuse.com/converting-strings-to-datetime-in-python).
 - Code for removing trailing zeros from totals is from [Stack Overflow](https://stackoverflow.com/questions/2440692/formatting-floats-without-trailing-zeros).
 - Code for prefetch related from [Django](https://docs.djangoproject.com/en/3.2/ref/models/querysets/#prefetch-related).
-- Code for the phonenumber fields in the booking and userprofile models is from [Stack Overflow](https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models) and [Github](https://github.com/stefanfoulis/django-phonenumber-field).
+- Code for the phonenumber fields is from [Stack Overflow](https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-phone-number-in-django-models) and [Github](https://github.com/stefanfoulis/django-phonenumber-field).
 - Code for the phonenumber field pattern attribute is adapted from [Stack Overflow](https://stackoverflow.com/questions/19611599/html5-phone-number-validation-with-pattern).
 - Code for passing argiments to the inline formset is from [Stack Overflow](https://stackoverflow.com/questions/23084595/basemodelformset-init-got-an-unexpected-keyword-argument) and [Django](https://docs.djangoproject.com/en/3.2/topics/forms/formsets/#passing-custom-parameters-to-formset-forms).
 - Code for the duration template tag is from [Stack Overflow](https://stackoverflow.com/questions/33105457/display-and-format-django-durationfield-in-template).
@@ -637,6 +637,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for updating a stripe customer's details is from [Stripe](https://stripe.com/docs/api/accounts/update).
 - Code for listing a stripe customer's saved payment methods is from [Stripe](https://stripe.com/docs/api/payment_methods/list).
 - Code for updating a stripe customer's payment methods is from [Stripe](https://stripe.com/docs/api/payment_methods/update).
+- Code for the allauth configuration is from [Django Allauth](https://django-allauth.readthedocs.io/en/latest/configuration.html).
 - Code for updating the email address in the allauth email address database and sending the verification email is from [GitHub](https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py).
 - Code for overriding allauth forms is from [Django Allauth](https://django-allauth.readthedocs.io/en/latest/forms.html).
 - Code for the custom signup form is from [GeeksforGeeks](https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/).
