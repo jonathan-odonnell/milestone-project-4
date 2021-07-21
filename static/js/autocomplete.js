@@ -14,28 +14,29 @@ $('#id_address').on('focus', function () {
     geolocate();
 });
 
-/* Creates the autocomplete object, restricting the search predictions to addresses in the UK.
-Calls the fillInAddress function when the user selects an address from the drop-down. Code is from 
+/* Creates the autocomplete object and calls the fillInAddress function when the user selects an address
+from the drop-down. Code is from 
 https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform */
 
 function initAutocomplete() {
     let addressField = document.getElementById('id_address');
     autocomplete = new google.maps.places.Autocomplete(addressField, {
-        componentRestrictions: {
-            country: 'gb'
-        },
         fields: ['address_components', 'geometry'],
         types: ['address'],
     });
     autocomplete.addListener("place_changed", fillInAddress);
 }
 
-/* Gets the place details from the autocomplete object and populates the address fields in the form. Code is from 
+/* Clears the street address 2 field, gets the place details from the autocomplete object and
+populates the address fields in the form. Code is from 
 https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform */
 
 function fillInAddress() {
     let place = autocomplete.getPlace();
     let streetAddress1 = '';
+    let locality = '';
+    let country = '';
+    let postcode = '';
     $(`#id_street_address2`).val('');
 
     for (let component of place.address_components) {
@@ -48,7 +49,6 @@ function fillInAddress() {
             }
             case 'route': {
                 streetAddress1 += `${component.long_name}`;
-                $('#id_street_address1').val(`${streetAddress1}`);
                 break;
             }
             case 'sublocality_level_1': {
@@ -56,13 +56,15 @@ function fillInAddress() {
                 break;
             }
             case 'locality': {
-                if (!$('#id_street_address2').val()) {
-                    $('#id_street_address2').val(component.long_name);
-                }
+                locality = component.long_name;
                 break;
             }
             case 'postal_town': {
                 $('#id_town_or_city').val(component.long_name);
+                break;
+            }
+            case 'administrative_area_level_1': {
+                $('#id_county').val(component.long_name);
                 break;
             }
             case 'administrative_area_level_2': {
@@ -70,15 +72,30 @@ function fillInAddress() {
                 break;
             }
             case 'country': {
+                country = component.short_name;
                 $(`#id_country option[value=${component.short_name}]`).prop('selected', true);
                 break;
             }
             case 'postal_code': {
-                $('#id_postcode').val(component.long_name);
+                postcode = `${component.long_name}${postcode}`;
+                break;
+            }
+            case "postal_code_suffix": {
+                postcode = `${postcode}-${component.long_name}`;
                 break;
             }
         }
     }
+
+    $('#id_street_address1').val(`${streetAddress1}`);
+
+    if (country === 'GB' || country === 'SE') {
+        $('#id_street_address2').val(locality);
+    } else {
+        $('#id_town_or_city').val(locality);
+    }
+
+    $('#id_postcode').val(postcode);
 }
 
 /* Bias the autocomplete object to the user's geographical location as supplied by the browser's 
