@@ -1,4 +1,4 @@
-// Amends the form styling and removes the delete link
+// Amends the form styling and removes the delete link when the DOM has finished loading
 
 $(document).ready(function() {
 	$('.custom-checkbox').addClass('form-check');
@@ -10,7 +10,7 @@ $(document).ready(function() {
 	});
 	$('.delete-check label').addClass('text-danger');
 	$('.delete-row').remove();
-})
+});
 
 // Adds the name of the file selected and styling to the filename ID when an image is selected
 
@@ -72,8 +72,9 @@ function editItinerary() {
 	$('.delete-row').remove();
 }
 
-/* Checks the shown fieldset is valid and shows and hides the relevant fieldsets and buttons when the 
-back button is clicked */
+/* Checks the required fields are valid and hides and shows the relevant fieldsets and
+buttons when the next button is clicked. Code for the jQuery not method is from
+https://api.jquery.com/not/ */
 
 $('#next').click(function () {
 	if ($('form')[0].reportValidity()) {
@@ -81,34 +82,33 @@ $('#next').click(function () {
 		$('fieldset').not('.d-none').first().addClass('d-none');
 		if ($('fieldset').not('.d-none').attr('id') === 'package') {
 			$('#back').addClass('d-none');
-		} else {
-			$('#back').removeClass('d-none');
-		}
-		if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
+		} else if ($('fieldset').not('.d-none').attr('id') === 'activities') {
+			$('button[type="submit"]').addClass('d-none');
+			$('#next').removeClass('d-none');
+		} else if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
 			$('#next').addClass('d-none');
 			$('button[type="submit"]').removeClass('d-none');
 		} else {
-			$('button[type="submit"]').addClass('d-none');
-			$('#next').removeClass('d-none');
+			$('#back').removeClass('d-none');
 		}
 	}
-})
+});
 
-// Shows and hides the relevant fieldsets and buttons when the back button is clicked
+/* Hides and shows the relevant fieldsets and buttons when the back button is clicked
+Code for the jQuery not method is from https://api.jquery.com/not/ */
 
 $('#back').click(function () {
 	$('fieldset').not('.d-none').prev().removeClass('d-none');
 	$('fieldset').not('.d-none').last().addClass('d-none');
 	if ($('fieldset').not('.d-none').attr('id') === 'package') {
 		$('#back').addClass('d-none');
-	} else {
-		$('#back').removeClass('d-none');
-	}
-	if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
+	} else if ($('fieldset').not('.d-none').attr('id') === 'activities') {
+		$('button[type="submit"]').addClass('d-none');
+		$('#next').removeClass('d-none');
+	} else if ($('fieldset').not('.d-none').attr('id') === 'itineraries') {
 		$('#next').addClass('d-none');
 		$('button[type="submit"]').removeClass('d-none');
 	} else {
-		$('button[type="submit"]').addClass('d-none');
-		$('#next').removeClass('d-none');
+		$('#back').removeClass('d-none');
 	}
-})
+});
