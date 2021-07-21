@@ -111,6 +111,10 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
+# Allauth configuration. Code is from
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+# and https://django-allauth.readthedocs.io/en/latest/forms.html
+
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
@@ -126,7 +130,6 @@ LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
 WSGI_APPLICATION = 'go_explore.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
