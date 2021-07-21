@@ -2,7 +2,6 @@ from django import forms
 from .models import UserProfile
 from crispy_forms.helper import FormHelper
 from allauth.account.forms import SignupForm, LoginForm, ChangePasswordForm
-from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
 
 class UserProfileForm(forms.ModelForm):
@@ -12,13 +11,10 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         """
-        Adds address field, placeholders and classes, removes the abels,
-        changes the phone number field widget to the phone number international
-        fallback widget and sets the pattern attribute of the phone number
-        widget. Code for setting the field_class and label_class is from
-        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html,
-        code for the phone number international fallback widget is from
-        https://github.com/stefanfoulis/django-phonenumber-field
+        Adds address field, placeholders and classes, removes the Labels,
+        and sets the pattern attribute of the phone number widget. Code for
+        setting the field_class and label_class is from
+        https://django-crispy-forms.readthedocs.io/en/latest/form_helper.html
         and code for setting the pattern attribute of the phone number
         widget is adapted from
         https://stackoverflow.com/questions/19611599/html5-phone-number-validation-with-pattern
@@ -41,10 +37,8 @@ class UserProfileForm(forms.ModelForm):
         }
         self.fields['email_address'] = forms.EmailField(required=True)
         self.fields['address'] = forms.CharField(required=False)
-        self.fields[
-            'phone_number'].widget = PhoneNumberInternationalFallbackWidget()
         self.fields['phone_number'].widget.attrs[
-           'pattern'] = '[+0]{1}[0-9]{0,3}[1-9]{1}[0-9]{8,}'
+            'pattern'] = '[+0]{1}[0-9]{0,3}[1-9]{1}[0-9]{8,}'
         for field in self.fields:
             if field != 'country':
                 placeholder = placeholders[field]
