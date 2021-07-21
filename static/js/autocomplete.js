@@ -72,6 +72,8 @@ function fillInAddress() {
                 break;
             }
             case 'country': {
+                /* Code for updating the country field value is from
+                https://stackoverflow.com/questions/314636/how-do-you-select-a-particular-option-in-a-select-element-in-jquery */
                 country = component.short_name;
                 $(`#id_country option[value=${component.short_name}]`).prop('selected', true);
                 break;
