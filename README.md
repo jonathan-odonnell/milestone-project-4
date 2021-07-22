@@ -249,11 +249,11 @@ The Entity Relationship Diagram shows details of each field in each model in the
 6. [jQuery](https://jquery.com/)
    - JQuery was used throughout the website for the interactive features.
 7. [Slick](https://kenwheeler.github.io/slick/)
-    - Slick was used for the offers carousel, popular holidays slider and related holidays sliders. The license can be viewed [here](slick_license.md).
+    - Slick was used for the offers carousel, popular holidays slider and related holidays sliders. The license can be viewed [here](slick_license.txt).
 8. [Gijgo](https://gijgo.com/)
     - Gijgo was used for the datepicker and datetime picker.
 9. [jQuery Formset](https://github.com/nortigo/jquery-formset)
-    - JQuery formset was used to dynamically add rows to the formsets in the add holiday and edit holiday forms. The license can be viewed [here](jquery_formset_license.md).
+    - JQuery formset was used to dynamically add rows to the formsets in the add holiday and edit holiday forms. The license can be viewed [here](jquery_formset_license.txt).
 10. [Pytz](https://pypi.org/project/pytz/)
     - Pytz was used for the coverting of time zones.
 11. [Stripe](https://stripe.com/docs/payments)
@@ -267,7 +267,7 @@ The Entity Relationship Diagram shows details of each field in each model in the
 15. [Django Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html)
     - Django Allauth was used for the authentication of users.
 16. [Django Phonenumber Field](https://github.com/stefanfoulis/django-phonenumber-field)
-    - Django Phonenumber Field was used for the phonenumber fields. The license can be viewed [here](django_phonenumber_field_license.md).
+    - Django Phonenumber Field was used for the phonenumber fields. The license can be viewed [here](django_phonenumber_field_license.txt).
 17. [Django Countries](https://pypi.org/project/django-countries/)
     - Django Countries was used for the country fields.
 18. [Django Timezone Field](https://pypi.org/project/django-timezone-field/)
