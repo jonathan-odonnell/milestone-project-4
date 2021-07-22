@@ -33,12 +33,16 @@ def update_user_email(sender, instance, created, **kwargs):
     https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py
     """
     if not created:
-        existing_email = EmailAddress.objects.get(user=instance)
+        try:
+            existing_email = EmailAddress.objects.get(user=instance)
 
-        if existing_email and existing_email.email != instance.email:
-            EmailAddress.objects.create(
-                email=instance.email, user=instance, primary=True)
-            existing_email.delete()
+            if existing_email and existing_email.email != instance.email:
+                EmailAddress.objects.create(
+                    email=instance.email, user=instance, primary=True)
+                existing_email.delete()
+
+        except EmailAddress.DoesNotExist:
+            pass
 
 
 @receiver(post_save, sender=UserProfile)
