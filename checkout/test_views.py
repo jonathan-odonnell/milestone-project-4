@@ -135,8 +135,8 @@ class TestCheckoutViews(TestCase):
         Verifies that a status of 200 is returned when a post request
         with valid client secret and save info details is submitted to the
         cache checkout page and a booking number is stored in the browser's
-        session variable. Code for the post request and setting the
-        booking number in the session variable is from
+        session variable. Code for the post request setting the anonymous user
+        and setting the booking number in the session variable is from
         https://docs.djangoproject.com/en/3.2/topics/testing/advanced/#the-request-factory
         """
         request = self.factory.post('/checkout/cache_checkout_data/', {
@@ -144,6 +144,7 @@ class TestCheckoutViews(TestCase):
             'client_secret': self.intent.client_secret
         })
         request.session = {'booking_number': self.booking.booking_number}
+        request.user = AnonymousUser()
         response = cache_checkout_data(request)
         self.assertEqual(response.status_code, 200)
 
@@ -172,7 +173,7 @@ class TestCheckoutViews(TestCase):
         request = self.factory.post('/checkout/', {
             'full_name': 'Test User',
             'email': 'test@example.com',
-            'phone_number': '00000000000',
+            'phone_number': '07585765431',
             'street_address1': 'Test',
             'street_address2': 'Test',
             'town_or_city': 'Test',
@@ -189,7 +190,7 @@ class TestCheckoutViews(TestCase):
         self.assertEqual(response.status_code, 302)
         booking = Booking.objects.get(
             booking_number=self.booking.booking_number)
-        self.assertEqual(booking.phone_number, '00000000000')
+        self.assertEqual(booking.phone_number, '+447585765431')
         self.assertEqual(booking.street_address1, 'Test')
         self.assertEqual(booking.street_address2, 'Test')
         self.assertEqual(booking.town_or_city, 'Test')
@@ -212,13 +213,14 @@ class TestCheckoutViews(TestCase):
         request = self.factory.post('/checkout/', {
             'full_name': 'Test User',
             'email': 'test@example.com',
-            'phone_number': '00000000000',
+            'phone_number': '07585765431',
             'street_address1': 'Test',
             'street_address2': 'Test',
             'town_or_city': 'Test',
             'county': 'Test',
             'country': 'GB',
             'postcode': 'Test',
+            'save_info': 'on',
             'client_secret': self.intent.client_secret,
             'paypal_pid': '',
 
@@ -228,7 +230,7 @@ class TestCheckoutViews(TestCase):
         response = checkout(request)
         self.assertEqual(response.status_code, 302)
         profile = UserProfile.objects.get(user=self.user)
-        self.assertEqual(profile.phone_number, '00000000000')
+        self.assertEqual(profile.phone_number, '+447585765431')
         self.assertEqual(profile.street_address1, 'Test')
         self.assertEqual(profile.street_address2, 'Test')
         self.assertEqual(profile.town_or_city, 'Test')
@@ -248,7 +250,7 @@ class TestCheckoutViews(TestCase):
         request = self.factory.post('/checkout/', {
             'full_name': 'Test User',
             'email': 'test@example.com',
-            'phone_number': '00000000000',
+            'phone_number': '07585765431',
             'street_address1': 'Test',
             'street_address2': 'Test',
             'town_or_city': 'Test',
@@ -266,7 +268,7 @@ class TestCheckoutViews(TestCase):
         self.assertEqual(response.status_code, 302)
         booking = Booking.objects.get(
             booking_number=self.booking.booking_number)
-        self.assertEqual(booking.phone_number, '00000000000')
+        self.assertEqual(booking.phone_number, '+447585765431')
         self.assertEqual(booking.street_address1, 'Test')
         self.assertEqual(booking.street_address2, 'Test')
         self.assertEqual(booking.town_or_city, 'Test')
