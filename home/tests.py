@@ -18,7 +18,7 @@ class TestHomeViews(TestCase):
         sign up is created in the database when a post request with
         valid newsletter sign up details is submitted to the home page.
         """
-        response = self.client.post('/', {
+        response = self.client.post('/newsletter/', {
             ' newsletter': 'test@example.com'
         })
         self.assertEqual(response.status_code, 200)
