@@ -168,11 +168,11 @@ class TestProfilesViews(TestCase):
         https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first
         """
         response = self.client.get(
-            f'/profile/bookings/\
-                {self.user.userprofile.bookings.first().booking_number}/')
+            '/profile/bookings/'
+            + f'{self.user.userprofile.bookings.first().booking_number}/')
         self.assertRedirects(
-            response, f'/accounts/login/?next=/profile/bookings/\
-                {self.user.userprofile.bookings.first().booking_number}/')
+            response, '/accounts/login/?next=/profile/bookings/'
+            + f'{self.user.userprofile.bookings.first().booking_number}/')
 
     def test_logged_in_user_get_booking_details_page(self):
         """
@@ -188,8 +188,8 @@ class TestProfilesViews(TestCase):
             password='Password',
         )
         response = self.client.get(
-            f'/profile/bookings/\
-            {self.user.userprofile.bookings.first().booking_number}/')
+            '/profile/bookings/'
+            + f'{self.user.userprofile.bookings.first().booking_number}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'checkout/checkout_success.html')
 
