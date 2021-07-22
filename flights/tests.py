@@ -293,18 +293,18 @@ class TestFlightsForm(TestCase):
             'baggage': 'a',
         })
         self.assertEqual(
-            form.errors['direction'][0], 'Select a valid choice. \
-                outward is not one of the available choices.')
+            form.errors['direction'][0], 'Select a valid choice. '
+            + 'outward is not one of the available choices.')
         self.assertEqual(form.errors['departure_time']
                          [0], 'Enter a valid date/time.')
         self.assertEqual(form.errors['origin_time_zone'][0],
-                         'Select a valid choice. Canada/Ottawa is not one of \
-                             the available choices.')
+                         'Select a valid choice. Canada/Ottawa is not one of '
+                         + 'the available choices.')
         self.assertEqual(form.errors['arrival_time']
                          [0], 'Enter a valid date/time.')
         self.assertEqual(form.errors['destination_time_zone'][0],
-                         'Select a valid choice. Canada/Calgary is not one of \
-                             the available choices.')
+                         'Select a valid choice. Canada/Calgary is not one of '
+                         + 'the available choices.')
         self.assertEqual(form.errors['baggage'][0], 'Enter a number.')
 
     def test_excluded_in_form_metaclass(self):
