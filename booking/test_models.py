@@ -74,15 +74,15 @@ class TestBookingModels(TestCase):
     def test_coupon_string_method(self):
         """ Verifies that the coupon string method is correct """
         self.assertEqual(str(
-            self.coupon), f'{self.coupon.name} \
-            {self.coupon.start_date} - {self.coupon.end_date}')
+            self.coupon), f'{self.coupon.name} '
+            + f'{self.coupon.start_date} - {self.coupon.end_date}')
 
     def test_booking_totals(self):
         """
         Verifies that the booking extra total, subtotal
         and grand total are correct
         """
-        self.assertEqual(self.extras_total, round(Decimal(4.99), 2))
+        self.assertEqual(self.booking.extras_total, round(Decimal(4.99), 2))
         self.assertEqual(self.booking.subtotal, 499)
         self.assertEqual(self.booking.grand_total,
                          round(Decimal(499 + 4.99), 2))
@@ -94,11 +94,11 @@ class TestBookingModels(TestCase):
     def test_booking_extra_string_method(self):
         """ Verifies that the booking extra string method is correct """
         self.assertEqual(str(self.booking.booking_extras.first(
-        )), f'{self.booking.booking_extras.first().extra.name} \
-            on booking {self.booking.booking_number}')
+        )), f'{self.booking.booking_extras.first().extra.name} '
+            + f'on booking {self.booking.booking_number}')
 
     def test_booking_passenger_string_method(self):
         """ Verifies that the booking passenger string method is correct """
         self.assertEqual(str(self.booking.booking_passengers.first(
-        )), f'{self.booking.booking_passengers.first().full_name} \
-            on booking {self.booking.booking_number}')
+        )), f'{self.booking.booking_passengers.first().full_name} '
+            + f'on booking {self.booking.booking_number}')

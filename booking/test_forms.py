@@ -4,6 +4,7 @@ from .forms import PassengerForm, PassengersFormSet
 
 class TestBookingForm(TestCase):
     """Tests the required fields in the passengers formset"""
+
     def test_all_form_fields_required(self):
         form = PassengersFormSet({
             'booking_passengers-TOTAL_FORMS': '1',
@@ -13,7 +14,7 @@ class TestBookingForm(TestCase):
             'booking_passengers-0-full_name': '',
             'booking_passengers-0-date_of_birth': '',
             'booking_passengers-0-passport_number': '',
-        }, extra=0, min_num=1)
+        }, min_num=1)
         self.assertEqual(form.errors[0]['full_name']
                          [0], 'This field is required.')
         self.assertEqual(form.errors[0]['date_of_birth']
@@ -31,7 +32,7 @@ class TestBookingForm(TestCase):
             'booking_passengers-0-full_name': 'Test User',
             'booking_passengers-0-date_of_birth': '01/01/1990',
             'booking_passengers-0-passport_number': 'aaaaaaaaaa',
-        }, extra=0, min_num=1)
+        }, min_num=1)
         self.assertEqual(
             form.errors[0]['passport_number'][0], 'Enter a number.')
 
@@ -45,11 +46,11 @@ class TestBookingForm(TestCase):
             'booking_passengers-0-full_name': 'Test User',
             'booking_passengers-0-date_of_birth': '01/01/1990',
             'booking_passengers-0-passport_number': '1234567890',
-        }, extra=0, min_num=1)
+        }, min_num=1)
         self.assertEqual(form.errors[0]
                          ['passport_number'][0],
-                         'Ensure that there are no more than \
-                          9 digits in total.')
+                         'Ensure that there are no more than '
+                         + '9 digits in total.')
 
     def test_fields_in_form_metaclass(self):
         """Tests the all attribute of the passenger form meta class"""

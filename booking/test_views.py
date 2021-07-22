@@ -112,21 +112,20 @@ class TestBookingViews(TestCase):
         response = self.client.post(f'/booking/{self.holiday.id}/', {
             'departure_date': '01/06/2021',
             'departure_airport': 'Test Airport',
-            'guests': '2'
+            'guests': '2',
+            'redirect_url': ''
         })
         self.assertRedirects(response, '/booking/')
         booking = Booking.objects.filter(guests=2)
         self.assertEqual(len(booking), 1)
         self.assertEqual(
-            booking.first().extras_total, round(Decimal(9.98), 2))
-        self.assertEqual(
-            booking.first().grand_total, round(Decimal(499 + 9.98), 2))
+            booking.first().grand_total, Decimal(998))
 
     def test_logged_in_user_can_add_booking(self):
         """
         Logs in the user and verifies that they are redirected to the
         booking page, a new booking is created in the database and the
-        totals are correct whenma post request with valid booking details
+        totals are correct when a post request with valid booking details
         is submitted to the add booking page. Code for the login is from
         https://docs.djangoproject.com/en/3.2/topics/testing/tools/#making-requests
         and code for the first method is from
@@ -139,15 +138,14 @@ class TestBookingViews(TestCase):
         response = self.client.post(f'/booking/{self.holiday.id}/', {
             'departure_date': '01/06/2021',
             'departure_airport': 'Test Airport',
-            'guests': '2'
+            'guests': '2',
+            'redirect_url': ''
         })
         self.assertRedirects(response, '/booking/')
         booking = Booking.objects.filter(guests=2)
         self.assertEqual(len(booking), 1)
         self.assertEqual(
-            booking.first().extras_total, round(Decimal(9.98), 2))
-        self.assertEqual(
-            booking.first().grand_total, round(Decimal(499 + 9.98), 2))
+            booking.first().grand_total, Decimal(998))
 
     def test_can_update_guests(self):
         """
@@ -187,8 +185,8 @@ class TestBookingViews(TestCase):
         booking = Booking.objects.get(
             booking_number=self.booking.booking_number)
         self.assertEqual(booking.booking_extras.first().quantity, 1)
-        self.assertEqual(booking.extras_total, round(Decimal(9.98), 2))
-        self.assertEqual(booking.grand_total, round(Decimal(499 + 9.98), 2))
+        self.assertEqual(booking.extras_total, round(Decimal(4.99), 2))
+        self.assertEqual(booking.grand_total, round(Decimal(499 + 4.99), 2))
 
     def test_can_update_booking_extra(self):
         """
@@ -205,10 +203,10 @@ class TestBookingViews(TestCase):
             extra=self.extra,
             quantity=1,
         )
-        request = self.factory.post(f'/booking/update_extra/\
-            {self.extra.id}/', {
-            'quantity': '2'
-        })
+        request = self.factory.post('/booking/update_extra/'
+                                    + f'{self.extra.id}/', {
+                                        'quantity': '2'
+                                    })
         request.session = {'booking_number': self.booking.booking_number}
         response = update_extra(request, self.extra.id)
         self.assertEqual(response.status_code, 200)
