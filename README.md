@@ -536,6 +536,8 @@ Details of the manual testing carried out can be viewed [here](testing.md).
 
 - Form validation errors are not displayed in Chrome or Edge when the first input with an error in it is outside of the current browser view due to an error with bootstrap.
 - Phone numbers entered into the profile and checkout forms need to be either a British number or an  prefixed with the relevant international code.
+- The Google login page displays the app's domain name rather than it's app name as it has not been verified by Google.
+- Users can only login through Facebook using a test user account as Facebook only allows apps which have not been verified to request data for users with an app role.
 
 ## Deployment
 
