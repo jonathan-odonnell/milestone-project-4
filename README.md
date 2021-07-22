@@ -37,7 +37,7 @@ Go Explore is a fictitious travel agency based in Toronto, Canada. This is the o
 
 #### Colour Scheme
 
-- The three main colours used in the website are pink, light blue and dark blue.
+- The main colours used in the website are pink, light blue, dark blue, grey and black.
 - These colours were chosen because they complement each other well.
 
 #### Typography
