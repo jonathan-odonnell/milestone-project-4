@@ -178,7 +178,7 @@ a:hover {
     border: 2px solid #006994;
     color: #006994;
     border-radius: 50%;
-    z-index: 5;
+    z-index: 5000;
 }
 
 .top-btn i {
@@ -288,7 +288,12 @@ a:hover {
 /* Toasts Start */
 
 .message-container .position-fixed {
-    z-index: 5;
+    z-index: 5000;
+    width: 100%;
+}
+
+.toast {
+    width: 100%;
 }
 
 /* Toasts End */
@@ -881,6 +886,14 @@ footer .small {
 }
 
 @media (min-width: 576px) {
+    .message-container .position-fixed {
+        width: auto;
+    }
+
+    .toast {
+        width: 350px;
+    }
+
     #popular-holidays img,
     .holiday-card img {
         height: 10rem;
