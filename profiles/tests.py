@@ -121,7 +121,9 @@ class TestProfilesViews(TestCase):
         )
         response = self.client.post('/profile/', {
             'email_address': 'testuser@test.com',
+            'phone_number': '07585765431',
             'street_address1': 'Test',
+            'street_address2': 'Test',
             'town_or_city': 'Test',
             'county': 'Test',
             'country': 'GB',
@@ -130,7 +132,9 @@ class TestProfilesViews(TestCase):
         self.assertEqual(response.status_code, 200)
         profile_qs = UserProfile.objects.get(user=self.user)
         self.assertEqual(profile_qs.user.email, 'testuser@test.com')
+        self.assertEqual(profile_qs.phone_number, '+447585765431')
         self.assertEqual(profile_qs.street_address1, 'Test')
+        self.assertEqual(profile_qs.street_address2, 'Test')
         self.assertEqual(profile_qs.town_or_city, 'Test')
         self.assertEqual(profile_qs.county, 'Test')
         self.assertEqual(profile_qs.country, 'GB')
