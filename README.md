@@ -644,6 +644,7 @@ Code for settin up a paypal transaction is from [PayPal](https://developer.paypa
 - Code for overriding allauth forms is from [Django Allauth](https://django-allauth.readthedocs.io/en/latest/forms.html).
 - Code for the custom signup form is from [GeeksforGeeks](https://www.geeksforgeeks.org/python-extending-and-customizing-django-allauth/).
 - Code for the non field error messages is from [Django](https://docs.djangoproject.com/en/3.2/topics/forms/#rendering-form-error-messages).
+- Code for returning the permission denied exception is from [Django](https://docs.djangoproject.com/en/3.2/ref/views/#the-403-http-forbidden-view).
 - Code for creating the users in the tests is from [Django](https://docs.djangoproject.com/en/3.2/topics/testing/advanced/).
 - Code for creating the email addresses in the tests is from [Django](https://github.com/pennersr/django-allauth/blob/master/allauth/account/models.py).
 - Code for creating the site and social apps in the tests is from [Django](https://stackoverflow.com/questions/29721360/django-test-with-allauth).
