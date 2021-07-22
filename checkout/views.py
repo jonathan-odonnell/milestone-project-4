@@ -1,4 +1,5 @@
 from django.views.decorators.http import require_POST
+from django.http import JsonResponse
 from django.shortcuts import (
     render, HttpResponse, redirect, reverse, get_object_or_404)
 from django.contrib import messages
@@ -247,7 +248,8 @@ def paypal(request):
                   "value": str(total),
               }}]})
     response = client.execute(request)
-    return response
+    response = response.result.__dict__['_dict']
+    return JsonResponse(response)
 
 
 def paypal_approve(request):
@@ -265,4 +267,5 @@ def paypal_approve(request):
     client = PayPalHttpClient(environment)
     request = OrdersCaptureRequest(order_id)
     response = client.execute(request)
-    return response
+    response = response.result.__dict__['_dict']
+    return JsonResponse(response)
