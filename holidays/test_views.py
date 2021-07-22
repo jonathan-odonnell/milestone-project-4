@@ -47,7 +47,6 @@ class TestHolidaysViews(TestCase):
             email=self.user.email,
         )
 
-        # https://stackoverflow.com/questions/29721360/django-test-with-allauth
         current_site = Site.objects.get_current()
 
         current_site.socialapp_set.create(
@@ -65,7 +64,7 @@ class TestHolidaysViews(TestCase):
         )
 
         self.image = SimpleUploadedFile(name='test_image.jpg', content=open(
-            'media/toronto.jpg', 'rb').read(), content_type='image/jpeg')
+            'media/site/toronto.jpg', 'rb').read(), content_type='image/jpeg')
 
         category = Category.objects.create(
             name="City Breaks",
@@ -130,8 +129,8 @@ class TestHolidaysViews(TestCase):
         https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
         """
         response = self.client.get(
-            f'/holidays/filter/destinations/\
-                {self.holiday.region.slug}/?sort=price&direction=asc',
+            '/holidays/filter/destinations/'
+            + f'{self.holiday.region.slug}/?sort=price&direction=asc',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -159,8 +158,8 @@ class TestHolidaysViews(TestCase):
         https://stackoverflow.com/questions/4794457/unit-testing-django-json-view
         """
         response = self.client.get(
-            f'/holidays/filter/destinations/\
-                {self.holiday.region.slug}/?categories=city-breaks',
+            '/holidays/filter/destinations/'
+            + f'{self.holiday.region.slug}/?categories=city-breaks',
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
@@ -191,8 +190,8 @@ class TestHolidaysViews(TestCase):
         used when the user tries to access an offer details page
         """
         response = self.client.get(
-            f'/holidays/destinations/\
-                {self.holiday.region.slug}/{self.holiday.slug}/')
+            '/holidays/destinations/'
+            + f'{self.holiday.region.slug}/{self.holiday.slug}/')
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'holidays/holiday_details.html')
 
@@ -203,8 +202,8 @@ class TestHolidaysViews(TestCase):
         """
         response = self.client.get(f'/holidays/review/{self.holiday.slug}/')
         self.assertRedirects(
-            response, f'/accounts/login/?next=/holidays/review/\
-                {self.holiday.slug}/')
+            response, '/accounts/login/?next=/holidays/review/'
+            + f'{self.holiday.slug}/')
 
     def test_logged_in_user_with_booking_get_reviews_page(self):
         """
@@ -273,8 +272,8 @@ class TestHolidaysViews(TestCase):
         })
 
         self.assertRedirects(
-            response, f'/holidays/destinations/\
-                {self.holiday.region.slug}/{self.holiday.slug}/')
+            response, '/holidays/destinations/'
+            + f'{self.holiday.region.slug}/{self.holiday.slug}/')
         review = Review.objects.filter(
             full_name=self.user.get_full_name(), package=self.holiday)
         self.assertEqual(len(review), 1)
@@ -352,8 +351,8 @@ class TestHolidaysViews(TestCase):
         holiday = Package.objects.filter(name='Test holiday 1')
         self.assertEqual(len(holiday), 1)
         self.assertRedirects(
-            response, f'/holidays/destinations/\
-                {holiday.first().region.slug}/{holiday.first().slug}/')
+            response, '/holidays/destinations/'
+            + f'{holiday.first().region.slug}/{holiday.first().slug}/')
 
     def test_standard_user_get_edit_holiday_page(self):
         """
@@ -439,8 +438,8 @@ class TestHolidaysViews(TestCase):
         holiday = Package.objects.get(id=holiday.id)
         self.assertEqual(holiday.price, 599)
         self.assertRedirects(
-            response, f'/holidays/destinations/\
-                {holiday.region.slug}/{holiday.slug}/')
+            response, '/holidays/destinations/'
+            + f'{holiday.region.slug}/{holiday.slug}/')
 
     def test_standard_user_cant_delete_holiday(self):
         """
