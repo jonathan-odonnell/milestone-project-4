@@ -63,7 +63,7 @@ class TestContactViews(TestCase):
         self.assertEqual(response.status_code, 200)
         customer_contact = CustomerContact.objects.filter(
             email='test@example.com')
-        self.assertEqual(len(customer_contact), 0)
+        self.assertEqual(len(customer_contact), 1)
 
 
 class TestContactForm(TestCase):
@@ -105,9 +105,9 @@ class TestContactModels(TestCase):
         method is correct
         """
         customer_contact = CustomerContact.objects.create(
-            name='Test User',
+            full_name='Test User',
             email='test@example.com',
             subject='Offers',
             message='This is a test message',
         )
-        self.assertEqual(str(customer_contact), 'Test Extra - Offers')
+        self.assertEqual(str(customer_contact), 'Test User - Offers')
