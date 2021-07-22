@@ -41,7 +41,7 @@ class TestExtrasViews(TestCase):
         )
 
         self.image = SimpleUploadedFile(name='test_image.jpg', content=open(
-            'media/toronto.jpg', 'rb').read(), content_type='image/jpeg')
+            'media/site/toronto.jpg', 'rb').read(), content_type='image/jpeg')
 
         self.extra = Extra.objects.create(
             name='Test Extra',
