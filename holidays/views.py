@@ -1,11 +1,12 @@
 from django.shortcuts import (
-    render, redirect, reverse, get_object_or_404, HttpResponse)
+    render, redirect, reverse, get_object_or_404)
 from django.contrib import messages
 from django.db.models.functions import Lower
 from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from .models import Package, Category, Region, Review
 from flights.models import Flight
 from booking.models import Booking
@@ -188,6 +189,8 @@ def review(request, package):
     if the user is signed in, has booked the package and has not already
     reviewed it. Code for the first method is from
     https://docs.djangoproject.com/en/3.2/ref/models/querysets/#first
+    and code for returning the permission denied exception is from
+    https://docs.djangoproject.com/en/3.2/ref/views/#the-403-http-forbidden-view
     """
     holiday = get_object_or_404(Package, slug=package)
     profile = UserProfile.objects.get(user=request.user)
@@ -200,7 +203,7 @@ def review(request, package):
             package=holiday, full_name=profile.user.get_full_name()).first()
 
     if review or not bookings:
-        return HttpResponse(status=403)
+        raise PermissionDenied
 
     if request.POST:
         review_data = {
