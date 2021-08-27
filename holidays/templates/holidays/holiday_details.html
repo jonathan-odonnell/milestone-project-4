@@ -111,24 +111,24 @@
                                 <!-- features list start. Code is from https://getbootstrap.com/docs/5.0/components/list-group/ -->
                                 <ul class="list-group holiday-features">
                                     <li class="list-group-item p-0 mb-3 border-0">
-                                        <i class="fas fa-tag" aria-label="price tag"></i>
+                                        <i class="fas fa-tag" aria-hidden="true"></i>
                                         <!-- Code for floatformat filter is from https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#floatformat -->
                                         <span>£{{ holiday.price|floatformat:"-2" }}</span>
                                     </li>
                                     <li class="list-group-item p-0 mb-3 border-0">
-                                        <i class="far fa-calendar-alt" aria-label="calendar"></i>
+                                        <i class="far fa-calendar-alt" aria-hidden="true"></i>
                                         <span>{{ holiday.duration }} Nights</span>
                                     </li>
                                     <li class="list-group-item p-0 mb-3 border-0">
-                                        <i class="fas fa-star" aria-label="star"></i>
+                                        <i class="fas fa-star" aria-hidden="true"></i>
                                         <span>{{ holiday.rating }}</span>
                                     </li>
                                     <li class="list-group-item p-0 mb-3 border-0">
-                                        <i class="fas fa-utensils" aria-label="utensils"></i>
+                                        <i class="fas fa-utensils" aria-hidden="true"></i>
                                         <span>{{ holiday.catering }}</span>
                                     </li>
                                     <li class="list-group-item p-0 border-0">
-                                        <i class="fas fa-bus" aria-label="bus"></i>
+                                        <i class="fas fa-bus" aria-hidden="true"></i>
                                         <span>Transfers {% if holiday.transfers_included %} Included{% else %}Not Included{% endif %}</span>
                                     </li>
                                 </ul>
@@ -141,7 +141,7 @@
                                 <ul class="list-group holiday-features">
                                     {% for feature in holiday.features.all %}
                                     <li class="list-group-item p-0 {% if not forloop.counter == holiday.features.all|length %}mb-3{% endif %} border-0">
-                                        <i class="fas fa-check" aria-label="check"></i>
+                                        <i class="fas fa-check" aria-hidden="true"></i>
                                         <span>{{ feature }}</span>
                                     </li>
                                     {% endfor %}
@@ -157,11 +157,11 @@
                                 <!-- Edit and delete links start -->
                                 {% if request.user.is_superuser %}
                                 <p class="mt-3">
-                                    <a class="text-primary small pe-2" href="{% url 'edit_holiday' holiday.slug %}">
-                                        <i class="fas fa-edit" aria-label="edit"></i>
+                                    <a class="text-primary small pe-2" href="{% url 'edit_holiday' holiday.slug %}" aria-label="edit">
+                                        <i class="fas fa-edit" aria-hidden="true"></i>
                                     </a> |
-                                    <a class="text-secondary small ps-2" href="{% url 'delete_holiday' holiday.slug %}">
-                                        <i class="fas fa-trash" aria-label="delete"></i>
+                                    <a class="text-secondary small ps-2" href="{% url 'delete_holiday' holiday.slug %}" aria-label="delete">
+                                        <i class="fas fa-trash" aria-hidden="true"></i>
                                     </a>
                                 </p>
                                 {% endif %}
@@ -229,7 +229,7 @@
                         <!-- Reviews cards end -->
                         <!-- Add review link start -->
                         <a href="{% url 'review' holiday.slug %}" class="d-block mt-4 mb-2">
-                            <i class="fas fa-plus me-2" aria-label="plus"></i>
+                            <i class="fas fa-plus me-2" aria-hidden="true"></i>
                             <span>Write Review</span>
                         </a>
                         <!-- Add review link end -->
@@ -264,13 +264,13 @@
                         <label for="guests" class="form-label">Guests</label>
                         <!-- Code for input group is from https://getbootstrap.com/docs/5.0/forms/input-group/-->
                         <div class="input-group guests me-auto">
-                            <button class="input-group-text minus btn shadow-none py-0" type="button">
-                                <i class="fas fa-minus" aria-label="minus"></i>
+                            <button class="input-group-text minus btn shadow-none py-0" type="button" aria-label="minus">
+                                <i class="fas fa-minus" aria-hidden="true"></i>
                             </button>
                             <input type="number" class="form-control text-center shadow-none" id="guests" name="guests" min="1" max="10"
                                 value="1" required>
-                            <button class="input-group-text plus btn shadow-none py-0" type="button">
-                                <i class="fas fa-plus" aria-label="plus"></i>
+                            <button class="input-group-text plus btn shadow-none py-0" type="button" aria-label="plus">
+                                <i class="fas fa-plus" aria-hidden="true"></i>
                             </button>
                         </div>
                         <div class="text-center">
@@ -325,7 +325,7 @@
                                         <span class="sr-only">{{ holiday.rating }} stars</span>
                                     </p>
                                     <p class="small mb-0">
-                                        <i class="far fa-clock" aria-label="clock"></i>
+                                        <i class="far fa-clock" aria-hidden="true"></i>
                                         <span>{{ holiday.duration }} Nights</span>
                                     </p>
                                 </div>
