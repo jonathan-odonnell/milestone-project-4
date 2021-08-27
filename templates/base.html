@@ -80,8 +80,8 @@
             <!-- User options dropdown start -->
             <div class="col-2 col-lg-3 order-lg-2 text-end ps-lg-3 nav-links position-relative">
                 <a class="nav-link d-inline-flex py-0" href="#" role="button" id="user-options"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user fa-lg" aria-label="user options"></i>
+                    data-bs-toggle="dropdown" aria-expanded="false" aria-label="My Account">
+                    <i class="fas fa-user fa-lg" aria-hidden="true"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end user-options-dropdown" aria-labelledby="user-options">
                     {% if request.user.is_authenticated %}
@@ -189,8 +189,8 @@
     {% block content %}{% endblock %}
 
     <!-- Back to top button start -->
-    <button class="top-btn p-0 d-none" type="button">
-        <i class="fas fa-arrow-up" aria-label="back to top"></i>
+    <button class="top-btn p-0 d-none" type="button" aria-label="back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
     <!-- Back to top button end -->
 
@@ -268,8 +268,8 @@
                                         placeholder="Enter your email address" aria-label="Enter your email address"
                                         pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-newsletter shadow-none">
-                                            <i class="fas fa-arrow-right fa-lg" aria-label="submit"></i>
+                                        <button type="button" class="btn btn-newsletter shadow-none" aria-label="Sign Up">
+                                            <i class="fas fa-arrow-right fa-lg" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -280,23 +280,23 @@
                         <div class="col-12 text-md-center">
                             <ul class="list-inline mb-3 mt-1 mt-md-0">
                                 <li class="list-inline-item pe-3 ps-md-3">
-                                    <a href="https://www.facebook.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-facebook fa-lg" aria-label="facebook"></i>
+                                    <a href="https://www.facebook.com" class="hvr-icon-bounce" target="_blank" aria-label="Facebook">
+                                        <i class="hvr-icon fab fa-facebook fa-lg" aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item px-3">
-                                    <a href="https://www.twitter.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-twitter fa-lg" aria-label="twitter"></i>
+                                    <a href="https://www.twitter.com" class="hvr-icon-bounce" target="_blank" aria-label="Twitter">
+                                        <i class="hvr-icon fab fa-twitter fa-lg" aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item px-3">
-                                    <a href="https://www.instagram.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-instagram fa-lg" aria-label="instagram"></i>
+                                    <a href="https://www.instagram.com" class="hvr-icon-bounce" target="_blank" aria-label="Instagram">
+                                        <i class="hvr-icon fab fa-instagram fa-lg" aria-hidden="true"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item px-3">
-                                    <a href="https://www.youtube.com" class="hvr-icon-bounce" target="_blank">
-                                        <i class="hvr-icon fab fa-youtube fa-lg" aria-label="youtube"></i>
+                                    <a href="https://www.youtube.com" class="hvr-icon-bounce" target="_blank" aria-label="YouTube">
+                                        <i class="hvr-icon fab fa-youtube fa-lg" aria-hidden="true"></i>
                                     </a>
                                 </li>
                             </ul>
