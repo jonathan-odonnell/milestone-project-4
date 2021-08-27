@@ -152,8 +152,8 @@
         autoplay: true,
         autoplaySpeed: 5000,
         dots: true,
-        prevArrow: '<button type="button" class="btn shadow-0 slick-prev d-none d-md-block"><i class="fas fa-chevron-left" aria-label="previous"></i></button>',
-        nextArrow: '<button type="button" class="btn shadow-0 slick-next d-none d-md-block"><i class="fas fa-chevron-right" aria-label="next"></i></button>',
+        prevArrow: '<button type="button" class="btn shadow-0 slick-prev d-none d-md-block" aria-label="previous"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>',
+        nextArrow: '<button type="button" class="btn shadow-0 slick-next d-none d-md-block" aria-label="next"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>',
     });
 
     // Configures the popular holidays slider. Code is from https://kenwheeler.github.io/slick/
@@ -177,10 +177,10 @@
             }
         ],
         appendArrows: '#arrows',
-        prevArrow: `<button type="button" class="btn shadow-0 ps-0 pe-3">
-            <i class="fas fa-arrow-left fa-2x" aria-label="previous"></i></button>`,
-        nextArrow: `<button type="button" class="btn shadow-0 pe-0 ps-3">
-            <i class="fas fa-arrow-right fa-2x" aria-label="next"></i></button>`,
+        prevArrow: `<button type="button" class="btn shadow-0 ps-0 pe-3" aria-label="previous">
+            <i class="fas fa-arrow-left fa-2x" aria-hidden="true"></i></button>`,
+        nextArrow: `<button type="button" class="btn shadow-0 pe-0 ps-3" aria-label="next">
+            <i class="fas fa-arrow-right fa-2x" ar-a-hidden="true"></i></button>`,
     });
 </script>
 {% endblock %}
