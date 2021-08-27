@@ -112,8 +112,8 @@ $('#related-holidays').slick({
         },
     ],
     appendArrows: "#arrows",
-    prevArrow: `<button type="button" class="btn shadow-0 ps-0 pe-3">
-            <i class="fas fa-arrow-left fa-2x"></i></button>`,
-    nextArrow: `<button type="button" class="btn shadow-0 ps-3 pe-0">
-            <i class="fas fa-arrow-right fa-2x"></i></button>`,
+    prevArrow: `<button type="button" class="btn shadow-0 ps-0 pe-3" aria-label="previous">
+            <i class="fas fa-arrow-left fa-2x" aria-hidden="true"></i></button>`,
+    nextArrow: `<button type="button" class="btn shadow-0 ps-3 pe-0" aria-label="next">
+            <i class="fas fa-arrow-right fa-2x" aria-hidden="true"></i></button>`,
 });
