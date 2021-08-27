@@ -17,11 +17,11 @@
                 <td>{{ flight.origin }}</td>
                 <td>{{ flight.destination }}</td>
                 <td>
-                    <a href="{% url 'edit_flight' flight.flight_number %}" class="text-start">
-                        <i class="fas fa-edit text-primary" aria-label="edit"></i>
+                    <a href="{% url 'edit_flight' flight.flight_number %}" class="text-start" aria-label="edit">
+                        <i class="fas fa-edit text-primary" aria-hidden="true"></i>
                     </a>
-                    <a href="{% url 'delete_flight' flight.flight_number %}" class="text-start">
-                        <i class="fas fa-trash text-secondary" aria-label="delete"></i>
+                    <a href="{% url 'delete_flight' flight.flight_number %}" class="text-start" aria-label="delete">
+                        <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>
